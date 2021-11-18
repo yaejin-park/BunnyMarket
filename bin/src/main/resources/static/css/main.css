@@ -1,0 +1,6 @@
+.main-vis {
+	position:relative;
+}
+.main-vis .swiper-slide img {
+	width:100%;
+}
