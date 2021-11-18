@@ -1,6 +1,6 @@
 package data.dto;
 
-public class GonjiDTO {
+public class NoticeDTO {
 	private String num;
 
 }
