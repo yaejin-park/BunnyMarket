@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="data.mapper.CommunityMapper">
-
+	<select id="getList" parameterType="HashMap" resultType="cdto">
+	 select * from community order by idx desc limit #{start},#{perpage}
+	</select>
+	<select id="getData" parameterType="String" resultType="cdto">
+		select * from community where idx=#{idx}
+	</select>
+	<insert id="insert" parameterType="cdto">
+		insert into community (id,city,title,content,photo,writeday)  values
+		(#{id},#{city},#{title},#{content},#{photo},now())
+	</insert>
 </mapper>
