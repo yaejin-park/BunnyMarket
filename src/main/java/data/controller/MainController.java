@@ -13,8 +13,6 @@ public class MainController {
 	
 	@GetMapping("/")
 	public String home() {
-		String n = mapper.getStudent();
-		System.out.println(n);
 		return "/main/layout/main";
 	}
 	

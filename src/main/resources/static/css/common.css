@@ -527,7 +527,7 @@ footer .footer-logo {
     float:left;
     width:100px;
     height:50px;
-    margin-right:20px;
+    margin-right:60px;
     background:url("../image/logo2.png") no-repeat center / 100%;
     text-indent:-999px;
     overflow:hidden;
@@ -550,29 +550,6 @@ footer .etc-div {
 footer .etc-txt .copyright {
     font-size:12px;
     color:#999;
-}
-footer .sns-div {
-    float:right;
-}
-footer .sns a {
-    display:inline-block;
-    width:50px;
-    height:50px;
-    margin-left:20px;
-    background-repeat:no-repeat;
-    background-position:0 0;
-    background-size:50px;
-    text-indent:-999px;
-    overflow:hidden;
-}
-footer .sns .facebook {
-    background-image:url("../image/sns-facebook.png");
-}
-footer .sns .twitter {
-    background-image:url("../image/sns-twitter.png");
-}
-footer .sns .instagram {
-    background-image:url("../image/sns-instagram.png");
 }
 .quick-div {
 	position:fixed;
