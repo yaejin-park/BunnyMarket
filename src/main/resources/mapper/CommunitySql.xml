@@ -11,4 +11,7 @@
 		insert into community (id,city,title,content,photo,writeday)  values
 		(#{id},#{city},#{title},#{content},#{photo},now())
 	</insert>
+	<select id="getAllDatas" resultType="cdto">
+		select * from community order by idx asc
+	</select>
 </mapper>

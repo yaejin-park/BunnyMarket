@@ -1,0 +1,43 @@
+.commu-list ul {
+	border:10px solid red;
+}
+
+.commu-list ul:after{
+	content:"";
+	display:block;
+	clear:both;	
+}
+
+.commu-list ul li{
+	position:relative;
+	float:left;
+	width:calc((100% - 60px) / 3);
+	margin-right:30px;
+	margin-top:30px;
+}
+.commu-list ul li .image {
+	position:relative;
+	width:100%;
+	height:300px;
+	overflow:hidden;
+}
+.commu-list ul li .image img {
+	position:absolute;
+	top:50%;
+	left:50%;
+	transform:translate(-50%, -50%);
+}
+
+.commu-list ul li .text-div .date {
+	position:absolute;
+	top:0;
+	right:0;
+}
+
+ul li:nth-of-type(3n){
+	margin-right:0;
+}
+
+ul li:nth-of-type(-n+3){
+	margin-top:0;
+}

@@ -30,6 +30,9 @@ public class CommunityService {
 		mapper.insert(dto);
 	}
 	
-	
+	public List<CommunityDTO> getAllDatas()
+	{
+		return mapper.getAllDatas();
+	}
 
 }

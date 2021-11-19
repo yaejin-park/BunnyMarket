@@ -11,5 +11,6 @@ public interface CommunityMapper {
 	public List<CommunityDTO> getList(HashMap<String, Integer> map);
 	public CommunityDTO getData(String idx);
 	public void insert(CommunityDTO dto);
+	public List<CommunityDTO> getAllDatas();
 
 }
