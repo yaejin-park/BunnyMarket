@@ -10,6 +10,8 @@ public class AdvertiseController {
 	@GetMapping("/advertise/list")
 	public ModelAndView list() {
 		ModelAndView mview=new ModelAndView();
+		//mview.addObject("list", list);
+		mview.setViewName("/advertise/list");
 		return mview;
 	}
 	

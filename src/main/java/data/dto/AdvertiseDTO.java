@@ -9,7 +9,7 @@ public class AdvertiseDTO {
 	private String idx;
 	private String id;
 	private String city;
-	private String subject;
+	private String title;
 	private String content;
 	private String photo;
 	private int readcount;
@@ -35,10 +35,10 @@ public class AdvertiseDTO {
 		this.city = city;
 	}
 	public String getSubject() {
-		return subject;
+		return title;
 	}
-	public void setSubject(String subject) {
-		this.subject = subject;
+	public void setSubject(String title) {
+		this.title = title;
 	}
 	public String getContent() {
 		return content;
