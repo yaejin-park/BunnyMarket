@@ -1,0 +1,30 @@
+.require{
+	color: #ff70b1;
+	margin-left: 7px; 
+}
+
+.head{
+	margin-right: 20px;
+	width: 100px;
+}
+
+.group{
+	margin-top: 20px;
+}
+
+.group:after{
+	content:""; display:block; clear:both;
+}
+
+.child{
+	float: left;
+}
+
+.content{
+	width: 300px;
+	height:200px;
+}
+
+.chooseFile{
+	width: 180px;
+}
