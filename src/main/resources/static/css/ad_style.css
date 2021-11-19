@@ -1,0 +1,17 @@
+.uploadImg {
+	width:200px;
+}
+
+.must {
+	color: red;
+}
+
+.group:after {
+	content: ""; 
+	display: block; 
+	clear: both;
+}
+
+.child {
+	float: left;
+}
