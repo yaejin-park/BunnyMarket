@@ -14,9 +14,9 @@ spring:
 # mysql setting
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://db-bit-final.chytaqpbnviq.us-east-2.rds.amazonaws.com:3306/bit_final
+    url: jdbc:mysql://bunnymarket-db.clihali9mgfh.ap-northeast-2.rds.amazonaws.com:3306/bunny-db
     username: admin
-    password: hhg0920*
+    password: GqyuWLHuGU6gtM4
 
 # mybatis setting
 mybatis:
