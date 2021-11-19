@@ -1,0 +1,9 @@
+.tempsave {
+	display: inline-block;
+	height: 36px;
+	margin-right: 4px;
+	border: 1px solid;
+	border-radius: 6px;
+	box-sizing: border-box;
+	font-size: 13px;
+}
