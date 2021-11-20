@@ -1,5 +1,18 @@
+.imginput{
+	width: 10px;
+	visibility: hidden;
+}
+
 .uploadImg {
-	width:200px;
+	width:180px;
+	cursor: pointer;
+}
+
+.preview{
+	width: 180px;
+	height: 180px;
+	overflow: hidden;
+	margin-left: 10px;
 }
 
 .must {
@@ -14,4 +27,14 @@
 
 .child {
 	float: left;
+	margin-right: 20px;
+}
+
+.subinput{
+	width: 740px;	
+	font-size: 12pt;
+}
+
+.textinput{
+	font-size: 20pt;
 }
