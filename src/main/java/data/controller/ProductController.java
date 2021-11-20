@@ -33,9 +33,11 @@ public class ProductController {
 	@GetMapping("/detail")
 	public ModelAndView productDetail(@RequestParam String idx) {
 		ModelAndView mview = new ModelAndView();
-		ProductDTO dto =  service.getData(idx);
-		
-		mview.addObject("dto", dto);
+		/*
+		 * ProductDTO dto = service.getData(idx);
+		 * 
+		 * mview.addObject("dto", dto);
+		 */
 		mview.setViewName("/product/detail");
 		
 		return mview;
