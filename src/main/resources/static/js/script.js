@@ -36,7 +36,7 @@ function loadFile(event){
 	imgArr=new Array();
 	for(var image of event.target.files){
 		var reader = new FileReader();
-		
+		var index = 0;
 		reader.onload = function(e){
 			var img="<div class='preview-img'><img src='" +  e.target.result +  "' alt='' /><span class='close'>X</span></div>";
 			imgArr.push(img);
@@ -58,6 +58,5 @@ function loadFile(event){
 	
 	$(document).on("click", ".preview-img .close", function(){
 		console.log($(this));
-		
 	});
 }

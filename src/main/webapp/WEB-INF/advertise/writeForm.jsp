@@ -7,12 +7,12 @@
 			<div class="child tit">
 				이미지 <span class="must">*</span>
 			</div>
-			<div class="child imgupload">
+			<div class="child">
 				<label for="selectImg"> 
 					<img class="uploadImg" src="../image/write-upload-icon.JPG">
 				</label>
 				<input type="file" id="selectImg" name="selectImg" class="form-control imginput" 
-					multiple="multiple" accept="image/*" maxlength="3"
+					multiple="multiple" accept="image/*"
 					onchange="loadFile(event)">
 			</div>
 			<div class="previewarea"></div>
