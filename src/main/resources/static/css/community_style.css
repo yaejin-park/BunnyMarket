@@ -36,6 +36,7 @@
 	position:absolute;
 	top:0;
 	right:0;
+	color: #999;
 }
 
 ul li:nth-of-type(3n){
@@ -46,16 +47,18 @@ ul li:nth-of-type(-n+3){
 	margin-top:0;
 }
 
+.commu-list ul li .text-div{
+	text-align: center;
+	padding: 8px 20px 10px 20px;
+}
+
 .commu-list ul li .text-div .tit{
 	margin-top:45px;
 	width:300px;
 	white-space:nowrap;
 	overflow:hidden;
 	text-overflow:ellipsis;
-	margin-left:50px;
-	
 }
-
 
 .commu-list ul li .text-div .txt{
 	margin-top:10px;
@@ -64,5 +67,4 @@ ul li:nth-of-type(-n+3){
 	white-space:nowrap;
 	overflow:hidden;
 	text-overflow:ellipsis;
-	margin-left:30px;
 }

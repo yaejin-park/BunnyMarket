@@ -1,6 +1,10 @@
 package data.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
@@ -42,15 +46,33 @@ public class CommunityController {
 	}
 	
 	@GetMapping("/writeform")
-	public String form(@ModelAttribute CommunityDTO dto)
+	public String form()
 	{
-		service.insert(dto);
 		return "/community/writeForm";
 	}
 	
 	@PostMapping("/insert")
-	public String insert()
+	public String insert(@ModelAttribute CommunityDTO dto,
+			@RequestParam MultipartFile upload,
+			HttpSession session)
 	{
+		String path=session.getServletContext().getRealPath("/photo");
+		System.out.println(path);
+		
+		UUID uuid = UUID.randomUUID();
+		String photoname= uuid.toString()+"_"+upload.getOriginalFilename();
+		dto.setPhoto(photoname);
+		
+		try {
+			upload.transferTo(new File(path+"\\"+photoname));
+			
+			
+		} catch (IllegalStateException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		mapper.insert(dto);
 		return "redirect:content";
 	}
 	

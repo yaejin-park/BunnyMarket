@@ -7,6 +7,7 @@
 
 .child{
 	float:left;
+	width: 150px;
 }
 
 .star{
@@ -22,3 +23,32 @@
 .chooseFile{
 	visibility:hidden;
 }
+
+.subinput{
+	width: 1000px;
+}
+
+.continput{
+	width: 1000px;
+}
+
+.write-btn{
+	display: block;
+	margin-top: 30px;
+	margin-left: 900px;
+}
+
+.btn-list{
+	margin-left: 10px;
+}
+
+
+.showfile{
+	display: block;
+	float: left;
+	width:180px;
+	height: 180px;
+	
+}
+
+
