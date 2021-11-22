@@ -431,7 +431,14 @@ header .local-div .local-option:before {
 	color:#333;
 }
 /* button-style */
+.btn-wrap {
+	text-align:right;
+}
+.btn-wrap.top-div {
+	margin-bottom:20px;
+}
 .btn-default {
+	display:inline-block;
 	min-width:100px;
 	padding:10px 20px;
 	font-size:18px;
@@ -442,6 +449,7 @@ header .local-div .local-option:before {
 	border-radius:30px;
 }
 .btn-list {
+	display:inline-block;
 	min-width:100px;
 	padding:10px 20px;
 	font-size:18px;
@@ -452,6 +460,7 @@ header .local-div .local-option:before {
 	border-radius:30px;
 }
 .btn-add {
+	display:inline-block;
 	min-width:100px;
 	padding:10px 20px;
 	font-size:18px;
@@ -462,6 +471,7 @@ header .local-div .local-option:before {
 	border-radius:30px;
 }
 .btn-update {
+	display:inline-block;
 	min-width:100px;
 	padding:10px 20px;
 	font-size:18px;
@@ -472,6 +482,7 @@ header .local-div .local-option:before {
 	border-radius:30px;
 }
 .btn-delete {
+	display:inline-block;
 	min-width:100px;
 	padding:10px 20px;
 	font-size:18px;
@@ -570,9 +581,6 @@ header .local-div .local-option:before {
 	width:100px;
 }
 /* event list-style */
-.event-list {
-	margin-top:60px;
-}
 .event-list:after {
 	content:"";
 	display:block;
@@ -655,6 +663,7 @@ header .local-div .local-option:before {
 .write-form .uploadImg {
 	float:left;
 	width:180px;
+	height:180px;
 }
 .write-form .previewarea {
 	float:left;
@@ -665,7 +674,9 @@ header .local-div .local-option:before {
 	cursor:pointer;
 }
 .write-form .imginput {
-	width:10px;
+	width:0;
+	height:0;
+	padding:0;
 	visibility:hidden;	
 }
 .write-form .previewarea:after {

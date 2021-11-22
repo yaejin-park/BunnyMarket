@@ -21,6 +21,9 @@
 		</div>
 	</div>
 	<div class="inner">
+		<div class="top-div btn-wrap">
+			<a href="./add" class="btn-add">글쓰기</a>
+		</div>
 		<ul class="event-list">
 			<li>
 				<a href="javascript:">
