@@ -1,0 +1,24 @@
+
+.group:after{
+	content:"";
+	display:block;
+	clear:both;
+}
+
+.child{
+	float:left;
+}
+
+.star{
+	color:red;
+}
+
+.img-div label img{
+	width:180px;
+	cursor: pointer;
+}
+
+
+.chooseFile{
+	visibility:hidden;
+}
