@@ -17,4 +17,15 @@ $(function(){
             }
         });
     });
+
+	$(window).scroll(function(){
+		console.log($(window).scrollTop());
+		var scrollTop = $(window).scrollTop() + $(window).height();
+		if(scrollTop >= $(".product-list").offset().top){
+			console.log("실행")
+			$(".product-list li").each(function(i){
+				gsap.to($(this), 1.2, {delay:0.1*i, top:0, opacity:1, ease:Power3.easeOut});
+			});
+		}
+	});
 });

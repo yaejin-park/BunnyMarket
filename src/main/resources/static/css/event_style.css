@@ -1,0 +1,27 @@
+.event-div .tab-btn a {
+	display:inline-block;
+	padding:20px 0;
+	margin-right:30px;
+}
+.event-div .tab-btn a:last-child {
+	margin-right:0;
+}
+.event-div .tab-btn a.active {
+	font-weight:bold;
+	color:#ff7ab0;
+	border-bottom:2px solid #ff7ab0;
+}
+.event-div .category-div {
+	padding:20px 0; 
+	border-top:1px solid #f5f5f5;
+}
+.event-div .category-div a {
+	display:inline-block;
+	padding:7px 15px;
+	margin-right:10px;
+	border-radius:30px;
+	background:rgba(255,122,176,0.3);
+}
+.event-div .category-div a:last-child {
+	margin-right:0;
+}
