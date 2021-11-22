@@ -1,5 +1,4 @@
 /* list */
-
 .adlist ul:after{
 	content:"";
 	display:block;
