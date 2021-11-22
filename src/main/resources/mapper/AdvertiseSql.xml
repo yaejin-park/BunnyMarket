@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="data.mapper.AdvertiseMapper">
+	<select id="getData" parameterType="String" resultType="addto">
+		select * from advertise where idx=#{idx}
+	</select>
+	<select id="getMaxNum" resultType="int">
+		select ifnull(max(idx),0) from advertise
+	</select>
+	<select id="getList" parameterType="HashMap" resultType="addto">
+		select * from advertise order by idx desc limit #{start},#{perpage}
+	</select>
+	<insert id="insertAdvertise" parameterType="addto">
+		insert into advertise (id,title,content,photo,writeday)
+			values (#{id},#{title},#{content},#{photo},now());
+	</insert>
+</mapper>

@@ -1,0 +1,104 @@
+/* writeform */
+
+.imginput{
+	width:10px;
+	visibility:hidden;
+}
+
+.uploadImg{
+	width:180px;
+	cursor:pointer;
+}
+.previewarea:after {
+	content:"";
+	display:block;
+	clear:both;
+}
+
+.preview-img {
+	position:relative;
+	float:left;
+	width:180px;
+	height:180px;
+	overflow:hidden;
+	margin-left:10px;
+}
+
+.preview-img .close {
+	position:absolute;
+	top:10px;
+	right:10px;
+	display:block;
+	width:20px;
+	height:20px;
+	font-size:12px;
+	color:#fff;
+	line-height:20px;
+	background:rgba(0,0,0,0.6);
+	border-radius:50%;
+	text-align:center;
+	cursor:pointer;
+}
+.preview-img img {
+	position:absolute;
+	top:50%;
+	left:50%;
+	width:100%;	
+	transform:translate(-50%, -50%);
+}
+
+.must{
+	color:red;
+}
+
+.group:after{
+	content:""; 
+	display:block; 
+	clear:both;
+}
+
+.child{
+	float:left
+}
+
+.child:nth-child(1){
+	width:150px;
+}
+
+.subinput{
+	width:1000px;	
+	font-size:12pt;
+}
+
+.textinput{
+	font-size:12pt;
+	width:1000px;
+	height:400px;
+}
+
+.btn-add{
+	margin-left:520px;
+}
+
+/* list */
+
+.adlist ul:after{
+	content:"";
+	display:block;
+	clear:both;
+}
+
+.adlist ul li{
+	float:left;
+	width:calc((100%-60px)/2);
+	margin-right:30px;
+	margin-top:30px;
+}
+
+ul li:nth-of-type(2n){
+	margin-right:0;
+}
+
+ul li:nth-of-type(-n+2){
+	margin-top:0;
+}
