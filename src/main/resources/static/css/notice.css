@@ -1,9 +1,54 @@
-.tempsave {
-	display: inline-block;
-	height: 36px;
-	margin-right: 4px;
-	border: 1px solid;
-	border-radius: 6px;
-	box-sizing: border-box;
-	font-size: 13px;
+
+
+
+.ntable .num {
+	width: 80px;
 }
+
+.ntable .title{
+	width: 150px;
+}
+
+.ntable .writeday{
+	width:200px;
+}
+
+.ntable .readcount{
+	width:100px;
+}
+
+
+@media all and (max-width: 1300px) {
+	.ntable .num{
+		width:5%
+	}
+	.ntable .tilte{
+		width:10%
+	}
+	.ntable .writeday{
+		width:15%
+	}
+	.ntable .readcount{
+		width:10%
+	}
+	
+	
+}
+
+@media all and (max-width: 768px) {
+	.ntable .num{
+		width:10%
+	}
+	.ntable .tilte{
+		width:10%
+	}
+	.ntable .writeday{
+		width:25%
+	}
+	.ntable .readcount{
+		width:10%
+	}
+	
+	
+}
+

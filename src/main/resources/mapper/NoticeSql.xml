@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="data.mapper.MainMapper">
+<mapper namespace="data.mapper.NoticeMapper">
 	<insert id="NoticeInsert" parameterType="ndto">
-		insert into notice (idx,title,content,read_count,write_day) values (
-		#{idx},#{title},#{content},#{read_count},now())	
+		insert into notice (title,content,writeday) values (#{title},#{content},now())	
 	</insert>
 	<update id="NoticeUpdate">
 			update notice set title=#{title},content=#{content} where idx=#{idx}
 	</update>
 	<delete id="NoticeDelete">
-		delete from boardanswer where idx=#{idx}
+		delete from notice where idx=#{idx}
 	</delete>
+	<select id="NgetTotalCount" resultType="int">
+		select count(*) from notice
+	</select>
+	<select id="NgetList" parameterType="HashMap" resultType="ndto">
+		select count(*) from notice order by idx desc limit #{start},#{perpage}
+	</select>
+	<select id="getMaxidx" resultType="int">
+		select ifnull(max(idx),0) from notice
+	</select>
 </mapper>

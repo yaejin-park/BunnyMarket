@@ -5,9 +5,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import data.mapper.MainMapper;
+import data.service.NoticeService;
 
 @Controller
 public class MainController {
+	
+	
+	
+	@Autowired
+	NoticeService service;
+	
+	
 	@Autowired
 	MainMapper mapper;
 	
