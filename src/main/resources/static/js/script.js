@@ -29,5 +29,35 @@ $(function(){
 			$(this).removeClass("on");
 			$("header .local-option").stop(true,true).slideUp(300);	
 		}
-	});
+	}); 
 });
+
+function loadFile(event){
+	imgArr=new Array();
+	for(var image of event.target.files){
+		var reader = new FileReader();
+		
+		reader.onload = function(e){
+			var img="<div class='preview-img'><img src='" +  e.target.result +  "' alt='' /><span class='close'>X</span></div>";
+			imgArr.push(img);
+			$("div.previewarea").append($(img));
+		}; 
+		reader.readAsDataURL(image);
+	}
+	setTimeout(function(){
+		$(".preview-img").each(function(){
+			if($(this).width() > $(this).find("img").height()){
+		        $(this).find("img").width("auto");
+		        $(this).find("img").height("100%");
+		    }else{
+		        $(this).find("img").width("100%");
+		        $(this).find("img").height("auto");
+		    }
+		});
+	},10);
+	
+	$(document).on("click", ".preview-img .close", function(){
+		console.log($(this));
+		
+	});
+}
