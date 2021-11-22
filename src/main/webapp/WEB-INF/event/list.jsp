@@ -5,6 +5,21 @@
 <link rel="stylesheet" type="text/css" href="/css/event_style.css">
 <div class="event-div">
 	<%-- <p>${title} / ${totalcount}개</p> --%>
+	<div class="tab-btn">
+		<div class="inner">
+			<a href="javascript:" class="active">진행중인 이벤트</a>
+			<a href="javascript:">종료된 이벤트</a>
+			<a href="javascript:">당첨자 발표</a>
+		</div>
+	</div>
+	<div class="category-div">
+		<div class="inner">
+			<a href="javascript:" class="active">카테고리1</a>
+			<a href="javascript:">카테고리2</a>
+			<a href="javascript:">카테고리3</a>
+			<a href="javascript:">카테고리4</a>
+		</div>
+	</div>
 	<div class="inner">
 		<ul class="event-list">
 			<li>
@@ -138,6 +153,5 @@
 			<a href="javascript:" class="next"><span>다음</span></a>
 		</div>
 	</div>
-	
 </div>
 <script type="text/javascript" src="/js/event_script.js"></script>
