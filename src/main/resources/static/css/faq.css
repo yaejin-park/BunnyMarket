@@ -1,0 +1,21 @@
+.accordian {
+	margin-top:20px;
+	height:80px;
+	width:1280px;
+	border-radius:3px;
+}
+
+.th1, .th2, .th3 {
+	border:1px solid black;
+}
+
+.th1 {
+	width:2px;
+}
+.th2 {
+	width:10px;
+}
+.th3 {
+	width:20px;
+}
+
