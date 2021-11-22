@@ -39,6 +39,21 @@ textarea, button {
 	vertical-align:middle; 
 }
 input, select { 
+	width:100%;
+	padding:10px 15px;
+	font-family:'Noto Sans KR', sans-serif; 
+	font-size:18px; 
+	color:#333; 
+	line-height:1.3; 
+	letter-spacing:-0.02em; 
+	border-radius:0; 
+	vertical-align:top; 
+	background:#fff; 
+	border:1px solid #e5e5e5; 
+}
+textarea { 
+	width:100%;
+	padding:10px 15px;
 	font-family:'Noto Sans KR', sans-serif; 
 	font-size:18px; 
 	color:#333; 
@@ -142,12 +157,15 @@ header .util a:first-child:after {
 }
 header .logo {
 	float:left;
-    display:block;
     width:150px;
     height:90px;
     background:url("../image/logo2.png") no-repeat center / 100%;
     text-indent:-999px;
     overflow:hidden;
+}
+header .logo a {
+	display:block;
+	height:100%;
 }
 header .menu {
 	float:right;
@@ -334,7 +352,10 @@ header .local-div .local-option:before {
 }
 #cBody .sub-body .title-area {
 	float:left;
-	font-size:38px;
+}
+#cBody .sub-body .title-area h2 {
+	font-size:30px;
+	color:#333;
 }
 #cBody .sub-body .search-area {
 	position:relative;
@@ -348,6 +369,7 @@ header .local-div .local-option:before {
 	right:2px;
 	width:25px;
 	height:25px;
+	padding:0;
 	font-size:0;
 	border:3px solid #ff7ab0;
 	border-radius:30px;
@@ -488,6 +510,38 @@ header .local-div .local-option:before {
 	font-size:14px;
 	font-weight:normal;
 }
+.paging {
+	margin-top:80px;
+	text-align:center;
+}
+.paging a {
+	display:inline-block;
+	width:30px;
+	height:30px;
+	margin:0 10px;
+	font-weight:bold;
+	color:#ff7ab0;
+	line-height:28px;
+	vertical-align:top;
+	overflow:hidden;
+}
+.paging a.active {
+	color:#fff;
+	background:#ff7ab0;
+	border-radius:50%;
+}
+.paging a.prev span, .paging a.next span {
+	text-indent:-999px;
+	overflow:hidden;
+}
+.paging a.prev:before {
+	content:"<";
+	display:block;
+}
+.paging a.next:before {
+	content:">";
+	display:block;
+}
 /* table-style */
 .table {
 	table-layout:fixed;
@@ -514,6 +568,22 @@ header .local-div .local-option:before {
 .table .readcount {
 	width:100px;
 }
+/* nodata-style */
+.nodata {
+	padding:80px;
+	text-align:center;
+	border-top:2px solid #ff7ab0;
+}
+.nodata .icon {
+	width:60px;
+	height:60px;
+	margin:0 auto 30px;
+	border:1px solid gray;
+	border-radius:50%;
+}
+.nodata .icon img {
+	width:100%;
+}
 footer {
     padding:40px 0;
     border-top:1px solid #ccc;
@@ -527,7 +597,7 @@ footer .footer-logo {
     float:left;
     width:100px;
     height:50px;
-    margin-right:20px;
+    margin-right:60px;
     background:url("../image/logo2.png") no-repeat center / 100%;
     text-indent:-999px;
     overflow:hidden;
@@ -550,29 +620,6 @@ footer .etc-div {
 footer .etc-txt .copyright {
     font-size:12px;
     color:#999;
-}
-footer .sns-div {
-    float:right;
-}
-footer .sns a {
-    display:inline-block;
-    width:50px;
-    height:50px;
-    margin-left:20px;
-    background-repeat:no-repeat;
-    background-position:0 0;
-    background-size:50px;
-    text-indent:-999px;
-    overflow:hidden;
-}
-footer .sns .facebook {
-    background-image:url("../image/sns-facebook.png");
-}
-footer .sns .twitter {
-    background-image:url("../image/sns-twitter.png");
-}
-footer .sns .instagram {
-    background-image:url("../image/sns-instagram.png");
 }
 .quick-div {
 	position:fixed;
