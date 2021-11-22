@@ -1,0 +1,10 @@
+.accordian {
+	margin:20px 130px;
+	height:60px;
+}
+
+.accordian, .accordiansub, .accordiancon {
+	border:1px solid black;
+	border-radius:3px;
+}
+
