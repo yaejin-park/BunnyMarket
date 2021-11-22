@@ -1,0 +1,5 @@
+@charset "EUC-KR";
+
+ul, ol, li { 
+	list-style: disc; 
+}
