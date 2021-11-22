@@ -61,6 +61,18 @@
 			<button type="button" class="btn-update btn-sm">수정</button>
 			<button type="button" class="btn-delete btn-sm">삭제</button>
 		</div>
+		<div class="btn-div">
+			<p class="title">페이징 버튼</p>
+			<div class="paging">
+				<a href="javascript:" class="prev"><span>이전</span></a>
+				<a href="javascript:" class="active">1</a>
+				<a href="javascript:">2</a>
+				<a href="javascript:">3</a>
+				<a href="javascript:">4</a>
+				<a href="javascript:">5</a>
+				<a href="javascript:" class="next"><span>다음</span></a>
+			</div>
+		</div>
 	</div>       
 	<div class="inner">
 		<p class="title">Table 가이드</p>
@@ -91,5 +103,15 @@
 				</tr>
 			</tbody>
 		</table>
+	</div>
+	<div class="inner">
+		<p class="title">데이터없을 경우</p>
+		<div class="nodata">
+			<p class="icon">
+				<img alt="" src="/image/nodata-icon.png">
+			</p>
+			<p class="tit">회원가입을 축하합니다.</p>
+			<p>등록된 데이터가 없습니다.</p>
+		</div>
 	</div>
 </div>

@@ -157,12 +157,15 @@ header .util a:first-child:after {
 }
 header .logo {
 	float:left;
-    display:block;
     width:150px;
     height:90px;
     background:url("../image/logo2.png") no-repeat center / 100%;
     text-indent:-999px;
     overflow:hidden;
+}
+header .logo a {
+	display:block;
+	height:100%;
 }
 header .menu {
 	float:right;
@@ -507,6 +510,38 @@ header .local-div .local-option:before {
 	font-size:14px;
 	font-weight:normal;
 }
+.paging {
+	margin-top:80px;
+	text-align:center;
+}
+.paging a {
+	display:inline-block;
+	width:30px;
+	height:30px;
+	margin:0 10px;
+	font-weight:bold;
+	color:#ff7ab0;
+	line-height:28px;
+	vertical-align:top;
+	overflow:hidden;
+}
+.paging a.active {
+	color:#fff;
+	background:#ff7ab0;
+	border-radius:50%;
+}
+.paging a.prev span, .paging a.next span {
+	text-indent:-999px;
+	overflow:hidden;
+}
+.paging a.prev:before {
+	content:"<";
+	display:block;
+}
+.paging a.next:before {
+	content:">";
+	display:block;
+}
 /* table-style */
 .table {
 	table-layout:fixed;
@@ -532,6 +567,22 @@ header .local-div .local-option:before {
 }
 .table .readcount {
 	width:100px;
+}
+/* nodata-style */
+.nodata {
+	padding:80px;
+	text-align:center;
+	border-top:2px solid #ff7ab0;
+}
+.nodata .icon {
+	width:60px;
+	height:60px;
+	margin:0 auto 30px;
+	border:1px solid gray;
+	border-radius:50%;
+}
+.nodata .icon img {
+	width:100%;
 }
 footer {
     padding:40px 0;

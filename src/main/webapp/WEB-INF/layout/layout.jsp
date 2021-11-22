@@ -17,15 +17,21 @@
 </head>
 <body>
 	<c:set var="root" value="<%=request.getContextPath() %>"></c:set>
+	<c:set var="path" value="${requestScope['javax.servlet.forward.servlet_path']}" />
 	<div id="wrap">
 		<tiles:insertAttribute name="header" />
 		<div id="cBody">
-			<tiles:insertAttribute name="subcontent" />
+			<c:if test="${path!='/'}">
+				<tiles:insertAttribute name="subcontent" />
+			</c:if>
 			<tiles:insertAttribute name="content" />
 		</div>
 		<tiles:insertAttribute name="footer" />
 	</div>
 	<tiles:insertAttribute name="quick" />
-	<div class="dimd"></div>
+	<div class="dimd"></div>>
+	<c:if test="">
+		<tiles:insertAttribute name="popup" />
+	</c:if>
 </body>
 </html>
