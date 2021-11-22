@@ -1,6 +1,7 @@
 package data.dto;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import org.apache.ibatis.type.Alias;
 import org.springframework.web.multipart.MultipartFile;
@@ -9,15 +10,16 @@ import org.springframework.web.multipart.MultipartFile;
 public class ProductDTO {
 	private String idx;
 	private String title;
-	private String photo;
 	private String price;
 	private String content;
 	private String category;
+	private String id;
 	private Timestamp writeday;
 	private int chatcount;
 	private int goodcount;
 	private int readcount;
-	private MultipartFile upload;
+	private List<MultipartFile> upload;
+	private String uploadfile;
 	public String getIdx() {
 		return idx;
 	}
@@ -29,12 +31,6 @@ public class ProductDTO {
 	}
 	public void setTitle(String title) {
 		this.title = title;
-	}
-	public String getPhoto() {
-		return photo;
-	}
-	public void setPhoto(String photo) {
-		this.photo = photo;
 	}
 	public String getPrice() {
 		return price;
@@ -53,6 +49,12 @@ public class ProductDTO {
 	}
 	public void setCategory(String category) {
 		this.category = category;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
 	}
 	public Timestamp getWriteday() {
 		return writeday;
@@ -78,10 +80,16 @@ public class ProductDTO {
 	public void setReadcount(int readcount) {
 		this.readcount = readcount;
 	}
-	public MultipartFile getUpload() {
+	public List<MultipartFile> getUpload() {
 		return upload;
 	}
-	public void setUpload(MultipartFile upload) {
+	public void setUpload(List<MultipartFile> upload) {
 		this.upload = upload;
+	}
+	public String getUploadfile() {
+		return uploadfile;
+	}
+	public void setUploadfile(String uploadfile) {
+		this.uploadfile = uploadfile;
 	}
 }

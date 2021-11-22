@@ -3,9 +3,8 @@
 	margin-left: 7px; 
 }
 
-.head{
-	margin-right: 20px;
-	width: 100px;
+.tit{
+	width: 150px;
 }
 
 .group{
@@ -21,10 +20,59 @@
 }
 
 .content{
-	width: 300px;
+	width: 100%;
 	height:200px;
 }
 
-.chooseFile{
+
+.chooseImg{
 	width: 180px;
+}
+
+.preshowImg{
+	width: 180px;
+	height: 180px;
+	margin-left: 10px;
+	margin-bottom: 10px;
+	border: 2.3px solid #f7f6fc;
+}
+
+#img_show{
+	width: 760px;
+}
+
+.profileImg{
+	border-radius: 100%;
+	width: 100px;
+}
+
+.bigImg{
+	border: 2.3px solid #f7f6fc;
+	width: 323px;
+}
+
+.smImgDiv{
+	margin-top: 5px;
+}
+
+.smImg{
+	width: 72.6px;
+	margin-right: 10px;
+	border: 2.3px solid #f7f6fc;
+}
+
+.info{
+	position: absolute;
+    left: 510px;
+    top: 263px;
+    width: 770px;
+}
+
+.relative{
+	margin-top: 60px;
+}
+
+.detailContent{
+	margin-top: 60px;
+	height: 200px;
 }

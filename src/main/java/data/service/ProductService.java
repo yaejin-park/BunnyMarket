@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import data.dto.ProductDTO;
@@ -27,4 +28,13 @@ public class ProductService {
 		return mapper.getData(idx);
 	}
 
+	public void insertData(@ModelAttribute ProductDTO dto) {
+		
+		mapper.insertData(dto);
+	}
+	
+	public int getMaxIdx() {
+		return mapper.getMaxIdx();
+	}
+	
 }

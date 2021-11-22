@@ -11,4 +11,6 @@ import data.dto.ProductDTO;
 public interface ProductMapper {
 	public List<ProductDTO> getList(HashMap<String, Integer> map);
 	public ProductDTO getData(String idx);
+	public void insertData(ProductDTO dto);
+	public int getMaxIdx();
 }
