@@ -129,13 +129,13 @@
 			</li>
 		</ul>
 		<div class="paging">
-			<a href="javascript:">이전</a>
-			<a href="javascript:">1</a>
+			<a href="javascript:" class="prev"><span>이전</span></a>
+			<a href="javascript:" class="active">1</a>
 			<a href="javascript:">2</a>
 			<a href="javascript:">3</a>
 			<a href="javascript:">4</a>
 			<a href="javascript:">5</a>
-			<a href="javascript:">다음</a>
+			<a href="javascript:" class="next"><span>다음</span></a>
 		</div>
 	</div>
 	
