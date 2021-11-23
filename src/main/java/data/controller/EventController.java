@@ -30,4 +30,9 @@ public class EventController {
 		mview.setViewName("/event/list");
 		return mview;
 	}
+	
+	@GetMapping("/add")
+	public String addForm() {
+		return "/event/writeForm";
+	}
 }

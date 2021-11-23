@@ -13,7 +13,7 @@
 	<div class="header-div">
 		<div class="inner">
 			<h1 class="logo">
-				<a href="${root}">바니마켓 로고</a>
+				<a href="/">바니마켓 로고</a>
 			</h1> 
 			<nav class="menu">
 				<button type="button" class="menu-btn">
