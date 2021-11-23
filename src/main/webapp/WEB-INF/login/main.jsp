@@ -28,7 +28,7 @@
 		</div>
 	</div>
 	<div class="btn-wrap">
-		<a href="javascript:" class="btn-list">로그인</a>
-		<a href="javascript:" class="btn-add">회원가입</a>
+		<a href="javascript:" class="btn-add">로그인</a>
+		<a href="javascript:" class="btn-list">회원가입</a>
 	</div>
 </div>

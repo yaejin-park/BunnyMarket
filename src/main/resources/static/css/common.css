@@ -40,9 +40,10 @@ textarea, button {
 }
 input, select { 
 	width:100%;
-	padding:10px 15px;
+	height:42px;
+	padding:5px 15px;
 	font-family:'Noto Sans KR', sans-serif; 
-	font-size:18px; 
+	font-size:16px; 
 	color:#333; 
 	line-height:1.3; 
 	letter-spacing:-0.02em; 
@@ -50,6 +51,9 @@ input, select {
 	vertical-align:top; 
 	background:#fff; 
 	border:1px solid #e5e5e5; 
+}
+input::placeholder {
+	color:#999;
 }
 textarea { 
 	width:100%;
@@ -439,6 +443,12 @@ header .local-div .local-option:before {
 .btn-wrap {
 	text-align:right;
 }
+.btn-wrap a {
+	margin-right:5px;
+}
+.btn-wrap a:last-child {
+	margin-right:0;
+}
 .btn-wrap.top-div {
 	margin-bottom:20px;
 }
@@ -452,19 +462,9 @@ header .local-div .local-option:before {
 	background:#e5e5e5;
 	border:1px solid #e5e5e5;
 	border-radius:30px;
+	text-align:center;
 }
 .btn-list {
-	display:inline-block;
-	min-width:100px;
-	padding:10px 20px;
-	font-size:18px;
-	font-weight:bold;
-	color:#fff;
-	background:#ff7ab0;
-	border:1px solid #ff7ab0;
-	border-radius:30px;
-}
-.btn-add {
 	display:inline-block;
 	min-width:100px;
 	padding:10px 20px;
@@ -474,6 +474,19 @@ header .local-div .local-option:before {
 	background:#fff;
 	border:1px solid #ff7ab0;
 	border-radius:30px;
+	text-align:center;
+}
+.btn-add {
+	display:inline-block;
+	min-width:100px;
+	padding:10px 20px;
+	font-size:18px;
+	font-weight:bold;
+	color:#fff;
+	background:#ff7ab0;
+	border:1px solid #ff7ab0;
+	border-radius:30px;
+	text-align:center;
 }
 .btn-update {
 	display:inline-block;
@@ -485,6 +498,7 @@ header .local-div .local-option:before {
 	background:#fff;
 	border:1px solid #ffae6d;
 	border-radius:30px;
+	text-align:center;
 }
 .btn-delete {
 	display:inline-block;
@@ -496,6 +510,7 @@ header .local-div .local-option:before {
 	background:#ffae6d;
 	border:1px solid #ffae6d;
 	border-radius:30px;
+	text-align:center;
 }
 .btn-default.btn-sm {
 	min-width:50px;

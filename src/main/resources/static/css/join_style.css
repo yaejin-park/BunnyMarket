@@ -1,0 +1,101 @@
+.join-div .sns-login-div {
+	margin-bottom:60px;
+	padding:60px;
+	background:#f5f5f5;
+	border:1px solid #e5e5e5;
+	text-align:center;
+}
+.join-div .sns-login {
+	margin-top:20px;
+}
+.join-div .sns-login a {
+	display:inline-block;
+	width:50px;
+	height:50px;
+	margin-right:10px;
+	border:1px solid #e5e5e5;
+	border-radius:50%;
+	text-indent:-999px;
+	overflow:hidden;
+}
+.join-div .sns-login a:last-child {
+	margin-right:0;
+}
+.join-div .sns-login a.kakao {
+	background:#381e1f url("../image/login-kakao-icon.png") no-repeat center / 80% auto;
+}
+.join-div .sns-login a.naver {
+	background:#00c73c url("../image/login-naver-icon.png") no-repeat center / 80% auto;
+}
+.join-div .sns-login a.google {
+	background:#fff url("../image/login-google-icon.png") no-repeat center / 80% auto;
+}
+.join-div .write-form {
+	border-top:2px solid #ff7ab0;
+}
+.join-div .write-form .child {
+	width:calc(100% - 200px);
+}
+.join-div .write-form .child:first-child {
+	width:200px;
+}
+.join-div .write-form .form-div input {
+	width:300px;
+}
+.join-div .write-form .has-btn-type button {
+	height:42px;
+	margin-left:20px;
+	padding:0 20px;
+}
+.join-div .write-form .info-txt {
+	margin-top:10px;
+	font-size:16px;
+	color:#999;
+}
+.join-div .write-form .email-certify {
+	padding:20px 20px 0;
+}
+.join-div .write-form .email-certify .txt {
+	margin-bottom:10px;
+	font-size:16px;
+	font-weight:bold;
+	color:#333;
+}
+.join-div .write-form .email-certify input {
+	width:300px;
+}
+.join-div .write-form .hp-div {
+	display:flex;
+	flex-wrap:nowrap;
+}
+.join-div .write-form .hp-div select, .join-div .write-form .hp-div input {
+	width:200px;
+}
+.join-div .write-form .hp-div span {
+	margin:0 15px;
+	font-weight:bold;
+	line-height:42px;
+	vertical-align:top;
+}
+.join-div .write-form .addr-div .form-div {
+	margin-bottom:10px;
+}
+.join-div .write-form .addr-div .form-div:last-child {
+	margin-bottom:0;
+}
+.join-div .write-form .addr-div .form-div input {
+	width:100%;
+}
+.join-div .write-form .addr-div .form-div.addr-num {
+	display:flex;
+	flex-wrap:nowrap;
+}
+.join-div .write-form .addr-div .form-div.addr-num input {
+	width:200px;
+}
+.join-div .write-form .addr-div .form-div.addr-num span {
+	margin:0 15px;
+	font-weight:bold;
+	line-height:42px;
+	vertical-align:top;
+}
