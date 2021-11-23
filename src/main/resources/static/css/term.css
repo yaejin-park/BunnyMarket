@@ -1,15 +1,3 @@
-.term-div ul> li { 
-	list-style:disc;
-}
-
-term-div ol> li {
-	list-style:decimal;
-}
-
-term-div {
-	font-weight:450; 
-	font-size:20pt;
-}
 
 .tit {
 	font-size:22px;
