@@ -47,8 +47,15 @@
 }
 
 .bigImg{
-	border: 2.3px solid #f7f6fc;
 	width: 323px;
+	border: 2.3px solid #f7f6fc;
+	overflow:hidden;
+}
+.bigImg img {
+	position:absolute;
+	top:50%;
+	left:50%;
+	transform:translate(-50%,-50%);
 }
 
 .smImgDiv{
@@ -56,8 +63,16 @@
 }
 
 .smImg{
+	position:relative;
 	width: calc((323px -30px)/4);
 	border: 2.3px solid #f7f6fc;
+	overflow:hidden;
+}
+.smImg img {
+	position:absolute;
+	top:50%;
+	left:50%;
+	transform:translate(-50%,-50%);
 }
 
 .infoAll .group{
@@ -113,4 +128,16 @@
 .icon{
 	line-height: 100%;
 	width: 15px;
+}
+
+.group .swiper-button-next, .swiper-button-prev{
+	color: #ff7ab0;
+}
+
+.group .swiper-button-prev:after, .swiper-rtl .swiper-button-next:after{
+	color: #ff7ab0;
+}
+
+.group .swiper-pagination-bullet-active {
+	background-color: #ff7ab0;
 }

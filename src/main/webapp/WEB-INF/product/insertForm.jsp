@@ -12,7 +12,7 @@
        		<input type="file" name="upload" id="chooseFile" accept="image/*" multiple="multiple" hidden="hidden" accept=".jpg">
 			<!-- 보여지는 파일 업로더 -->
 			<label for="chooseFile">
-	        	<img alt="uploadimg" class="chooseImg child" id="showchooseFile" src="../image/icon-upload.jpg">
+	        	<img alt="uploadimg" class="chooseImg child" id="showchooseFile" src="../image/upload-icon.jpg">
 	        </label>
        		<div id="imgShow" class="child"></div>
         </div>

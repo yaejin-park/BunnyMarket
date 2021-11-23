@@ -2,6 +2,9 @@ package data.dto;
 
 import java.sql.Timestamp;
 
+import org.apache.ibatis.type.Alias;
+
+@Alias("rdto")
 public class ReviewDTO {
 	private String seller;
 	private String buyer;

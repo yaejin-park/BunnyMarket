@@ -2,16 +2,29 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <link rel="stylesheet" type="text/css" href="/css/product_style.css">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"/>
+<!-- Link Swiper's CSS -->
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
+
 <div class="inner">
 <div class="infoAll">
 	<div class="img group">
-		<div class="bigImgDiv">
-			<img class="bigImg" alt="thumbnail" src="../photo/${photo[0]}">
+		<div class="swiper mySwiper">
+			<div class="bigImgDiv swiper-wrapper">
+				<c:forEach items="${photo}" var="photo">
+					<div class="swiper-slide bigImg">
+						<img id="bigImg" alt="thumbnail" src="../photo/${photo}">
+					</div>
+				</c:forEach>
+			</div>
+			<div class="swiper-button-next"></div>
+   			<div class="swiper-button-prev"></div>
+			<div class="swiper-pagination"></div>
 		</div>
 		<div class="smImgDiv">
 			<c:forEach items="${photo}" var="photo">
 				<div class="smImg child">
-					<img alt="smallImage" src="../photo/${photo}" class="smImg">
+					<img alt="smallImage" src="../photo/${photo}" class="smallImg">
 				</div>
 			</c:forEach>
 		</div>
@@ -49,9 +62,9 @@
 			<c:if test="true">
 				<td>
 					<select>
-						<option>판매중</option>
-						<option>예약중</option>
-						<option>거래완료</option>
+						<option class="tit selling">판매중</option>
+						<option class="tit reserved">예약중</option>
+						<option class="tit finished">거래완료</option>
 					</select>
 				</td>
 			</c:if>
@@ -90,7 +103,7 @@
 	</table>
 </div>
 	<div class="detailContentDiv">
-		<textarea class="detailContent">${dto.content }</textarea>
+		<textarea class="detailContent">${dto.content}</textarea>
 	</div>
 	<br><br>
 	<hr>
@@ -100,3 +113,40 @@
 		<div class="child">더보기></div>
 	</div>
 </div>
+
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<!-- Initialize Swiper -->
+<script>
+setTimeout(() => {
+	 var swiper = new Swiper(".mySwiper", {
+		    navigation: {
+		      nextEl: ".swiper-button-next",
+		      prevEl: ".swiper-button-prev",
+		    },
+		    pagination: {
+		      el: ".swiper-pagination",
+		    },
+		  });
+}, 20);
+
+$(document).on("click",".smallImg", function(e) {
+	var src = $(this).attr("src");
+	$("#bigImg").attr("src",src);
+});
+
+$(document).ready(function() {
+	var original = $("#bigImg").attr("src");
+	$(".smallImg").hover(function() {
+		var src = $(this).attr("src");
+		$("#bigImg").attr("src",src);
+	}, function() {
+		var src = $(this).attr("src");
+		$("#bigImg").attr("src",original);
+	});
+});
+
+
+
+
+</script>
+
