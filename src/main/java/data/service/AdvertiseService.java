@@ -15,9 +15,15 @@ public class AdvertiseService {
 	AdvertiseMapper mapper;
 	
 	//목록
-		public List<AdvertiseDTO> getList() {
+		public List<AdvertiseDTO> getList(int start, int perpage) {
 			HashMap<String, Integer> map=new HashMap<String, Integer>();
+			map.put("start", start);
+			map.put("perpage", perpage);
 			return mapper.getList(map);
+		}
+		
+		public int getTotalCount() {
+			return mapper.getTotalCount();
 		}
 		
 		public AdvertiseDTO getData(String idx) {

@@ -13,7 +13,7 @@
 						<label for="selectImg"> 
 							<img src="../image/write-upload-icon.JPG">
 						</label>
-						<input type="file" id="selectImg" name="selectImg" class="imginput" multiple="multiple" accept="image/*" onchange="loadFile(event)">
+						<input type="file" id="selectImg" name="photoupload" class="imginput" multiple="multiple" accept="image/*" onchange="loadFile(event)">
 					</div>
 					<div class="previewarea"></div>
 				</div>
@@ -23,7 +23,7 @@
 					제목 <span class="must">*</span>
 				</div>
 				<div class="child">
-					<input type="text" class="subinput" placeholder="글제목" required="required">
+					<input type="text" name="title" class="subinput" placeholder="글제목" required="required">
 				</div>
 			</div>
 			<div class="group">
@@ -31,7 +31,7 @@
 					설명 <span class="must">*</span>
 				</div>
 				<div class="child">
-					<textarea class="textinput" placeholder="설명을 입력해주세요."
+					<textarea name="content" class="textinput" placeholder="설명을 입력해주세요."
 						required="required"></textarea>
 				</div>
 			</div>

@@ -9,6 +9,7 @@ import data.dto.AdvertiseDTO;
 
 @Mapper
 public interface AdvertiseMapper {
+	public int getTotalCount();
 	//목록
 	public List<AdvertiseDTO> getList(HashMap<String, Integer> map);
 	
