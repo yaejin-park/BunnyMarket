@@ -13,11 +13,11 @@ public interface NoticeMapper {
 	
 	public void NoticeInsert(NoticeDTO dto);
 	public void NoticeDelete(String idx);
-	public void NoticeUpdate();
+	public void NoticeUpdate(NoticeDTO dto);
 	public int NgetTotalCount();
 	public List<NoticeDTO> NgetList(HashMap<String, Integer> map);
-	public String NgetName(String id);
 	public int getMaxidx();
-	
+	public void updateReadCount(String idx);
+	public NoticeDTO getData(String idx);
 
 }

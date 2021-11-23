@@ -14,9 +14,15 @@
 		select count(*) from notice
 	</select>
 	<select id="NgetList" parameterType="HashMap" resultType="ndto">
-		select count(*) from notice order by idx desc limit #{start},#{perpage}
+		select * from notice order by idx desc limit #{start},#{perpage}
 	</select>
 	<select id="getMaxidx" resultType="int">
 		select ifnull(max(idx),0) from notice
+	</select>
+	<update id="updateReadCount" parameterType="String">
+	update notice set readcount=readcount+1 where idx=#{idx}
+	</update>	
+	<select id="getData" parameterType="String" resultType="ndto">
+		select * from notice where idx=#{idx}
 	</select>
 </mapper>

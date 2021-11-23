@@ -1,15 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<link rel="stylesheet" type="text/css" href="/css/notice.css">
 
 <form action="update" method="post" enctype="multipart/form-data">
 
 	<div class="notice">
-			<button type="button" onclick="">목록</button>
-		<div class="tempsave">
-			<button type="submit">임시저장</button>
-			<button type="button" onclick=""></button>
-		</div>
-		<button type="submit">저장</button>
+			<button type="button" onclick="location.href='writeform'">목록</button>
+			<button type="submit">저장</button>
 		
 		<table class="writeform">
 			<tr>

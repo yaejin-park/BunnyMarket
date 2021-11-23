@@ -7,12 +7,12 @@ import org.apache.ibatis.type.Alias;
 
 @Alias("ndto")
 public class NoticeDTO {
+	
 	private int idx;
 	private String title;
 	private String content;
-	private int read_count;
-	private Timestamp write_day;
-	
+	private int readcount;
+	private Timestamp writeday;
 	
 	
 	public int getIdx() {
@@ -33,18 +33,21 @@ public class NoticeDTO {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public int getRead_count() {
-		return read_count;
+	public int getReadcount() {
+		return readcount;
 	}
-	public void setRead_count(int read_count) {
-		this.read_count = read_count;
+	public void setReadcount(int readcount) {
+		this.readcount = readcount;
 	}
-	public Timestamp getWrite_day() {
-		return write_day;
+	public Timestamp getWriteday() {
+		return writeday;
 	}
-	public void setWrite_day(Timestamp write_day) {
-		this.write_day = write_day;
+	public void setWriteday(Timestamp writeday) {
+		this.writeday = writeday;
 	}
+	
+	
+	
 	
 	
 

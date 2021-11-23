@@ -1,54 +1,19 @@
 
 
 
-.ntable .num {
-	width: 80px;
-}
-
-.ntable .title{
-	width: 150px;
-}
-
-.ntable .writeday{
-	width:200px;
-}
-
-.ntable .readcount{
-	width:100px;
-}
-
-
-@media all and (max-width: 1300px) {
-	.ntable .num{
-		width:5%
-	}
-	.ntable .tilte{
-		width:10%
-	}
-	.ntable .writeday{
-		width:15%
-	}
-	.ntable .readcount{
-		width:10%
-	}
+.wtable .content{
 	
+	height: 500px;
 	
 }
 
-@media all and (max-width: 768px) {
-	.ntable .num{
-		width:10%
-	}
-	.ntable .tilte{
-		width:10%
-	}
-	.ntable .writeday{
-		width:25%
-	}
-	.ntable .readcount{
-		width:10%
-	}
-	
-	
+
+input[type=checkbox]{
+	zoom: 2;
 }
+
+.b .content {
+	color: #e5e5e5;
+}
+
 

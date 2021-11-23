@@ -1,8 +1,8 @@
 package data.controller;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
+
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import data.dto.NoticeDTO;
@@ -61,7 +62,7 @@ public class NoticeController {
 		//각 페이지에서 불러올 시작번호
 		start=(currentPage-1)*perPage;
 		//각 페이지에서 필요한 게시글 가져오기
-		List<NoticeDTO> list=Nservice.NgetList(startPage, perPage);
+		List<NoticeDTO> list=Nservice.NgetList(start, perPage);
 		
 		int no=totalCount-(currentPage-1)*perPage;
 		
@@ -74,10 +75,6 @@ public class NoticeController {
 		mview.addObject("totalCount",totalCount);
 		mview.setViewName("/notice/list");
 		return mview;
-		
-		
-		
-		
 	}
 	
 	@PostMapping("insert")
@@ -89,10 +86,62 @@ public class NoticeController {
 		Nservice.NoticeInsert(dto);
 		return "redirect:content?idx="+Nservice.getMaxidx();
 		
-		
+	}
 	
+	
+	@GetMapping("/delete")
+	public String delete(String idx,String currentPage,HttpSession session)
+	{
+		Nservice.NoticeDelete(idx);
+		return "redirect:list?currentPage="+currentPage;
+	}
+	
+	@RequestMapping("checkboxdel")
+		@ResponseBody
+		public int deleteReport(Map<String,Object> commandMap) throws Exception{
+        int result=1;
+        try {
+            int cnt = Integer.parseInt((String) commandMap.get("CNT"));
+            String rprtOdr = (String)commandMap.get("RPRT_ODR");
+            String [] strArray = rprtOdr.split(",");
+            for(int i=0; i<cnt; i++) {
+                int temp = Integer.parseInt((String)strArray[i]);
+                commandMap.put("RPRT_ODR", temp);
+                Nservice.NoticeDelete(rprtOdr);
+            }
+        } catch (Exception e) {
+        	System.out.println("ghghghh");
+            result=0;
+        }
+        return result;
+       }
+	
+	
+	@GetMapping("/updateform")
+	public ModelAndView updatForm(String idx,String currentPage)
+	{
+		ModelAndView mview=new ModelAndView();
+		NoticeDTO dto=Nservice.getData(idx);
+		mview.addObject("dto",dto);
+		mview.addObject("currentPage", currentPage);
+		mview.setViewName("/notice/updateform");
+		return mview;
+	}
+	
+	@PostMapping("/update")
+	public String update(@ModelAttribute NoticeDTO dto,
+			String currentPage,HttpSession session)
+	{
+		Nservice.NoticeUpdate(dto);
+		
+		return "redirect:content?idx="+dto.getIdx()+"&currentPage="+currentPage;
+		
 		
 	}
+
+			
+			
+	
 	
 
 	
@@ -104,11 +153,29 @@ public class NoticeController {
 		return "/notice/writeform";
 	}
 	
+	
+	
+	
 	@GetMapping("/content")
-	public String content()
-	{
-		return "/notice/content";
+	public ModelAndView content(@RequestParam String idx,
+			@RequestParam(defaultValue="1") int currentPage,
+			@RequestParam(required = false) String key
+			)
+	
+	{	
+		ModelAndView mview=new ModelAndView();
+		if(key!=null)
+			Nservice.updateReadCount(idx);
+		
+		NoticeDTO dto=Nservice.getData(idx);
+		
+		mview.addObject("dto", dto);
+		mview.addObject("currentPage", currentPage);
+		mview.setViewName("/notice/content");
+		return mview;
 	}
+	
+	
 	
 	@GetMapping("/update")
 	public String update()
