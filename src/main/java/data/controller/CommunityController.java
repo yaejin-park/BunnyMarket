@@ -3,6 +3,7 @@ package data.controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -40,7 +41,7 @@ public class CommunityController {
 		 List<CommunityDTO> list= service.getAllDatas();
 		  
 		 mview.addObject("commulist", list);
-		
+	
 		 mview.setViewName("/community/list");
 		 return mview;
 	}
@@ -53,28 +54,46 @@ public class CommunityController {
 	
 	@PostMapping("/insert")
 	public String insert(@ModelAttribute CommunityDTO dto,
-			@RequestParam MultipartFile upload,
+			@RequestParam ArrayList<MultipartFile> upload,
 			HttpSession session)
 	{
+		//업로드할 폴더 지정
 		String path=session.getServletContext().getRealPath("/photo");
+		String fileadd="";
 		System.out.println(path);
 		
-		UUID uuid = UUID.randomUUID();
-		String photoname= uuid.toString()+"_"+upload.getOriginalFilename();
-		dto.setPhoto(photoname);
 		
-		try {
-			upload.transferTo(new File(path+"\\"+photoname));
-			
-			
-		} catch (IllegalStateException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		//업로드 안한경우
+		ArrayList<String> fileArr = new ArrayList<String>();
+		for(MultipartFile f:upload) {
+			if(f.getOriginalFilename().equals("")) {
+				dto.setPhoto("no");
+			}else {
+				UUID uuid = UUID.randomUUID();
+				String photo= uuid.toString() + "_" +f.getOriginalFilename();
+				
+				//실제로 업로드한다
+				try {
+					f.transferTo(new File(path+"\\"+photo));
+				} catch (IllegalStateException | IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				//콤마 넣기
+				fileadd+=photo+",";
+			}
 		}
 		
-		mapper.insert(dto);
-		return "redirect:content";
+		//콤마 제거하기
+		fileadd += fileadd.substring(0,fileadd.length()-1);
+		dto.setPhoto(fileadd);
+		
+		service.insert(dto);
+		return "redirect:list";
+		//return "redirect:content?num="+service.getMaxNum();
 	}
+	
 	
 	@GetMapping("/content")
 	public ModelAndView content()

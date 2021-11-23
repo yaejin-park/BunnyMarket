@@ -1,7 +1,10 @@
 package data.dto;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+
 import org.apache.ibatis.type.Alias;
+import org.springframework.web.multipart.MultipartFile;
 
 @Alias("cdto")
 public class CommunityDTO {
@@ -14,6 +17,7 @@ public class CommunityDTO {
 	private int readcount;
 	private int goodcount;
 	private Timestamp writeday;
+	private ArrayList<MultipartFile> upload;
 	
 	
 	public String getIdx() {
@@ -70,6 +74,13 @@ public class CommunityDTO {
 	public void setWriteday(Timestamp writeday) {
 		this.writeday = writeday;
 	}
+	public ArrayList<MultipartFile> getUpload() {
+		return upload;
+	}
+	public void setUpload(ArrayList<MultipartFile> upload) {
+		this.upload = upload;
+	}
+	
 	
 	
 }

@@ -34,5 +34,10 @@ public class CommunityService {
 	{
 		return mapper.getAllDatas();
 	}
+	
+	public int getMaxNum()
+	{
+		return mapper.getMaxNum();
+	}
 
 }

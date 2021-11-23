@@ -37,13 +37,34 @@ function loadFile(event){
 	for(var image of event.target.files){
 		var reader = new FileReader();
 		
+		var files = event.target.files;
+		var filesArr = Array.prototype.slice.call(files);
+		var x = document.getElementById("chooseFile");
+		var txt="";
+
+			filesArr.forEach(function(f){
+				if(!f.type.match("image.*")){
+					alert("이미지파일만 업로드 가능합니다");
+					return;
+				}
+			
+		if('files' in x){
+		if(x.files.length > 4){
+		alert("총 4개의 이미지만 업로드 가능합니다");
+		document.getElementById("chooseFile").vlaue="";
+		return;
+			}
+		}
+		
 		reader.onload = function(e){
 			var img="<div class='preview-img'><img src='" +  e.target.result +  "' alt='' /><span class='close'>X</span></div>";
 			imgArr.push(img);
 			$("div.previewarea").append($(img));
-		}; 
+			}; 
+		});
 		reader.readAsDataURL(image);
 	}
+	
 	setTimeout(function(){
 		$(".preview-img").each(function(){
 			if($(this).width() > $(this).find("img").height()){

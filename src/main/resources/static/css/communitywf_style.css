@@ -7,47 +7,43 @@
 
 .child{
 	float:left;
-	width: 150px;
+}
+
+.child:nth-child(1){
+	width:150px;
 }
 
 .star{
 	color:red;
 }
 
-.img-div label img{
+label img{
 	width:180px;
-	cursor: pointer;
+	cursor:pointer;
 }
 
 
-.chooseFile{
+.imgInput{
+	width:10px;
 	visibility:hidden;
 }
 
-.subinput{
-	width: 1000px;
-}
-
-.continput{
-	width: 1000px;
-}
-
 .write-btn{
-	display: block;
-	margin-top: 30px;
-	margin-left: 900px;
+	display:block;
+	margin-top:30px;
+	text-align:right;
 }
 
 .btn-list{
-	margin-left: 10px;
+	margin-left:10px;
 }
 
 
 .showfile{
-	display: block;
-	float: left;
+	display:block;
+	float:left;
 	width:180px;
-	height: 180px;
+	height:180px;
 	
 }
 

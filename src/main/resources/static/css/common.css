@@ -584,6 +584,48 @@ header .local-div .local-option:before {
 .nodata .icon img {
 	width:100%;
 }
+
+/* writeform-style*/
+.previewarea:after {
+	content:"";
+	display:block;
+	clear:both;
+}
+
+.preview-img {
+	position:relative;
+	float:left;
+	width:180px;
+	height:180px;
+	overflow:hidden;
+	margin-left:10px;
+}
+
+.preview-img .close {
+	position:absolute;
+	top:10px;
+	right:10px;
+	display:block;
+	width:20px;
+	height:20px;
+	font-size:12px;
+	color:#fff;
+	line-height:20px;
+	background:rgba(0,0,0,0.6);
+	border-radius:50%;
+	text-align:center;
+	cursor:pointer;
+}
+.preview-img img {
+	position:absolute;
+	top:50%;
+	left:50%;
+	width:100%;	
+	transform:translate(-50%, -50%);
+}
+
+
+
 footer {
     padding:40px 0;
     border-top:1px solid #ccc;

@@ -14,4 +14,7 @@
 	<select id="getAllDatas" resultType="cdto">
 		select * from community order by idx asc
 	</select>
+	<select id="getMaxNum" resultType="int">
+		select ifnull(max(idx),0) from community
+	</select>
 </mapper>

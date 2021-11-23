@@ -7,11 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class MainController {
 	@GetMapping("/")
 	public String home() {
-<<<<<<< HEAD
 		return "/layout/main";
-=======
-		return "/main/layout/main";
->>>>>>> jmk
 	}
 	
 	@GetMapping("/sub")
