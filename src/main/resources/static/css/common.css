@@ -67,6 +67,11 @@ textarea {
 input:focus, input:active { 
 	outline: none; 
 }
+input[type="checkbox"] {
+	width:20px;
+	height:20px;
+	vertical-align:middle;
+}
 option:focus, option:active { 
 	outline: none;
 }
@@ -122,14 +127,14 @@ header {
     left:0;
     width:100%;
     background:#fff;
-    border-bottom:1px solid #e5e5e5;
+    border-bottom:1px solid #f5f5f5;
     z-index:11;
 }
 header .inner {
     position:relative;
 }
 header .util {
-	border-bottom:1px solid #e5e5e5;
+	border-bottom:1px solid #f5f5f5;
 	text-align:right;
 }
 header .util a {
@@ -742,7 +747,7 @@ header .local-div .local-option:before {
 }
 footer {
     padding:40px 0;
-    border-top:1px solid #e5e5e5;
+    border-top:1px solid #f5f5f5;
 }
 footer .inner:after {
     content:"";
