@@ -1,15 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <link rel="stylesheet" type="text/css" href="/css/faq.css">
-<script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="//code.jquery.com/jquery-3.3.1.min.js">
 
-<script type="text/javascript">
+<div class="inner"> 
 	$("select[name = category]").change(function() {
 		console.log($(this).val());  //  value값 얻기
 		console.log($("select[name=category]option:selected")).text())  //  text값 가져오기
 	});
-</script>
-<div class="inner"> 
 	</br></br>
 	<form action="update" method="post">
 		<div class="group">
