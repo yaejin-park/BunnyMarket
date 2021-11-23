@@ -1,0 +1,111 @@
+.require{
+	color: #ff70b1;
+	margin-left: 7px; 
+}
+
+.tit{
+	width: 150px;
+}
+
+.group{
+	margin-top: 20px;
+}
+
+.group:after{
+	content:""; display:block; clear:both;
+}
+
+.child{
+	float: left;
+}
+
+.content{
+	width: 100%;
+	height:200px;
+}
+
+
+.chooseImg{
+	width: 180px;
+}
+
+.preshowImg{
+	width: 180px;
+	height: 180px;
+	margin-left: 10px;
+	margin-bottom: 10px;
+	border: 2.3px solid #f7f6fc;
+}
+
+#img_show{
+	width: 760px;
+}
+
+.profileImg{
+	border-radius: 100%;
+	width: 100px;
+}
+
+.bigImg{
+	border: 2.3px solid #f7f6fc;
+	width: 323px;
+}
+
+.smImgDiv{
+	margin-top: 5px;
+}
+
+.smImg{
+	width: calc((323px -30px)/4);
+	border: 2.3px solid #f7f6fc;
+}
+
+.infoAll .group{
+	margin-top:0;
+	float:left;
+	width:330px;
+	margin-right: 40px;
+}
+
+.info{
+	float: left;
+    width: calc(100% - 370px);
+}
+
+.relative{
+	margin-top: 60px;
+}
+
+.detailContent{
+	margin-top: 60px;
+	height: 200px;
+}
+
+.infoAll:after{
+	content:""; 
+	display:block; 
+	clear:both;
+}
+
+.profile{
+	width: 150px;
+}
+
+.table-default{
+	text-align: left;
+	border-top:0px;
+}
+.table-default tr {
+	border-bottom: 0px;
+}
+
+.table-default td{
+	border-top:1px solid gray;
+	border-bottom: 1px solid gray;
+	border-right: 1px solid gray;
+	border-left: 1px solid gray;
+}
+
+.detailBtn{
+	text-align: right;
+}
