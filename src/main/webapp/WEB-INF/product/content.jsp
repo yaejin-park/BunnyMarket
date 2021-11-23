@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <link rel="stylesheet" type="text/css" href="/css/product_style.css">
 <div class="inner">
+<div class="infoAll">
 	<div class="img group">
 		<div class="bigImgDiv">
 			<img class="bigImg" alt="thumbnail" src="../photo/${photo[0]}">
@@ -16,25 +17,15 @@
 		</div>
 	</div>
 	
-	<!-- <div class="info child">
-		<div class="profile child">
-			<img alt="profile" src="/image/profile-icon.png" class="profileImg">
-			<span class="nick">닉네임</span>
-			<button class="btn-list btn-sm">팔로우</button>
-			<p class="nick">후기</p>
-		</div>
-		
-	</div> -->
-	
-	<table class="info table">
+	<table class="info table table-default">
 		<tr>
-			<td rowspan="2">
+			<td rowspan="2" class="profile">
 				<img alt="profile" src="/image/profile-icon.png" class="profileImg">	
 			</td>
-			<td>
+			<td class="nick tit">
 				닉네임
 			</td>
-			<td rowspan="2">
+			<td rowspan="2" class="detailBtn">
 				<button class="btn-list btn-sm" id="follow">팔로우</button>
 			</td>
 		</tr>
@@ -44,7 +35,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td>카테고리 | 시간</td>
+			<td colspan="3">카테고리 | 시간</td>
 		<tr>
 		<tr>
 			<!-- 작성자가 아닐 경우-->
@@ -62,17 +53,17 @@
 					</select>
 				</td>
 			</c:if>
-			<td>
+			<td colspan="2">
 				${dto.title}
 			</td>
 		</tr>
 		<tr>
-			<td>
+			<td colspan="3">
 				${dto.price}
 			</td>
 		</tr>
 		<tr>
-			<td>
+			<td colspan="3">
 			대화 찜 조회수
 			</td>
 		</tr>
@@ -88,15 +79,14 @@
 			</c:if>
 			<!-- 작성자면 -->
 			<c:if test="true">
-				<td colspan="2">
+				<td colspan="2" class="detailBtn">
 					<button class="btn-update">수정</button>
 					<button class="btn-delete">삭제</button>
 				</td>
 			</c:if>
 		</tr>
-		
 	</table>
-	
+</div>
 	<div class="detailContentDiv">
 		<textarea class="detailContent">${dto.content }</textarea>
 	</div>
