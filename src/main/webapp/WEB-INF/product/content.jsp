@@ -26,7 +26,9 @@
 				닉네임
 			</td>
 			<td rowspan="2" class="detailBtn">
-				<button class="btn-list btn-sm" id="follow">팔로우</button>
+				<button class="btn-list" id="follow">
+					<span class="glyphicon glyphicon-plus"></span>
+				팔로우</button>
 			</td>
 		</tr>
 		<tr>
@@ -35,7 +37,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td colspan="3">카테고리 | 시간</td>
+			<td colspan="3">${dto.category } | ${dto.writeday }</td>
 		<tr>
 		<tr>
 			<!-- 작성자가 아닐 경우-->

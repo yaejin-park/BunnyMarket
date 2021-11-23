@@ -109,3 +109,8 @@
 .detailBtn{
 	text-align: right;
 }
+
+.icon{
+	line-height: 100%;
+	width: 15px;
+}
