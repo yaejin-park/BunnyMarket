@@ -48,12 +48,13 @@ function loadFile(event){
 					return;
 				}
 			
-		if('files' in x){
+		 if('files' in x){
 		if(x.files.length > 4){
 		alert("총 4개의 이미지만 업로드 가능합니다");
 		document.getElementById("chooseFile").vlaue="";
 		return;
 			}
+			
 		}
 		
 		reader.onload = function(e){

@@ -17,12 +17,14 @@ public class CommunityService {
 	public List<CommunityDTO> getList(int start,int perpage)
 	{
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("start", start);
+		map.put("perpage", perpage);
 		return mapper.getList(map);
 	}
 	
-	public CommunityDTO getData(String num)
+	public CommunityDTO getData(String idx)
 	{
-		return mapper.getData(num);
+		return mapper.getData(idx);
 	}
 	
 	public void insert(CommunityDTO dto)
@@ -38,6 +40,11 @@ public class CommunityService {
 	public int getMaxNum()
 	{
 		return mapper.getMaxNum();
+	}
+	
+	public int getTotalCount()
+	{
+		return mapper.getTotalCount();
 	}
 
 }

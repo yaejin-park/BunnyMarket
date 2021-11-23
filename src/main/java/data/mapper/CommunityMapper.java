@@ -13,5 +13,6 @@ public interface CommunityMapper {
 	public void insert(CommunityDTO dto);
 	public List<CommunityDTO> getAllDatas();
 	public int getMaxNum();
+	public int getTotalCount();
 
 }

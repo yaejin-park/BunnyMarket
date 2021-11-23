@@ -48,7 +48,6 @@ ul li:nth-of-type(-n+3){
 }
 
 .commu-list ul li .text-div{
-	text-align: center;
 	padding: 8px 20px 10px 20px;
 }
 
@@ -62,7 +61,6 @@ ul li:nth-of-type(-n+3){
 
 .commu-list ul li .text-div .txt{
 	margin-top:10px;
-	text-align:center;
 	width:350px;
 	white-space:nowrap;
 	overflow:hidden;

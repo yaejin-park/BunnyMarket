@@ -17,4 +17,7 @@
 	<select id="getMaxNum" resultType="int">
 		select ifnull(max(idx),0) from community
 	</select>
+	<select id="getTotalCount" resultType="int">
+		select count(*) from community
+	</select>
 </mapper>
