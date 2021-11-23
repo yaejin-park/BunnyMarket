@@ -1,0 +1,67 @@
+.accordian {
+	margin-top:20px;
+	height:40px;
+	width:1280px;
+	border-radius:3px;
+	font-style:bold;
+}
+
+.th1, .th2, .th3, .td1, .td2, .td3 {
+	border:1px solid gray;
+	height:40px;
+}
+
+.th1, .td1{
+	width:2px;
+	text-align:center;
+}
+
+.th2, .td2 {
+	width:10px;
+	text-align:center;
+}
+
+.th3, .td3 {
+	width:20px;
+}
+
+.td4 {
+	text-align:center;
+	background-color: #eff5f5;
+	height:80px;
+}
+
+select {
+	width:120px;
+	height:40px;
+	font-size: 14px;
+}
+
+.must{
+	color:red;
+}
+
+.group:after {
+	content:"";
+	display:block;
+	clear:both;
+}
+
+.child {
+	float:left;
+}
+
+.child:nth-child(1) {
+	width:150px;
+}
+
+.subinput {
+	width:850px;
+	font-size:12pt;
+}
+
+.textinput {
+	font-size:12pt;
+	width:1000px;
+	height:400px;
+}
