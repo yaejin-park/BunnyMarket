@@ -45,7 +45,8 @@ function loadFile(event){
 		reader.readAsDataURL(image);
 	}
 	setTimeout(function(){
-		$(".preview-img").each(function(){
+		$(".preview-img").each(function(idx){
+			$(this).attr("idx",idx);
 			if($(this).width() > $(this).find("img").height()){
 		        $(this).find("img").width("auto");
 		        $(this).find("img").height("100%");
@@ -56,16 +57,12 @@ function loadFile(event){
 		});
 	},10);
 	
-	$(document).on("click", ".preview-img .close", function(e){
-		//console.log($(this));
-		$(this).parent().remove("");
-		
-		var file = $(this).parent().attr('file');
-		for(var i=0;i<imgArr.length;i++){
-			if(imgArr[i].name==file){
-				imgArr.splice(i,1);
-				break;
-			}
-		}
+	$(document).on("click", ".preview-img .close", function(){
+		var selectData = $(this).parents(".preview-img");
+		console.log(imgArr.length + "개");
+		var idx=$(this).parents(".preview-img").attr("idx");
+		$(this).parents(".preview-img").remove(); 
+		imgArr.splice(idx,1);
+		console.log(imgArr.length);
 	});
 }
