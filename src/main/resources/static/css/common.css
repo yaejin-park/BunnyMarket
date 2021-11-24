@@ -443,10 +443,10 @@ header .local-div .local-option:before {
 .btn-wrap {
 	text-align:right;
 }
-.btn-wrap a {
+.btn-wrap a, .btn-wrap button {
 	margin-right:5px;
 }
-.btn-wrap a:last-child {
+.btn-wrap a:last-child, .btn-wrap button:last-child {
 	margin-right:0;
 }
 .btn-wrap.top-div {
