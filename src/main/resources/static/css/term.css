@@ -1,12 +1,15 @@
-ul> li { 
-	list-style:disc;
+
+.tit {
+	font-size:22px;
+	font-weight:bold;
+	color:#333;
+<<<<<<< HEAD
+
+=======
+>>>>>>> jyd
 }
 
-ol> li {
-	list-style:decimal;
-}
-
-.strong {
-	font-weight:450; 
-	font-size:20pt;
+p, li {
+	font-size:18px;
+	font-weight:lighter;
 }
