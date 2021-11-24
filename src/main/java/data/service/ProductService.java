@@ -16,6 +16,10 @@ public class ProductService {
 	@Autowired
 	ProductMapper mapper;
 	
+	public int getTotalCount() {
+		return mapper.getTotalCount();
+	}
+	
 	public List<ProductDTO> getList(@RequestParam int start, @RequestParam int perpage) {
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		map.put("start", start);

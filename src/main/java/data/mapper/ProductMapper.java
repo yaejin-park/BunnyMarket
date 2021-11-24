@@ -9,6 +9,7 @@ import data.dto.ProductDTO;
 
 @Mapper
 public interface ProductMapper {
+	public int getTotalCount();
 	public List<ProductDTO> getList(HashMap<String, Integer> map);
 	public ProductDTO getData(String idx);
 	public void insertData(ProductDTO dto);

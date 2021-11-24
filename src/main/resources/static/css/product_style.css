@@ -170,10 +170,6 @@ tr.lineNeed .marginZero{
 	height: 80px;
 }
 
-.thumbnail{
-	width: calc((100% -40px)/4);
-}
-
 .more{
 	float: right;
 }
@@ -185,3 +181,20 @@ tr.lineNeed .marginZero{
 .verticalBottom{
 	vertical-align: bottom; 
 }
+
+
+.oneList{
+	border: 2.3px solid #f7f6fc;
+	width: calc((100%-60px)/4);
+	margin-right: 20px;
+	height: 400px;
+	overflow: hidden;
+}
+
+.shortTit{
+	width: 200px;
+ 	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;  
+}
+

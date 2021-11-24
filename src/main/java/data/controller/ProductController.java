@@ -28,14 +28,50 @@ public class ProductController {
 	ProductService service;
 
 	
-	@GetMapping("list") public ModelAndView productList(
-			@RequestParam int start,@RequestParam int perpage) { 
-		
+	@GetMapping("list")
+	public ModelAndView productList(
+			@RequestParam (defaultValue = "1") int currentPage) { 
 	ModelAndView mview = new ModelAndView();
 	
-	List<ProductDTO> list = service.getList(start, perpage);
+	int totalCount = service.getTotalCount();
 	
-	mview.addObject("list", list);
+	//페이징 처리에 필요한 변수 선언
+	int perPage = 20;
+	int totalPage;
+	int start;
+	int perBlock = 5;
+	int startPage;
+	int endPage;
+	
+	//총 페이지 갯수 구하기
+	totalPage = totalCount/perPage+(totalCount%perPage==0?0:1);
+	//각 블럭의 시작 페이지
+	startPage = (currentPage-1)/perBlock*perBlock +1;
+	//각 블럭의 마지막 페이지
+	endPage = startPage + perBlock -1;
+	
+	if(endPage > totalPage) {
+		endPage = totalPage;
+	}
+	
+	//각 페이지에서 불러올 시작번호
+	start = (currentPage-1)*perPage;
+	
+	List<ProductDTO> list = service.getList(start, perPage);
+	
+	//각 페이지에 출력할 시작번호
+	int no = totalCount-(currentPage-1)*perPage;
+	
+	//출력에 필요한 변수들을 request에 저장
+	mview.addObject("list",list);
+	mview.addObject("startPage", startPage);
+	mview.addObject("endPage", endPage);
+	mview.addObject("totalPage", totalPage);
+	mview.addObject("no", no);
+	mview.addObject("currentPage", currentPage);
+	
+	mview.addObject("totalCount", totalCount);
+	
 	mview.setViewName("/product/list");
 		  
 	return mview; 
