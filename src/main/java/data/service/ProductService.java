@@ -29,12 +29,19 @@ public class ProductService {
 	}
 
 	public void insertData(@ModelAttribute ProductDTO dto) {
-		
 		mapper.insertData(dto);
 	}
 	
 	public int getMaxIdx() {
 		return mapper.getMaxIdx();
+	}
+	
+	public void updateReadcount(@RequestParam String idx) {
+		mapper.updateReadcount(idx);
+	}
+	
+	public void deleteData(@RequestParam String idx) {
+		mapper.deleteData(idx);
 	}
 	
 }

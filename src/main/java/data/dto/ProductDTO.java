@@ -4,7 +4,6 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import org.apache.ibatis.type.Alias;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 @Alias("pdto")
@@ -21,6 +20,8 @@ public class ProductDTO {
 	private int readcount;
 	private List<MultipartFile> upload;
 	private String uploadfile;
+	private String sellstatus;
+	
 	public String getIdx() {
 		return idx;
 	}
@@ -92,5 +93,11 @@ public class ProductDTO {
 	}
 	public void setUploadfile(String uploadfile) {
 		this.uploadfile = uploadfile;
+	}
+	public String getSellstatus() {
+		return sellstatus;
+	}
+	public void setSellstatus(String sellstatus) {
+		this.sellstatus = sellstatus;
 	}
 }

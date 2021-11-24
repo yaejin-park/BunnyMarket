@@ -27,17 +27,20 @@ public class ProductController {
 	@Autowired
 	ProductService service;
 
-	/*
-	 * @GetMapping("/product/list") public ModelAndView productList(@RequestParam
-	 * String start,@RequestParam String perpage) { ModelAndView mview = new
-	 * ModelAndView();
-	 * 
-	 * ProductDTO dto = service.getList(start, perpage);
-	 * 
-	 * mview.addObject("dto", dto); mview.setViewName("/product/list");
-	 * 
-	 * return mview; }
-	 */
+	
+	@GetMapping("list") public ModelAndView productList(
+			@RequestParam int start,@RequestParam int perpage) { 
+		
+	ModelAndView mview = new ModelAndView();
+	
+	List<ProductDTO> list = service.getList(start, perpage);
+	
+	mview.addObject("list", list);
+	mview.setViewName("/product/list");
+		  
+	return mview; 
+	}
+	 
 
 	@GetMapping("/updateForm")
 	public ModelAndView updateForm(@RequestParam String idx) {
@@ -104,10 +107,10 @@ public class ProductController {
 //		
 		service.insertData(dto);
 	  
-		return "redirect:content?idx="+service.getMaxIdx();
+		return "redirect:detail?idx="+service.getMaxIdx();
 	}
 	
-	@GetMapping("/content")
+	@GetMapping("/detail")
 	public String content(@RequestParam String idx, Model model) {
 		ProductDTO dto = service.getData(idx);
 		String []photo = dto.getUploadfile().split(",");
@@ -115,7 +118,14 @@ public class ProductController {
 		model.addAttribute("dto", dto);
 		model.addAttribute("photo", photo);
 		
-		return "/product/content";
+		return "/product/detail";
+	}
+	
+	@GetMapping("/delete")
+	public String deleteData(@RequestParam String idx) {
+		service.deleteData(idx);
+		
+		return "/product/list";
 	}
 
 }

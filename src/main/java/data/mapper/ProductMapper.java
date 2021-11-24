@@ -13,4 +13,6 @@ public interface ProductMapper {
 	public ProductDTO getData(String idx);
 	public void insertData(ProductDTO dto);
 	public int getMaxIdx();
+	public void updateReadcount(String idx);
+	public void deleteData(String idx);
 }

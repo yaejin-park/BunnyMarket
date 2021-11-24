@@ -38,6 +38,11 @@ legend, caption {
 textarea, button { 
 	vertical-align:middle; 
 }
+
+textarea{
+	resize: none;
+}
+
 input, select { 
 	width:100%;
 	height:42px;
@@ -55,7 +60,11 @@ input, select {
 input::placeholder {
 	color:#999;
 }
-textarea { 
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+textarea, .detailContent { 
 	width:100%;
 	padding:10px 15px;
 	font-family:'Noto Sans KR', sans-serif; 

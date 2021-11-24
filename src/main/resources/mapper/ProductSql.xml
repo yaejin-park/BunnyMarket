@@ -10,11 +10,24 @@
 	</select>
 	
 	<insert id="insertData" parameterType="pdto">
-		insert into product(title, uploadfile, price, content, writeday, category) 
-		values(#{title},#{uploadfile},#{price},#{content},now(),#{category})
+		insert into product(title, uploadfile, price, content, writeday, category, sellstatus) 
+		values(#{title},#{uploadfile},#{price},#{content},now(),#{category},#{sellstatus})
 	</insert>
 	
 	<select id="getMaxIdx" resultType="int">
 		select ifnull(max(idx),0) from product
 	</select>
+	
+	<update id="updateReadcount" parameterType="String">
+		update product set readcount = readcount+1 where idx=#{idx}
+	</update>
+	
+	<update id="updateData">
+		update product set 
+	</update>
+	
+	<delete id="deleteData" parameterType="String">
+		delete from product where idx=#{idx}
+	</delete>
+	
 </mapper>

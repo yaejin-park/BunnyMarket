@@ -1,6 +1,5 @@
-.require{
-	color: #ff70b1;
-	margin-left: 7px; 
+.infoAll{
+	margin-top: 40px;
 }
 
 .tit{
@@ -19,34 +18,14 @@
 	float: left;
 }
 
-.content{
-	width: 100%;
-	height:200px;
-}
-
-
-.chooseImg{
-	width: 180px;
-}
-
-.preshowImg{
-	width: 180px;
-	height: 180px;
-	margin-left: 10px;
-	margin-bottom: 10px;
-	border: 2.3px solid #f7f6fc;
-}
-
-#img_show{
-	width: 760px;
-}
-
 .profileImg{
 	border-radius: 100%;
+	border: 2.3px solid #f7f6fc;
 	width: 100px;
 }
 
 .bigImg{
+	padding-top:10px;
 	width: 323px;
 	border: 2.3px solid #f7f6fc;
 	overflow:hidden;
@@ -84,7 +63,8 @@
 
 .info{
 	float: left;
-    width: calc(100% - 370px);
+    width: calc(100% - 395px);
+    margin-left: 25px;
 }
 
 .relative{
@@ -103,7 +83,7 @@
 }
 
 .profile{
-	width: 150px;
+	width: 120px;
 }
 
 .table-default{
@@ -114,12 +94,23 @@
 	border-bottom: 0px;
 }
 
+.table-default tr.lineNeed{
+	height: 70px;
+	border-top:1px solid #e5e5e5;
+	vertical-align:bottom;
+}
+
 .table-default td{
+	padding: 7px;
+}
+
+/* 테이블 테스트용 */
+/* .table-default td{
 	border-top:1px solid gray;
 	border-bottom: 1px solid gray;
 	border-right: 1px solid gray;
 	border-left: 1px solid gray;
-}
+} */
 
 .detailBtn{
 	text-align: right;
@@ -140,4 +131,57 @@
 
 .group .swiper-pagination-bullet-active {
 	background-color: #ff7ab0;
+}
+
+td.sellstatus span.reserved{
+	color: #ff7ab0;
+	font-size: 1.1em;
+}
+
+td.sellstatus span.finished{
+	color: #979593;
+	font-size: 1.1em;
+}
+
+.won{
+	display:inline-block;
+	padding-top: 7px;
+	padding-left: 10px;
+}
+
+.write-form .price{
+	width: 230px;
+}
+
+#dibsBtnImg{
+	width: 55px;
+}
+
+tr.lineNeed .marginZero{
+	padding-top: 0;
+}
+
+.tit-sm{
+	color: #746a66;
+    font-size: 11pt;
+}
+
+.needHeight{
+	height: 80px;
+}
+
+.thumbnail{
+	width: calc((100% -40px)/4);
+}
+
+.more{
+	float: right;
+}
+
+.verticalTop{
+	vertical-align: top; 
+}
+
+.verticalBottom{
+	vertical-align: bottom; 
 }
