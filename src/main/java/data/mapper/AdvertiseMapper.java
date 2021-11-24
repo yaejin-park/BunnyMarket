@@ -12,9 +12,11 @@ public interface AdvertiseMapper {
 	public int getTotalCount();
 	//목록
 	public List<AdvertiseDTO> getList(HashMap<String, Integer> map);
+	//조회수
+	public void updateReadCount(String idx);
 	
 	public AdvertiseDTO getData(String idx);
-	public int getMaxNum();
+	public int getMaxIdx();
 	
 	//insert
 	public void insertAdvertise(AdvertiseDTO dto);

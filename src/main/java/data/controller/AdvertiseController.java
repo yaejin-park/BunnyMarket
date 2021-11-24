@@ -58,21 +58,21 @@ public class AdvertiseController {
 		}
 		
 		//시작번호
-		int no=totalCount-(currentPage-1)*perPage;
+		//int no=totalCount-(currentPage-1)*perPage;
 		
 		//출력에 필요한 변수들 request에 저장
 		mview.addObject("list", list);
 		mview.addObject("startPage", startPage);
 		mview.addObject("endPage", endPage);
 		mview.addObject("totalPage", totalPage);
-		mview.addObject("no", no);
+		//mview.addObject("no", no);
 		mview.addObject("currentPage", currentPage);
 		mview.addObject("totalCount", totalCount);
 
 //		AdvertiseDTO dto=service.getData(idx);
-//		String []thumnail=dto.getPhoto().split(",");
+//		String []thumbnail=dto.getPhoto().split(",");
 //		mview.addObject("dto", dto);
-//		mview.addObject("thumnail", thumnail);
+//		mview.addObject("thumbnail", thumbnail);
 		
 		mview.setViewName("/advertise/list");
 		return mview;
@@ -116,13 +116,31 @@ public class AdvertiseController {
 		}
 		//insert
 		service.insertAdvertise(dto);
-		//return "redirect:detail?idx="+service.getMaxNum();
-		return "redirect:list";
+		return "redirect:detail?idx="+service.getMaxIdx();
+		//return "redirect:list";
 	}
 	
 	@GetMapping("/detail")
-	public ModelAndView detail() {
+	public ModelAndView detail(@RequestParam String idx,
+				@RequestParam(defaultValue = "1") int currentPage,
+				@RequestParam(required = false) String key) {
 		ModelAndView mview=new ModelAndView();
+		
+		//조회수 증가
+		if(key!=null) {
+			service.updateReadCount(idx);
+		}
+		
+		AdvertiseDTO dto=service.getData(idx);
+		
+		//id,,,
+		
+		mview.addObject("dto", dto);
+		mview.addObject("currnetPage", currentPage);
+		
+		//이미지
+		String []dbimg=dto.getPhoto().split(",");
+		mview.addObject("dbimg", dbimg);
 		
 		mview.setViewName("/advertise/detail");
 		return mview;
@@ -141,7 +159,18 @@ public class AdvertiseController {
 	}
 	
 	@GetMapping("/delete")
-	public String delete() {
-		return "redirect:list?currentPage=";
+	public String delete(String idx, String currentPage,
+				HttpSession session, AdvertiseDTO dto) {
+		//글삭제시 저장된 이미지도 삭제
+		String path=session.getServletContext().getRealPath("/photo");
+		//업로드된 이미지명
+		String uploadimg=service.getData(dto.getIdx()).getPhoto();
+		//File 객체 생성
+		File file=new File(path+"\\"+uploadimg);
+		//이미지 삭제
+		file.delete();
+		
+		service.deleteAdvertise(idx);
+		return "redirect:list?currentPage="+currentPage;
 	}
 }

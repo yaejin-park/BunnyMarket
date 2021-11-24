@@ -1,1 +1,7 @@
-/* list */
+/* advertise list-style */
+.ad-list li{
+	border:1px solid #ddd;
+}
+.btn-wrap{
+	text-align: right;
+}

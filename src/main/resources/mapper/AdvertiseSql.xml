@@ -7,8 +7,11 @@
 	<select id="getData" parameterType="String" resultType="addto">
 		select * from advertise where idx=#{idx}
 	</select>
-	<select id="getMaxNum" resultType="int">
+	<select id="getMaxIdx" resultType="int">
 		select ifnull(max(idx),0) from advertise
+	</select>
+	<select id="updateReadCount" parameterType="String">
+		update advertise set readcount=readcount+1 where idx=#{idx}
 	</select>
 	<select id="getList" parameterType="HashMap" resultType="addto">
 		select * from advertise order by idx desc limit #{start},#{perpage}
@@ -17,4 +20,7 @@
 		insert into advertise (id,title,content,photo,writeday)
 			values (#{id},#{title},#{content},#{photo},now());
 	</insert>
+	<delete id="deleteAdvertise" parameterType="String">
+		delete from advertise where idx=#{idx}
+	</delete>
 </mapper>
