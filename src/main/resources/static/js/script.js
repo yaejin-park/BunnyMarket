@@ -45,7 +45,8 @@ function loadFile(event){
 		reader.readAsDataURL(image);
 	}
 	setTimeout(function(){
-		$(".preview-img").each(function(){
+		$(".preview-img").each(function(idx){
+			$(this).attr("idx",idx);
 			if($(this).width() > $(this).find("img").height()){
 		        $(this).find("img").width("auto");
 		        $(this).find("img").height("100%");
@@ -57,7 +58,11 @@ function loadFile(event){
 	},10);
 	
 	$(document).on("click", ".preview-img .close", function(){
-		console.log($(this));
-		
+		var selectData = $(this).parents(".preview-img");
+		console.log(imgArr.length + "개");
+		var idx=$(this).parents(".preview-img").attr("idx");
+		$(this).parents(".preview-img").remove(); 
+		imgArr.splice(idx,1);
+		console.log(imgArr.length);
 	});
 }
