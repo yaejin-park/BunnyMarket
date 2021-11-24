@@ -1,3 +1,4 @@
+
 .accordian {
 	margin-top:20px;
 	height:40px;
@@ -12,17 +13,22 @@
 }
 
 .th1, .td1{
-	width:2px;
+	width:5%;
 	text-align:center;
 }
 
 .th2, .td2 {
-	width:10px;
+	width:20%;
 	text-align:center;
 }
 
 .th3, .td3 {
-	width:20px;
+	width:80%;
+	text-align:left;
+}
+
+.th4 {
+	width:5%;
 }
 
 .td4 {
@@ -49,6 +55,7 @@ select {
 
 .child {
 	float:left;
+	
 }
 
 .child:nth-child(1) {

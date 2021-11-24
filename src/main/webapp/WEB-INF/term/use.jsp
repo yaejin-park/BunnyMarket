@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<link rel="stylesheet" type="text/css" href="/css/term.css">
 
 <div class="inner">
 	<p class="tit">계정관련</p>
@@ -64,3 +65,7 @@
 		<li>시행일자: 2021년 11월 20일</li>
 	</ul>
 </div>
+<<<<<<< HEAD
+=======
+	
+>>>>>>> jyd
