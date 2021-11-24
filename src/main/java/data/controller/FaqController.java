@@ -16,8 +16,8 @@ public class FaqController {
 	public String writeform() {
 		return "/faq/writeForm";
 	}
-	@GetMapping("/modifyform")
-	public String modifyform() {
-		return "/faq/modifyForm";
+	@GetMapping("/updateform")
+	public String updateform() {
+		return "/faq/updateForm";
 	}
 }

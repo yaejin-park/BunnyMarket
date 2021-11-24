@@ -3,6 +3,7 @@ package data.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
@@ -84,12 +85,11 @@ public class AdvertiseController {
 	}
 	
 	@PostMapping("/insert")
-	public String insert(@ModelAttribute AdvertiseDTO dto,HttpSession session) {
+	public String insert(@ModelAttribute AdvertiseDTO dto, HttpSession session,
+				@RequestParam MultipartFile selectImg) {
 		//uuid 생성
 		UUID uuid=UUID.randomUUID();
-		
-		List<MultipartFile> mf=dto.getPhotoupload();
-		
+		List<MultipartFile> mf = dto.getPhotoupload(); 
 		//이미지 업로드 안했을때
 		if(mf.get(0).getOriginalFilename().equals("")) {
 			dto.setPhoto("no");
@@ -109,6 +109,15 @@ public class AdvertiseController {
 					e.printStackTrace();
 				}
 				photoplus += photo+",";
+			//String photoupload="f"+sdf.format(new Date())+dto.getPhotoUpload().getOriginalFilename();
+			String photo1=uuid.toString()+"_"+mf.get(i).getOriginalFilename();
+			dto.setPhoto(photo1);
+			//실제 업로드
+			try {
+				mf.get(i).transferTo(new File(path+"\\"+photo1));
+			} catch (IllegalStateException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 			//마지막 콤마 제거
 			photoplus = photoplus.substring(0, photoplus.length()-1);
@@ -144,6 +153,8 @@ public class AdvertiseController {
 		
 		mview.setViewName("/advertise/detail");
 		return mview;
+	//	return "redirect:detail?idx="+service.getMaxIdx();
+		//return "redirect:list";
 	}
 	
 	@GetMapping("/updateform")
