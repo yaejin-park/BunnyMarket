@@ -30,6 +30,32 @@ $(function(){
 			$("header .local-option").stop(true,true).slideUp(300);	
 		}
 	}); 
+	
+	$(window).on("load",function(){
+		// 상세 페이지 - 이미지 롤링
+		$(".infoAll .smImg").each(function(){
+			$(this).height($(this).width());
+			if($(this).width() > $(this).find("img").height()){
+				$(this).find("img").width("auto");
+				$(this).find("img").height("100%");
+			}else{
+				$(this).find("img").width("100%");
+				$(this).find("img").height("auto");
+			}
+		})
+		
+		// 상세 페이지 - 큰 이미지 롤링
+		$(".infoAll .bigImg").each(function(){
+			$(this).height($(this).width());
+			if($(this).width() > $(this).find("img").height()){
+				$(this).find("img").width("auto");
+				$(this).find("img").height("100%");
+			}else{
+				$(this).find("img").width("100%");
+				$(this).find("img").height("auto");
+			}
+		});
+	})
 });
 
 function loadFile(event){
@@ -65,6 +91,19 @@ function loadFile(event){
 		});
 		reader.readAsDataURL(image);
 	}
+	
+	setTimeout(function(){
+		$(".preview-img").each(function(idx){
+			$(this).attr("idx",idx);
+			if($(this).width() > $(this).find("img").height()){
+		        $(this).find("img").width("auto");
+		        $(this).find("img").height("100%");
+		    }else{
+		        $(this).find("img").width("100%");
+		        $(this).find("img").height("auto");
+		    }
+		});
+	},10);
 	
 	setTimeout(function(){
 		$(".preview-img").each(function(idx){
