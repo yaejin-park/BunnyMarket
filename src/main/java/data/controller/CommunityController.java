@@ -139,8 +139,11 @@ public class CommunityController {
 		if(key!=null)
 			service.updateReadCount(idx);
 		
+		CommunityDTO dto = service.getData(idx);
+		String []photo = dto.getPhoto().split(",");
 		
-		
+		mview.addObject("dto",dto);
+		mview.addObject("photo",photo);
 		mview.addObject("currentPage",currentPage);
 		mview.setViewName("/community/detail");
 		
