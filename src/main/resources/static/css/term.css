@@ -1,7 +1,12 @@
 
-
 .tit {
 	font-size:22px;
 	font-weight:bold;
 	color:#333;
+
+}
+
+p, li {
+	font-size:18px;
+	font-weight:lighter;
 }
