@@ -10,16 +10,24 @@
 		<option value="delivery">배송관련</option>
 	</select>
 	<table class="accordian">
+		<tr>
 			<th class="th1">no</th>
 			<th class="th2">카테고리</th>
 			<th class="th3">질문</th>
+			<th class="th4"></th>
+		</tr>
 		<tr>
 			<td class="td1">1</td>
 			<td class="td2">기타</td>
 			<td class="td3">질문이요</td>
+			<td><div class="arrow"></div></td>
 		</tr>
 		<tr>
-			<td class="td4" colspan="3">내용내용</td>
+			<td class="td4">내용내용</td>
 		</tr>
 	</table>
 </div>
+
+
+
+
