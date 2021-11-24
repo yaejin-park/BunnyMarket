@@ -98,23 +98,13 @@ public class NoticeController {
 	
 	@RequestMapping("checkboxdel")
 		@ResponseBody
-		public int deleteReport(Map<String,Object> commandMap) throws Exception{
-        int result=1;
-        try {
-            int cnt = Integer.parseInt((String) commandMap.get("CNT"));
-            String rprtOdr = (String)commandMap.get("RPRT_ODR");
-            String [] strArray = rprtOdr.split(",");
-            for(int i=0; i<cnt; i++) {
-                int temp = Integer.parseInt((String)strArray[i]);
-                commandMap.put("RPRT_ODR", temp);
-                Nservice.NoticeDelete(rprtOdr);
+		public void deleteReport(String arrdata) {
+      
+     
+                Nservice.NoticeDelete(arrdata);
             }
-        } catch (Exception e) {
-        	System.out.println("ghghghh");
-            result=0;
-        }
-        return result;
-       }
+        
+       
 	
 	
 	@GetMapping("/updateform")
