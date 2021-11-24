@@ -11,14 +11,13 @@ public class CommunityDTO {
 	private String idx;
 	private String id;
 	private String city;
-	private String	title;
+	private String title;
 	private String content;
 	private String photo;
 	private int readcount;
 	private int goodcount;
 	private Timestamp writeday;
 	private ArrayList<MultipartFile> upload;
-	
 	
 	public String getIdx() {
 		return idx;
@@ -80,7 +79,4 @@ public class CommunityDTO {
 	public void setUpload(ArrayList<MultipartFile> upload) {
 		this.upload = upload;
 	}
-	
-	
-	
 }

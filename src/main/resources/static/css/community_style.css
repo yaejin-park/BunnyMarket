@@ -1,68 +1,56 @@
-
-.commu-list ul:after{
+.commu-wrap {
+	margin-top:40px;
+}
+.cummu-list:after{
 	content:"";
 	display:block;
 	clear:both;	
 }
-
-.commu-list ul li{
+.cummu-list li{
 	position:relative;
 	float:left;
-	width:calc((100% - 60px) / 3);
+	width:calc((100% - 90px) / 4);
 	margin-right:30px;
 	margin-top:30px;
 }
-
-.commu-list ul li{
-	/* border: 1px solid gray; */
-	height: 530px;
-}
-
-.commu-list ul li .image {
+.cummu-list li .image {
 	position:relative;
-	width:100%;
-	height:400px;
-	overflow:hidden;
 	top: 30px;
+	width:100%;
+	overflow:hidden;
 }
-.commu-list ul li .image img {
+.cummu-list li .image img {
 	position:absolute;
 	top:50%;
 	left:50%;
 	transform:translate(-50%, -50%);
 }
-
-.commu-list ul li .text-div .date {
-	position:absolute;
-	top:0;
-	right:0;
-	color: #999;
-}
-
-ul li:nth-of-type(3n){
+.cummu-list li:nth-child(4n){
 	margin-right:0;
 }
-
-ul li:nth-of-type(-n+3){
+.cummu-list li:nth-child(-n+4){
 	margin-top:0;
 }
-
-.commu-list ul li .text-div{
+.cummu-list li .text-div{
 	padding: 8px 20px 10px 20px;
 }
-
-.commu-list ul li .text-div .tit{
+.cummu-list li .text-div .tit{
 	margin-top:45px;
+	width:250px;
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis;
+}
+.cummu-list li .text-div .txt{
+	margin-top:10px;
 	width:300px;
 	white-space:nowrap;
 	overflow:hidden;
 	text-overflow:ellipsis;
 }
-
-.commu-list ul li .text-div .txt{
-	margin-top:10px;
-	width:350px;
-	white-space:nowrap;
-	overflow:hidden;
-	text-overflow:ellipsis;
+.cummu-list li .text-div .date {
+	position:absolute;
+	top:-10px;
+	right:0;
+	color: #999;
 }

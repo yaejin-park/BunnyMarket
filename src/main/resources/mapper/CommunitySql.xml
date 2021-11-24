@@ -20,4 +20,7 @@
 	<select id="getTotalCount" resultType="int">
 		select count(*) from community
 	</select>
+	<update id="updateReadCount" parameterType="String">
+		update community set readcount=readcount+1 where idx=#{idx}
+	</update>
 </mapper>

@@ -35,50 +35,44 @@ public class CommunityController {
 	
 	@GetMapping("/list")
 	public ModelAndView list(
-			@RequestParam(defaultValue = "1") int currentPage,
-			@RequestParam String idx
+			@RequestParam(defaultValue = "1") int currentPage
 			)
 	{
-		ModelAndView mview = new ModelAndView();
-		
-		CommunityDTO dto = mapper.getData(idx);
-		String []photo = dto.getPhoto().split(",");
-		dto.setPhoto(photo[0]);
-		
-		int totalCount = service.getTotalCount();
-		
-		int perPage = 15;
-		int totalPage;
-		int start;
-		int perBlock=5;
-		int startPage;
-		int endPage;
-		
-		totalPage = totalCount/perPage + (totalCount%perPage==0?0:1);
-		
-		startPage = (currentPage-1)/perBlock * perBlock +1;
-		endPage = startPage + perBlock-1;
-		if(endPage>totalPage)
-			endPage = totalPage;
-		
-		start = (currentPage-1) * perPage;
-		List<CommunityDTO> paging=service.getList(start, perPage);
-		
-		//list에 각 글에 대한 작성자 추가해야함
-		
-		int no=totalCount-(currentPage-1)*perPage;
-		
-		List<CommunityDTO> list= service.getAllDatas();
+		 ModelAndView mview = new ModelAndView();
+		  
+			
+		  int totalCount = service.getTotalCount(); 
+		  int perPage = 15; 
+		  int totalPage;
+		  int start; 
+		  int perBlock=5; 
+		  int startPage; 
+		  int endPage;
+		  
+		  totalPage = totalCount/perPage + (totalCount%perPage==0?0:1);
+		  
+		  startPage = (currentPage-1)/perBlock * perBlock +1; 
+		  endPage = startPage + perBlock-1;
+		  if(endPage>totalPage){ endPage = totalPage; }
+		  
+		  start = (currentPage-1) * perPage; 
+		  List<CommunityDTO> paging = service.getList(start, perPage);
+			 
 		 
-		
-		 mview.addObject("commulist", list);
-		 mview.addObject("dto",dto);
+		 //list에 각 글에 대한 작성자 추가해야함
+		 
+		  int no = totalCount-(currentPage-1)*perPage;
+		 
+		 List<CommunityDTO> list= service.getAllDatas();
+		 
+		 mview.addObject("commulist", list); 
 		 mview.addObject("startPage",startPage);
 		 mview.addObject("endPage",endPage);
 		 mview.addObject("totalPage",totalPage);
 		 mview.addObject("no",no);
 		 mview.addObject("currentPage",currentPage);
-		 mview.addObject("totalCount",totalCount);
+		 
+		 mview.addObject("totalCount",list.size());
 		 
 		 mview.setViewName("/community/list");
 		 return mview;
@@ -129,15 +123,26 @@ public class CommunityController {
 		
 		service.insert(dto);
 		return "redirect:list";
-		//return "redirect:content?num="+service.getMaxNum();
+		//return "redirect:content?idx="+service.getMaxNum();
 	}
 	
 	
-	@GetMapping("/content")
-	public ModelAndView content()
+	@GetMapping("/detail")
+	public ModelAndView detail(
+			@RequestParam String idx,
+			@RequestParam(defaultValue = "1") int currentPage,
+			@RequestParam(required = false) String key
+			)
 	{
 		ModelAndView mview = new ModelAndView();
 		
+		if(key!=null)
+			service.updateReadCount(idx);
+		
+		
+		
+		mview.addObject("currentPage",currentPage);
+		mview.setViewName("/community/detail");
 		
 		return mview;
 	}

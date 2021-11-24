@@ -46,5 +46,8 @@ public class CommunityService {
 	{
 		return mapper.getTotalCount();
 	}
-
+	public void updateReadCount(String idx)
+	{
+		mapper.updateReadCount(idx);
+	}
 }

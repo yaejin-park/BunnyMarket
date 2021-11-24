@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<link rel="stylesheet" type="text/css" href="/css/communitywf_style.css">
-<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
-
 <div class="write-form">
 	<div class="inner">
 		<form action="insert" method="post" enctype="multipart/form-data">
@@ -29,7 +26,7 @@
 				</div>
 				<div class="child">
 					<input type="text" name="title" class="subinput"
-						required="required" placeholder="글제목" maxlength="20">
+						required="required" placeholder="글제목" maxlength="30">
 				</div>
 			</div>
 			<div class="group">
