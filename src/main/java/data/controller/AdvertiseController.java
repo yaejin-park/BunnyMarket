@@ -69,11 +69,6 @@ public class AdvertiseController {
 		//mview.addObject("no", no);
 		mview.addObject("currentPage", currentPage);
 		mview.addObject("totalCount", totalCount);
-
-//		AdvertiseDTO dto=service.getData(idx);
-//		String []thumbnail=dto.getPhoto().split(",");
-//		mview.addObject("dto", dto);
-//		mview.addObject("thumbnail", thumbnail);
 		
 		mview.setViewName("/advertise/list");
 		return mview;
@@ -85,11 +80,12 @@ public class AdvertiseController {
 	}
 	
 	@PostMapping("/insert")
-	public String insert(@ModelAttribute AdvertiseDTO dto, HttpSession session,
-				@RequestParam MultipartFile selectImg) {
+	public String insert(@ModelAttribute AdvertiseDTO dto, HttpSession session) {
 		//uuid 생성
 		UUID uuid=UUID.randomUUID();
+
 		List<MultipartFile> mf = dto.getPhotoupload(); 
+
 		//이미지 업로드 안했을때
 		if(mf.get(0).getOriginalFilename().equals("")) {
 			dto.setPhoto("no");
@@ -98,7 +94,7 @@ public class AdvertiseController {
 			String path=session.getServletContext().getRealPath("/photo");
 			String photoplus="";
 			System.out.println(path);
-			
+
 			for(int i=0;i<mf.size();i++) {
 				String photo=uuid.toString()+"_"+mf.get(i).getOriginalFilename();
 				//실제 업로드
@@ -109,15 +105,6 @@ public class AdvertiseController {
 					e.printStackTrace();
 				}
 				photoplus += photo+",";
-			//String photoupload="f"+sdf.format(new Date())+dto.getPhotoUpload().getOriginalFilename();
-			String photo1=uuid.toString()+"_"+mf.get(i).getOriginalFilename();
-			dto.setPhoto(photo1);
-			//실제 업로드
-			try {
-				mf.get(i).transferTo(new File(path+"\\"+photo1));
-			} catch (IllegalStateException | IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
 			//마지막 콤마 제거
 			photoplus = photoplus.substring(0, photoplus.length()-1);
@@ -126,7 +113,6 @@ public class AdvertiseController {
 		//insert
 		service.insertAdvertise(dto);
 		return "redirect:detail?idx="+service.getMaxIdx();
-		//return "redirect:list";
 	}
 	
 	@GetMapping("/detail")
@@ -153,8 +139,6 @@ public class AdvertiseController {
 		
 		mview.setViewName("/advertise/detail");
 		return mview;
-	//	return "redirect:detail?idx="+service.getMaxIdx();
-		//return "redirect:list";
 	}
 	
 	@GetMapping("/updateform")
@@ -166,11 +150,12 @@ public class AdvertiseController {
 	
 	@PostMapping("/update")
 	public String update() {
-		return "redirect:detail?num=";
+		return "redirect:detail?idx=";
 	}
 	
 	@GetMapping("/delete")
-	public String delete(String idx, String currentPage,
+	public String delete(@RequestParam String idx,
+				@RequestParam String currentPage,
 				HttpSession session, AdvertiseDTO dto) {
 		//글삭제시 저장된 이미지도 삭제
 		String path=session.getServletContext().getRealPath("/photo");
