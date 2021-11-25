@@ -24,7 +24,6 @@ import data.service.NoticeService;
 @RequestMapping("/notice")
 public class NoticeController {
 	
-	
 	@Autowired
 	NoticeService Nservice;
 	
@@ -36,7 +35,6 @@ public class NoticeController {
 	@GetMapping("/list")
 	public ModelAndView notice(
 			@RequestParam(defaultValue ="1") int currentPage//현재페이지번호
-			
 			)
 
 	{	
@@ -80,8 +78,6 @@ public class NoticeController {
 	@PostMapping("insert")
 	public String insert(@ModelAttribute NoticeDTO dto,HttpSession session)
 	{
-		
-		
 		//insert
 		Nservice.NoticeInsert(dto);
 		return "redirect:content?idx="+Nservice.getMaxidx();
@@ -99,10 +95,8 @@ public class NoticeController {
 	@RequestMapping("checkboxdel")
 		@ResponseBody
 		public void deleteReport(String arrdata) {
-      
-     
-                Nservice.NoticeDelete(arrdata);
-            }
+            Nservice.NoticeDelete(arrdata);
+        }
         
        
 	
@@ -118,13 +112,14 @@ public class NoticeController {
 		return mview;
 	}
 	
+	
 	@PostMapping("/update")
 	public String update(@ModelAttribute NoticeDTO dto,
 			String currentPage,HttpSession session)
 	{
-		Nservice.NoticeUpdate(dto);
-		
+		Nservice.NoticeUpdate(dto);		
 		return "redirect:content?idx="+dto.getIdx()+"&currentPage="+currentPage;
+		
 		
 		
 	}
@@ -167,11 +162,6 @@ public class NoticeController {
 	
 	
 	
-	@GetMapping("/update")
-	public String update()
-	{
-		return "/notice/updateform";
-	}
-	
+
 
 }

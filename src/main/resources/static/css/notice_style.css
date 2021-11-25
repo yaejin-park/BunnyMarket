@@ -1,18 +1,51 @@
 .wtable .content {
 	height: 500px;
+	margin-top: 10px;
 }
 
-input[type=checkbox] {
-	zoom: 2;
+.wtable .title {
+	height: 40px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	
 }
 
-.b .content {
-	color: #e5e5e5;
+
+.utable .title{
+	height: 40px;
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
 
-button{
+
+
+
+.utable .content{
+	height: 500px;
+	margin-top: 10px;
+}
+
+
+#ctable .content{
+	height: 500px;
+	
+	
+}
+
+.contenttxt{
+	vertical-align: baseline;
+	
+}
+
+
+
+div .btn-wrap{
 	float:right;
 }
 
 
+.btn-wrap{
+	
+	margin-bottom: 10px;
+}
 

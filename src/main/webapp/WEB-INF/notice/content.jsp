@@ -2,18 +2,21 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<link rel="stylesheet" type="text/css" href="/css/notice.css">
+<link rel="stylesheet" type="text/css" href="/css/notice_style.css">
 
 <div class="inner">
-		<input type="hidden"  name="idx" value="${dto.idx}" id="idx">
-		<input type="hidden" name="currentPage" value="${currentPage}" id="currentPage">
-	
-	<button type="button" class="btn-default" onclick="location.href='list'">목록</button>
-	<button class="btn-update nbtn" onclick="location.href='updateform?idx=${dto.idx}&currentPage=${currentPage}'" >수정</button>
-	<button class="btn-delete nbtn" id="delete2" >삭제</button>
-	
+	<input type="hidden" name="idx" value="${dto.idx}" id="idx"> <input
+		type="hidden" name="currentPage" value="${currentPage}"
+		id="currentPage">
+	<div class="btn-wrap">
+		<button type="button" class="btn-list"
+			onclick="location.href='list'">목록</button>
+		<button class="btn-update" onclick="location.href='updateform?idx=${dto.idx}&currentPage=${currentPage}'">수정</button>
+		<button class="btn-delete" id="delete2">삭제</button>
+	</div>
 
-	<table class="table">
+
+	<table class="table" id="ctable">
 
 		<thead>
 			<tr>
@@ -23,9 +26,9 @@
 				<th>조회수&nbsp;&nbsp;${dto.readcount}</th>
 			</tr>
 		</thead>
-		<tbody>
-			<tr>
-				<td>${dto.content}</td>
+		<tbody class="content">
+			<tr> 
+				<td class="contenttxt">${dto.content}</td>
 			</tr>
 		</tbody>
 

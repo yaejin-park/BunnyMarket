@@ -10,7 +10,6 @@ import data.dto.NoticeDTO;
 
 @Mapper
 public interface NoticeMapper {
-	
 	public void NoticeInsert(NoticeDTO dto);
 	public void NoticeDelete(String idx);
 	public void NoticeUpdate(NoticeDTO dto);
@@ -19,5 +18,4 @@ public interface NoticeMapper {
 	public int getMaxidx();
 	public void updateReadCount(String idx);
 	public NoticeDTO getData(String idx);
-
 }
