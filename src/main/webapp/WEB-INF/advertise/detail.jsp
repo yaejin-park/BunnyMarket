@@ -7,74 +7,75 @@
 <!-- Link Swiper's CSS -->
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
 <div class="inner">
-<div class="infoAll">
-	<div class="img group">
-		<div class="swiper mySwiper">
-			<div class="bigImgDiv swiper-wrapper">
-				<c:forEach items="${dto.photo}" var="dbimg">				
-					<div class="swiper-slide bigImg fix">
+	<input type="hidden" name="current-page" value="${currentPage}">
+	<div class="infoAll">
+		<div class="img group">
+			<div class="swiper mySwiper">
+				<div class="bigImgDiv swiper-wrapper">
+					<c:forEach items="${dto.photo}" var="dbimg">				
+						<div class="swiper-slide bigImg fix">
+							<c:if test="${dto.photo=='no'}">
+								<img class="bigImg" alt="thumbnail" src="/image/list-noimg.gif">
+							</c:if>
+							<c:if test="${dto.photo!='no'}">
+								<img class="bigImg" alt="thumbnail" src="../photo/${dbimg}">
+							</c:if>
+						</div>
+					</c:forEach>
+				</div>
+				<div class="swiper-button-next"></div>
+	   			<div class="swiper-button-prev"></div>
+				<div class="swiper-pagination"></div>
+			</div>
+			<div class="smImgDiv">
+				<c:forEach items="${dbimg}" var="dbimg">			
+					<div class="smImg child">
 						<c:if test="${dto.photo=='no'}">
-							<img class="bigImg" alt="thumbnail" src="/image/list-noimg.gif">
+							<img alt="smallImage" src="/image/list-noimg.gif" class="smImg">
 						</c:if>
 						<c:if test="${dto.photo!='no'}">
-							<img class="bigImg" alt="thumbnail" src="../photo/${dbimg}">
+							<img alt="smallImage" src="../photo/${dbimg}" class="smImg">
 						</c:if>
 					</div>
 				</c:forEach>
 			</div>
-			<div class="swiper-button-next"></div>
-   			<div class="swiper-button-prev"></div>
-			<div class="swiper-pagination"></div>
 		</div>
-		<div class="smImgDiv">
-			<c:forEach items="${dbimg}" var="dbimg">			
-				<div class="smImg child">
-					<c:if test="${dto.photo=='no'}">
-						<img alt="smallImage" src="/image/list-noimg.gif" class="smImg">
-					</c:if>
-					<c:if test="${dto.photo!='no'}">
-						<img alt="smallImage" src="../photo/${dbimg}" class="smImg">
-					</c:if>
-				</div>
-			</c:forEach>
-		</div>
-	</div>
-	
-	<div class="info">
-	<table class="table table-default">
-		<tr>
-			<td rowspan="2" class="profile">
-				<img alt="profile" src="/image/profile-icon.png" class="profileImg">	
-			</td>
-			<td class="nick tit verticalBottom">
-				닉네임
-			</td>
-			<td rowspan="2" class="detailBtn">
-				<button class="btn-list" id="follow">
-					<span class="glyphicon glyphicon-plus"></span>
-				팔로우</button>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="3" class="tit-sm">
-				찜 ${dto.goodcount}&nbsp;&nbsp;&nbsp;조회수 ${dto.readcount}
-			</td>
-		</tr>
-		<tr class="lineNeed">
-			<td class="marginZero">
-				<button type="button" id="dibs" onclick="dibsClicked()"><img src="/image/stopheart-icon.gif" alt="dibsButton" id="dibsBtnImg"></button>
-			</td>
-			<!-- 작성자면 -->
-			<c:if test="true">
-				<td colspan="2" class="detailBtn">
-					<button type="button" class="btn-update" onclick="location.href='updateForm?idx=${dto.idx}'">수정</button>
-					<button type="button" id="deleteBtn" class="btn-delete" value="${dto.idx}">삭제</button>
+		
+		<div class="info">
+		<table class="table table-default">
+			<tr>
+				<td rowspan="2" class="profile">
+					<img alt="profile" src="/image/profile-icon.png" class="profileImg">	
 				</td>
-			</c:if>
-		</tr>
-	</table>
+				<td class="nick tit verticalBottom">
+					닉네임
+				</td>
+				<td rowspan="2" class="detailBtn">
+					<button class="btn-list" id="follow">
+						<span class="glyphicon glyphicon-plus"></span>
+					팔로우</button>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3" class="tit-sm">
+					찜 ${dto.goodcount}&nbsp;&nbsp;&nbsp;조회수 ${dto.readcount}
+				</td>
+			</tr>
+			<tr class="lineNeed">
+				<td class="marginZero">
+					<button type="button" id="dibs" onclick="dibsClicked()"><img src="/image/stopheart-icon.gif" alt="dibsButton" id="dibsBtnImg"></button>
+				</td>
+				<!-- 작성자면 -->
+				<c:if test="true">
+					<td colspan="2" class="detailBtn">
+						<button type="button" class="btn-update" onclick="location.href='updateform?idx=${dto.idx}&currentPage=${currentPage}'">수정</button>
+						<button type="button" id="deleteBtn" class="btn-delete" value="${dto.idx}">삭제</button>
+					</td>
+				</c:if>
+			</tr>
+		</table>
+		</div>
 	</div>
-</div>
 
 	<div class="detailContentDiv">
 		<pre class="detailContent">${dto.content}</pre>
@@ -129,6 +130,7 @@ function dibsClicked(){
 //삭제 버튼 alert
 $("#deleteBtn").click(function() {
 	var idx =  $(this).val();
+	var currentPage= $("input[name='current-page']").val();
 	
 	var n = confirm("정말 게시물을 삭제하시겠습니까?");
 	if(n){

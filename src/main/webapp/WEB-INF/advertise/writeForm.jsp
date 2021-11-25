@@ -36,7 +36,7 @@
 				</div>
 			</div>
 			<div class="btn-wrap">
-				<button type="submit" class="btn-add">등록하기</button>
+				<button type="submit" class="btn-add">글쓰기</button>
 				<button type="button" class="btn-list" onclick="location.href='list'">취소하기</button>
 			</div>
 		</form>
