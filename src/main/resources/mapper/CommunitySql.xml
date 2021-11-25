@@ -26,4 +26,11 @@
 	<delete id="delete" parameterType="String">
 		delete from community where idx=#{idx}
 	</delete>
+	<update id="update">
+		update community set title=#{title},content=#{content}
+		<if test="photo!='no'">
+			,photo=#{photo}
+		</if>
+		where idx=#{idx}
+	</update>
 </mapper>

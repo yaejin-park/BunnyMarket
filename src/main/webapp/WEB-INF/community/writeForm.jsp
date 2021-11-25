@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div class="write-form">
 	<div class="inner">
-		<form action="insert" method="post" enctype="multipart/form-data">
+		<form action="insert" method="post">
 			<div class="group">
 				<div class="child tit">
 					이미지<span class="must">*</span>
@@ -13,9 +13,8 @@
 						<label for="chooseFile"> 
 						<img src="/image/imageadd.jpg">
 						</label> 
-						<input type="file" class="imgInput" name="upload" id="chooseFile"
-							accept="image/*" onchange="loadFile(event)" multiple="multiple"
-							hidden="hidden">
+						<input type="file" class="imgInput" name="chooseFile" id="chooseFile"
+							accept="image/*" onchange="previewarea(this,'previewarea')" hidden="hidden">
 					</div>
 					<div class="previewarea"></div>
 				</div>
@@ -39,7 +38,8 @@
 				</div>
 			</div>
 			<div class="btn-wrap">
-				<button type="submit" class="btn-add">글쓰기</button>
+				<button type="button" class="btn-add"
+				onclick="submit();">글쓰기</button>
 				<button type="button" class="btn-list"
 					onclick="location.href='list'">목록</button>
 			</div>

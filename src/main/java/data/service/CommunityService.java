@@ -54,4 +54,8 @@ public class CommunityService {
 	{
 		mapper.delete(idx);
 	}
+	public void update(CommunityDTO dto)
+	{
+		mapper.update(dto);
+	}
 }

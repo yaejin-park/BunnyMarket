@@ -16,5 +16,6 @@ public interface CommunityMapper {
 	public int getTotalCount();
 	public void updateReadCount(String idx);
 	public void delete(String idx);
+	public void update(CommunityDTO dto);
 
 }

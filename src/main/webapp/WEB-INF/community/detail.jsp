@@ -90,7 +90,8 @@
 			<button type="button" class="btn-list delist"
 				onclick="location.href='list'">목록</button>
 			<button type="button" class="btn-add gdcount">공감♥</button>
-			<button type="button" class="btn-update deupdate">수정</button>
+			<button type="button" class="btn-update deupdate"
+			onclick="location.href='updateform?idx=${dto.idx}&currenPage=${currentPage}'">수정</button>
 			<button type="button" id="deleteBtn" class="btn-delete dedelete" value="${dto.idx}">삭제</button>
 		</c:if>
 	</div>
