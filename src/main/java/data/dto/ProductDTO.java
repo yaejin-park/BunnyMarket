@@ -20,6 +20,8 @@ public class ProductDTO {
 	private int readcount;
 	private List<MultipartFile> upload;
 	private String uploadfile;
+	private String sellstatus;
+	
 	public String getIdx() {
 		return idx;
 	}
@@ -91,5 +93,11 @@ public class ProductDTO {
 	}
 	public void setUploadfile(String uploadfile) {
 		this.uploadfile = uploadfile;
+	}
+	public String getSellstatus() {
+		return sellstatus;
+	}
+	public void setSellstatus(String sellstatus) {
+		this.sellstatus = sellstatus;
 	}
 }

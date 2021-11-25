@@ -1,6 +1,5 @@
-.require{
-	color: #ff70b1;
-	margin-left: 7px; 
+.infoAll{
+	margin-top: 40px;
 }
 
 .tit{
@@ -19,36 +18,23 @@
 	float: left;
 }
 
-.content{
-	width: 100%;
-	height:200px;
-}
-
-
-.chooseImg{
-	width: 180px;
-}
-
-.preshowImg{
-	width: 180px;
-	height: 180px;
-	margin-left: 10px;
-	margin-bottom: 10px;
-	border: 2.3px solid #f7f6fc;
-}
-
-#img_show{
-	width: 760px;
-}
-
 .profileImg{
 	border-radius: 100%;
+	border: 2.3px solid #f7f6fc;
 	width: 100px;
 }
 
 .bigImg{
-	border: 2.3px solid #f7f6fc;
+	padding-top:10px;
 	width: 323px;
+	border: 2.3px solid #f7f6fc;
+	overflow:hidden;
+}
+.bigImg img {
+	position:absolute;
+	top:50%;
+	left:50%;
+	transform:translate(-50%,-50%);
 }
 
 .smImgDiv{
@@ -56,8 +42,16 @@
 }
 
 .smImg{
+	position:relative;
 	width: calc((323px -30px)/4);
 	border: 2.3px solid #f7f6fc;
+	overflow:hidden;
+}
+.smImg img {
+	position:absolute;
+	top:50%;
+	left:50%;
+	transform:translate(-50%,-50%);
 }
 
 .infoAll .group{
@@ -69,7 +63,8 @@
 
 .info{
 	float: left;
-    width: calc(100% - 370px);
+    width: calc(100% - 395px);
+    margin-left: 25px;
 }
 
 .relative{
@@ -88,7 +83,7 @@
 }
 
 .profile{
-	width: 150px;
+	width: 120px;
 }
 
 .table-default{
@@ -99,13 +94,107 @@
 	border-bottom: 0px;
 }
 
+.table-default tr.lineNeed{
+	height: 70px;
+	border-top:1px solid #e5e5e5;
+	vertical-align:bottom;
+}
+
 .table-default td{
+	padding: 7px;
+}
+
+/* 테이블 테스트용 */
+/* .table-default td{
 	border-top:1px solid gray;
 	border-bottom: 1px solid gray;
 	border-right: 1px solid gray;
 	border-left: 1px solid gray;
-}
+} */
 
 .detailBtn{
 	text-align: right;
 }
+
+.icon{
+	line-height: 100%;
+	width: 15px;
+}
+
+.group .swiper-button-next, .swiper-button-prev{
+	color: #ff7ab0;
+}
+
+.group .swiper-button-prev:after, .swiper-rtl .swiper-button-next:after{
+	color: #ff7ab0;
+}
+
+.group .swiper-pagination-bullet-active {
+	background-color: #ff7ab0;
+}
+
+td.sellstatus span.reserved{
+	color: #ff7ab0;
+	font-size: 1.1em;
+}
+
+td.sellstatus span.finished{
+	color: #979593;
+	font-size: 1.1em;
+}
+
+.won{
+	display:inline-block;
+	padding-top: 7px;
+	padding-left: 10px;
+}
+
+.write-form .price{
+	width: 230px;
+}
+
+#dibsBtnImg{
+	width: 55px;
+}
+
+tr.lineNeed .marginZero{
+	padding-top: 0;
+}
+
+.tit-sm{
+	color: #746a66;
+    font-size: 11pt;
+}
+
+.needHeight{
+	height: 80px;
+}
+
+.more{
+	float: right;
+}
+
+.verticalTop{
+	vertical-align: top; 
+}
+
+.verticalBottom{
+	vertical-align: bottom; 
+}
+
+
+.oneList{
+	border: 2.3px solid #f7f6fc;
+	width: calc((100%-60px)/4);
+	margin-right: 20px;
+	height: 400px;
+	overflow: hidden;
+}
+
+.shortTit{
+	width: 200px;
+ 	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;  
+}
+

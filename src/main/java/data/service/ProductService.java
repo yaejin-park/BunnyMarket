@@ -16,6 +16,10 @@ public class ProductService {
 	@Autowired
 	ProductMapper mapper;
 	
+	public int getTotalCount() {
+		return mapper.getTotalCount();
+	}
+	
 	public List<ProductDTO> getList(@RequestParam int start, @RequestParam int perpage) {
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		map.put("start", start);
@@ -29,12 +33,19 @@ public class ProductService {
 	}
 
 	public void insertData(@ModelAttribute ProductDTO dto) {
-		
 		mapper.insertData(dto);
 	}
 	
 	public int getMaxIdx() {
 		return mapper.getMaxIdx();
+	}
+	
+	public void updateReadcount(@RequestParam String idx) {
+		mapper.updateReadcount(idx);
+	}
+	
+	public void deleteData(@RequestParam String idx) {
+		mapper.deleteData(idx);
 	}
 	
 }
