@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <link rel="stylesheet" type="text/css" href="/css/product_style.css">
-<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"/>
 <!-- Link Swiper's CSS -->
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
 
@@ -38,7 +37,7 @@
 				<img alt="profile" src="/image/profile-icon.png" class="profileImg">	
 			</td>
 			<td class="nick tit verticalBottom">
-				닉네임
+			닉네임
 			</td>
 			<td rowspan="2" class="detailBtn">
 				<button class="btn-list" id="follow">
