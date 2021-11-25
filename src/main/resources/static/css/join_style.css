@@ -1,3 +1,35 @@
+.join-intro {
+	width:650px;
+	margin:0 auto;
+	padding-top:100px;
+}
+.join-intro .title-div {
+	position:relative;
+}
+.join-intro .title-div .tit {
+	margin-bottom:40px;
+	font-size:30px;
+}
+.join-intro .title-div .tit span {
+	color:#ff7ab0;
+}
+.join-intro .title-div .join-btn {
+	position:absolute;
+	bottom:0;
+	right:0;
+}
+.join-intro .title-div .admin-btn {
+	display:inline-block;
+	margin-top:20px;
+	padding-left:40px;
+	font-size:16px;
+	font-weight:bold;
+	line-height:30px;
+	background:url("../image/exclamation-icon.png") no-repeat left center / 30px;
+}
+.join-intro .title-div .admin-btn:hover, .join-intro .title-div .admin-btn:focus {
+	color:#333;
+}
 .join-div .sns-login-div {
 	margin-bottom:60px;
 	padding:60px;
@@ -174,4 +206,7 @@
 .join-div .complete-div .btn-wrap {
 	margin-top:40px;
 	text-align:center;
+}
+#adminPop .admin-code {
+	margin:20px 0;
 }

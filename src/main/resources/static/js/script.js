@@ -29,7 +29,7 @@ $(function(){
 			$(this).removeClass("on");
 			$("header .local-option").stop(true,true).slideUp(300);	
 		}
-	}); 
+	});
 });
 
 imgArr=new Array();
@@ -67,5 +67,13 @@ function loadFile(event){
 			}
 		}
 		console.log("삭제 후 갯수 :" + imgArr.length);
+	});
+}
+
+function popOpen(pop){
+	$(pop).fadeIn(500);
+	
+	$(pop).find(".modal-close").click(function(){
+		$(pop).fadeOut(500);
 	});
 }

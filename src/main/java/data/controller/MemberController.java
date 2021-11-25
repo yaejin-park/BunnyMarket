@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +33,17 @@ public class MemberController {
 	MemberService service;
 	
 	@GetMapping("/main")
-	public String login() {
+	public String joinHome() {
+		return "/join/main";
+	}
+
+	@GetMapping("/addForm")
+	public String rightForm(
+			@RequestParam String type,
+			Model model
+			) 
+	{
+		model.addAttribute("joinType", type);
 		return "/join/joinForm";
 	}	
 	
@@ -139,6 +150,7 @@ public class MemberController {
 	
 	@PostMapping("/insert") 
 	public String insertMember(
+			@RequestParam String type,
 			@RequestParam String email1,
 			@RequestParam String email2,
 			@RequestParam String hp1,
@@ -150,6 +162,7 @@ public class MemberController {
 		System.out.println(email1 + "@" + email2);
 		dto.setEmail(email1 + "@" + email2);
 		dto.setHp(hp1 + "-" + hp2 + "-" + hp3);
+		dto.setType(type);
 		service.insertMember(dto);
 		return "redirect:complete";
 	}

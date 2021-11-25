@@ -3,9 +3,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <link rel="stylesheet" type="text/css" href="/css/login_style.css">
+<meta name="google-signin-client_id" content="1022410013339-9831cpvsfdoqrhke57gqr9h1qmapandt.apps.googleusercontent.com">
 <div class="login-div">
 	<div class="sns-login">
-		<a href="javascript:" class="google">구글 간편로그인</a>
+		<a href="javascript:" class="google">
+			<p class="g-signin2" data-onsuccess="onSignIn">구글 간편로그인</p>
+			<button type="button" onclick="signOut();">Logout</button>
+		</a>
 		<a href="javascript:" class="naver">네이버 간편로그인</a>
 		<a href="javascript:" class="kakao">카카오 간편로그인</a>
 	</div>
@@ -32,3 +36,24 @@
 		<a href="javascript:" class="btn-list">회원가입</a>
 	</div>
 </div>
+<script type="text/javascript" src="http://apis.google.com/js/platform.js" async defer></script>
+<script type="text/javascript">
+	function onSignIn(googleUser){
+		var profile = googleUser.getBasicProfile();
+		/* console.log("id :" + profile.getId());
+		console.log("Name :" + profile.getName());
+		console.log("Image URL :" + profile.getImageUrl());
+		console.log("Email :" + profile.getEmail()); */
+		$(".sns-login .g-signin2").hide();
+		$(".sns-login .google button").show();
+	}
+	
+	function signOut(){
+		var auth2 = gapi.auth2.getAuthInstance();
+		auth2.signOut().then(function(){
+			/* console.log("User signed out"); */
+			$(".sns-login .g-signin2").show();
+			$(".sns-login .google button").hide();
+		})
+	}
+</script>

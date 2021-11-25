@@ -811,32 +811,49 @@ footer .etc-txt .copyright {
 	border-radius:50%;
 }
 .popup-modal {
+	display:none;
 	position:fixed;
 	top:0;
 	left:0;
 	width:100%;
 	height:100%;
 	background:rgba(0,0,0,0.5);
+	z-index:12;
 }	
 .popup-modal .modal {
 	position:absolute;
 	top:50%;
 	left:50%;
-	min-width:500px;
+	min-width:600px;
 	height:auto;
 	background:#fff;
 	transform:translate(-50%, -50%);
+	z-index:12;
 }	
 .popup-modal .modal .modal-title {
 	padding:30px;
+	font-size:20px;
+	font-weight:bold;
+	color:#fff;
+	background:#ff7ab0; 
+	background:-moz-linear-gradient(-45deg,  #ff7ab0 0%, #f4c844 100%); 
+	background:-webkit-linear-gradient(-45deg,  #ff7ab0 0%,#f4c844 100%); 
+	background:linear-gradient(135deg,  #ff7ab0 0%,#f4c844 100%);
 }
 .popup-modal .modal .modal-content {
+	max-height:480px;
 	padding:30px;
+	overflow-y:auto;
 }
 .popup-modal .modal .modal-close {
 	position:absolute;
-	top:-30px;
+	top:-60px;
 	right:0;
+	width:60px;
+	height:60px;
+	background:url("../image/close-icon.png") no-repeat 0 0 / 100%;
+	text-indent:-999px;
+	overflow:hidden;
 }
 @media all and (max-width: 1300px){
 	.inner {

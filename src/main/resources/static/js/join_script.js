@@ -1,4 +1,16 @@
 $(function(){
+	$("#adminPop .admin-code-btn").click(function(){
+		var inputCode = $("#adminPop .admin-code input[name='admin-code']").val();
+		if(inputCode != "CarrotCarrot"){
+			alert("관리자 코드가 일치하지 않습니다.");
+			$("#adminPop .admin-code input[name='admin-code']").focus();
+			$("#adminPop .admin-code input[name='admin-code']").val("");
+		}else{
+			$("#adminPop").fadeOut(500);
+			location.href = "./addForm?type=admin";
+		}
+	});
+	
 	$(".join-div .acco-btn").click(function(){
 		if(!$(this).hasClass("on")){
 			$(this).addClass("on");

@@ -13,6 +13,7 @@
 		</div>
 		<div class="write-form">
 			<form action="insert" method="post">
+				<input type="hidden" name="type" value="${joinType}">
 				<div class="group">
 					<div class="child tit">
 						아이디
