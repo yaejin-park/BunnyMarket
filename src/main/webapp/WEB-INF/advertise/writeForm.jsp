@@ -3,17 +3,17 @@
 <link rel="stylesheet" type="text/css" href="/css/ad_style.css">
 <div class="write-form">
 	<div class="inner">
-		<form action="insert" method="post" enctype="multipart/form-data">
+		<form id="addForm">
 			<div class="group">
 				<div class="child tit">
 					이미지 <span class="must">*</span>
 				</div>
 				<div class="child imgupload">
 					<div class="uploadImg">
-						<label for="selectImg"> 
+						<label for="photoupload"> 
 							<img src="../image/write-upload-icon.JPG">
 						</label>
-						<input type="file" id="selectImg" name="photoupload" class="imginput" multiple="multiple" accept="image/*" onchange="loadFile(event)">
+						<input type="file" id="photoupload" name="photoupload" class="imginput" multiple="multiple" accept="image/*" onchange="loadFile(event)">
 					</div>
 					<div class="previewarea"></div>
 				</div>
@@ -36,9 +36,25 @@
 				</div>
 			</div>
 			<div class="btn-wrap">
-				<button type="submit" class="btn-add">글쓰기</button>
+				<button type="button" class="btn-add" onclick="dataSubmit();">글쓰기</button>
 				<button type="button" class="btn-list" onclick="location.href='list'">취소하기</button>
 			</div>
 		</form>
+		<div id="resultDiv">
+			<p th:text="{log}"></p>
+		</div>
 	</div>
 </div>
+<script type="text/javascript">
+	var fileArr;
+	var fileInfoArr=$
+	
+	//썸네일 클릭시 삭제
+	function fileRemove(index) {
+		console.log("index: "+index);
+		fileInfoArr.splice(index, 1);
+		
+		var imgId="#img_id_";
+	}
+	
+</script>

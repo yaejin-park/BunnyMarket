@@ -23,4 +23,11 @@
 	<delete id="deleteAdvertise" parameterType="String">
 		delete from advertise where idx=#{idx}
 	</delete>
+	<update id="updateAdvertise" parameterType="addto">
+		update advertise set title=#{title},content=#{content}
+		<if test="photo!='no'">
+			,photo=#{photo}
+		</if>
+		where idx=#{idx}
+	</update>
 </mapper>

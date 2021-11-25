@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <link rel="stylesheet" type="text/css" href="/css/product_style.css">
+<link rel="stylesheet" type="text/css" href="/css/ad_style.css">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"/>
 <!-- Link Swiper's CSS -->
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
@@ -65,13 +66,6 @@
 				<td class="marginZero">
 					<button type="button" id="dibs" onclick="dibsClicked()"><img src="/image/stopheart-icon.gif" alt="dibsButton" id="dibsBtnImg"></button>
 				</td>
-				<!-- 작성자면 -->
-				<c:if test="true">
-					<td colspan="2" class="detailBtn">
-						<button type="button" class="btn-update" onclick="location.href='updateform?idx=${dto.idx}&currentPage=${currentPage}'">수정</button>
-						<button type="button" id="deleteBtn" class="btn-delete" value="${dto.idx}">삭제</button>
-					</td>
-				</c:if>
 			</tr>
 		</table>
 		</div>
@@ -79,6 +73,22 @@
 
 	<div class="detailContentDiv">
 		<pre class="detailContent">${dto.content}</pre>
+	</div>
+	<div class="detailbtn">
+		<!-- 로그인 안했을경우 -->
+		<c:if test="false">
+			<button type="button" class="btn-list delist"
+			onclick="location.href='list'">목록</button>
+		</c:if>
+		
+		<!-- 로그인 했을경우 -->
+		<c:if test="true">
+			<button type="button" class="btn-list delist"
+				onclick="location.href='list'">목록</button>
+			<button type="button" class="btn-add gdcount">공감</button>
+			<button type="button" class="btn-update" onclick="location.href='updateform?idx=${dto.idx}&currentPage=${currentPage}'">수정</button>
+		<button type="button" id="deleteBtn" class="btn-delete" value="${dto.idx}">삭제</button>
+		</c:if>
 	</div>
 </div>
 
