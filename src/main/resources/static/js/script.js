@@ -32,37 +32,40 @@ $(function(){
 	}); 
 });
 
+imgArr=new Array();
 function loadFile(event){
-	imgArr=new Array();
 	for(var image of event.target.files){
 		var reader = new FileReader();
-		
+		var img="";
 		reader.onload = function(e){
-			var img="<div class='preview-img'><img src='" +  e.target.result +  "' alt='' /><span class='close'>X</span></div>";
+			img="<div class='preview-img' idx='"+ (imgArr.length+1) +"'><img src='" +  e.target.result +  "' alt='' /><span class='close'>X</span></div>";
+			
 			imgArr.push(img);
 			$("div.previewarea").append($(img));
 		}; 
+		
+		reader.onloadend = function(e){
+			if($(img).width() > $(img).find("img").height()){
+		        $(img).find("img").width("auto");
+		        $(img).find("img").height("100%");
+		    }else{
+		        $(img).find("img").width("100%");
+		        $(img).find("img").height("auto");
+		    }
+		}
 		reader.readAsDataURL(image);
 	}
-	setTimeout(function(){
-		$(".preview-img").each(function(idx){
-			$(this).attr("idx",idx);
-			if($(this).width() > $(this).find("img").height()){
-		        $(this).find("img").width("auto");
-		        $(this).find("img").height("100%");
-		    }else{
-		        $(this).find("img").width("100%");
-		        $(this).find("img").height("auto");
-		    }
-		});
-	},10);
 	
 	$(document).on("click", ".preview-img .close", function(){
-		var selectData = $(this).parents(".preview-img");
-		console.log(imgArr.length + "개");
-		var idx=$(this).parents(".preview-img").attr("idx");
-		$(this).parents(".preview-img").remove(); 
-		imgArr.splice(idx,1);
-		console.log(imgArr.length);
+		var selectIdx = $(this).parents(".preview-img").attr("idx");
+		console.log("삭제 전 갯수 :" + imgArr.length + "개");
+		for(var i=0;i<imgArr.length; i++){
+			var idx = $(imgArr[i]).attr("idx");
+			if(idx == selectIdx){
+				$(this).parents(".preview-img").remove(); 
+				imgArr.splice(i,1);
+			}
+		}
+		console.log("삭제 후 갯수 :" + imgArr.length);
 	});
 }
