@@ -14,6 +14,7 @@ public interface CommunityMapper {
 	public List<CommunityDTO> getAllDatas();
 	public int getMaxNum();
 	public int getTotalCount();
-	public void updateReadCount(String num);
+	public void updateReadCount(String idx);
+	public void delete(String idx);
 
 }

@@ -23,4 +23,7 @@
 	<update id="updateReadCount" parameterType="String">
 		update community set readcount=readcount+1 where idx=#{idx}
 	</update>
+	<delete id="delete" parameterType="String">
+		delete from community where idx=#{idx}
+	</delete>
 </mapper>

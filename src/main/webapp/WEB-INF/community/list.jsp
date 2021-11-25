@@ -24,11 +24,22 @@
 			<c:if test="${totalCount>0}">
 				<ul class="cummu-list">
 					<c:forEach var="a" items="${commulist}">
+					
 						<li>
 							<a href="detail?idx=${a.idx}&currentPage=${currentPage}&key=list">
+								
 								<div class="image">
+								<!-- 이미지 없을경우 -->
+									<c:if test="${a.photo=='no'}">
+										<img src="../image/co-noimg.jpg">
+									</c:if>
+									
+								<!-- 이미지 있을경우 -->
+									<c:if test="${a.photo!='no'}">
 										<img src="../photo/${fn:split(a.photo,',')[0]}">
+									</c:if>
 								</div>
+								
 								<div class="text-div">
 									<p class="tit">${a.title}</p>
 									<p class="txt">${a.content}</p>

@@ -1,3 +1,6 @@
+
+/* community List */
+
 .commu-wrap {
 	margin-top:40px;
 }
@@ -53,4 +56,10 @@
 	top:-10px;
 	right:0;
 	color: #999;
+}
+
+/* community Detail */
+
+.infoAll{
+	margin-top: 40px;
 }

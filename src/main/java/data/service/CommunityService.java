@@ -50,4 +50,8 @@ public class CommunityService {
 	{
 		mapper.updateReadCount(idx);
 	}
+	public void delete(String idx)
+	{
+		mapper.delete(idx);
+	}
 }
