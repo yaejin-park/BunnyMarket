@@ -2,19 +2,17 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<link rel="stylesheet" type="text/css" href="/css/swiper.min.css">
 <link rel="stylesheet" type="text/css" href="/css/product_style.css">
-<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"/>
-<!-- Link Swiper's CSS -->
-<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
 
 <div class="inner">
 <div class="infoAll">
 	<div class="img group">
-		<div class="swiper mySwiper">
+		<div class="detail-swiper">
 			<div class="bigImgDiv swiper-wrapper">
 				<c:forEach items="${photo}" var="photo">
 					<div class="swiper-slide bigImg fix">
-						<img class="bigImage" alt="thumbnail" src="../photo/${photo}">
+						<img class="bigImage" alt="thumbnail" src="../photo/${photo}" />
 					</div>
 				</c:forEach>
 			</div>
@@ -52,8 +50,8 @@
 			</td>
 		</tr>
 		<tr>
-			<td colspan="3" class="tit-sm"><a>${dto.category }</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<fmt:formatDate value="${dto.writeday }" pattern="yy.MM.dd"/></td>
-		<tr>
+			<td colspan="3" class="tit-sm"><a>${dto.category}</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<fmt:formatDate value="${dto.writeday }" pattern="yy.MM.dd"/></td>
+		</tr>
 		<tr class="needHeight">
 			<!-- 작성자가 아닐 경우-->
 			<c:if test="true">
@@ -111,8 +109,6 @@
 	<div class="detailContentDiv">
 		<pre class="detailContent">${dto.content}</pre>
 	</div>
-	<br><br>
-	<hr>
 	
 	<div class="relative group">
 		<div class="tit child">연관상품</div>
@@ -122,38 +118,29 @@
 	</div>
 </div>
 
-<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-<!-- Initialize Swiper -->
+<script type="text/javascript" src="/js/swiper.min.js"></script>
 <script>
-setTimeout(() => {
-	 var swiper = new Swiper(".mySwiper", {
-		    navigation: {
-		      nextEl: ".swiper-button-next",
-		      prevEl: ".swiper-button-prev",
-		    },
-		    pagination: {
-		      el: ".swiper-pagination",
-		    },
-		  });
-}, 20);
-
 //미리보기 이미지 클릭시,
-$(document).on("click",".smallImg", function(e) {
+/* $(document).on("click",".smallImg", function(e) {
 	var src = $(this).attr("src");
 	$(".bigImage").attr("src",src);
-});
+}); */
 
 //미리보기 이미지 호버시,
-/* $(document).ready(function() {
-	var original = $(".bigImg").attr("src");
-	$(".smallImg").hover(function() {
-		var src = $(this).attr("src");
-		$(".bigImage").attr("src",src);
-	}, function() {
+$(document).ready(function() {
+	$(".smImgDiv").mouseenter(function() {
+		var original = $(".bigImage").attr("src");
+		console.log("enter"+original);
+		$(".smallImg").hover(function() {
+			var src = $(this).attr("src");
+			$(".bigImage").attr("src",src);
+		});
+	}), function() {
+		console.log("out");
 		var src = $(this).attr("src");
 		$(".bigImage").attr("src",original);
-	});
-}); */
+	}                                                                                                      
+});
 
 //찜버튼 클릭시
 function dibsClicked(){

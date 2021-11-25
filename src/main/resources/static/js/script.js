@@ -32,30 +32,61 @@ $(function(){
 	}); 
 	
 	$(window).on("load",function(){
-		// 상세 페이지 - 이미지 롤링
-		$(".infoAll .smImg").each(function(){
-			$(this).height($(this).width());
-			if($(this).width() > $(this).find("img").height()){
-				$(this).find("img").width("auto");
-				$(this).find("img").height("100%");
-			}else{
-				$(this).find("img").width("100%");
-				$(this).find("img").height("auto");
-			}
-		})
+		//상세페이지 롤링
+		if($(".detail-swiper").length > 0){
+			// 상세 페이지 - 큰 이미지 롤링
+			$(".infoAll .bigImg").each(function(){
+				$(this).height($(this).width());
+				if($(this).width() > $(this).find("img").height()){
+					$(this).find("img").width("auto");
+					$(this).find("img").height("100%");
+				}else{
+					$(this).find("img").width("100%");
+					$(this).find("img").height("auto");
+				}
+			});
+			
+			$(".infoAll .smImg").each(function(){
+				$(this).height($(this).width());
+				if($(this).width() > $(this).find("img").height()){
+					$(this).find("img").width("auto");
+					$(this).find("img").height("100%");
+				}else{
+					$(this).find("img").width("100%");
+					$(this).find("img").height("auto");
+				}
+			});
+			
+			var detailSwiper = new Swiper(".detail-swiper", {
+			    navigation: {
+			      nextEl: ".detail-swiper .swiper-button-next",
+			      prevEl: ".detail-swiper .swiper-button-prev",
+			    },
+			    pagination: {
+			      el: ".detail-swiper .swiper-pagination",
+			    },
+				observer:true,
+				observerParents:true,
+				updateOnImageReady:true
+			});
+			
+			//이미지 연결
+			
+		}
+	});
+	
+	//리스트 이미지 정사각형
+	$(".thumbnailDiv").each(function(){
+		$(this).height($(this).width());
 		
-		// 상세 페이지 - 큰 이미지 롤링
-		$(".infoAll .bigImg").each(function(){
-			$(this).height($(this).width());
-			if($(this).width() > $(this).find("img").height()){
-				$(this).find("img").width("auto");
-				$(this).find("img").height("100%");
-			}else{
-				$(this).find("img").width("100%");
-				$(this).find("img").height("auto");
-			}
-		});
-	})
+		if($(this).width() > $(this).find("img").height()){
+			$(this).find("img").width("auto");
+			$(this).find("img").height("100%");
+		}else{
+			$(this).find("img").width("100%");
+			$(this).find("img").height("auto");
+		}
+	});
 });
 
 function loadFile(event){
@@ -104,4 +135,6 @@ function loadFile(event){
 		imgArr.splice(idx,1);
 		console.log(imgArr.length);
 	});
+	
+	
 }
