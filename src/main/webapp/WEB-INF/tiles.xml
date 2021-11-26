@@ -9,14 +9,9 @@
 		<put-attribute name="content" value="/WEB-INF/layout/content.jsp"></put-attribute>
 		<put-attribute name="footer" value="/WEB-INF/layout/footer.jsp"></put-attribute>
 		<put-attribute name="quick" value="/WEB-INF/layout/quick.jsp"></put-attribute>
-		<put-attribute name="popup" value="/WEB-INF/layout/popup.jsp"></put-attribute>
 	</definition>
 	
 	<definition name="/*/*" extends="layout">		
 		<put-attribute name="content" value="/WEB-INF/{1}/{2}.jsp" />
-	</definition>
-	
-	<definition name="/pop/*/*" extends="layout">
-		<put-attribute name="popup" value="/WEB-INF/{1}/{2}.jsp" />
 	</definition>
 </tiles-definitions>

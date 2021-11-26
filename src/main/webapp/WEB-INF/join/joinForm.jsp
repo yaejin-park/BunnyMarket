@@ -13,6 +13,7 @@
 		</div>
 		<div class="write-form">
 			<form action="insert" method="post">
+				<input type="hidden" name="type" value="${joinType}">
 				<div class="group">
 					<div class="child tit">
 						아이디
@@ -83,13 +84,27 @@
 						<span class="must">*</span>
 					</div>
 					<div class="child">
-						<div class="has-btn-type form-div">
-							<input type="text" name="email" placeholder="E-mail 입력" >
+						<div class="email-div form-div">
+							<input type="text" name="email1" placeholder="E-mail 입력" >
+							<span>@</span>
+							<input type="text" name="email2" class="etc-input" placeholder="ex) email.com">
+							<select class="domain">
+								<option>선택</option>
+								<option value="">직접입력</option>
+								<option value="naver.com">naver</option>
+								<option value="gmail.com">google</option>
+								<option value="nate.com">nate</option>
+								<option value="daum.net">daum</option>
+							</select>
 							<button type="button" class="email-check btn-list">E-mail 인증</button>
 						</div>
 						<div class="email-certify">
 							<p class="txt">인증번호를 입력해주세요.</p>
-							<input type="text" name="email-certify" placeholder="인증번호 입력">
+							<p class="email-msg"></p>
+							<div class="has-btn-div form-div">
+								<input type="text" name="email-certify" placeholder="인증번호 입력">
+								<button type="button" class="email-certify-btn btn-list btn-sm">인증</button>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -118,11 +133,9 @@
 					</div>
 					<div class="child">
 						<div class="addr-div">
-							<div class="has-btn-type form-div addr-num">
-								<input type="text">
-								<span> - </span>
-								<input type="text">
-								<button type="button" class="addr-search-btn btn-list">우편번호 검색</button>
+							<div class="has-btn-type form-div">
+								<input type="text" name="addr-num" disabled="disabled">
+								<button type="button" class="addr-search-btn btn-list" onclick="findAddr()">우편번호 검색</button>
 							</div>
 							<div class="form-div">
 								<input type="text" name="addr1">
@@ -134,7 +147,7 @@
 					</div>
 				</div>
 				
-				<div class="term-div">
+				<div class="term-area">
 					<div class="all-check">
 						<input type="checkbox" id="termAllCheck">
 						<label for="termAllCheck">전체 동의</label>
@@ -142,10 +155,10 @@
 					<div class="acco-div">
 						<div class="acco-btn">
 							<input type="checkbox" id="termCheck1">
-							<label for="termCheck1">이용약관 동의 <span>(필수)</span></label>
+							<label for="termCheck1">이용약관 동의<span>(필수)</span></label>
 						</div>
 						<div class="acco-con">
-							<%-- <jsp:include page=""></jsp:include> --%>
+							<jsp:include page="../term/use.jsp"></jsp:include>
 						</div>
 					</div>
 					<div class="acco-div">
@@ -154,7 +167,7 @@
 							<label for="termCheck2">개인정보처리방침 동의<span>(필수)</span></label>
 						</div>
 						<div class="acco-con">
-							<%-- <jsp:include page=""></jsp:include> --%>
+							<jsp:include page="../term/privacy.jsp"></jsp:include>
 						</div>
 					</div>
 					<div class="acco-div">
@@ -163,16 +176,18 @@
 							<label for="termCheck3">위치기반서비스약관 동의<span>(필수)</span></label>
 						</div>
 						<div class="acco-con">
-							<%-- <jsp:include page=""></jsp:include> --%>
+							<jsp:include page="../term/location.jsp"></jsp:include>
 						</div>
 					</div>
 				</div>
 				
 				<div class="btn-wrap">
-					<a href="javascript:" class="btn-add">회원가입</a>
-					<a href="javascript:" class="btn-default">취소</a>
+					<button type="submit" class="btn-add join-btn">회원가입</a>
+					<button type="button" class="btn-default">취소</a>
 				</div>
 			</form>
 		</div>
 	</div>
 </div>
+<script type="text/javascript" src="/js/join_script.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>

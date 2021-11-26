@@ -1,3 +1,35 @@
+.join-intro {
+	width:650px;
+	margin:0 auto;
+	padding-top:100px;
+}
+.join-intro .title-div {
+	position:relative;
+}
+.join-intro .title-div .tit {
+	margin-bottom:40px;
+	font-size:30px;
+}
+.join-intro .title-div .tit span {
+	color:#ff7ab0;
+}
+.join-intro .title-div .join-btn {
+	position:absolute;
+	bottom:0;
+	right:0;
+}
+.join-intro .title-div .admin-btn {
+	display:inline-block;
+	margin-top:20px;
+	padding-left:40px;
+	font-size:16px;
+	font-weight:bold;
+	line-height:30px;
+	background:url("../image/exclamation-icon.png") no-repeat left center / 30px;
+}
+.join-intro .title-div .admin-btn:hover, .join-intro .title-div .admin-btn:focus {
+	color:#333;
+}
 .join-div .sns-login-div {
 	margin-bottom:60px;
 	padding:60px;
@@ -52,8 +84,29 @@
 	font-size:16px;
 	color:#999;
 }
+.join-div .write-form .form-div.email-div {
+	display:flex;
+	flex-wrap:nowrap;
+}
+.join-div .write-form .form-div.email-div input {
+	width:200px;
+}
+.join-div .write-form .form-div.email-div span {
+	margin:0 10px;
+	font-weight:bold;
+	line-height:42px;
+	vertical-align:top;
+}
+.join-div .write-form .form-div.email-div .domain {
+	width:200px;
+	margin-left:15px;
+}
+.join-div .write-form .form-div.email-div .email-check {
+	margin-left:15px;
+}
 .join-div .write-form .email-certify {
-	padding:20px 20px 0;
+	display:none;
+	margin-top:20px;
 }
 .join-div .write-form .email-certify .txt {
 	margin-bottom:10px;
@@ -61,8 +114,11 @@
 	font-weight:bold;
 	color:#333;
 }
-.join-div .write-form .email-certify input {
+.join-div .write-form .email-certify .form-div input {
 	width:300px;
+}
+.join-div .write-form .email-certify .form-div .btn-list {
+	margin:5px 0 0 10px;
 }
 .join-div .write-form .hp-div {
 	display:flex;
@@ -86,16 +142,71 @@
 .join-div .write-form .addr-div .form-div input {
 	width:100%;
 }
-.join-div .write-form .addr-div .form-div.addr-num {
+.join-div .write-form .addr-div .form-div.has-btn-type {
 	display:flex;
 	flex-wrap:nowrap;
 }
-.join-div .write-form .addr-div .form-div.addr-num input {
+.join-div .write-form .addr-div .form-div.has-btn-type input {
 	width:200px;
 }
-.join-div .write-form .addr-div .form-div.addr-num span {
+.join-div .write-form .addr-div .form-div.has-btn-type span {
 	margin:0 15px;
 	font-weight:bold;
 	line-height:42px;
 	vertical-align:top;
+}
+.join-div .term-area {
+	margin-top:60px;
+}
+.join-div .term-area .all-check {
+	padding:20px;
+	font-weight:bold;
+	color:#ff7ab0;
+	border-top:2px solid #ff7ab0;
+	border-bottom:1px solid #e5e5e5;
+}
+.join-div .term-area input[type="checkbox"]{
+	margin-right:10px;
+}
+.join-div .term-area .acco-btn {
+	padding:20px;
+	color:#999;
+	border-bottom:1px solid #e5e5e5;
+}
+.join-div .term-area .acco-btn label span {
+	margin-left:5px;
+	font-size:14px;
+	color:#ff7ab0;
+}
+.join-div .acco-div .acco-con {
+	display:none;
+	height:300px;
+	padding:20px;
+	overflow-y:auto;
+} 
+.join-div .acco-con .inner {
+	width:100%;
+	border:none;
+}
+.join-div .complete-div {
+	padding-top:60px;
+	text-align:center;
+}
+.join-div .complete-div .icon {
+	width:100px;
+	margin:0 auto 30px;
+}
+.join-div .complete-div .icon img {
+	width:100%;
+}
+.join-div .complete-div .tit {
+	margin-bottom:20px;
+	font-size:25px;
+}
+.join-div .complete-div .btn-wrap {
+	margin-top:40px;
+	text-align:center;
+}
+#adminPop .admin-code {
+	margin:20px 0;
 }
