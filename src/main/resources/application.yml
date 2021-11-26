@@ -30,6 +30,12 @@ spring:
           auth: true 
           starttls:
             enable: true
+          ssl:
+            trust: smtp.gmail.com
+            protocals: TLSv1.2
+        transport:
+          protocal: smtp
+        # debug: true
 
 # mybatis setting
 mybatis:
