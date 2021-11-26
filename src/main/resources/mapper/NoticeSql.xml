@@ -5,7 +5,7 @@
 		insert into notice (title,content,writeday) values (#{title},#{content},now())	
 	</insert>
 	<update id="NoticeUpdate">
-			update notice set title=#{title},content=#{content} where idx=#{idx}
+			update notice set title=#{title},content=#{content} where idx=#{idx} 
 	</update>
 	<delete id="NoticeDelete">
 		delete from notice where idx=#{idx}

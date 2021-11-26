@@ -30,14 +30,7 @@
 
 
 		<c:if test="${totalCount>0}">
-			<!-- 관리자가 로그인 했을 떄만 버튼 나타남 -->
-	<!--<c:if test="${dto.type==admin}">-->
-	<div class="btn-wrap">
-		<button class="btn-add" type="button"
-			onclick="location.href='writeform'">글쓰기</button>
-		<button class="btn-delete" type="button" id="delete">글삭제</button>
-	</div>
-	<!--</c:if>-->
+	
 	<table class="table">
 	
 		
@@ -96,6 +89,14 @@
 			</c:forEach>
 	
 	</table>
+			<!-- 관리자가 로그인 했을 떄만 버튼 나타남 -->
+	<!--<c:if test="${dto.type==admin}">-->
+	<div class="btn-wrap">
+		<button class="btn-add" type="button"
+			onclick="location.href='writeform'">글쓰기</button>
+		<button class="btn-delete" type="button" id="delete">글삭제</button>
+	</div>
+	<!--</c:if>-->
 		</c:if>
 </div>
 

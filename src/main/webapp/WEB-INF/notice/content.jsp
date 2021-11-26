@@ -8,12 +8,7 @@
 	<input type="hidden" name="idx" value="${dto.idx}" id="idx"> <input
 		type="hidden" name="currentPage" value="${currentPage}"
 		id="currentPage">
-	<div class="btn-wrap">
-		<button type="button" class="btn-list"
-			onclick="location.href='list'">목록</button>
-		<button class="btn-update" onclick="location.href='updateform?idx=${dto.idx}&currentPage=${currentPage}'">수정</button>
-		<button class="btn-delete" id="delete2">삭제</button>
-	</div>
+	
 
 
 	<table class="table" id="ctable">
@@ -27,8 +22,9 @@
 			</tr>
 		</thead>
 		<tbody class="content">
-			<tr> 
-				<td class="contenttxt">${dto.content}</td>
+
+			<tr>
+				<td class="contenttxt" colspan="3">${dto.content}</td>
 			</tr>
 		</tbody>
 
@@ -37,6 +33,12 @@
 
 
 	</table>
+	<div class="btn-wrap">
+		<button type="button" class="btn-list" onclick="location.href='list'">목록</button>
+		<button class="btn-update"
+			onclick="location.href='updateform?idx=${dto.idx}&currentPage=${currentPage}'">수정</button>
+		<button class="btn-delete" id="delete2">삭제</button>
+	</div>
 
 </div>
 <script type="text/javascript" src="/js/notice_script.js"></script>

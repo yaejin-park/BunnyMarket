@@ -3,6 +3,7 @@ package data.dto;
 import java.sql.Timestamp;
 
 import org.apache.ibatis.type.Alias;
+import org.springframework.web.multipart.MultipartFile;
 
 
 @Alias("ndto")
@@ -15,6 +16,8 @@ public class NoticeDTO {
 	private Timestamp writeday;
 	
 	
+	
+
 	public int getIdx() {
 		return idx;
 	}

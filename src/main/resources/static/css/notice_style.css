@@ -34,12 +34,13 @@
 
 .contenttxt{
 	vertical-align: baseline;
-	
+	colspan: 3;
 }
 
 
 
 div .btn-wrap{
+	margin-top:15px;
 	float:right;
 }
 
