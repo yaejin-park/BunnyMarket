@@ -11,7 +11,7 @@ spring:
     livereload:
       enabled: true
 
-# mysql setting
+#  mysql setting
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://bunnymarket-db.clihali9mgfh.ap-northeast-2.rds.amazonaws.com:3306/bunny-db
@@ -30,6 +30,12 @@ spring:
           auth: true 
           starttls:
             enable: true
+          ssl:
+            trust: smtp.gmail.com
+            protocals: TLSv1.2
+        transport:
+          protocal: smtp
+        debug: true
 
 # mybatis setting
 mybatis:
