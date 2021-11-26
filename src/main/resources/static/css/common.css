@@ -744,7 +744,7 @@ header .local-div .local-option:before {
 	transform:translate(-50%, -50%);
 }
 .write-form .must{
-	color:red;
+	color:#ff7ab0;
 }
 .write-form .textinput{
 	height:400px;

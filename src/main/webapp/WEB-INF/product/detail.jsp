@@ -12,7 +12,7 @@
 		<div class="swiper mySwiper">
 			<div class="bigImgDiv swiper-wrapper">
 				<c:forEach items="${photo}" var="photo">
-					<div class="swiper-slide bigImg">
+					<div class="swiper-slide bigImg fix">
 						<img class="bigImage" alt="thumbnail" src="../photo/${photo}">
 					</div>
 				</c:forEach>

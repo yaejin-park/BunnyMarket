@@ -1,3 +1,4 @@
+
 server:
   port: 9002
 
@@ -16,7 +17,9 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://bunnymarket-db.clihali9mgfh.ap-northeast-2.rds.amazonaws.com:3306/bunny-db
     username: admin
-    password: GqyuWLHuGU6gtM4          
+    password: GqyuWLHuGU6gtM4
+  
+        
 
 # mybatis setting
 mybatis:
@@ -29,3 +32,4 @@ servlet:
     multipart:
       max-file-size:50MB
       max-request-size:50MB
+
