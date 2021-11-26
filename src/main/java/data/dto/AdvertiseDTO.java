@@ -14,16 +14,17 @@ public class AdvertiseDTO {
 	private String title;
 	private String content;
 	private String photo;
-	private List<MultipartFile> photoupload;
 	private int readcount;
 	private int goodcount;
 	private Timestamp writeday;
 	
-	public List<MultipartFile> getPhotoupload() {
-		return photoupload;
+	private List<AdattachDTO> attachlist;
+	
+	public List<AdattachDTO> getAttachlist() {
+		return attachlist;
 	}
-	public void setPhotoupload(List<MultipartFile> photoupload) {
-		this.photoupload = photoupload;
+	public void setAttachlist(List<AdattachDTO> attachlist) {
+		this.attachlist = attachlist;
 	}
 	public String getTitle() {
 		return title;

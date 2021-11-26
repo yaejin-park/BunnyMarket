@@ -80,35 +80,35 @@ public class AdvertiseController {
 	
 	@PostMapping("/insert")
 	public String insert(@ModelAttribute AdvertiseDTO dto, HttpSession session) {
-		//uuid 생성
-		UUID uuid=UUID.randomUUID();
-
-		List<MultipartFile> mf = dto.getPhotoupload(); 
-
-		//이미지 업로드 안했을때
-		if(mf.get(0).getOriginalFilename().equals("")) {
-			dto.setPhoto("no");
-		}else {	//이미지 업로드 했을때
-			//이미지 업로드 폴더 지정
-			String path=session.getServletContext().getRealPath("/photo");
-			String photoplus="";
-			System.out.println(path);
-
-			for(int i=0;i<mf.size();i++) {
-				String photo=uuid.toString()+"_"+mf.get(i).getOriginalFilename();
-				//실제 업로드
-				try {
-					mf.get(i).transferTo(new File(path+"\\"+photo));
-				} catch (IllegalStateException | IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				photoplus += photo+",";
-			}
-			//마지막 콤마 제거
-			photoplus = photoplus.substring(0, photoplus.length()-1);
-			dto.setPhoto(photoplus);
-		}
+//		//uuid 생성
+//		UUID uuid=UUID.randomUUID();
+//
+//		List<MultipartFile> mf = dto.getPhotoupload(); 
+//
+//		//이미지 업로드 안했을때
+//		if(mf.get(0).getOriginalFilename().equals("")) {
+//			dto.setPhoto("no");
+//		}else {	//이미지 업로드 했을때
+//			//이미지 업로드 폴더 지정
+//			String path=session.getServletContext().getRealPath("/photo");
+//			String photoplus="";
+//			System.out.println(path);
+//
+//			for(int i=0;i<mf.size();i++) {
+//				String photo=uuid.toString()+"_"+mf.get(i).getOriginalFilename();
+//				//실제 업로드
+//				try {
+//					mf.get(i).transferTo(new File(path+"\\"+photo));
+//				} catch (IllegalStateException | IOException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//				photoplus += photo+",";
+//			}
+//			//마지막 콤마 제거
+//			photoplus = photoplus.substring(0, photoplus.length()-1);
+//			dto.setPhoto(photoplus);
+//		}
 		//insert
 		service.insertAdvertise(dto);
 		return "redirect:detail?idx="+service.getMaxIdx();
@@ -158,33 +158,33 @@ public class AdvertiseController {
 		//uuid 생성
 		UUID uuid=UUID.randomUUID();
 
-		List<MultipartFile> mf = dto.getPhotoupload(); 
-
-		//이미지 업로드 안했을때
-		if(mf.get(0).getOriginalFilename().equals("")) {
-			dto.setPhoto("no");
-		}else {	//이미지 업로드 했을때
-			//이미지 업로드 폴더 지정
-			String path=session.getServletContext().getRealPath("/photo");
-			String photoplus="";
-			System.out.println(path);
-
-			for(int i=0;i<mf.size();i++) {
-				String photo=uuid.toString()+"_"+mf.get(i).getOriginalFilename();
-				//실제 업로드
-				try {
-					mf.get(i).transferTo(new File(path+"\\"+photo));
-				} catch (IllegalStateException | IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				photoplus += photo+",";
-			}
-			//마지막 콤마 제거
-			photoplus = photoplus.substring(0, photoplus.length()-1);
-			dto.setPhoto(photoplus);
-		}
-		//update
+//		List<MultipartFile> mf = dto.getPhotoupload(); 
+//
+//		//이미지 업로드 안했을때
+//		if(mf.get(0).getOriginalFilename().equals("")) {
+//			dto.setPhoto("no");
+//		}else {	//이미지 업로드 했을때
+//			//이미지 업로드 폴더 지정
+//			String path=session.getServletContext().getRealPath("/photo");
+//			String photoplus="";
+//			System.out.println(path);
+//
+//			for(int i=0;i<mf.size();i++) {
+//				String photo=uuid.toString()+"_"+mf.get(i).getOriginalFilename();
+//				//실제 업로드
+//				try {
+//					mf.get(i).transferTo(new File(path+"\\"+photo));
+//				} catch (IllegalStateException | IOException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//				photoplus += photo+",";
+//			}
+//			//마지막 콤마 제거
+//			photoplus = photoplus.substring(0, photoplus.length()-1);
+//			dto.setPhoto(photoplus);
+//		}
+//		//update
 		service.updateAdvertise(dto);
 		return "redirect:detail?idx="+dto.getIdx()+"&currentPage="+currentPage;
 	}

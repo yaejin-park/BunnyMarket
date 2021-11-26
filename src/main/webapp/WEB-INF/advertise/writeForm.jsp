@@ -1,43 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <link rel="stylesheet" type="text/css" href="/css/ad_style.css">
-<div class="write-form">
-	<div class="inner">
-			<div class="group">
-				<div class="child tit">
-					이미지 <span class="must">*</span>
-				</div>
-				<div class="child imgupload">
-					<div class="form-group uploadImg">
-						<label for="chooseFile"> 
-							<img src="../image/write-upload-icon.JPG">
-						</label>
-						<input type="file" id="chooseFile" name="photoupload" class="imginput" multiple="multiple" accept="image/*" onchange="loadFile(event)">
+<!-- 첨부파일 -->
+<div class = "row">
+	<div class = "col-lg-12">
+		<div class = "panel panel-default">
+			<div class = "panel-heading">File Attach</div>
+			<!-- /.panel-heading -->
+			<div class = "panel-body">
+				<div class = "panel-body">
+					<div class = "form-group uploadDiv">
+						<input type = "file" name = 'uploadFile' multiple>
 					</div>
-					<div class="previewarea"></div>
+					
+					<div class = 'uploadResult'>
+						<ul>
+						
+						</ul>
+					</div>
 				</div>
 			</div>
-			<div class="group">
-				<div class="child tit">
-					제목 <span class="must">*</span>
-				</div>
-				<div class="child">
-					<input type="text" name="title" class="subinput" placeholder="글제목" required="required">
-				</div>
-			</div>
-			<div class="group">
-				<div class="child tit">
-					설명 <span class="must">*</span>
-				</div>
-				<div class="child">
-					<textarea name="content" class="textinput" placeholder="설명을 입력해주세요."
-						required="required"></textarea>
-				</div>
-			</div>
-			<div class="btn-wrap">
-				<button type="submit" class="btn-add">글쓰기</button>
-				<button type="button" class="btn-list" onclick="location.href='list'">취소하기</button>
-			</div>
+		</div>
 	</div>
 </div>
 
@@ -77,7 +60,59 @@
 				formData.append("photoupload",files[i]);
 			}
 			
-			$.ajax
-		});i
+			$.ajax({
+				url:'uploadAjaxAction',
+				processData:false,
+				contentType:false,
+				datas:formData,
+				type:'POST',
+				dataType:'json',
+				success:function(result){
+					console.log(result);
+					showUploadResult(result);
+				}
+			});
+		});
 	});
+	
+	function showUploadResult(uploadResultArr) {
+		if(!uploadResultArr || uploadResultArr.length==0){
+			return;
+		}
+		
+		var uploadUL=$(".previewarea ul");
+		var str="";
+		
+		$(uploadResultArr).each(function(i,obj) {
+			if(!obj.image){
+				var fileCallPath=encodeURIComponent(obj.uploadPath+"/"+obj.uuid+"_"+obj.fileName);
+				var fileLink=fileCallPath.replace(new RegExp(/\\/g), "/");
+				
+				str+="<li><a href='/download?fileName="+fileCallPath+"'><img src='/resources/img/attach.png'>"
+	    		   +obj.fileName+"</a>" + "<span data-file=\ '"+ fileCallPath+"\' data-type='file'> x </span>"
+	    		   + "<div></li>";
+				str += "<li><div>";
+		          str += "<span> "+ obj.fileName+"</span>";
+		          str += "<button type='button' data-file=\'"+fileCallPath+"\' data-type='image' class='btn btn-warning btn-circle'><i class='fa fa-times'></i></button><br>";
+		          str += "<img src='/display?fileName="+fileCallPath+"'>";
+		          str += "</div>";
+		          str +"</li>";
+			}else{
+				var fileCallPath=encodeURIComponent( obj.uploadPath+ "/s_"+obj.uuid +"_"+obj.fileName);
+				var originPath=originPath.replace(new RegExp(/\\/g), "/");
+				
+				str+="<li><a href=\"javascript:showImage(\'"
+		    		   +originPath+"\')\"><img src='/display?fileName="+fileCallPath+"'></a>"
+    				   + "<span data-file=\'" + fileCallPath + "\' data-type='image'> x </span><li>";
+				str += "<li><div>";
+		          str += "<span> "+ obj.fileName+"</span>";
+		          str += "<button type='button' data-file=\'"+fileCallPath+"\' data-type='file' class='btn btn-warning btn-circle'><i class='fa fa-times'></i></button><br>";
+		          str += "<img src='/resources/img/attach.png'></a>";
+		          str += "</div>";
+		          str +"</li>";
+			}
+		});
+		uploadResult.append(str);
+		uploadUL.append(str);
+	}
 </script>

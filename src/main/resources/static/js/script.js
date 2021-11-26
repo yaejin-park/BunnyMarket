@@ -58,7 +58,7 @@ $(function(){
 	})
 });
 
-function loadFile(event){
+/*function loadFile(event){
 	imgArr=new Array();
 	for(var image of event.target.files){
 		var reader = new FileReader();
@@ -126,4 +126,4 @@ function loadFile(event){
 		imgArr.splice(idx,1);
 		console.log(imgArr.length);
 	});
-}
+}*/
