@@ -135,6 +135,5 @@ function loadFile(event){
       imgArr.splice(idx,1);
       console.log(imgArr.length);
    });
-   
-   
+
 }

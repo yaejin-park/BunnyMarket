@@ -13,7 +13,6 @@
 <link rel="stylesheet" href="/css/common.css">
 <script type="text/javascript" src="/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="/js/gsap.min.js"></script>
-<script type="text/javascript" src="/js/script.js"></script>
 </head>
 <body>
 	<c:set var="root" value="<%=request.getContextPath() %>"></c:set>
@@ -29,5 +28,10 @@
 		<tiles:insertAttribute name="footer" />
 	</div>
 	<tiles:insertAttribute name="quick" />
+	<div class="dimd"></div>
+	<c:if test="${path=='/pop'}">
+		<tiles:insertAttribute name="popup" />
+	</c:if>
+<script type="text/javascript" src="/js/script.js"></script>
 </body>
 </html>

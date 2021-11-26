@@ -753,6 +753,14 @@ header .local-div .local-option:before {
 	margin-top:40px;
 	text-align:right;
 }
+.smImgDiv .smImg {
+    margin-left: 2.3px;
+}
+.smImgDiv .smImg:last-child {
+    margin-right: 0;
+    margin-left: 0;
+}
+
 /* nodata-style */
 .nodata {
 	padding:80px;

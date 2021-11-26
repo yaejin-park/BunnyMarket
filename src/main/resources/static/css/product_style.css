@@ -1,4 +1,4 @@
-.infoAll{
+.infoAll .all{
 	margin-top: 40px;
 }
 
@@ -22,6 +22,11 @@
 	border-radius: 100%;
 	border: 2.3px solid #f7f6fc;
 	width: 100px;
+}
+
+.detail-swiper {
+	position:relative;
+	overflow:hidden;
 }
 
 .bigImg{
@@ -69,6 +74,11 @@
 
 .relative{
 	margin-top: 60px;
+}
+
+.detailContentDiv{
+	padding-bottom: 80px;
+	border-bottom: 2.3px solid #f7f6fc;
 }
 
 .detailContent{
@@ -121,18 +131,6 @@
 	width: 15px;
 }
 
-.group .swiper-button-next, .swiper-button-prev{
-	color: #ff7ab0;
-}
-
-.group .swiper-button-prev:after, .swiper-rtl .swiper-button-next:after{
-	color: #ff7ab0;
-}
-
-.group .swiper-pagination-bullet-active {
-	background-color: #ff7ab0;
-}
-
 td.sellstatus span.reserved{
 	color: #ff7ab0;
 	font-size: 1.1em;
@@ -182,19 +180,86 @@ tr.lineNeed .marginZero{
 	vertical-align: bottom; 
 }
 
-
-.oneList{
-	border: 2.3px solid #f7f6fc;
-	width: calc((100%-60px)/4);
-	margin-right: 20px;
-	height: 400px;
-	overflow: hidden;
-}
-
 .shortTit{
-	width: 200px;
+	display: block;
  	white-space: nowrap;
 	overflow: hidden;
-	text-overflow: ellipsis;  
+	text-overflow: ellipsis;
+    margin-bottom: 18px;
 }
 
+.category-div{
+	margin-bottom: 80px;
+}
+
+.category-div a:last-child {
+	margin-right:0;
+}
+
+.category-div a {
+	display: inline-block;
+    padding: 10px 24px;
+    margin: 5px;
+    width: calc((100%-5px*6)/7);
+    background-color: #f7f6fc;
+    border-radius: 10px;
+    vertical-align: middle;
+    font-weight: 500;
+}
+
+.category-div a.active {
+    font-weight: bold;
+    color: #ff7ab0;
+}
+
+.oneList{
+    width: calc((100% - 30px * 3) / 4);
+    margin-right: 30px;
+    margin-bottom: 30px;
+}
+
+.oneList:nth-child(4n){
+	margin-right: 0;
+}
+
+.thumbnailDiv{
+	position: relative;
+	overflow: hidden;
+}
+
+.thumbnailDiv img{
+	position:absolute;
+	top:50%;
+	left:50%;
+	transform:translate(-50%,-50%);
+}
+
+.info-div{
+	position: relative;
+	padding: 20px;
+	border: 2.3px solid #f7f6fc;
+}
+
+.icon-sm{
+	width: 10px;
+}
+
+.info-sm{
+	position: absolute;
+	right: 20px;
+	bottom: 20px;
+}
+
+.info-sm .chat{
+	background-image: url("/image/chat-icon.png");
+}
+
+.info-sm .dibs{
+	background-image: url("/image/heart-icon.png");
+}
+
+.write-btn-div{
+	padding-bottom: 30px;
+	margin-bottom: 30px;
+	border-bottom: 2px solid #f7f6fc;
+}

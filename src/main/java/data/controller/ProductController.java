@@ -30,7 +30,8 @@ public class ProductController {
 	
 	@GetMapping("list")
 	public ModelAndView productList(
-			@RequestParam (defaultValue = "1") int currentPage) { 
+			@RequestParam (defaultValue = "1") int currentPage,
+			@RequestParam String category) { 
 	ModelAndView mview = new ModelAndView();
 	
 	int totalCount = service.getTotalCount();
@@ -57,7 +58,7 @@ public class ProductController {
 	//각 페이지에서 불러올 시작번호
 	start = (currentPage-1)*perPage;
 	
-	List<ProductDTO> list = service.getList(start, perPage);
+	List<ProductDTO> list = service.getList(start, perPage, category);
 	
 	//각 페이지에 출력할 시작번호
 	int no = totalCount-(currentPage-1)*perPage;

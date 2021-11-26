@@ -20,10 +20,11 @@ public class ProductService {
 		return mapper.getTotalCount();
 	}
 	
-	public List<ProductDTO> getList(@RequestParam int start, @RequestParam int perpage) {
-		HashMap<String, Integer> map = new HashMap<String, Integer>();
+	public List<ProductDTO> getList(@RequestParam int start, @RequestParam int perpage, @RequestParam String category) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("start", start);
 		map.put("perpage", perpage);
+		map.put("category", category);
 		
 		return mapper.getList(map);
 	}
