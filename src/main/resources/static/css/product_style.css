@@ -76,8 +76,9 @@
 	margin-top: 60px;
 }
 
-.detailContentDiv{
-	padding-bottom: 80px;
+.bottomBoreder{
+	padding-top: 30px;
+	padding-bottom: 30px;
 	border-bottom: 2.3px solid #f7f6fc;
 }
 
@@ -170,6 +171,7 @@ tr.lineNeed .marginZero{
 
 .more{
 	float: right;
+	font-weight: 500;
 }
 
 .verticalTop{
@@ -200,7 +202,7 @@ tr.lineNeed .marginZero{
 	display: inline-block;
     padding: 10px 24px;
     margin: 5px;
-    width: calc((100%-5px*6)/7);
+    width: calc((100%-10px*6)/6);
     background-color: #f7f6fc;
     border-radius: 10px;
     vertical-align: middle;
@@ -216,6 +218,7 @@ tr.lineNeed .marginZero{
     width: calc((100% - 30px * 3) / 4);
     margin-right: 30px;
     margin-bottom: 30px;
+   	cursor: pointer;
 }
 
 .oneList:nth-child(4n){
@@ -240,26 +243,52 @@ tr.lineNeed .marginZero{
 	border: 2.3px solid #f7f6fc;
 }
 
-.icon-sm{
-	width: 10px;
-}
-
 .info-sm{
 	position: absolute;
 	right: 20px;
 	bottom: 20px;
 }
 
-.info-sm .chat{
+.info-sm .countDiv{
+	vertical-align: middle;
+	float: left;
+	color: #979593;
+}
+
+.icon-sm{
+	width: 18px;
+	height: 18px;
+	margin-top:5px;
+}
+
+.info-Div{
+	float: left;
+	margin-left: 5px;
+}
+
+/* background-image·Î µµÀü */
+/* .icon-sm{
+	background-repeat: no-repeat;
+    background-size: cover;
+    width: 22px;
+    height: 22px;
+    padding-left: 22px;
+}
+
+.info-sm div.chat{
 	background-image: url("/image/chat-icon.png");
 }
 
-.info-sm .dibs{
+.info-sm div.dibs{
 	background-image: url("/image/heart-icon.png");
-}
+} */
 
 .write-btn-div{
 	padding-bottom: 30px;
 	margin-bottom: 30px;
 	border-bottom: 2px solid #f7f6fc;
+}
+
+.tit-bottom{
+	margin-bottom: 40px;
 }

@@ -16,11 +16,12 @@ public class ProductDTO {
 	private String id;
 	private Timestamp writeday;
 	private int chatcount;
-	private int goodcount;
+	private int likecount;
 	private int readcount;
 	private List<MultipartFile> upload;
 	private String uploadfile;
 	private String sellstatus;
+	private String crudType;
 	
 	public String getIdx() {
 		return idx;
@@ -70,11 +71,11 @@ public class ProductDTO {
 	public void setChatcount(int chatcount) {
 		this.chatcount = chatcount;
 	}
-	public int getGoodcount() {
-		return goodcount;
+	public int getLikecount() {
+		return likecount;
 	}
-	public void setGoodcount(int goodcount) {
-		this.goodcount = goodcount;
+	public void setLikecount(int likecount) {
+		this.likecount = likecount;
 	}
 	public int getReadcount() {
 		return readcount;
@@ -99,5 +100,11 @@ public class ProductDTO {
 	}
 	public void setSellstatus(String sellstatus) {
 		this.sellstatus = sellstatus;
+	}
+	public String getCrudType() {
+		return crudType;
+	}
+	public void setCrudType(String crudType) {
+		this.crudType = crudType;
 	}
 }
