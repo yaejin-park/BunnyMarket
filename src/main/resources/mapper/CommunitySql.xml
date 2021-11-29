@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="data.mapper.CommunityMapper">
+	<select id="getList" parameterType="HashMap" resultType="cdto">
+	 select * from community order by idx desc limit #{start},#{perpage}
+	</select>
+	<select id="getData" parameterType="String" resultType="cdto">
+		select * from community where idx=#{idx}
+	</select>
+	<insert id="insert" parameterType="cdto">
+		insert into community (id,city,title,content,photo,writeday)  values
+		(#{id},#{city},#{title},#{content},#{photo},now())
+	</insert>
+	<select id="getAllDatas" resultType="cdto">
+		select * from community order by idx asc
+	</select>
+	<select id="getMaxNum" resultType="int">
+		select ifnull(max(idx),0) from community
+	</select>
+	<select id="getTotalCount" resultType="int">
+		select count(*) from community
+	</select>
+	<update id="updateReadCount" parameterType="String">
+		update community set readcount=readcount+1 where idx=#{idx}
+	</update>
+	<delete id="delete" parameterType="String">
+		delete from community where idx=#{idx}
+	</delete>
+</mapper>
