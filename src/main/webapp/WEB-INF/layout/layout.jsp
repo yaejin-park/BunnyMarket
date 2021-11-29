@@ -28,10 +28,6 @@
 		<tiles:insertAttribute name="footer" />
 	</div>
 	<tiles:insertAttribute name="quick" />
-	<div class="dimd"></div>
-	<c:if test="${path=='/pop'}">
-		<tiles:insertAttribute name="popup" />
-	</c:if>
 <script type="text/javascript" src="/js/script.js"></script>
 </body>
 </html>

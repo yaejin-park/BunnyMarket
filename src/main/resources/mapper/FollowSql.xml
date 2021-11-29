@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="data.mapper.FollowMapper">
+	<select id="followCheck" parameterType="String" resultType="int">
+		select count(*) from follow where followee=#{followee} and follower=#{follower}
+	</select>
+
+	<insert id="insertFollow" parameterType="fldto">
+		insert into follow(followee,product) values(#{followee},#{follower})
+	</insert>
+	
+	<delete id="deleteFollow" parameterType="fldto">
+		delete from follow  where followee=#{followee} and follower=#{follower}
+	</delete>
+</mapper>

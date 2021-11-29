@@ -18,9 +18,27 @@ spring:
     url: jdbc:mysql://bunnymarket-db.clihali9mgfh.ap-northeast-2.rds.amazonaws.com:3306/bunny-db
     username: admin
     password: GqyuWLHuGU6gtM4
-  
-        
 
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    protocol: smtp
+    default-encoding: UTF-8
+    username: marketbunny6@gmail.com
+    password: sogeppueagllkajo
+    properties:
+      mail:  
+        smtp:
+          auth: true 
+          starttls:
+            enable: true
+          ssl:
+            trust: smtp.gmail.com
+            protocals: TLSv1.2
+        transport:
+          protocal: smtp
+        # debug: true
+        
 # mybatis setting
 mybatis:
   type-aliases-package: data.*

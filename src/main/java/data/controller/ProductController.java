@@ -15,10 +15,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import data.dto.ProductDTO;
+import data.service.FollowService;
+import data.service.ProductLikeService;
 import data.service.ProductService;
 
 @Controller
@@ -26,12 +29,18 @@ import data.service.ProductService;
 public class ProductController {
 	@Autowired
 	ProductService service;
+	
+	@Autowired
+	ProductLikeService plservice;
+	
+	@Autowired
+	FollowService flservice;
 
 	
-	@GetMapping("list")
+	@GetMapping("/list")
 	public ModelAndView productList(
 			@RequestParam (defaultValue = "1") int currentPage,
-			@RequestParam String category) { 
+			@RequestParam (defaultValue = "전체") String category) { 
 	ModelAndView mview = new ModelAndView();
 	
 	int totalCount = service.getTotalCount();
@@ -70,8 +79,9 @@ public class ProductController {
 	mview.addObject("totalPage", totalPage);
 	mview.addObject("no", no);
 	mview.addObject("currentPage", currentPage);
-	
 	mview.addObject("totalCount", totalCount);
+	
+	mview.addObject("category", category);
 	
 	mview.setViewName("/product/list");
 		  
@@ -148,11 +158,39 @@ public class ProductController {
 	}
 	
 	@GetMapping("/detail")
-	public String content(@RequestParam String idx, Model model) {
+	public String content(@RequestParam String idx,
+			@RequestParam (defaultValue = "1" ) int currentPage, 
+			@RequestParam (required = false) String key,
+			Model model, HttpSession session) {
+		//리스트에서 디테일페이지가면 조회수 올라가게
+		if(key!=null) {
+			service.updateReadcount(idx);
+		}
+		//해당 idx의 데이터 가져오기
 		ProductDTO dto = service.getData(idx);
+		//사진 ,로 split(대표 이미지)
 		String []photo = dto.getUploadfile().split(",");
 		
+		//같은 카테고리 연관제품 보여주기
+		String category = dto.getCategory();
+		List<ProductDTO> list = service.getRelateList(category,idx);
+		
+		//로그인 되어 있을 경우,
+		String loginok = (String)session.getAttribute("loginok");
+		if(loginok!=null) {
+			//하트 버튼 클릭여부
+			String id = (String)session.getAttribute("myid");
+			int likeCheck = plservice.plikeCheck(id,idx);
+			
+			//팔로우 여부
+			int followCheck = flservice.followCheck(dto.getId() , id);
+			model.addAttribute("likeCheck", likeCheck);
+			model.addAttribute("followCheck", followCheck);
+		}
+		
 		model.addAttribute("dto", dto);
+		model.addAttribute("list", list);
+		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("photo", photo);
 		
 		return "/product/detail";
@@ -164,5 +202,31 @@ public class ProductController {
 		
 		return "/product/list";
 	}
-
+	
+	@ResponseBody
+	@PostMapping("/updateLikecount")
+	public int updateLikecount(@RequestParam String idx, HttpSession session) {
+		String id = (String)session.getAttribute("myid");
+		//product의 likecount+1
+		service.updateLikecount(idx);
+		//product_like의 데이터 추가
+		plservice.insertPlike(id,idx);
+		
+		//like 수 리턴
+		return service.getLikeCount(idx);
+	}
+	
+	@ResponseBody
+	@PostMapping("/updateLikeMinuscount")
+	public int updateLikeMinuscount(@RequestParam String idx, HttpSession session) {
+		String id = (String)session.getAttribute("myid");
+		//product의 likecount-1
+		service.updateLikeMinuscount(idx);
+		
+		//product_like의 데이터 삭제
+		plservice.deletePlike(id,idx);
+		
+		//like 수 리턴
+		return service.getLikeCount(idx);
+	}
 }

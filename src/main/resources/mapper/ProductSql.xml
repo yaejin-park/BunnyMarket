@@ -31,6 +31,26 @@
 		update product set readcount = readcount+1 where idx=#{idx}
 	</update>
 	
+	<update id="updateLikecount" parameterType="String">
+		update product set likecount = likecount+1 where idx=#{idx}
+	</update>
+	
+	<update id="updateLikeMinuscount" parameterType="String">
+		update product set likecount = likecount-1 where idx=#{idx}
+	</update>
+	
+	<update id="updateChatcount" parameterType="String">
+		update product set chatcount = chatcount+1 where idx=#{idx}
+	</update>
+	
+	<select id="getLikeCount" parameterType="String" resultType="int">
+		select likecount from product where idx=#{idx}
+	</select>
+
+	<select id="chatCheck" parameterType="String" resultType="int">
+		select count(*) from productChat where idx=#{idx}
+	</select>
+	
 	<update id="updateData">
 		update product set 
 	</update>
@@ -39,4 +59,7 @@
 		delete from product where idx=#{idx}
 	</delete>
 	
+	<select id="getRelateList" parameterType="String" resultType="pdto">
+		select * from product where category=#{category} and idx!=#{idx} order by idx desc limit 4
+	</select>
 </mapper>
