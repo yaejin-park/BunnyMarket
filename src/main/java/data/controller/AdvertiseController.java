@@ -79,7 +79,8 @@ public class AdvertiseController {
 	}
 	
 	@PostMapping("/insert")
-	public String insert(@ModelAttribute AdvertiseDTO dto, HttpSession session) {
+	public String insert(@ModelAttribute AdvertiseDTO dto, HttpSession session,
+				@RequestParam List<MultipartFile> photoupload) {
 		//uuid 생성
 		UUID uuid=UUID.randomUUID();
 
@@ -154,18 +155,24 @@ public class AdvertiseController {
 	
 	@PostMapping("/update")
 	public String update(@ModelAttribute AdvertiseDTO dto, HttpSession session,
+				@RequestParam List<MultipartFile> photoupload,
 				@RequestParam String currentPage) {
 		//uuid 생성
 		UUID uuid=UUID.randomUUID();
 
 		List<MultipartFile> mf = dto.getPhotoupload(); 
 
+		String path=session.getServletContext().getRealPath("/photo");
 		//이미지 업로드 안했을때
 		if(mf.get(0).getOriginalFilename().equals("")) {
-			dto.setPhoto("no");
+			dto.setPhoto(null);
 		}else {	//이미지 업로드 했을때
+			//이전 사진 삭제
+			String ufile=service.getData(dto.getIdx()).getPhoto();
+			File file=new File(path+"\\"+ufile);
+			file.delete();
+			
 			//이미지 업로드 폴더 지정
-			String path=session.getServletContext().getRealPath("/photo");
 			String photoplus="";
 			System.out.println(path);
 
