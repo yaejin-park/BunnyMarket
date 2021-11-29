@@ -44,6 +44,11 @@
 		
 		<div class="info">
 		<table class="table table-default">
+			<tr>			
+				<td class="tit">
+					${dto.title}
+				</td>
+			</tr>
 			<tr>
 				<td rowspan="2" class="profile">
 					<img alt="profile" src="/image/profile-icon.png" class="profileImg">	
@@ -89,6 +94,10 @@
 			<button type="button" class="btn-update" onclick="location.href='updateform?idx=${dto.idx}&currentPage=${currentPage}'">수정</button>
 		<button type="button" id="deleteBtn" class="btn-delete" value="${dto.idx}">삭제</button>
 		</c:if>
+	</div>
+	<!-- 댓글 -->
+	<div class="reply">
+		
 	</div>
 </div>
 

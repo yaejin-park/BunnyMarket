@@ -3,6 +3,7 @@
 <link rel="stylesheet" type="text/css" href="/css/ad_style.css">
 <div class="write-form">
 	<div class="inner">
+	<form action="insert" method="post" enctype="multipart/form-data">
 			<div class="group">
 				<div class="child tit">
 					이미지 <span class="must">*</span>
@@ -12,7 +13,7 @@
 						<label for="chooseFile"> 
 							<img src="../image/write-upload-icon.JPG">
 						</label>
-						<input type="file" id="chooseFile" name="uploadFile" class="imginput" multiple/>
+						<input type="file" id="chooseFile" name="photoupload" class="imginput" multiple="multiple"/>
 					</div>
 					<div class="previewarea">
 						<img id="previewimg" />
@@ -37,9 +38,10 @@
 				</div>
 			</div>
 			<div class="btn-wrap">
-				<button type="submit" class="btn-add">글쓰기</button>
+				<button type="submit" class="btn-add" >글쓰기</button>
 				<button type="button" class="btn-list" onclick="location.href='list'">취소하기</button>
-			</div>
+			</div>			
+		</form>
 	</div>
 </div>
 
