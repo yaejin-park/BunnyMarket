@@ -183,8 +183,8 @@ public class CommunityController {
 	
 	@GetMapping("/updateform")
 	public ModelAndView updateform(
-			String idx,
-			String currentPage
+			@RequestParam String idx,
+			@RequestParam String currentPage
 			) 
 	{
 		ModelAndView mview = new ModelAndView();
@@ -199,8 +199,8 @@ public class CommunityController {
 	@PostMapping("/update")
 	public String update(
 			@ModelAttribute CommunityDTO dto,
-			@RequestParam String currentPage,
 			@RequestParam ArrayList<MultipartFile> upload,
+			@RequestParam String currentPage,
 			HttpSession session
 			)
 	{
@@ -235,10 +235,16 @@ public class CommunityController {
 					dto.setPhoto(fileadd);
 				}
 		
-		
+		//수정
 		service.update(dto);
+		
 		return "redirect:content?idx="+dto.getIdx()+"&currentPage="+currentPage;
 	}
+	
+	
+	
+	
+	
 }
 
 

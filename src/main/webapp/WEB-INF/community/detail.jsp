@@ -11,10 +11,10 @@
 
 <div class="infoAll">
 	<div class="img group">
-		<div class="swiper mySwiper">
+		<div class="detail-swiper">
 			<div class="bigImgDiv swiper-wrapper">
 				<c:forEach items="${photo}" var="photo">
-					<div class="swiper-slide bigImg">
+					<div class="swiper-slide bigImg fix">
 						<!-- 이미지 없는경우 -->
 						<c:if test="${photo=='no'}">
 							<img src="../image/co-noimg.jpg">
@@ -99,25 +99,29 @@
 </div>
 
 
-<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-<!-- Initialize Swiper -->
+<script type="text/javascript" src="/js/swiper.min.js"></script>
 <script>
-setTimeout(() => {
-	 var swiper = new Swiper(".mySwiper", {
-		    navigation: {
-		      nextEl: ".swiper-button-next",
-		      prevEl: ".swiper-button-prev",
-		    },
-		    pagination: {
-		      el: ".swiper-pagination",
-		    },
-		  });
-}, 20);
 
-//미리보기 이미지 클릭
+/* //미리보기 이미지 클릭
 $(document).on("click",".smallImg", function(e) {
 	var src = $(this).attr("src");
 	$(".bigImage").attr("src",src);
+}); */
+
+//미리보기 이미지 호버시,
+$(document).ready(function() {
+	$(".smImgDiv").mouseenter(function() {
+		var original = $(".bigImage").attr("src");
+		console.log("enter"+original);
+		$(".smallImg").hover(function() {
+			var src = $(this).attr("src");
+			$(".bigImage").attr("src",src);
+		});
+	}), function() {
+		console.log("out");
+		var src = $(this).attr("src");
+		$(".bigImage").attr("src",original);
+	}                                                                                                      
 });
 
 
