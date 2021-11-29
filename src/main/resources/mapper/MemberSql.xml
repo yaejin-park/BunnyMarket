@@ -2,6 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="data.mapper.MemberMapper">
 	<insert id="insertMember" parameterType="mdto">
-		insert into member (id, pw, name, nickname, email, addr, hp, joinday) values (#{id}, #{pw}, #{name}, #{nickname}, #{email}, #{addr}, #{hp}, now())
+		insert into member (id, pw, name, nickname, email, addr, hp, type, local, zonecode, joinday) values (#{id}, #{pw}, #{name}, #{nickname}, #{email}, #{addr}, #{hp}, #{type}, #{local}, #{zonecode}, now())
 	</insert>
+	
+	<select id="getIdCheck" parameterType="String" resultType="Integer">
+		select count(*) from member where id = #{id}
+	</select>
+	
+	<select id="getNickCheck" parameterType="String" resultType="Integer">
+		select count(*) from member where nickname = #{nickname}
+	</select>
 </mapper>

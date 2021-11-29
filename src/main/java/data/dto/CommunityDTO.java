@@ -79,4 +79,5 @@ public class CommunityDTO {
 	public void setUpload(ArrayList<MultipartFile> upload) {
 		this.upload = upload;
 	}
+	
 }
