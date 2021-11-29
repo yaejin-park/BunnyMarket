@@ -3,59 +3,59 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <link rel="stylesheet" type="text/css" href="/css/notice_style.css">
-	<!-- 작성글 없을 떄 -->
-	<c:if test="${totalCount==0}">
+<!-- 작성글 없을 떄 -->
+<c:if test="${totalCount==0}">
 	<div class="inner">
-		
-			
+
+
 		<div class="inner">
-		<div class="nodata">
-			<p class="icon">
-				<img alt="" src="/image/nodata-icon.png">
-			</p>
-		
-			<p>등록된 데이터가 없습니다.</p>
-		</div>
+			<div class="nodata">
+				<p class="icon">
+					<img alt="" src="/image/nodata-icon.png">
+				</p>
+
+				<p>등록된 데이터가 없습니다.</p>
+			</div>
 		</div>
 		<div class="btn-wrap">
-		
-			<button class="btn-add" type="button"
-			onclick="location.href='writeform'">글쓰기</button>
-			</div>
-</div>
-		
 
-		</c:if>
+			<button class="btn-add" type="button"
+				onclick="location.href='writeform'">글쓰기</button>
+		</div>
+	</div>
+
+
+</c:if>
 <div class="inner">
 
 
-		<c:if test="${totalCount>0}">
-	
-	<table class="table">
-	
-		
-		<thead>
-			<tr>
-				<!-- 관리자가 로그인 했을 떄만 체크박스로 변경 -->
-				<c:choose>
-					<c:when test="${dto.type==admin}">
-						<th class="num"><input type="checkbox" value="selectall"
-							onclick="selectAll(this)"></th>
-					</c:when>
-					<c:otherwise>
-						<th class="num">번호</th>
-					</c:otherwise>
-				</c:choose>
+	<c:if test="${totalCount>0}">
 
-				<th class="title">제목</th>
-				<th class="writeday">작성일</th>
-				<th class="readcount">조회수</th>
-			</tr>
-		</thead>
-	
+		<table class="table">
 
 
-		
+			<thead>
+				<tr>
+					<!-- 관리자가 로그인 했을 떄만 체크박스로 변경 -->
+					<c:choose>
+						<c:when test="${dto.type==admin}">
+							<th class="num"><input type="checkbox" value="selectall"
+								onclick="selectAll(this)"></th>
+						</c:when>
+						<c:otherwise>
+							<th class="num">번호</th>
+						</c:otherwise>
+					</c:choose>
+
+					<th class="title">제목</th>
+					<th class="writeday">작성일</th>
+					<th class="readcount">조회수</th>
+				</tr>
+			</thead>
+
+
+
+
 
 			<c:forEach var="n" items="${list}">
 				<tbody>
@@ -87,17 +87,17 @@
 
 				</tbody>
 			</c:forEach>
-	
-	</table>
-			<!-- 관리자가 로그인 했을 떄만 버튼 나타남 -->
-	<!--<c:if test="${dto.type==admin}">-->
-	<div class="btn-wrap">
-		<button class="btn-add" type="button"
-			onclick="location.href='writeform'">글쓰기</button>
-		<button class="btn-delete" type="button" id="delete">글삭제</button>
-	</div>
-	<!--</c:if>-->
-		</c:if>
+
+		</table>
+		<!-- 관리자가 로그인 했을 떄만 버튼 나타남 -->
+		<!--<c:if test="${dto.type==admin}">-->
+		<div class="btn-wrap">
+			<button class="btn-add" type="button"
+				onclick="location.href='writeform'">글쓰기</button>
+			<button class="btn-delete" type="button" id="delete">글삭제</button>
+		</div>
+		<!--</c:if>-->
+	</c:if>
 </div>
 
 

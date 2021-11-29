@@ -1,8 +1,14 @@
 package data.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
+import javax.swing.filechooser.FileSystemView;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import data.dto.NoticeDTO;
@@ -69,12 +76,13 @@ public class NoticeController {
 		return mview;
 	}
 
+
 	@PostMapping("insert")
 	public String insert(@ModelAttribute NoticeDTO dto, HttpSession session) {
 
 		// insert
 		Nservice.NoticeInsert(dto);
-		System.out.println(dto.getTitle());
+		
 		return "redirect:content?idx=" + Nservice.getMaxidx();
 
 	}
@@ -112,7 +120,7 @@ public class NoticeController {
 
 	@GetMapping("/writeform")
 	public String writeform() {
-		return "/notice/writeform";
+		return "/notice/insertform";
 	}
 
 	@GetMapping("/content")
@@ -131,5 +139,8 @@ public class NoticeController {
 		mview.setViewName("/notice/content");
 		return mview;
 	}
+	
+	
+
 
 }

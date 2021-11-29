@@ -1,14 +1,60 @@
 .wtable .content {
 	height: 500px;
 	margin-top: 10px;
+	
 }
 
 .wtable .title {
 	height: 40px;
 	margin-top: 10px;
 	margin-bottom: 10px;
+	border-top:none;
+	border-right:none;
+	border-left:none;
+	border-bottom: 2px solid black;
+	
 	
 }
+.filebox{
+	
+	float:right;
+}
+
+
+.filebox label {
+  display: inline-block;
+  padding: .4em .55em;
+  color: #fff;
+  font-size: inherit;
+  line-height: normal;
+  vertical-align: middle;
+  background-color:  #ff7ab0;
+  cursor: pointer;
+  border: 1px solid  #ff7ab0 ;
+  border-radius: .25em;
+  -webkit-transition: background-color 0.2s;
+  transition: background-color 0.2s;
+}
+
+.filebox label:hover {
+  background-color:  #ff7ab0;
+}
+
+.filebox label:active {
+  background-color:  #ff7ab0 ;
+}
+
+.filebox input[type="file"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
 
 
 .utable .title{

@@ -35,6 +35,7 @@
 			<td class="ment">
 					<h3>바니마켓</h3>
 					<p>어저꾸 저저</p>
+					<button type="button">바로가기</button>
 					
 			</td>
 		</tr>

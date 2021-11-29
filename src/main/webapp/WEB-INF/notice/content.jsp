@@ -26,6 +26,10 @@
 			<tr>
 				<td class="contenttxt" colspan="3">${dto.content}</td>
 			</tr>
+			
+			<tr>
+				<td class="contenttxt" colspan="3">${dto.uploadfile}</td>
+			</tr>
 		</tbody>
 
 
@@ -39,6 +43,7 @@
 			onclick="location.href='updateform?idx=${dto.idx}&currentPage=${currentPage}'">수정</button>
 		<button class="btn-delete" id="delete2">삭제</button>
 	</div>
+	
 
 </div>
 <script type="text/javascript" src="/js/notice_script.js"></script>

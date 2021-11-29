@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="data.mapper.NoticeMapper">
 	<insert id="NoticeInsert" parameterType="ndto">
-		insert into notice (title,content,writeday) values (#{title},#{content},now())	
+		insert into notice (title,content,writeday,uploadfile) values (#{title},#{content},now(),#{uploadfile})	
 	</insert>
 	<update id="NoticeUpdate">
 			update notice set title=#{title},content=#{content} where idx=#{idx} 
@@ -25,4 +25,5 @@
 	<select id="getData" parameterType="String" resultType="ndto">
 		select * from notice where idx=#{idx}
 	</select>
+	
 </mapper>

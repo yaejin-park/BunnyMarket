@@ -1,6 +1,7 @@
 package data.dto;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 
 import org.apache.ibatis.type.Alias;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,9 +15,25 @@ public class NoticeDTO {
 	private String content;
 	private int readcount;
 	private Timestamp writeday;
+	private MultipartFile upload;
+	private String uploadfile;
 	
 	
 	
+	
+	public String getUploadfile() {
+		return uploadfile;
+	}
+	public void setUploadfile(String uploadfile) {
+		this.uploadfile = uploadfile;
+	}
+	public MultipartFile getUpload() {
+		return upload;
+	}
+	public void setUpload(MultipartFile upload) {
+		this.upload = upload;
+	}
+
 
 	public int getIdx() {
 		return idx;
