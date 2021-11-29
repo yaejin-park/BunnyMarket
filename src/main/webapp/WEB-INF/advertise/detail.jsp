@@ -97,7 +97,11 @@
 	</div>
 	<!-- 댓글 -->
 	<div class="reply">
-		
+		<div class="relist"></div>
+		<div class="reform">
+			<input type="text" class="retext" id="recontent" placeholder="댓글을 입력하세요.">
+			<button type="button" class="btn-add" id="rebtn">등록</button>
+		</div>
 	</div>
 </div>
 
