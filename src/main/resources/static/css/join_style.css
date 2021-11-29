@@ -84,6 +84,16 @@
 	font-size:16px;
 	color:#999;
 }
+.join-div .write-form .pw-msg, .join-div .write-form .pw-check-msg {
+	display:inline-block;
+	margin-left:15px;
+	font-size:16px;
+	color:#ff7ab0;
+	line-height:42px;
+}
+.join-div .write-form .pw-msg.success, .join-div .write-form .pw-check-msg.success {
+	color:#7aa6ff;
+}
 .join-div .write-form .form-div.email-div {
 	display:flex;
 	flex-wrap:nowrap;
@@ -119,6 +129,14 @@
 }
 .join-div .write-form .email-certify .form-div .btn-list {
 	margin:5px 0 0 10px;
+}
+.join-div .write-form .email-certify .form-div .email-msg {
+	margin-top:10px;
+	font-size:16px;
+	color:#ff7ab0;
+}
+.join-div .write-form .email-certify .form-div .email-msg.success {
+	color:#7aa6ff;
 }
 .join-div .write-form .hp-div {
 	display:flex;
@@ -209,4 +227,31 @@
 }
 #adminPop .admin-code {
 	margin:20px 0;
+}
+#idCheckPop .write-form, #nickCheckPop .write-form {
+	margin-top:0;
+}
+#idCheckPop .form-div , #nickCheckPop .form-div {
+	margin:20px 0;
+}
+#idCheckPop .has-btn-type input, #nickCheckPop .has-btn-type input {
+	display:inline-block;
+	width:calc(100% - 100px);
+	margin-right:10px;
+} 
+#idCheckPop .has-btn-type button, #nickCheckPop .has-btn-type button {
+	display:inline-block;
+	padding:10px 15px;
+}
+#idCheckPop .result-div, #nickCheckPop .result-div {
+	padding:20px;
+	background:rgb(255, 241, 247);
+	text-align:center;
+}
+#idCheckPop .result-msg, #nickCheckPop .result-msg {
+	margin-bottom:10px;
+}
+#idCheckPop .result-msg span, #nickCheckPop .result-msg span {
+	font-weight:bold;
+	color:#ff7ab0;
 }

@@ -1,0 +1,65 @@
+
+/* community List */
+
+.commu-wrap {
+	margin-top:40px;
+}
+.cummu-list:after{
+	content:"";
+	display:block;
+	clear:both;	
+}
+.cummu-list li{
+	position:relative;
+	float:left;
+	width:calc((100% - 90px) / 4);
+	margin-right:30px;
+	margin-top:30px;
+}
+.cummu-list li .image {
+	position:relative;
+	top: 30px;
+	width:100%;
+	overflow:hidden;
+}
+.cummu-list li .image img {
+	position:absolute;
+	top:50%;
+	left:50%;
+	transform:translate(-50%, -50%);
+}
+.cummu-list li:nth-child(4n){
+	margin-right:0;
+}
+.cummu-list li:nth-child(-n+4){
+	margin-top:0;
+}
+.cummu-list li .text-div{
+	padding: 8px 20px 10px 20px;
+}
+.cummu-list li .text-div .tit{
+	margin-top:45px;
+	width:250px;
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis;
+}
+.cummu-list li .text-div .txt{
+	margin-top:10px;
+	width:300px;
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis;
+}
+.cummu-list li .text-div .date {
+	position:absolute;
+	top:-10px;
+	right:0;
+	color: #999;
+}
+
+/* community Detail */
+
+.infoAll{
+	margin-top: 40px;
+}

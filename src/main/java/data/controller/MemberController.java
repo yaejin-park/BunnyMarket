@@ -12,6 +12,8 @@ import javax.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +30,9 @@ import data.service.MemberService;
 public class MemberController {
 	@Autowired
 	JavaMailSender javaMailSender;
+	
+	@Autowired
+	private BCryptPasswordEncoder encoder;
 	
 	@Autowired
 	MemberService service;
@@ -156,13 +161,20 @@ public class MemberController {
 			@RequestParam String hp1,
 			@RequestParam String hp2,
 			@RequestParam String hp3,
+			@RequestParam String addrLocal,
+			@RequestParam String zonecode,
+			@RequestParam String addr1,
+			@RequestParam String addr2,
 			MemberDTO dto
 			) 
-	{
-		System.out.println(email1 + "@" + email2);
+	{	
+		dto.setType(type);
+		dto.setPw(encoder.encode(dto.getPw()));
 		dto.setEmail(email1 + "@" + email2);
 		dto.setHp(hp1 + "-" + hp2 + "-" + hp3);
-		dto.setType(type);
+		dto.setLocal(addrLocal);
+		dto.setAddr(addr1 + "," + addr2);
+		dto.setZonecode(zonecode);
 		service.insertMember(dto);
 		return "redirect:complete";
 	}
@@ -171,5 +183,25 @@ public class MemberController {
 	public String completeJoin() {
 		return "/join/complete";
 	}
+	
+	@GetMapping("/idCheck")
+	public @ResponseBody HashMap<String, Integer> getIdCheck(
+			@RequestParam String id
+			) 
+	{
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("id", service.getIdCheck(id));
+		return map;
+	} 
+	
+	@GetMapping("/nickCheck")
+	public @ResponseBody HashMap<String, Integer> getNickCheck(
+			@RequestParam String nick
+			) 
+	{
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		map.put("nick", service.getNickCheck(nick));
+		return map;
+	} 
 	
 }

@@ -18,6 +18,7 @@ public class MemberDTO {
 	private String local;
 	private String type;
 	private Timestamp joinday;
+	private String zonecode;
 	
 	public String getIdx() {
 		return idx;
@@ -90,5 +91,11 @@ public class MemberDTO {
 	}
 	public void setJoinday(Timestamp joinday) {
 		this.joinday = joinday;
+	}
+	public String getZonecode() {
+		return zonecode;
+	}
+	public void setZonecode(String zonecode) {
+		this.zonecode = zonecode;
 	}
 }
