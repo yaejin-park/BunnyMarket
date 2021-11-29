@@ -25,7 +25,7 @@
 	</delete>
 	<update id="updateAdvertise" parameterType="addto">
 		update advertise set title=#{title},content=#{content}
-		<if test="photo!='no'">
+		<if test="photo!=null">
 			,photo=#{photo}
 		</if>
 		where idx=#{idx}

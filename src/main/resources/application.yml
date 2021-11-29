@@ -1,3 +1,4 @@
+
 server:
   port: 9002
 
@@ -11,12 +12,13 @@ spring:
     livereload:
       enabled: true
 
-#  mysql setting
+# mysql setting
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://bunnymarket-db.clihali9mgfh.ap-northeast-2.rds.amazonaws.com:3306/bunny-db
     username: admin
     password: GqyuWLHuGU6gtM4
+
   mail:
     host: smtp.gmail.com
     port: 587
@@ -35,16 +37,17 @@ spring:
             protocals: TLSv1.2
         transport:
           protocal: smtp
-        debug: true
-
+        # debug: true
+        
 # mybatis setting
 mybatis:
   type-aliases-package: data.*
   mapper-locations:
   - /mapper/**/*.xml
   
-#file size setting
-  servlet:
+# file size setting
+servlet:
     multipart:
       max-file-size:50MB
       max-request-size:50MB
+

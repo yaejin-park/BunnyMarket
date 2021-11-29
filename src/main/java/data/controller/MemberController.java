@@ -67,11 +67,11 @@ public class MemberController {
 		
 		MimeMessage message = javaMailSender.createMimeMessage();
 		try {
-			message.setSubject("BunnyMarket ÀÎÁõ¹øÈ£ ÀÔ·ÂÀ» À§ÇÑ ¸ŞÀÏ Àü¼Û");
-			message.addRecipient(RecipientType.TO, new InternetAddress(mail, "Æ÷Å©", "UTF-8"));
+			message.setSubject("BunnyMarket ì¸ì¦ë²ˆí˜¸ ì…ë ¥ì„ ìœ„í•œ ë©”ì¼ ì „ì†¡");
+			message.addRecipient(RecipientType.TO, new InternetAddress(mail, "í¬í¬", "UTF-8"));
 			
 			String mailForm = "<div style='width:960px; margin:0 auto;'>";
-			mailForm += "<table  cellpadding='0' cellspacing='0' border='0' width='960' align='left' valign='middle' style='margin:0 auto; padding:0; min-width:960px; border:1px solid #ebebeb; font-family:'¸¼Àº °íµñ', 'Malgun Gothic', 'µ¸¿ò', Dotum, sans-serif; font-size:18px; color:#666666; letter-spacing:-1.3px; line-height:1.8;'>";
+			mailForm += "<table  cellpadding='0' cellspacing='0' border='0' width='960' align='left' valign='middle' style='margin:0 auto; padding:0; min-width:960px; border:1px solid #ebebeb; font-family:'ë§‘ì€ ê³ ë”•', 'Malgun Gothic', 'ë‹ì›€', Dotum, sans-serif; font-size:18px; color:#666666; letter-spacing:-1.3px; line-height:1.8;'>";
 			mailForm += "<tbody>";
 			mailForm += "<tr>";
 			mailForm += "<td width='70' height='80'></td>";
@@ -81,7 +81,7 @@ public class MemberController {
 			mailForm += "<tr>";
 			mailForm += "<td height='30'></td>";
 			mailForm += "<td height='30' align='right'>";
-			mailForm += "<a href='http://localhost:9002/'><img src='http://localhost:9002/image/logo2.png' alt='¹Ù´Ï¸¶ÄÏ ·Î°í' style='height:30px;'/></a>";
+			mailForm += "<a href='http://localhost:9002/'><img src='http://localhost:9002/image/logo2.png' alt='ë°”ë‹ˆë§ˆì¼“ ë¡œê³ ' style='height:30px;'/></a>";
 			mailForm += "</td>";
 			mailForm += "<td height='30'></td>";
 			mailForm += "</tr>";
@@ -93,7 +93,7 @@ public class MemberController {
 			mailForm += "<tr>";
 			mailForm += "<td></td>";
 			mailForm += "<td>";
-			mailForm += "<p style='font-size:40px; color:#333333; font-weight:300; line-height:1; letter-spacing:-4px;'>ÀÎÁõ¹øÈ£ ¾È³»</p>";
+			mailForm += "<p style='font-size:40px; color:#333333; font-weight:300; line-height:1; letter-spacing:-4px;'>ì¸ì¦ë²ˆí˜¸ ì•ˆë‚´</p>";
 			mailForm += "</td>";
 			mailForm += "<td></td>";
 			mailForm += "</tr>";
@@ -105,7 +105,7 @@ public class MemberController {
 			mailForm += "<tr>";
 			mailForm += "<td></td>";
 			mailForm += "<td>";
-			mailForm += "<p style='font-size:16px;'>¾È³çÇÏ¼¼¿ä. °í°´´Ô<br/>¹Ù´Ï¸¶ÄÏ È¸¿ø°¡ÀÔÀ» À§ÇÑ ÀÎÁõ¹øÈ£¸¦ ¾È³»ÇØµå¸³´Ï´Ù.<br/>ÀÎÁõ¹øÈ£¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.</p>";
+			mailForm += "<p style='font-size:16px;'>ì•ˆë…•í•˜ì„¸ìš”.ê³ ê°ë‹˜<br/>ë°”ë‹ˆë§ˆì¼“ íšŒì›ê°€ì…ì„ ìœ„í•œ ì¸ì¦ë²ˆí˜¸ë¥¼ ì•ˆë‚´í•´ë“œë¦½ë‹ˆë‹¤.<br/> ì¸ì¦ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.</p>";
 			mailForm += "</td>";
 			mailForm += "<td></td>";
 			mailForm += "</tr>";
@@ -117,7 +117,7 @@ public class MemberController {
 			mailForm += "<tr>";
 			mailForm += "<td></td>";
 			mailForm += "<td style='padding:30px; background:#f5f5f5; text-align:center;'>";
-			mailForm += "<p style='font-size:25px; font-weight:500; color:#333333;'><span style='margin-right:20px; color:#666666;'>ÀÎÁõ¹øÈ£</span>" + key + "</p>";
+			mailForm += "<p style='font-size:25px; font-weight:500; color:#333333;'><span style='margin-right:20px; color:#666666;'>ì¸ì¦ë²ˆí˜¸</span>" + key + "</p>";
 			mailForm += "</td>";
 			mailForm += "<td></td>";
 			mailForm += "</tr>";
@@ -129,7 +129,7 @@ public class MemberController {
 			mailForm += "<tr>";
 			mailForm += "<td></td>";
 			mailForm += "<td>";
-			mailForm += "<p style='font-size:16px;'>°¨»çÇÕ´Ï´Ù.</p>";
+			mailForm += "<p style='font-size:16px;'>ê°ì‚¬í•©ë‹ˆë‹¤.</p>";
 			mailForm += "</td>";
 			mailForm += "<td></td>";
 			mailForm += "</tr>";
@@ -141,7 +141,6 @@ public class MemberController {
 			mailForm += "</tbody>";
 			mailForm += "</table>";
 			mailForm += "</div>";
-			//message.setText("ÀÎÁõ¹øÈ£:"  + key);
 			message.setText(mailForm, "UTF-8", "html");
 			
 			javaMailSender.send(message);
