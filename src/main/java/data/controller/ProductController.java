@@ -207,6 +207,7 @@ public class ProductController {
 	@PostMapping("/updateLikecount")
 	public int updateLikecount(@RequestParam String idx, HttpSession session) {
 		String id = (String)session.getAttribute("myid");
+		System.out.println(id);
 		//product의 likecount+1
 		service.updateLikecount(idx);
 		//product_like의 데이터 추가

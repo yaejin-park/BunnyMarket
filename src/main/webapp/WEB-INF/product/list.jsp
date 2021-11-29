@@ -17,7 +17,17 @@
 	<div class="btn-wrap write-btn-div">
 		<button type="button" class="btn-add" onclick="location.href='insertForm'">글쓰기</button>
 	</div>
+	<c:if test="${list.size()==0}">
+		<div class="nodata">
+			<p class="icon">
+				<img alt="" src="/image/nodata-icon.png">
+			</p>
+			<p>등록된 데이터가 존재하지 않습니다.</p>
+		</div>
+	</c:if>
+		
 	<div class="group">
+		<c:if test="${list.size()!=0}">
 		<c:forEach items="${list}" var="one">
 			<c:set var="thumbName" value="${fn:split(one.uploadfile,',')[0]}" />
 			<div class="oneList child" onclick="location.href='detail?idx=${one.idx}&currentPage=${currentPage}'">
@@ -51,8 +61,8 @@
 				</div>
 			</div>
 		</c:forEach>
+	</c:if>
 	</div>
-
 	<!-- 페이징 -->
 	<div>
 		<div class="paging">

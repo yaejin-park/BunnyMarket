@@ -7,7 +7,7 @@
 	</select>
 
 	<insert id="insertFollow" parameterType="fldto">
-		insert into follow(followee,product) values(#{followee},#{follower})
+		insert into follow(followee,follower) values(#{followee},#{follower})
 	</insert>
 	
 	<delete id="deleteFollow" parameterType="fldto">
