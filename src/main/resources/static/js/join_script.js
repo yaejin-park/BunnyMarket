@@ -235,7 +235,7 @@ function joinFormCheck(f){
 		return true;
 	}
 	
-	if(termCheck){
+	if(!termCheck){
 		alert("약관동의해주세요.");
 		return false;
 	}else{

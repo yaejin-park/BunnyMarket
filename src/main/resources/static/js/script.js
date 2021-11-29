@@ -135,6 +135,12 @@ function loadFile(event){
 		imgArr.splice(idx,1);
 		console.log(imgArr.length);
 	});
+}
+
+function popOpen(pop){
+	$(pop).fadeIn(500);
 	
-	
+	$(pop).find(".modal-close").click(function(){
+		$(pop).fadeOut(500);	
+	});
 }
