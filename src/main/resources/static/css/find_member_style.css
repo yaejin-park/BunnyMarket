@@ -1,0 +1,44 @@
+.find-member-div .tab-btn .inner {
+	width:400px;
+	margin:0 auto;
+	padding-top:100px;
+}
+.find-member-div .tab-btn a {
+	width:calc(50% - 3px);
+	margin:0;
+	text-align:center;
+}
+.find-form-div {
+	width:400px;
+	margin:40px auto 0;
+}
+.find-form-div .form-div {
+	margin-top:10px;
+}
+.find-form-div .form-div:first-child {
+	margin-top:0;
+}
+.find-form-div .btn-wrap {
+	margin-top:40px;
+	text-align:center;
+}
+.find-form-div .btn-wrap button {
+	width:100%;
+}
+.find-form-div .email-div {
+	margin-top:10px;
+}
+.find-form-div .email-div .form-div:first-child input {
+	width:calc(100% - 35px);
+	margin-right:10px;
+}
+.find-form-div .email-div .form-div:first-child span {
+	line-height:42px;
+}
+.find-form-div .has-btn-type select, .email-certify input {
+	width:calc(100% - 115px);
+}
+.find-form-div .has-btn-type button.btn-list, .email-certify button.btn-list {
+	padding:10px 15px;
+	margin-left:7px;
+}

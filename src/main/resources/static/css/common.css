@@ -551,6 +551,22 @@ header .local-div .local-option:before {
 	font-size:14px;
 	font-weight:normal;
 }
+.tab-btn {
+	border-bottom:1px solid #f5f5f5;
+}
+.tab-btn a {
+	display:inline-block;
+	padding:20px 0;
+	margin-right:30px;
+}
+.tab-btn a:last-child {
+	margin-right:0;
+}
+.tab-btn a.active {
+	font-weight:bold;
+	color:#ff7ab0;
+	border-bottom:2px solid #ff7ab0;
+}
 .paging {
 	margin-top:80px;
 	text-align:center;
