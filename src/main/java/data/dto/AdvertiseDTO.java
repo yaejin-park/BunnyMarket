@@ -1,6 +1,7 @@
 package data.dto;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import org.apache.ibatis.type.Alias;
 import org.springframework.web.multipart.MultipartFile;
@@ -13,22 +14,22 @@ public class AdvertiseDTO {
 	private String title;
 	private String content;
 	private String photo;
-	private MultipartFile photoUpload;
+	private List<MultipartFile> photoupload;
 	private int readcount;
 	private int goodcount;
 	private Timestamp writeday;
 	
+	public List<MultipartFile> getPhotoupload() {
+		return photoupload;
+	}
+	public void setPhotoupload(List<MultipartFile> photoupload) {
+		this.photoupload = photoupload;
+	}
 	public String getTitle() {
 		return title;
 	}
 	public void setTitle(String title) {
 		this.title = title;
-	}
-	public MultipartFile getPhotoUpload() {
-		return photoUpload;
-	}
-	public void setPhotoUpload(MultipartFile photoUpload) {
-		this.photoUpload = photoUpload;
 	}
 	public String getIdx() {
 		return idx;

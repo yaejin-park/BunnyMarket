@@ -1,3 +1,4 @@
+
 server:
   port: 9002
 
@@ -18,8 +19,35 @@ spring:
     username: admin
     password: GqyuWLHuGU6gtM4
 
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    protocol: smtp
+    default-encoding: UTF-8
+    username: marketbunny6@gmail.com
+    password: sogeppueagllkajo
+    properties:
+      mail:  
+        smtp:
+          auth: true 
+          starttls:
+            enable: true
+          ssl:
+            trust: smtp.gmail.com
+            protocals: TLSv1.2
+        transport:
+          protocal: smtp
+        # debug: true
+        
 # mybatis setting
 mybatis:
   type-aliases-package: data.*
   mapper-locations:
   - /mapper/**/*.xml
+  
+# file size setting
+servlet:
+    multipart:
+      max-file-size:50MB
+      max-request-size:50MB
+

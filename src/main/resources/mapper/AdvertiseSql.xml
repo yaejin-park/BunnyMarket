@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="data.mapper.AdvertiseMapper">
+	<select id="getTotalCount" resultType="int">
+		select count(*) from advertise
+	</select>
 	<select id="getData" parameterType="String" resultType="addto">
 		select * from advertise where idx=#{idx}
 	</select>
-	<select id="getMaxNum" resultType="int">
+	<select id="getMaxIdx" resultType="int">
 		select ifnull(max(idx),0) from advertise
+	</select>
+	<select id="updateReadCount" parameterType="String">
+		update advertise set readcount=readcount+1 where idx=#{idx}
 	</select>
 	<select id="getList" parameterType="HashMap" resultType="addto">
 		select * from advertise order by idx desc limit #{start},#{perpage}
@@ -14,4 +20,14 @@
 		insert into advertise (id,title,content,photo,writeday)
 			values (#{id},#{title},#{content},#{photo},now());
 	</insert>
+	<delete id="deleteAdvertise" parameterType="String">
+		delete from advertise where idx=#{idx}
+	</delete>
+	<update id="updateAdvertise" parameterType="addto">
+		update advertise set title=#{title},content=#{content}
+		<if test="photo!=null">
+			,photo=#{photo}
+		</if>
+		where idx=#{idx}
+	</update>
 </mapper>

@@ -38,6 +38,11 @@ legend, caption {
 textarea, button { 
 	vertical-align:middle; 
 }
+
+textarea{
+	resize: none;
+}
+
 input, select { 
 	width:100%;
 	height:42px;
@@ -55,7 +60,11 @@ input, select {
 input::placeholder {
 	color:#999;
 }
-textarea { 
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+textarea, .detailContent { 
 	width:100%;
 	padding:10px 15px;
 	font-family:'Noto Sans KR', sans-serif; 
@@ -443,10 +452,10 @@ header .local-div .local-option:before {
 .btn-wrap {
 	text-align:right;
 }
-.btn-wrap a {
+.btn-wrap a, .btn-wrap button {
 	margin-right:5px;
 }
-.btn-wrap a:last-child {
+.btn-wrap a:last-child, .btn-wrap button:last-child {
 	margin-right:0;
 }
 .btn-wrap.top-div {
@@ -735,7 +744,7 @@ header .local-div .local-option:before {
 	transform:translate(-50%, -50%);
 }
 .write-form .must{
-	color:red;
+	color:#ff7ab0;
 }
 .write-form .textinput{
 	height:400px;
@@ -744,6 +753,14 @@ header .local-div .local-option:before {
 	margin-top:40px;
 	text-align:right;
 }
+.smImgDiv .smImg {
+    margin-left: 2.3px;
+}
+.smImgDiv .smImg:last-child {
+    margin-right: 0;
+    margin-left: 0;
+}
+
 /* nodata-style */
 .nodata {
 	padding:80px;
@@ -760,6 +777,48 @@ header .local-div .local-option:before {
 .nodata .icon img {
 	width:100%;
 }
+
+/* writeform-style*/
+.previewarea:after {
+	content:"";
+	display:block;
+	clear:both;
+}
+
+.preview-img {
+	position:relative;
+	float:left;
+	width:180px;
+	height:180px;
+	overflow:hidden;
+	margin-left:10px;
+}
+
+.preview-img .close {
+	position:absolute;
+	top:10px;
+	right:10px;
+	display:block;
+	width:20px;
+	height:20px;
+	font-size:12px;
+	color:#fff;
+	line-height:20px;
+	background:rgba(0,0,0,0.6);
+	border-radius:50%;
+	text-align:center;
+	cursor:pointer;
+}
+.preview-img img {
+	position:absolute;
+	top:50%;
+	left:50%;
+	width:100%;	
+	transform:translate(-50%, -50%);
+}
+
+
+
 footer {
     padding:40px 0;
     border-top:1px solid #f5f5f5;
@@ -811,32 +870,49 @@ footer .etc-txt .copyright {
 	border-radius:50%;
 }
 .popup-modal {
+	display:none;
 	position:fixed;
 	top:0;
 	left:0;
 	width:100%;
 	height:100%;
 	background:rgba(0,0,0,0.5);
+	z-index:12;
 }	
 .popup-modal .modal {
 	position:absolute;
 	top:50%;
 	left:50%;
-	min-width:500px;
+	min-width:600px;
 	height:auto;
 	background:#fff;
 	transform:translate(-50%, -50%);
+	z-index:12;
 }	
 .popup-modal .modal .modal-title {
 	padding:30px;
+	font-size:20px;
+	font-weight:bold;
+	color:#fff;
+	background:#ff7ab0; 
+	background:-moz-linear-gradient(-45deg,  #ff7ab0 0%, #f4c844 100%); 
+	background:-webkit-linear-gradient(-45deg,  #ff7ab0 0%,#f4c844 100%); 
+	background:linear-gradient(135deg,  #ff7ab0 0%,#f4c844 100%);
 }
 .popup-modal .modal .modal-content {
+	max-height:480px;
 	padding:30px;
+	overflow-y:auto;
 }
 .popup-modal .modal .modal-close {
 	position:absolute;
-	top:-30px;
+	top:-60px;
 	right:0;
+	width:60px;
+	height:60px;
+	background:url("../image/close-icon.png") no-repeat 0 0 / 100%;
+	text-indent:-999px;
+	overflow:hidden;
 }
 @media all and (max-width: 1300px){
 	.inner {
