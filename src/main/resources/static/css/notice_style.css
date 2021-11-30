@@ -6,7 +6,7 @@
 
 .wtable .title {
 	height: 40px;
-	margin-top: 10px;
+	margin-top: 5px;
 	margin-bottom: 10px;
 	border-top:none;
 	border-right:none;
@@ -58,9 +58,13 @@
 
 
 .utable .title{
-	height: 40px;
-	margin-top: 10px;
+	height: 40px;	
+	margin-top: 5px;
 	margin-bottom: 10px;
+	border-top:none;
+	border-right:none;
+	border-left:none;
+	border-bottom: 2px solid black;
 }
 
 

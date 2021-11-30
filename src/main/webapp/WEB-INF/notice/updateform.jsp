@@ -18,7 +18,12 @@
 			<thead>
 				<tr>
 					<th><label>제목</label> <input type="text" name="title" required="required"
-						value="${dto.title}" class="tit"></th>
+						value="${dto.title}" class="title">
+							<div class="filebox">
+						<label for="ex_file">업로드</label> <input type="file" id="ex_file">
+					
+					</div>
+					</th>
 				</tr>
 			</thead>
 

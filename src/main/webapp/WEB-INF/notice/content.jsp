@@ -27,16 +27,11 @@
 				<td class="contenttxt" colspan="3">${dto.content}</td>
 			</tr>
 			
-			<tr>
-				<td class="contenttxt" colspan="3">${dto.uploadfile}</td>
-			</tr>
+		
 		</tbody>
 
-
-
-
-
 	</table>
+	
 	<div class="btn-wrap">
 		<button type="button" class="btn-list" onclick="location.href='list'">목록</button>
 		<button class="btn-update"
