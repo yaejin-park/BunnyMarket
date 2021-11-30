@@ -73,7 +73,7 @@ public class AdvertiseController {
 		return mview;
 	}
 	
-	@GetMapping("/form")
+	@GetMapping("/insertform")
 	public String from() {
 		return "/advertise/writeForm";
 	}
