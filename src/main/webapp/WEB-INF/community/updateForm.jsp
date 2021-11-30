@@ -5,7 +5,7 @@
 	<div class="inner">
 		<form action="update" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="idx" value="${dto.idx}">
-		<input type="hidden" name="currentPage" value="${dto.currentPage}"> 
+		<input type="hidden" name="currentPage" value="${currentPage}"> 
 			<div class="group">
 				<div class="child tit">
 					이미지<span class="must">*</span>
@@ -88,7 +88,7 @@ function handleImgFileSelect(e){
 		reader.readAsDataURL(f);
 	});
 }
-
+		
 
 function deleteImageAction(index){
 	sel_files.splice(index, 1);

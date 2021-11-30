@@ -82,7 +82,7 @@ public class CommunityController {
 		return mview;
 	}
 
-	@GetMapping("/writeform")
+	@GetMapping("/insertform")
 	public String form()
 	{
 		return "/community/writeForm";
@@ -238,7 +238,7 @@ public class CommunityController {
 		//수정
 		service.update(dto);
 		
-		return "redirect:content?idx="+dto.getIdx()+"&currentPage="+currentPage;
+		return "redirect:detail?idx="+dto.getIdx()+"&currentPage="+currentPage;
 	}
 	
 	

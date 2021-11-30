@@ -8,7 +8,7 @@
 <div class="commu-wrap">
 	<div class="inner">
 		<div class="top-div btn-wrap">
-		 	<button type="button" class="btn-add" onclick="location.href='writeform'">글쓰기</button>
+		 	<button type="button" class="btn-add" onclick="location.href='insertform'">글쓰기</button>
 		</div>
 		
 		<div class="commu-div">
