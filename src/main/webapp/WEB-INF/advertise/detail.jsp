@@ -105,8 +105,9 @@
 	</div>
 	<!-- 댓글 -->
 	<div class="reform tit">
-		댓글
+		댓글 ${recount}
 	</div>
+	<!-- 댓글작성 -->
 	<div class="reply">
 		<div class="re-content">
 			<!-- <input type="text" class="retext" id="recontent" placeholder="댓글을 입력하세요."> -->
@@ -121,36 +122,48 @@
 				<span class="text-plus">0</span><span>/100</span>
 			</div>
 		</div>
-	</div>
-	<div>
-		<!-- 댓글내용 -->
-		<c:if test="${totalCount==0}">
+	</div>	
+	<!-- 댓글목록 -->
+	<div class="re-list">
+		<c:if test="${recount==0}">
 			<div class="nodata">
 				<p class="icon">
 					<img alt="" src="/image/nodata-icon.png">
 				</p>
-				<p>등록된 데이터가 없습니다.</p>
+				<p>등록된 댓글이 없습니다.</p>
 			</div>
 		</c:if>
-		<c:if test="${totalCount>0}">
-		    <c:forEach var="dto" items="${list}">
-		            <div class="re-detail">
-		                <!-- relevel 만큼 공백 -->
-		                <c:forEach var="sp" begin="1" end="${dto.relevel}">
-		                    &nbsp;&nbsp;
-		                </c:forEach>
-		                <!-- 답글인 경우에만 re 이미지 출력 -->
-		                <c:if test="${dto.relevel>0}">
-		                    <!-- <img src="../photo/re.png"> -->
-		                    <b>ㄴ</b>
-		                </c:if>
-		                <!-- 댓글내용 -->
-		                <pre>${dto.content}</pre>
-		            </div>
-		            <p align="center">${dto.id}</p>
-		            <p align="center">
-		                <fmt:formatDate value="${dto.writeday}" pattern="yy.MM.dd"/>
-		            </p>
+	</div>
+	<div class="re-list">
+		<c:if test="${recount>0}">
+		    <c:forEach var="ardto" items="${relist}">
+		    	<div class="re-info">
+		    		<img alt="" src="../image/profile-icon.png" class="re-profileimg">
+		    	</div>
+	            <div class="re-info">
+		            <span class="re-writer">${ardto.id}</span>
+		            <span class="re-day">
+		                <fmt:formatDate value="${ardto.writeday}" pattern="yy.MM.dd"/>
+		            </span>
+		        </div>
+	            <div class="re-detail">		    
+	                <!-- relevel 만큼 공백 -->
+	                <c:forEach var="sp" begin="1" end="${ardto.relevel}">
+	                    <div class="re-blank"></div>
+	                </c:forEach>
+	                <!-- 답글인 경우에만 re 이미지 출력 -->
+	                <c:if test="${ardto.relevel>0}">
+	                    <!-- <img src="../photo/re.png"> -->
+	                    <div>👉</div>
+	                </c:if>
+	                <!-- 댓글내용 -->
+	                <div class="">
+	                	<span>${ardto.content}</span>
+	                </div>
+		        <div class="re-rebtn">
+		        	<a>답글쓰기</a>
+		        </div>
+	            </div>
 		    </c:forEach>
 		</c:if>
 	</div>

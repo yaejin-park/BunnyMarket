@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import data.dto.AdreplyDTO;
 import data.dto.AdvertiseDTO;
+import data.service.AdreplyService;
 import data.service.AdvertiseService;
 
 @Controller
@@ -25,6 +27,9 @@ import data.service.AdvertiseService;
 public class AdvertiseController {
 	@Autowired
 	AdvertiseService service;
+	
+	@Autowired
+	AdreplyService reservice;
 	
 	@GetMapping("/list")
 	public ModelAndView list(@RequestParam(defaultValue = "1") int currentPage) {
@@ -136,6 +141,11 @@ public class AdvertiseController {
 		//이미지
 		String []dbimg=dto.getPhoto().split(",");
 		mview.addObject("dbimg", dbimg);
+		
+		//댓글
+		List<AdreplyDTO> relist=reservice.getReplyList(Integer.parseInt(idx));
+		mview.addObject("recount", relist.size());
+		mview.addObject("relist", relist);
 		
 		mview.setViewName("/advertise/detail");
 		return mview;
