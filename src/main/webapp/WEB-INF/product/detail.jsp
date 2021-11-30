@@ -42,15 +42,14 @@
 			닉네임
 			</td>
 			<td rowspan="2" class="detailBtn">
-				<button type="button" class="btn-list" id="follow" onclick="followClicked()">
-				+ 팔로우</button>
+				<button type="button" class="btn-list" id="follow">+ 팔로우</button>
 			</td>
 		</tr>
 		<tr>
 			<td class="tit-sm verticalTop">
 				후기
 			</td>
-		</tr>
+		</tr>	
 		<tr>
 			<td colspan="3" class="tit-sm"><a>${dto.category}</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<fmt:formatDate value="${dto.writeday }" pattern="yy.MM.dd"/></td>
 		</tr>
@@ -154,16 +153,19 @@
 <script>
 //임시 아이디 세션((***삭제필요***))
 $("#sessionId").click(function() {
-	sessionStorage.setItem("loginok", "yes"); 
-	sessionStorage.setItem("myid", "proxine88"); 
-	var myid = sessionStorage.getItem('myid');
-	alert("${sessionStorage.getItem('myid')}");
+	<%
+	session.setAttribute("loginok", "yes"); 
+	session.setAttribute("myid", "min92");  
+	%>
+	console.log(로그인);
 });
 
 $("#sessionLogout").click(function() {
-	sessionStorage.setItem("loginok",null); 
-	sessionStorage.setItem("myid", null);
-	alert("sessionILogout");
+	<%
+	session.removeAttribute("loginok"); 
+	session.removeAttribute("myid");
+	%>
+	console.log(로그아웃);
 });
 
 //로그인 되어 있을 경우,
@@ -250,35 +252,44 @@ function dibsClicked(){
 		}
 	}
 }
-
-//팔로우 클릭시
-function followClicked(){
+//팔로우 버튼 클릭시
+$(document).on("click","#follow", function() {
 	//로그인 여부
 	//로그인 안했을 경우
-	if(sessionStorage.getItem("loginok")!=""){
-		alert("sessionStorage.getItem('loginok')")
-		alert("로그인 이후, 사용가능합니다");
+	if(sessionStorage.getItem("loginok") == "null"){
+		alert("로그인 이후, 이용가능한 서비스입니다.");
 		return;
 	}  else{
 	//로그인 했을 경우
-		var followee = ${dto.id};
-		var follower = ${sessionScope.myid} null;
+		var followee = '${dto.id}';
+		var follower = sessionStorage.getItem("myid");
+		var idx = '${dto.idx}';
 		
 		//나를 팔로우 눌렀을 경우
-		if(${sessionScope.myid==dto.id}){
+		if(follower==followee){
 			alert("본인을 팔로우할 수 없습니다.");
 			return;
 		} else{
 			//버튼 클래스 변경
 			//팔로우 안했을 경우,
 			if($("#follow").attr("class") == "btn-list" ){
-				$("#follow").removeClass("btn-list");
-				$("#follow").addClass("btn-add");
-				$("#follow").html("팔로잉");
-				location.href="../follow?followee="+followee+"&follower="+follower;
-				console.log("follow+");
+				$.ajax({
+					type : "post",  
+			        url : "../follow",       
+			        dataType : "json",   
+			        data : {"followee":followee, "follower":follower},
+			        success : function (data) {
+			        	$("#follow").removeClass("btn-list");
+						$("#follow").addClass("btn-add");
+						$("#follow").html("팔로잉");
+			        	console.log("follow+");
+					},
+					error : function(){
+						alert("에러");
+		                console.log("통신 에러","error","확인",function(){});
+		            }
+				});
 			} else{ //팔로우했을 경우,
-				
 				$.ajax({
 					type : "post",  
 			        url : "../unfollow",       
@@ -291,13 +302,15 @@ function followClicked(){
 			        	console.log("follow-");
 					},
 					error : function(){
-		                alert("통신 에러","error","확인",function(){});
+						alert("에러");
+		                console.log("통신 에러","error","확인",function(){});
 		            }
 				});
 			}
 		}
 	}
-}
+});
+
 
 
 //삭제 버튼 alert

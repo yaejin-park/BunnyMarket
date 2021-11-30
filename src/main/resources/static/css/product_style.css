@@ -2,12 +2,12 @@
 	margin-top: 40px;
 }
 
-.tit{
+.group.tit{
 	width: 150px;
 }
 
 .group{
-	margin-top: 20px;
+	margin-top: 40px;
 }
 
 .group:after{
@@ -115,7 +115,7 @@
 	padding: 7px;
 }
 
-/* Å×ÀÌºí Å×½ºÆ®¿ë */
+/* ï¿½ï¿½ï¿½Ìºï¿½ ï¿½×½ï¿½Æ®ï¿½ï¿½ */
 /* .table-default td{
 	border-top:1px solid gray;
 	border-bottom: 1px solid gray;
@@ -191,7 +191,7 @@ tr.lineNeed .marginZero{
 }
 
 .category-div{
-	margin-bottom: 80px;
+	margin-bottom: 40px;
 }
 
 .category-div a:last-child {
@@ -266,7 +266,7 @@ tr.lineNeed .marginZero{
 	margin-left: 5px;
 }
 
-/* background-image·Î µµÀü */
+/* background-imageï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ */
 /* .icon-sm{
 	background-repeat: no-repeat;
     background-size: cover;
@@ -283,11 +283,11 @@ tr.lineNeed .marginZero{
 	background-image: url("/image/heart-icon.png");
 } */
 
-.write-btn-div{
+/* .write-btn-div{
 	padding-bottom: 30px;
 	margin-bottom: 30px;
 	border-bottom: 2px solid #f7f6fc;
-}
+} */
 
 .tit-bottom{
 	margin-bottom: 40px;
