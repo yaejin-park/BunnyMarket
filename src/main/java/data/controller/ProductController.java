@@ -2,9 +2,11 @@ package data.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import data.dto.ProductDTO;
 import data.service.FollowService;
+import data.service.MemberService;
 import data.service.ProductLikeService;
 import data.service.ProductService;
 
@@ -35,15 +38,19 @@ public class ProductController {
 	
 	@Autowired
 	FollowService flservice;
-
 	
+	@Autowired
+	MemberService mservice;
+	
+	@ResponseBody
 	@GetMapping("/list")
 	public ModelAndView productList(
 			@RequestParam (defaultValue = "1") int currentPage,
-			@RequestParam (defaultValue = "전체") String category) { 
+			@RequestParam (defaultValue = "전체") String category,
+			@RequestParam (required = false) String keyword) { 
 	ModelAndView mview = new ModelAndView();
 	
-	int totalCount = service.getTotalCount();
+	int totalCount = service.getTotalCount(category);
 	
 	//페이징 처리에 필요한 변수 선언
 	int perPage = 20;
@@ -67,7 +74,7 @@ public class ProductController {
 	//각 페이지에서 불러올 시작번호
 	start = (currentPage-1)*perPage;
 	
-	List<ProductDTO> list = service.getList(start, perPage, category);
+	List<ProductDTO> list = service.getList(start, perPage, category, keyword);
 	
 	//각 페이지에 출력할 시작번호
 	int no = totalCount-(currentPage-1)*perPage;
@@ -161,7 +168,7 @@ public class ProductController {
 	public String content(@RequestParam String idx,
 			@RequestParam (defaultValue = "1" ) int currentPage, 
 			@RequestParam (required = false) String key,
-			Model model, HttpSession session) {
+			Model model, HttpServletRequest request, Principal principal) {
 		//리스트에서 디테일페이지가면 조회수 올라가게
 		if(key!=null) {
 			service.updateReadcount(idx);
@@ -175,11 +182,17 @@ public class ProductController {
 		String category = dto.getCategory();
 		List<ProductDTO> list = service.getRelateList(category,idx);
 		
+		//로그인 여부
+		String isLogin = "N";
+		isLogin = (String)request.getSession().getAttribute("isLogin");
+		
 		//로그인 되어 있을 경우,
-		String loginok = (String)session.getAttribute("loginok");
-		if(loginok!=null) {
+		if(isLogin!=null) {
+			//로그인 아이디 가져오기
+			String id = principal.getName();
+			model.addAttribute("myid", id);
+			
 			//하트 버튼 클릭여부
-			String id = (String)session.getAttribute("myid");
 			int likeCheck = plservice.plikeCheck(id,idx);
 			
 			//팔로우 여부
@@ -190,6 +203,7 @@ public class ProductController {
 		
 		model.addAttribute("dto", dto);
 		model.addAttribute("list", list);
+		model.addAttribute("isLogin", isLogin);
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("photo", photo);
 		

@@ -16,15 +16,20 @@ public class ProductService {
 	@Autowired
 	ProductMapper mapper;
 	
-	public int getTotalCount() {
-		return mapper.getTotalCount();
+	public int getTotalCount(@RequestParam String category) {
+		return mapper.getTotalCount(category);
 	}
 	
-	public List<ProductDTO> getList(@RequestParam int start, @RequestParam int perpage, @RequestParam(required = false) String category) {
+	public List<ProductDTO> getList(
+			@RequestParam int start, @RequestParam int perpage, 
+			@RequestParam(defaultValue = "전체") String category, 
+			@RequestParam(required = false) String keyword) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
+		
 		map.put("start", start);
 		map.put("perpage", perpage);
 		map.put("category", category);
+		map.put("keyword", keyword);
 		
 		return mapper.getList(map);
 	}
