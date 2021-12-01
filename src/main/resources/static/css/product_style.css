@@ -194,19 +194,20 @@ tr.lineNeed .marginZero{
 	margin-bottom: 40px;
 }
 
-.category-div a:last-child {
+.category-div a:nth-child(6n) {
 	margin-right:0;
 }
 
 .category-div a {
-	display: inline-block;
+	display: block;
     padding: 10px 24px;
     margin: 5px;
-    width: calc((100%-10px*6)/6);
+    width: calc((100% - 10px * 6) / 6);
     background-color: #f7f6fc;
     border-radius: 10px;
     vertical-align: middle;
     font-weight: 500;
+    float: left;
 }
 
 .category-div a.active {
@@ -283,12 +284,21 @@ tr.lineNeed .marginZero{
 	background-image: url("/image/heart-icon.png");
 } */
 
-/* .write-btn-div{
-	padding-bottom: 30px;
-	margin-bottom: 30px;
-	border-bottom: 2px solid #f7f6fc;
-} */
+.write-btn-div{
+	margin-bottom: 40px;
+	/* border-bottom: 2px solid #f7f6fc; */
+} 
 
 .tit-bottom{
 	margin-bottom: 40px;
+    padding: 20px 0px 20px 0px;
+}
+
+.relative-list .nodata{
+	border-bottom: 2.3px solid #f7f6fc;
+    border-top: 0px;
+}
+
+.relative-list {
+	margin-top: 40px;
 }
