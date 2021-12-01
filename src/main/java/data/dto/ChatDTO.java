@@ -1,4 +1,4 @@
-package data.chat;
+package data.dto;
 
 import java.sql.Timestamp;
 

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import data.chat.ChatDTO;
+import data.dto.ChatDTO;
 import data.dto.ChatListDTO;
 import data.mapper.ChatMapper;
 

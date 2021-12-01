@@ -3,7 +3,7 @@ package data.mapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
-import data.chat.ChatDTO;
+import data.dto.ChatDTO;
 import data.dto.ChatListDTO;
 
 @Mapper

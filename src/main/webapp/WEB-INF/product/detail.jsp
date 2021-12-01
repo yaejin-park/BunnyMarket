@@ -8,8 +8,6 @@
 
 <div class="inner">
 <div class="infoAll">
-	<button type="button" id="sessionId">아이디</button>
-	<button type="button" id="sessionLogout">로그아웃</button>
 	<div class="img group">
 		<div class="detail-swiper">
 			<div class="bigImgDiv swiper-wrapper">
@@ -160,27 +158,8 @@
 
 <script type="text/javascript" src="/js/swiper.min.js"></script>
 <script>
-//임시 아이디 세션((***삭제필요***))
-$("#sessionId").click(function() {
-	<%
-	session.setAttribute("loginok", "yes"); 
-	session.setAttribute("myid", "min92");  
-	%>
-	console.log('로그인');
-	console.log('로그인 여부 : <%=session.getAttribute("loginok")%>');
-});
-
-$("#sessionLogout").click(function() {
-	<%
-	session.removeAttribute("loginok"); 
-	session.removeAttribute("myid");
-	%>
-	console.log('로그아웃');
-	console.log('로그인 여부 : <%=session.getAttribute("loginok")%>');
-});
-
 //로그인 되어 있을 경우,
-if(<%=session.getAttribute("loginok")!=null%>){
+if(${isLogin}==null){
 	//좋아요 여부로 하트 버튼 변경
 	//좋아요 안했을 시,
 	if(${likeCheck==0}){
@@ -225,7 +204,7 @@ function dibsClicked(){
 	
 	//로그인 여부
 	//로그인 안했을 경우
-	if(<%=session.getAttribute("loginok")==null%>){
+	if(${isLogin}==null){
 		alert("로그인 이후, 사용가능합니다");
 		return;
 	}  else{ //로그인 했을 경우
@@ -267,7 +246,7 @@ function dibsClicked(){
 $(document).on("click","#follow", function() {
 	//로그인 여부
 	//로그인 안했을 경우
-	if(<%=session.getAttribute("loginok")==null%>){
+	if(${isLogin}==null){
 		alert("로그인 이후, 이용가능한 서비스입니다.");
 		return;
 	}  else{

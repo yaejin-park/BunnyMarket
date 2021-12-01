@@ -16,9 +16,6 @@ public class ChatController {
 	@Autowired
 	ChatService service;
 	
-	@Autowired
-	
-	
 	@GetMapping("/list")
 	public ModelAndView chatList(@RequestParam String idx) {
 		ModelAndView mview = new ModelAndView();
