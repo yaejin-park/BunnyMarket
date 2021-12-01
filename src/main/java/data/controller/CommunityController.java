@@ -26,11 +26,12 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import ch.qos.logback.classic.Logger;
-import data.dto.CommuReplyDTO;
+import data.dto.AdreplyDTO;
+import data.dto.ComReplyDTO;
 import data.dto.CommunityDTO;
 import data.mapper.CommunityMapper;
-import data.service.CommuReplyService;
 import data.service.CommunityService;
+import data.service.ComreplyService;
 
 @Controller
 @RequestMapping("/community")
@@ -38,6 +39,8 @@ public class CommunityController {
 
 	@Autowired
 	CommunityService service;
+	@Autowired
+	ComreplyService reservice;
 
 	@Autowired
 	CommunityMapper mapper;
@@ -141,11 +144,13 @@ public class CommunityController {
 	public ModelAndView detail(
 			@RequestParam String idx,
 			@RequestParam(defaultValue = "1") int currentPage,
-			@RequestParam(required = false) String key
+			@RequestParam(required = false) String key,
+			@RequestParam Map<String, String> map
 			)
 	{
 		ModelAndView mview = new ModelAndView();
-
+		
+		//조회수 증가하기
 		if(key!=null)
 			service.updateReadCount(idx);
 
@@ -155,8 +160,23 @@ public class CommunityController {
 		mview.addObject("dto",dto);
 		mview.addObject("photo",photo);
 		mview.addObject("currentPage",currentPage);
-		mview.setViewName("/community/newdetail");
-
+		
+		
+		//댓글
+		List<ComReplyDTO> relist=reservice.getReplyList(Integer.parseInt(idx));
+		mview.addObject("recount", relist.size());
+		mview.addObject("relist", relist);
+		
+		String regroup=map.get("regroup");
+		String restep=map.get("restep");
+		String relevel=map.get("relevel");
+		
+		mview.addObject("idx", idx==null?"0":idx);
+		mview.addObject("regroup", regroup==null?"0":regroup);
+		mview.addObject("restep", restep==null?"0":restep);
+		mview.addObject("relevel", relevel==null?"0":relevel);
+		
+		mview.setViewName("/community/detail");
 		return mview;
 	}
 	

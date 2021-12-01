@@ -5,6 +5,7 @@
 <link rel="stylesheet" type="text/css" href="/css/swiper.min.css">
 <link rel="stylesheet" type="text/css" href="/css/common.css">
 <link rel="stylesheet" type="text/css" href="/css/community_style.css">
+<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 
 <div class="inner">
 	<input type="hidden" name="currentPage" value="${currentPage}">
@@ -95,39 +96,98 @@
 	</div>
 	
 	<div class="detailbtn">
-		<!-- 로그인 안했을경우 -->
-		<c:if test="false">
-			<button type="button" class="btn-list delist"
+	<!-- 로그인 안했을경우 -->
+	<c:if test="false">
+		<button type="button" class="btn-list delist"
+		onclick="location.href='list'">목록</button>
+	</c:if>
+	
+	<!-- 로그인 했을경우 -->
+	<c:if test="true">
+		<button type="button" class="btn-list delist"
 			onclick="location.href='list'">목록</button>
-		</c:if>
-		
-		<!-- 로그인 했을경우 -->
-		<c:if test="true">
-			<button type="button" class="btn-list delist"
-				onclick="location.href='list'">목록</button>
-			<button type="button" class="btn-add gdcount">공감♥</button>
+		<button type="button" class="btn-add gdcount">공감♥</button>
+	</c:if>
+	</div>
+	
+	<!-- 댓글 -->
+	<div class="reform tit">
+		<b>댓글 ${recount}</b>
+	</div>
+	
+	<!-- 댓글작성 -->
+	<form action="reinsert" method="post">
+		<input type="hidden" value="${currnetPage}" name="currentPage">
+		<input type="hidden" value="${dto.idx}" name="num">
+		<div class="reply">
+			<div class="re-addcontent">
+				<textarea name="content" class="re-textinput" placeholder="댓글을 입력해주세요."
+				required="required" id="re-textinput"></textarea>
+			</div>
+			<div class="re-items">
+				<div class="re-addbtn">
+					<button type="submit" class="btn-add btn-sm" id="re-addbtn">등록</button>
+				</div>
+				<div class="text-count">
+					<span class="text-plus" id="text-plus">0</span>
+				</div>
+			</div>
+		</div>
+	</form>
+	
+	<!-- 댓글목록 -->
+	<div class="re-list">
+		<c:if test="${recount==0}">
+			<div class="nodata">
+				<p class="icon">
+					<img alt="" src="/image/nodata-icon.png">
+				</p>
+				<p>등록된 댓글이 없습니다.</p>
+			</div>
 		</c:if>
 	</div>
 	
-	<div class="detail-reply">
-		<div class="row">
-			<div class="col-sm-12">
-				<h2 id="cnt"></h2>
-				<div id="replyArea"></div>
+	<div class="re-list">
+		<c:if test="${recount>0}">
+			<c:forEach var="cdto" items="${relist}">
+			<div  class="re-info">
+				<img alt="" src="../image/profile-icon.png" class="re-profileimg">
+			</div> 
+			<div  class="re-info">
+			 	<span class="re-writer">${cdto.id}</span>
+			 	<span class="re-day">
+			 		<fmt:formatDate value="${cdto.writeday}" pattern="yy.MM.dd"/>
+			 	</span>
 			</div>
-		</div>
+	<div class="re-detail">
+		 <!-- relevel만큼 공백 -->
+		 <c:forEach var="sp" begin="1" end="${cdto.relevel}">
+		 	<div class="re-blank"></div>
+		 </c:forEach>
+		 <!-- 답글인 경우에만 re 이미지출력 -->
+		 <c:if test="${cdto.relevel>0}">
+		 	<div>ㄴ</div>
+		 </c:if>
+		<!-- 댓글내용 -->
+			<div class="re-content">
+				<pre>${cdto.content}</pre>
+				<div class="re-rebtn"></div>
+					<a>답글쓰기</a>
+			</div>	 
+			</div>
+			</c:forEach>
+		</c:if>
 	</div>
 </div>
-
 
 <script type="text/javascript" src="/js/swiper.min.js"></script>
 <script>
 
-/* //미리보기 이미지 클릭
+//미리보기 이미지 클릭
 $(document).on("click",".smallImg", function(e) {
 	var src = $(this).attr("src");
 	$(".bigImage").attr("src",src);
-}); */
+}); 
 
 //미리보기 이미지 호버시,
 $(document).ready(function() {
@@ -142,11 +202,24 @@ $(document).ready(function() {
 		console.log("out");
 		var src = $(this).attr("src");
 		$(".bigImage").attr("src",original);
-	}                                                                                                      
+	} 
+	
+	//댓글 글자수제한
+	$('#re-textinput').on('keyup',function(){
+		$('#text-plus').html("("+$(this).val().length+" / 100)");
+		
+		if($(this).val().length > 100) {
+			$(this).val($(this).val().substring(0, 100));
+			$('#text-plus').html("(100 / 100)");
+		}
+		
+	});
+		
 });
 
 
-//삭제버튼 클릭시 확인
+
+//게시글 삭제버튼 클릭시 확인
 $("#deleteBtn").click(function(){
 	var idx = $(this).val();
 	var currentPage = $("input[name='currentPage']").val();
@@ -155,25 +228,11 @@ $("#deleteBtn").click(function(){
 	
 	if(check){
 		location.href="delete?idx="+idx+"&currentPage="+currentPage;
-		}
+			 }
 	else{
 		return;
 		}
+
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+</script>
