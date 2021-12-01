@@ -76,9 +76,6 @@
 	float:left;
 }
 
-/* .proimg{
-	width:90px;
-} */
 
 .profileImg{
 	border-radius:100%;
@@ -145,22 +142,44 @@
 	display:block;
 	font-size:25pt;
 	font-weight:bold;
-	margin-top:8px;
-	margin-bottom:8px;
-}
-
-.wrday
-{
-	display:block;
-	margin-top:10px;
-	text-align:left;
+	padding:8px 0px 8px 0px;
 }
 
 .other
 {
-	display:block;
-	margin-top:5px;
-	margin-bottom:5px;
+	padding:5px 0px 5px 0px;
+}
+
+
+.infoAll .info .table tr:last-child {
+	border-bottom:none;
+}
+
+.infoAll .info .table tr td .fmtdate{
+	color:#999;
+	text-align:left;
+}
+
+.infoAll .info .table tr td .dereadcount{
+	color:#999;
+	margin-left:80%;
+}
+
+.infoAll .info .table tr td .detailtit{
+	padding: 5px 0px 5px 0px;
+}
+
+/* .infoAll .info .table tr td .nick .txt{
+	vertical-align: middle;
+} */
+
+.infoAll .info .table tr td .loginokbtn .deupdate{
+	float:right;
+}
+
+.infoAll .info .table tr td .loginokbtn .dedelete{
+	float:right;
+	margin-right:10px;
 }
 
 .detailContent{
@@ -168,9 +187,8 @@
 	height:200px;
 }
 
-.infoAll .info .table tr:last-child {
-	border-bottom:none;
-}
-.infoAll .info .table tr td:first-child {
-	width:100px;
+.detailbtn > *{
+	margin-top:20px;
+	float:right;
+	margin-right:10px;
 }

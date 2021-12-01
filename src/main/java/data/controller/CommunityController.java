@@ -26,8 +26,10 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import ch.qos.logback.classic.Logger;
+import data.dto.CommuReplyDTO;
 import data.dto.CommunityDTO;
 import data.mapper.CommunityMapper;
+import data.service.CommuReplyService;
 import data.service.CommunityService;
 
 @Controller
@@ -39,6 +41,7 @@ public class CommunityController {
 
 	@Autowired
 	CommunityMapper mapper;
+	
 
 	@GetMapping("/list")
 	public ModelAndView list(
@@ -61,7 +64,7 @@ public class CommunityController {
 		startPage = (currentPage-1)/perBlock * perBlock +1; 
 		endPage = startPage + perBlock-1;
 		if(endPage>totalPage){ endPage = totalPage; }
-		//int no = totalCount-(currentPage-1)*perPage;
+		int no = totalCount-(currentPage-1)*perPage;
 		start = (currentPage-1) * perPage; 
 		
 		//list에 각 글에 대한 작성자 추가해야함
@@ -152,7 +155,7 @@ public class CommunityController {
 		mview.addObject("dto",dto);
 		mview.addObject("photo",photo);
 		mview.addObject("currentPage",currentPage);
-		mview.setViewName("/community/detail");
+		mview.setViewName("/community/newdetail");
 
 		return mview;
 	}
@@ -240,8 +243,6 @@ public class CommunityController {
 		
 		return "redirect:detail?idx="+dto.getIdx()+"&currentPage="+currentPage;
 	}
-	
-	
 	
 	
 	
