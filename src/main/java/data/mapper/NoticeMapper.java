@@ -18,4 +18,6 @@ public interface NoticeMapper {
 	public int getMaxidx();
 	public void updateReadCount(String idx);
 	public NoticeDTO getData(String idx);
+	public String before(String idx);
+	public String next(String idx);
 }

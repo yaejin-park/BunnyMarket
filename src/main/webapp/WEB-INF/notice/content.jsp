@@ -24,13 +24,34 @@
 		<tbody class="content">
 
 			<tr>
-				<td class="contenttxt" colspan="3">${dto.content}</td>
+				<td class="contenttxt" colspan="3">${dto.content}<br><br>
+					<c:if test="${bupload==true}">
+						 <c:forTokens var="pp" items="${dto.photo}" delims=",">
+						<img src="../photo/${pp}" class="img">
+						</c:forTokens>
+				
+					</c:if>
+				</td>
 			</tr>
+		
 			
 		
 		</tbody>
 
 	</table>
+	
+		<div class="paging">
+			
+				<a href="content?idx=${before}&currentPage=${currentPage}" class="prev"><span>이전</span></a>
+			
+			
+				<a href="content?idx=${next}&currentPage=${currentPage}" class="next">다음</a>
+			
+			
+	</div>
+	
+
+	
 	
 	<div class="btn-wrap">
 		<button type="button" class="btn-list" onclick="location.href='list'">목록</button>

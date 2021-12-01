@@ -15,26 +15,22 @@ public class NoticeDTO {
 	private String content;
 	private int readcount;
 	private Timestamp writeday;
-	private MultipartFile upload;
-	private String uploadfile;
+	private String photo;
 	
 	
 	
 	
-	public String getUploadfile() {
-		return uploadfile;
-	}
-	public void setUploadfile(String uploadfile) {
-		this.uploadfile = uploadfile;
-	}
-	public MultipartFile getUpload() {
-		return upload;
-	}
-	public void setUpload(MultipartFile upload) {
-		this.upload = upload;
-	}
+	
+	
+	
 
 
+	public String getPhoto() {
+		return photo;
+	}
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
 	public int getIdx() {
 		return idx;
 	}

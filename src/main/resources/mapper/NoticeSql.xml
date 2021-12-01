@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="data.mapper.NoticeMapper">
 	<insert id="NoticeInsert" parameterType="ndto">
-		insert into notice (title,content,writeday,uploadfile) values (#{title},#{content},now(),#{uploadfile})	
+		insert into notice (title,content,writeday,photo) values (#{title},#{content},now(),#{photo})	
 	</insert>
 	<update id="NoticeUpdate">
-			update notice set title=#{title},content=#{content} where idx=#{idx} 
+			update notice set title=#{title},content=#{content},photo=#{photo} where idx=#{idx} 
 	</update>
 	<delete id="NoticeDelete">
 		delete from notice where idx=#{idx}
@@ -25,5 +25,10 @@
 	<select id="getData" parameterType="String" resultType="ndto">
 		select * from notice where idx=#{idx}
 	</select>
-	
+	<select id="before" resultType="String" parameterType="String">
+	select idx from notice where idx = (select idx from notice where <![CDATA[idx < #{idx}]]> order by idx desc limit 1)
+	</select>
+	<select id="next" resultType="String" parameterType="String">
+	select idx from notice where idx = (select idx from notice where <![CDATA[idx > #{idx}]]> order by idx desc limit 1)
+	</select>
 </mapper>

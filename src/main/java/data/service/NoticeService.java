@@ -70,6 +70,16 @@ public class NoticeService {
 		 Nmapper.NoticeUpdate(dto);
 	}
 	
+	
+	public String before(String idx)
+	{
+		return Nmapper.before(idx);
+	}
+	
+	public String next(String idx)
+	{
+		return Nmapper.next(idx);
+	}
 }
 	
 

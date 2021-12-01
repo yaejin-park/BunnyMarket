@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <link rel="stylesheet" type="text/css" href="/css/notice_style.css">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <form action="update" method="post" enctype="multipart/form-data">
 	<input type="hidden" name="idx" value="${dto.idx}"> <input
@@ -10,7 +11,7 @@
 
 
 
-	<div class="inner">
+	<div class="inner" id="form">
 
 	
 		<table class="utable">
@@ -20,7 +21,9 @@
 					<th><label>제목</label> <input type="text" name="title" required="required"
 						value="${dto.title}" class="title">
 							<div class="filebox">
-						<label for="ex_file">업로드</label> <input type="file" id="ex_file">
+						<label for="ex_file">업로드</label> <input type="file" id="ex_file" name="upload">
+				
+						<button>삭제</button>
 					
 					</div>
 					</th>
@@ -32,6 +35,8 @@
 				<tr>
 					<td><label>내용</label> <textarea required="required" name="content"
 					 class="content">${dto.content}</textarea></td>
+					
+					
 				</tr>
 			</tbody>
 

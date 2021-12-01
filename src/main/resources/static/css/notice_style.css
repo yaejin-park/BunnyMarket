@@ -35,7 +35,7 @@
   -webkit-transition: background-color 0.2s;
   transition: background-color 0.2s;
 }
-
+ 
 .filebox label:hover {
   background-color:  #ff7ab0;
 }
@@ -76,6 +76,9 @@
 }
 
 
+
+
+
 #ctable .content{
 	height: 500px;
 	
@@ -85,8 +88,27 @@
 .contenttxt{
 	vertical-align: baseline;
 	colspan: 3;
+	border-bottom:none
 }
 
+#ctable .test{
+	color:black;
+}
+
+
+#ctable .imgin{
+	
+border-top:none;
+border-bottom:none
+	
+ 
+}
+
+
+#ctable .img{
+	max-width: 200px;
+ 
+}
 
 
 div .btn-wrap{
@@ -99,4 +121,6 @@ div .btn-wrap{
 	
 	margin-bottom: 10px;
 }
+
+
 

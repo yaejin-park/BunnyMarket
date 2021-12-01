@@ -1,6 +1,7 @@
 package data.controller;
 
 import java.io.File;
+
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -8,7 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
-import javax.swing.filechooser.FileSystemView;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -78,7 +79,41 @@ public class NoticeController {
 
 
 	@PostMapping("insert")
-	public String insert(@ModelAttribute NoticeDTO dto, HttpSession session) {
+	public String insert(@ModelAttribute NoticeDTO dto, HttpSession session,@RequestParam ArrayList<MultipartFile> upload) {
+		
+		
+		String path=session.getServletContext().getRealPath("/photo");
+		
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss");
+		
+		
+		String photo="";
+		
+		if(upload.get(0).getOriginalFilename().equals(""))
+			photo="no";
+		else {
+			
+			for(MultipartFile f:upload)
+			{
+				String fName="f"+sdf.format(new Date())+f.getOriginalFilename();
+				photo+=fName+",";
+				
+				try {
+					f.transferTo(new File(path+"/"+fName));
+				} catch (IllegalStateException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		
+			photo=photo.substring(0,photo.length()-1);
+		}
+	
+		dto.setPhoto(photo);
+		
 
 		// insert
 		Nservice.NoticeInsert(dto);
@@ -86,9 +121,15 @@ public class NoticeController {
 		return "redirect:content?idx=" + Nservice.getMaxidx();
 
 	}
+	
 
 	@GetMapping("/delete")
 	public String delete(String idx, String currentPage, HttpSession session) {
+		
+		String path=session.getServletContext().getRealPath("/photo");
+		String uploadfile=Nservice.getData(idx).getPhoto();
+		File file=new File(path+"/"+uploadfile);
+		file.delete();
 
 		Nservice.NoticeDelete(idx);
 		return "redirect:list?currentPage=" + currentPage;
@@ -111,10 +152,54 @@ public class NoticeController {
 	}
 
 	@PostMapping("/update")
-	public String update(@ModelAttribute NoticeDTO dto, String currentPage, HttpSession session) {
+	public String update(@ModelAttribute NoticeDTO dto, String currentPage, HttpSession session,@RequestParam ArrayList<MultipartFile> upload) {
+		
+		
+		
+	
+		
+		String path=session.getServletContext().getRealPath("/photo");
+		
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss");
+		
+		
+		
+
+		String photo="";
+		
+		
+		if(upload.get(0).getOriginalFilename().equals(""))
+			photo="no";
+		else {
+			
+			for(MultipartFile f:upload)
+			{
+				String fName="f"+sdf.format(new Date())+f.getOriginalFilename();
+				photo+=fName+",";
+				
+				try {
+					f.transferTo(new File(path+"/"+fName));
+				} catch (IllegalStateException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		
+			photo=photo.substring(0,photo.length()-1);
+		}
+	
+		dto.setPhoto(photo);
+		
+		
+
+
+		
 
 		Nservice.NoticeUpdate(dto);
-		return "redirect:content?idx=" + dto.getIdx() + "&currentPage=" + currentPage;
+		return "redirect:content?idx="+dto.getIdx()+"&currentPage="+currentPage;
 
 	}
 
@@ -133,7 +218,24 @@ public class NoticeController {
 			Nservice.updateReadCount(idx);
 
 		NoticeDTO dto = Nservice.getData(idx);
+		
+		
+		
 
+		int dotLoc=dto.getPhoto().lastIndexOf('.');
+		String ext=dto.getPhoto().substring(dotLoc+1);
+		if(ext.equalsIgnoreCase("jpg")||ext.equalsIgnoreCase("gif")||
+				ext.equalsIgnoreCase("png")||ext.equalsIgnoreCase("jpeg"))
+			mview.addObject("bupload", true);
+		else
+			mview.addObject("bupload", false);
+		
+		String before=Nservice.before(idx);
+		String next=Nservice.next(idx);
+		
+
+		mview.addObject("before", before);
+		mview.addObject("next", next);
 		mview.addObject("dto", dto);
 		mview.addObject("currentPage", currentPage);
 		mview.setViewName("/notice/content");
