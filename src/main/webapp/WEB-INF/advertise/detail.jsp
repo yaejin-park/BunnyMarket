@@ -108,21 +108,25 @@
 		댓글 ${recount}
 	</div>
 	<!-- 댓글작성 -->
+	<form action="reinsert" method="post">
+	<input type="hidden" value="${currentPage}" name="currentPage">
+	<input type="hidden" value="${dto.idx}" name="num">
 	<div class="reply">
-		<div class="re-content">
+		<div class="re-addcontent">
 			<!-- <input type="text" class="retext" id="recontent" placeholder="댓글을 입력하세요."> -->
-			<textarea name="re-content" class="re-textinput" placeholder="댓글을 입력해주세요."
+			<textarea name="content" class="re-textinput" placeholder="댓글을 입력해주세요."
 						required="required"></textarea>
 		</div>
 		<div class="re-items">
 			<div class="re-addbtn">
-				<button type="button" class="btn-add btn-sm" id="re-addbtn">등록</button>
+				<button type="submit" class="btn-add btn-sm" id="re-addbtn">등록</button>
 			</div>
 			<div class="text-count">
 				<span class="text-plus">0</span><span>/100</span>
 			</div>
 		</div>
 	</div>	
+	</form>
 	<!-- 댓글목록 -->
 	<div class="re-list">
 		<c:if test="${recount==0}">
@@ -157,12 +161,12 @@
 	                    <div>👉</div>
 	                </c:if>
 	                <!-- 댓글내용 -->
-	                <div class="">
-	                	<span>${ardto.content}</span>
+	                <div class="re-content">
+	                	<pre>${ardto.content}</pre>
+				        <div class="re-rebtn">
+				        	<a>답글쓰기</a>
+				        </div>
 	                </div>
-		        <div class="re-rebtn">
-		        	<a>답글쓰기</a>
-		        </div>
 	            </div>
 		    </c:forEach>
 		</c:if>

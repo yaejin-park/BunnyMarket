@@ -31,7 +31,7 @@ public class AdreplyService {
 	
 	public void insertReply(AdreplyDTO dto) {
 		int idx=dto.getIdx();	//0:새글, 1보다 큰 값:답글
-		int regroup=dto.getRegruop();
+		int regroup=dto.getRegroup();
 		int restep=dto.getRestep();
 		int relevel=dto.getRelevel();
 		
@@ -46,12 +46,12 @@ public class AdreplyService {
 			relevel++;
 		}
 		//바뀐 값들을 다시 dto에 넣는다
-		dto.setRegruop(regroup);
+		dto.setRegroup(regroup);
 		dto.setRestep(restep);
 		dto.setRelevel(relevel);
 		
 		//insert
-		return;
+		mapper.insertReply(dto);
 	}
 	
 	public void updateReply(AdreplyDTO dto) {
@@ -66,7 +66,7 @@ public class AdreplyService {
 		return mapper.getReply(idx);
 	}
 	
-	public List<AdreplyDTO> getReplyList(int idx) {
-		return mapper.getReplyList(idx);
+	public List<AdreplyDTO> getReplyList(int num) {
+		return mapper.getReplyList(num);
 	}
 }

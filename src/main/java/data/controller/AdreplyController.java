@@ -1,7 +1,6 @@
 package data.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -14,46 +13,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import data.dto.AdreplyDTO;
+import data.dto.AdvertiseDTO;
 import data.service.AdreplyService;
 
 @Controller
 @RequestMapping("/advertise")
 public class AdreplyController {
 	@Autowired
-	AdreplyService service;
-	
-//	@GetMapping("/detail")
-//	public ModelAndView form(
-//			@RequestParam Map<String, String> map
-//			) {
-//		ModelAndView mview=new ModelAndView();
-//		
-//		String idx=map.get("idx");
-//		String regroup=map.get("regroup");
-//		String restep=map.get("restep");
-//		String relevel=map.get("relevel");
-//		
-//		mview.addObject("idx", idx==null?"0":idx);
-//		mview.addObject("regroup", regroup==null?"0":regroup);
-//		mview.addObject("restep", restep==null?"0":restep);
-//		mview.addObject("relevel", relevel==null?"0":relevel);
-//		
-//		mview.setViewName("/advertise/detail");
-//		return mview;
-//	}
+	AdreplyService service;	
 	
 	@PostMapping("/reinsert")
-	public String insert(@ModelAttribute AdreplyDTO dto, HttpSession session) {
+	public String insert(@ModelAttribute AdreplyDTO dto, HttpSession session,
+			@RequestParam(value = "currentPage", required = false) String currentPage) {
 		//세션에 로그인한 아이디 얻기
 
 		//아이디에 대한 작성자 얻기
 		
 		//dto에 넣기
 		
-		
 		//insert
 		service.insertReply(dto);
-		return "/relist";
+		return "redirect:detail?idx="+dto.getNum()+"&currentPage="+currentPage;
 	}
 	
 	@GetMapping("/relist")

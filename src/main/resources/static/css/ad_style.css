@@ -42,6 +42,11 @@ tr.counts{
     border-bottom:1px solid #ddd;
     border-left:1px solid #ddd;
 }
+.re-detail{
+	margin-top:5px;
+	margin-bottom:5px;
+	border-bottom:1px solid #ddd;
+}
 .re-info{
 	float:left;
 	font-size:12pt;
@@ -61,7 +66,7 @@ tr.counts{
 .re-blank{
 	padding-right:10px;
 }
-.re-content{
+.re-addcontent{
 	width:100%;
     padding:10px;
     height:100px;

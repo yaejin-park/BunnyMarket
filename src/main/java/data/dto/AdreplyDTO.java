@@ -12,7 +12,7 @@ public class AdreplyDTO {
 	private String content;
 	private Timestamp writeday;
 	
-	private int regruop;
+	private int regroup;
 	private int restep;
 	private int relevel;
 	
@@ -46,11 +46,11 @@ public class AdreplyDTO {
 	public void setWriteday(Timestamp writeday) {
 		this.writeday = writeday;
 	}
-	public int getRegruop() {
-		return regruop;
+	public int getRegroup() {
+		return regroup;
 	}
-	public void setRegruop(int regruop) {
-		this.regruop = regruop;
+	public void setRegroup(int regroup) {
+		this.regroup = regroup;
 	}
 	public int getRestep() {
 		return restep;

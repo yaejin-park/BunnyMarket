@@ -3,6 +3,7 @@ package data.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
@@ -123,7 +124,8 @@ public class AdvertiseController {
 	@GetMapping("/detail")
 	public ModelAndView detail(@RequestParam String idx,
 				@RequestParam(defaultValue = "1") int currentPage,
-				@RequestParam(required = false) String key) {
+				@RequestParam(required = false) String key,
+				@RequestParam Map<String, String> map) {
 		ModelAndView mview=new ModelAndView();
 		
 		//조회수 증가
@@ -146,6 +148,15 @@ public class AdvertiseController {
 		List<AdreplyDTO> relist=reservice.getReplyList(Integer.parseInt(idx));
 		mview.addObject("recount", relist.size());
 		mview.addObject("relist", relist);
+		
+		String regroup=map.get("regroup");
+		String restep=map.get("restep");
+		String relevel=map.get("relevel");
+		
+		mview.addObject("idx", idx==null?"0":idx);
+		mview.addObject("regroup", regroup==null?"0":regroup);
+		mview.addObject("restep", restep==null?"0":restep);
+		mview.addObject("relevel", relevel==null?"0":relevel);
 		
 		mview.setViewName("/advertise/detail");
 		return mview;
