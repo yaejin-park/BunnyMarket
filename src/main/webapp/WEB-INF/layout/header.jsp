@@ -6,8 +6,8 @@
 <header id="header">
 	<div class="util">
 		<div class="inner">
-			<a href="${root}/login/main" class="">로그인</a>
-			<a href="${root}/join/main" class="">회원가입</a>
+			<a href="${root}/login/main" class="login-btn">로그인</a>
+			<a href="${root}/join/main" class="join-btn">회원가입</a>
 		</div>
 	</div>
 	<div class="header-div">

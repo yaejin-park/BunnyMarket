@@ -1,6 +1,21 @@
+var loginFrm = $("#loginFrm");
+
 $(function(){
+	$("#loginFrm").find("input[name='password']").on("keyup", function(e){
+		if(e.key == "Enter") loginFrmSubmit;
+	});	
 	
+	loginFrm.validate({
+		submitHandler:function(form){
+			form.submit();
+		}
+	});
 });
+
+function loginFrmSubmit(){
+	var loginFrm = $("#loginFrm");
+	loginFrm.submit();
+}
 
 function onSignIn(googleUser){
 	var profile = googleUser.getBasicProfile();
