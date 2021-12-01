@@ -16,15 +16,15 @@
 	<div class="login-form">
 		<form action="/login/action" id="loginFrm" name="loginFrm" method="post">
 			<div class="form-div">
-				<input type="text" name="id" id="id" placeholder="ID 입력" required="required"/>
+				<input type="text" name="username" id="username" placeholder="ID 입력" required="required"/>
 			</div>
 			<div class="form-div">
-				<input type="password" name="pw" id="pw" placeholder="PASSWORD 입력" required="required"/>
+				<input type="password" name="password" id="password" placeholder="PASSWORD 입력" required="required"/>
 			</div>
 			<div class="form-div">
 				<div class="check-box">
-					<input type="checkbox" name="saveid" id="saveId" />
-					<label for="saveId">아이디 저장</label>
+					<input type="checkbox" name="remember-me" id="rememberMe" />
+					<label for="rememberMe">아이디 저장</label>
 				</div>
 				<div class="find">
 					<a href="/find/idform" class="id-find">아이디</a>

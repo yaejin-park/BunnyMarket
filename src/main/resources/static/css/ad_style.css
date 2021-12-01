@@ -72,6 +72,10 @@ tr.counts{
     height:100px;
     border-bottom:1px solid #ddd;
 }
+.text-count{
+	font-size:10pt;
+	text-align:left;
+}
 .re-textinput{
 	border:0px;
 }
@@ -99,7 +103,13 @@ tr.counts{
     justify-content:space-between;
     padding:0px 10px;
 }
-.text-count{
-	font-size:10pt;
-	text-align:left;
+.re-modbtn{
+	text-align:right;
+	font-size:11pt;
+	color:#ddd;
+}
+.re-delbtn{
+	text-align:right;
+	font-size:11pt;
+	color:#ddd;
 }

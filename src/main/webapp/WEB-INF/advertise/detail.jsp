@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <link rel="stylesheet" type="text/css" href="/css/swiper.min.css">
 <link rel="stylesheet" type="text/css" href="/css/product_style.css">
 <link rel="stylesheet" type="text/css" href="/css/ad_style.css">
@@ -113,7 +114,6 @@
 	<input type="hidden" value="${dto.idx}" name="num">
 	<div class="reply">
 		<div class="re-addcontent">
-			<!-- <input type="text" class="retext" id="recontent" placeholder="댓글을 입력하세요."> -->
 			<textarea name="content" class="re-textinput" placeholder="댓글을 입력해주세요."
 						required="required"></textarea>
 		</div>
@@ -164,8 +164,14 @@
 	                <div class="re-content">
 	                	<pre>${ardto.content}</pre>
 				        <div class="re-rebtn">
-				        	<a>답글쓰기</a>
+				        	<a href="#" role="button" class="re-reply">답글쓰기</a>
 				        </div>
+	                </div>
+	                <div class="re-modbtn">
+	                	<a href="#">수정</a>
+	                </div>
+	                <div class="re-delbtn">
+	                	<a href="#" class="redel" idx="${ardto.idx}">삭제</a>
 	                </div>
 	            </div>
 		    </c:forEach>
@@ -257,6 +263,21 @@ $(document).ready(function() {
 	});
 });
 
-//댓글
-
+//댓글삭제
+$("a.redel").click(function() {
+	var idx=$(this).attr("idx");
+	console.log(idx);
+	if(confirm("댓글을 삭제하시겠습니까?")){
+		$ajax({
+			type:"get",
+			dataType:"html",
+			url:"/redelete",
+			data:{"idx":idx},
+			success:function(){
+				alert("댓글을 삭제했습니다.");
+				location.reload();
+			}
+		});
+	}
+});
 </script>

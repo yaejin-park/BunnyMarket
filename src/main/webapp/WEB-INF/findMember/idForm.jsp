@@ -16,7 +16,7 @@
 				<input type="text" name="user_name" id="user_name" placeholder="이름 입력" required="required"/>
 			</div>
 			<div class="form-div">
-				<input type="password" name="user_hp" id="user_hp" placeholder="휴대전화 번호를 -없이 입력" required="required"/>
+				<input type="text" name="user_hp" id="user_hp" placeholder="휴대전화 번호를 -없이 입력" required="required"/>
 			</div>
 			<div class="btn-wrap">
 				<button type="submit" class="btn-add find-btn">찾기</button>

@@ -1,0 +1,294 @@
+.infoAll .all{
+	margin-top: 40px;
+}
+
+.group.tit{
+	width: 150px;
+}
+
+.group{
+	margin-top: 40px;
+}
+
+.group:after{
+	content:""; display:block; clear:both;
+}
+
+.child{
+	float: left;
+}
+
+.profileImg{
+	border-radius: 100%;
+	border: 2.3px solid #f7f6fc;
+	width: 100px;
+}
+
+.detail-swiper {
+	position:relative;
+	overflow:hidden;
+}
+
+.bigImg{
+	padding-top:10px;
+	width: 323px;
+	border: 2.3px solid #f7f6fc;
+	overflow:hidden;
+}
+.bigImg img {
+	position:absolute;
+	top:50%;
+	left:50%;
+	transform:translate(-50%,-50%);
+}
+
+.smImgDiv{
+	margin-top: 5px;
+}
+
+.smImg{
+	position:relative;
+	width: calc((323px -30px)/4);
+	border: 2.3px solid #f7f6fc;
+	overflow:hidden;
+}
+.smImg img {
+	position:absolute;
+	top:50%;
+	left:50%;
+	transform:translate(-50%,-50%);
+}
+
+.infoAll .group{
+	margin-top:0;
+	float:left;
+	width:330px;
+	margin-right: 40px;
+}
+
+.info{
+	float: left;
+    width: calc(100% - 395px);
+    margin-left: 25px;
+}
+
+.relative{
+	margin-top: 60px;
+}
+
+.bottomBoreder{
+	padding-top: 30px;
+	padding-bottom: 30px;
+	border-bottom: 2.3px solid #f7f6fc;
+}
+
+.detailContent{
+	margin-top: 60px;
+	height: 200px;
+}
+
+.infoAll:after{
+	content:""; 
+	display:block; 
+	clear:both;
+}
+
+.profile{
+	width: 120px;
+}
+
+.table-default{
+	text-align: left;
+	border-top:0px;
+}
+.table-default tr {
+	border-bottom: 0px;
+}
+
+.table-default tr.lineNeed{
+	height: 70px;
+	border-top:1px solid #e5e5e5;
+	vertical-align:bottom;
+}
+
+.table-default td{
+	padding: 7px;
+}
+
+/* ���̺� �׽�Ʈ�� */
+/* .table-default td{
+	border-top:1px solid gray;
+	border-bottom: 1px solid gray;
+	border-right: 1px solid gray;
+	border-left: 1px solid gray;
+} */
+
+.detailBtn{
+	text-align: right;
+}
+
+.icon{
+	line-height: 100%;
+	width: 15px;
+}
+
+td.sellstatus span.reserved{
+	color: #ff7ab0;
+	font-size: 1.1em;
+}
+
+td.sellstatus span.finished{
+	color: #979593;
+	font-size: 1.1em;
+}
+
+.won{
+	display:inline-block;
+	padding-top: 7px;
+	padding-left: 10px;
+}
+
+.write-form .price{
+	width: 230px;
+}
+
+#dibsBtnImg{
+	width: 55px;
+}
+
+tr.lineNeed .marginZero{
+	padding-top: 0;
+}
+
+.tit-sm{
+	color: #746a66;
+    font-size: 11pt;
+}
+
+.needHeight{
+	height: 80px;
+}
+
+.more{
+	float: right;
+	font-weight: 500;
+}
+
+.verticalTop{
+	vertical-align: top; 
+}
+
+.verticalBottom{
+	vertical-align: bottom; 
+}
+
+.shortTit{
+	display: block;
+ 	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+    margin-bottom: 18px;
+}
+
+.category-div{
+	margin-bottom: 40px;
+}
+
+.category-div a:last-child {
+	margin-right:0;
+}
+
+.category-div a {
+	display: inline-block;
+    padding: 10px 24px;
+    margin: 5px;
+    width: calc((100%-10px*6)/6);
+    background-color: #f7f6fc;
+    border-radius: 10px;
+    vertical-align: middle;
+    font-weight: 500;
+}
+
+.category-div a.active {
+    font-weight: bold;
+    color: #ff7ab0;
+}
+
+.oneList{
+    width: calc((100% - 30px * 3) / 4);
+    margin-right: 30px;
+    margin-bottom: 30px;
+   	cursor: pointer;
+}
+
+.oneList:nth-child(4n){
+	margin-right: 0;
+}
+
+.thumbnailDiv{
+	position: relative;
+	overflow: hidden;
+}
+
+.thumbnailDiv img{
+	position:absolute;
+	top:50%;
+	left:50%;
+	transform:translate(-50%,-50%);
+}
+
+.info-div{
+	position: relative;
+	padding: 20px;
+	border: 2.3px solid #f7f6fc;
+}
+
+.info-sm{
+	position: absolute;
+	right: 20px;
+	bottom: 20px;
+}
+
+.info-sm .countDiv{
+	vertical-align: middle;
+	float: left;
+	color: #979593;
+}
+
+.icon-sm{
+	width: 18px;
+	height: 18px;
+	margin-top:5px;
+}
+
+.info-Div{
+	float: left;
+	margin-left: 5px;
+}
+
+/* background-image�� ���� */
+/* .icon-sm{
+	background-repeat: no-repeat;
+    background-size: cover;
+    width: 22px;
+    height: 22px;
+    padding-left: 22px;
+}
+
+.info-sm div.chat{
+	background-image: url("/image/chat-icon.png");
+}
+
+.info-sm div.dibs{
+	background-image: url("/image/heart-icon.png");
+} */
+
+/* .write-btn-div{
+	padding-bottom: 30px;
+	margin-bottom: 30px;
+	border-bottom: 2px solid #f7f6fc;
+} */
+
+.tit-bottom{
+	margin-bottom: 40px;
+}

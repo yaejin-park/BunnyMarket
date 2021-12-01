@@ -4,6 +4,7 @@
 <div class="write-form">
 	<div class="inner">
 		<form action="insert" method="post" enctype="multipart/form-data">
+			<input type="text" name="member_idx" value="${dto.id}">
 			<div class="group">
 				<div class="child tit">
 					이미지 <span class="must">*</span>
