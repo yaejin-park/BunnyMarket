@@ -53,6 +53,7 @@ public class AdreplyController {
 	
 	@GetMapping("/redelete")
 	public void delete(int idx) {
+		System.out.println(idx);
 		service.deleteReply(idx);
 	}
 }
