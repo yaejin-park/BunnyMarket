@@ -92,7 +92,7 @@
 			<!-- 작성자가 아니면 -->
 			<c:if test="false">
 				<td colspan="2">
-					<button type="button" class="btn-add">채팅하기</button>
+					<button type="button" class="btn-add" onclick="location.href='../chat/list?idx=${dto.idx}'">채팅하기</button>
 				</td>
 			</c:if>
 			<!-- 작성자면 -->
@@ -115,38 +115,47 @@
 		<button type="button" class="btn-list" onclick="location.href='list?currentPage=${currentPage}'">목록</button>
 	</div>
 	
+	<!-- 연관상품 -->
 	<div class="relative group">
-	<div>
 		<div class=" tit-bottom">
-			<div class="tit">연관상품</div>
+			<div class="tit child">연관상품</div>
 			<div class="child tit-sm more">
 				<a href="list?category=${dto.category}">
 					더보기>
 				</a>
 			</div>
 		</div>
-	</div>
-	<div class="relative-list">
-	<div class="group">
-		<c:forEach items="${list}" var="one">
-			<c:set var="thumbName" value="${fn:split(one.uploadfile,',')[0]}" />
-			<div class="oneList child" onclick="location.href='detail?idx=${one.idx}&currentPage=${currentPage}'">
-				<div class="thumbnailDiv">
-					<img alt="thumbnail" src="../photo/${thumbName}"class="thumbnail">
-				</div>
-				<div class="info-div">
-					<div class="shortTit">${one.title}</div>
-					<div>
-						<div class="tit">
-							<fmt:formatNumber type="number" value="${one.price}"/>원
+		<div class="relative-list">
+		<c:if test="${list.size()==0}">
+			<div class="nodata">
+				<p class="icon">
+					<img alt="" src="/image/nodata-icon.png">
+				</p>
+				<p>등록된 데이터가 존재하지 않습니다.</p>
+			</div>
+		</c:if>
+		<c:if test="${list.size()!=0}">
+			<div class="group">
+				<c:forEach items="${list}" var="one">
+					<c:set var="thumbName" value="${fn:split(one.uploadfile,',')[0]}" />
+					<div class="oneList child" onclick="location.href='detail?idx=${one.idx}&currentPage=${currentPage}'">
+						<div class="thumbnailDiv">
+							<img alt="thumbnail" src="../photo/${thumbName}"class="thumbnail">
+						</div>
+						<div class="info-div">
+							<div class="shortTit">${one.title}</div>
+							<div>
+								<div class="tit">
+									<fmt:formatNumber type="number" value="${one.price}"/>원
+								</div>
+							</div>
 						</div>
 					</div>
-				</div>
+				</c:forEach>
 			</div>
-		</c:forEach>
+		</c:if>
 	</div>
-	</div>
-	</div>
+</div>
 </div>
 
 <script type="text/javascript" src="/js/swiper.min.js"></script>
@@ -157,7 +166,8 @@ $("#sessionId").click(function() {
 	session.setAttribute("loginok", "yes"); 
 	session.setAttribute("myid", "min92");  
 	%>
-	console.log(로그인);
+	console.log('로그인');
+	console.log('로그인 여부 : <%=session.getAttribute("loginok")%>');
 });
 
 $("#sessionLogout").click(function() {
@@ -165,11 +175,12 @@ $("#sessionLogout").click(function() {
 	session.removeAttribute("loginok"); 
 	session.removeAttribute("myid");
 	%>
-	console.log(로그아웃);
+	console.log('로그아웃');
+	console.log('로그인 여부 : <%=session.getAttribute("loginok")%>');
 });
 
 //로그인 되어 있을 경우,
-if(${sessionScope.loginok!=null}){
+if(<%=session.getAttribute("loginok")!=null%>){
 	//좋아요 여부로 하트 버튼 변경
 	//좋아요 안했을 시,
 	if(${likeCheck==0}){
@@ -179,7 +190,7 @@ if(${sessionScope.loginok!=null}){
 	}
 	
 	//팔로우 여부로 팔로우 버튼 변경
-	//팔로우 안했을 시,
+	//팔로우 했을 시,
 	if(${followCheck!=0}){
 		$("#follow").addClass("btn-add");
 		$("#follow").html("팔로잉");
@@ -192,7 +203,7 @@ if(${sessionScope.loginok!=null}){
 	$(".bigImage").attr("src",src);
 }); */
 
-//미리보기 이미지 호버시,
+/* //미리보기 이미지 호버시,
 $(document).ready(function() {
 	$(".smImgDiv").mouseenter(function() {
 		var original = $(".bigImage").attr("src");
@@ -206,7 +217,7 @@ $(document).ready(function() {
 		var src = $(this).attr("src");
 		$(".bigImage").attr("src",original);
 	}                                                                                                      
-});
+}); */
 
 //찜버튼 클릭시
 function dibsClicked(){
@@ -214,7 +225,7 @@ function dibsClicked(){
 	
 	//로그인 여부
 	//로그인 안했을 경우
-	if(sessionStorage.getItem("loginok")!="yes"){
+	if(<%=session.getAttribute("loginok")==null%>){
 		alert("로그인 이후, 사용가능합니다");
 		return;
 	}  else{ //로그인 했을 경우
@@ -256,7 +267,7 @@ function dibsClicked(){
 $(document).on("click","#follow", function() {
 	//로그인 여부
 	//로그인 안했을 경우
-	if(sessionStorage.getItem("loginok") == "null"){
+	if(<%=session.getAttribute("loginok")==null%>){
 		alert("로그인 이후, 이용가능한 서비스입니다.");
 		return;
 	}  else{
@@ -311,8 +322,6 @@ $(document).on("click","#follow", function() {
 	}
 });
 
-
-
 //삭제 버튼 alert
 $("#deleteBtn").click(function() {
 	var idx =  $(this).val();
@@ -324,7 +333,6 @@ $("#deleteBtn").click(function() {
 	} else{
 		return;			
 	}
-	
 });
 
 </script>

@@ -35,15 +35,16 @@ public class ProductController {
 	
 	@Autowired
 	FollowService flservice;
-
 	
+	@ResponseBody
 	@GetMapping("/list")
 	public ModelAndView productList(
 			@RequestParam (defaultValue = "1") int currentPage,
-			@RequestParam (defaultValue = "전체") String category) { 
+			@RequestParam (defaultValue = "전체") String category,
+			@RequestParam (required = false) String keyword) { 
 	ModelAndView mview = new ModelAndView();
 	
-	int totalCount = service.getTotalCount();
+	int totalCount = service.getTotalCount(category);
 	
 	//페이징 처리에 필요한 변수 선언
 	int perPage = 20;
@@ -67,7 +68,7 @@ public class ProductController {
 	//각 페이지에서 불러올 시작번호
 	start = (currentPage-1)*perPage;
 	
-	List<ProductDTO> list = service.getList(start, perPage, category);
+	List<ProductDTO> list = service.getList(start, perPage, category, keyword);
 	
 	//각 페이지에 출력할 시작번호
 	int no = totalCount-(currentPage-1)*perPage;
