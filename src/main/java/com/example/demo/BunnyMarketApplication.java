@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
+@ConfigurationPropertiesScan({"com.example.demo", "data.*"})
 @ComponentScan({"com.example.demo", "data.*"})
 @MapperScan({"data.*"})
 public class BunnyMarketApplication {
