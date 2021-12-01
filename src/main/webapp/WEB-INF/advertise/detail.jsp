@@ -2,16 +2,14 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<link rel="stylesheet" type="text/css" href="/css/swiper.min.css">
 <link rel="stylesheet" type="text/css" href="/css/product_style.css">
 <link rel="stylesheet" type="text/css" href="/css/ad_style.css">
-<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"/>
-<!-- Link Swiper's CSS -->
-<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
 <div class="inner">
+<div class="infoAll">
 	<input type="hidden" name="current-page" value="${currentPage}">
-	<div class="infoAll">
 		<div class="img group">
-			<div class="swiper mySwiper">
+			<div class="detail-swiper">
 				<div class="bigImgDiv swiper-wrapper">
 					<c:forEach items="${dto.photo}" var="dbimg">				
 						<div class="swiper-slide bigImg fix">
@@ -45,7 +43,7 @@
 		<div class="info">
 		<table class="table table-default">
 			<tr>			
-				<td class="tit">
+				<td class="ad-tit">
 					${dto.title}
 				</td>
 			</tr>
@@ -56,7 +54,7 @@
 				<td class="nick tit verticalBottom">
 					닉네임
 				</td>
-				<td rowspan="2" class="detailBtn">
+				<td rowspan="2" class="detailBtn ad-dbtn">
 					<button class="btn-list" id="follow">
 						<span class="glyphicon glyphicon-plus"></span>
 					팔로우</button>
@@ -64,12 +62,24 @@
 			</tr>
 			<tr>
 				<td colspan="3" class="tit-sm">
-					찜 ${dto.goodcount}&nbsp;&nbsp;&nbsp;조회수 ${dto.readcount}
+					작성일 <fmt:formatDate value="${dto.writeday}" pattern="yy.MM.dd HH:mm"/>
+				</td>
+			</tr>
+			<tr class="counts">
+				<td colspan="3" class="tit-sm">
+				공감 <span id="likecount">${dto.goodcount}</span>&nbsp;&nbsp;&nbsp;조회수 ${dto.readcount}
 				</td>
 			</tr>
 			<tr class="lineNeed">
 				<td class="marginZero">
 					<button type="button" id="dibs" onclick="dibsClicked()"><img src="/image/stopheart-icon.gif" alt="dibsButton" id="dibsBtnImg"></button>
+				<!-- 로그인중(작성자) -->
+				<c:if test="true">
+					<td colspan="2" class="detailBtn">
+						<button type="button" class="btn-update" onclick="location.href='updateform?idx=${dto.idx}&currentPage=${currentPage}'">수정</button>
+						<button type="button" id="deleteBtn" class="btn-delete" value="${dto.idx}">삭제</button>
+					</td>
+				</c:if>
 				</td>
 			</tr>
 		</table>
@@ -91,17 +101,75 @@
 			<button type="button" class="btn-list delist"
 				onclick="location.href='list'">목록</button>
 			<button type="button" class="btn-add gdcount">공감</button>
-			<button type="button" class="btn-update" onclick="location.href='updateform?idx=${dto.idx}&currentPage=${currentPage}'">수정</button>
-		<button type="button" id="deleteBtn" class="btn-delete" value="${dto.idx}">삭제</button>
 		</c:if>
 	</div>
 	<!-- 댓글 -->
+	<div class="reform tit">
+		댓글 ${recount}
+	</div>
+	<!-- 댓글작성 -->
+	<form action="reinsert" method="post">
+	<input type="hidden" value="${currentPage}" name="currentPage">
+	<input type="hidden" value="${dto.idx}" name="num">
 	<div class="reply">
-		<div class="relist"></div>
-		<div class="reform">
-			<input type="text" class="retext" id="recontent" placeholder="댓글을 입력하세요.">
-			<button type="button" class="btn-add" id="rebtn">등록</button>
+		<div class="re-addcontent">
+			<!-- <input type="text" class="retext" id="recontent" placeholder="댓글을 입력하세요."> -->
+			<textarea name="content" class="re-textinput" placeholder="댓글을 입력해주세요."
+						required="required"></textarea>
 		</div>
+		<div class="re-items">
+			<div class="re-addbtn">
+				<button type="submit" class="btn-add btn-sm" id="re-addbtn">등록</button>
+			</div>
+			<div class="text-count">
+				<span class="text-plus">0</span><span>/100</span>
+			</div>
+		</div>
+	</div>	
+	</form>
+	<!-- 댓글목록 -->
+	<div class="re-list">
+		<c:if test="${recount==0}">
+			<div class="nodata">
+				<p class="icon">
+					<img alt="" src="/image/nodata-icon.png">
+				</p>
+				<p>등록된 댓글이 없습니다.</p>
+			</div>
+		</c:if>
+	</div>
+	<div class="re-list">
+		<c:if test="${recount>0}">
+		    <c:forEach var="ardto" items="${relist}">
+		    	<div class="re-info">
+		    		<img alt="" src="../image/profile-icon.png" class="re-profileimg">
+		    	</div>
+	            <div class="re-info">
+		            <span class="re-writer">${ardto.id}</span>
+		            <span class="re-day">
+		                <fmt:formatDate value="${ardto.writeday}" pattern="yy.MM.dd"/>
+		            </span>
+		        </div>
+	            <div class="re-detail">		    
+	                <!-- relevel 만큼 공백 -->
+	                <c:forEach var="sp" begin="1" end="${ardto.relevel}">
+	                    <div class="re-blank"></div>
+	                </c:forEach>
+	                <!-- 답글인 경우에만 re 이미지 출력 -->
+	                <c:if test="${ardto.relevel>0}">
+	                    <!-- <img src="../photo/re.png"> -->
+	                    <div>👉</div>
+	                </c:if>
+	                <!-- 댓글내용 -->
+	                <div class="re-content">
+	                	<pre>${ardto.content}</pre>
+				        <div class="re-rebtn">
+				        	<a>답글쓰기</a>
+				        </div>
+	                </div>
+	            </div>
+		    </c:forEach>
+		</c:if>
 	</div>
 </div>
 
@@ -163,4 +231,32 @@ $("#deleteBtn").click(function() {
 	}
 	
 });
+
+//댓글 글자수 제한
+$(document).ready(function() {
+	$(".re-textinput").keyup(function() {
+		var inputlength=$(this).val().length;
+		var remain=+inputlength;
+		$(".text-plus").html(remain);
+		if(remain>=90){
+			$(".text-plus").css('color','red');
+		}else{
+			$(".text-plus").css('color','black');
+		}
+	});
+	
+	$(".re-textinput").keyup(function() {
+		var inputlength=$(this).val().length;
+		var remain=+inputlength;
+		$(".text-plus").html(remain);
+		if(remain>=101){
+			alert("100자를 초과했습니다.")
+		}else{
+			return;
+		}
+	});
+});
+
+//댓글
+
 </script>
