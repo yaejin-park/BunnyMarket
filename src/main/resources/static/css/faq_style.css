@@ -1,0 +1,36 @@
+.faq-div {
+	margin-top:40px;
+}
+.faq-div .table .num {
+	width:150px;
+}
+.faq-div .table .category {
+	width:200px;
+}
+.faq-div .table .question {
+	width:400px;
+}
+.faq-div .arrow1 {
+	float:right;
+	width:20px;
+	height:20px;
+	background:url("/image/faq-down-icon.png") no-repeat center / auto 20px;
+	transform:rotate(0deg);
+}
+.faq-div .arrow1.on {
+	transform:rotate(-180deg);
+}
+.faq-div #faq-category {
+	width:120px;
+	height:40px;
+	font-size: 14px;
+}
+.faq-div table td {
+	text-align:center;
+}
+.faq-div table tr.answer {
+	display:none;
+}
+.faq-div .faq-form-div {
+	margin-top:40px;
+}

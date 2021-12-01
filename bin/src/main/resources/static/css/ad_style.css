@@ -1,0 +1,14 @@
+/* advertise list-style */
+.ad-list li{
+	border:1px solid #ddd;
+}
+.btn-wrap{
+	margin-bottom:40px;
+	text-align:right;
+}
+
+/* advertise detail-style */
+.detailbtn{
+	text-align:right;
+	margin-top:20px;
+}

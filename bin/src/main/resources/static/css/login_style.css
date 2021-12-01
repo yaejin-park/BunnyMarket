@@ -1,0 +1,106 @@
+.login-div {
+	width:400px;
+	margin:0 auto;
+	padding-top:100px;
+}
+.login-div .sns-login {
+	margin-bottom:40px;
+	text-align:center;
+}
+.login-div .sns-login a {
+	display:inline-block;
+	width:50px;
+	height:50px;
+	margin-right:10px;
+	border:1px solid #e5e5e5;
+	border-radius:50%;
+	text-indent:-999px;
+	overflow:hidden;
+}
+.login-div .sns-login a:last-child {
+	margin-right:0;
+}
+.login-div .sns-login a.kakao {
+	background:#381e1f url("../image/login-kakao-icon.png") no-repeat center / 80% auto;
+}
+.login-div .sns-login a.naver {
+	background:#00c73c url("../image/login-naver-icon.png") no-repeat center / 80% auto;
+}
+.login-div .sns-login a.google {
+	position:relative;
+	background:#fff url("../image/login-google-icon.png") no-repeat center / 80% auto;
+}
+.login-div .sns-login a.google .g-signin2 {
+	position:absolute;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	opacity:0;
+}
+.login-div .sns-login a.google button {
+	display:none;
+	position:absolute;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	text-indent:-999px;
+}
+.login-form .form-div {
+	margin-bottom:10px;
+}
+.login-form .form-div:last-child {
+	margin-bottom:0;
+}
+.login-form .form-div input::placeholder {
+	font-size:16px;
+	font-weight:normal;
+	color:#999;
+}
+.login-form .form-div:after {
+	content:"";
+	display:block;
+	clear:both;
+}
+.login-form .form-div .check-box {
+	float:left;
+	font-size:16px;
+	color:#999;
+}
+.login-form .form-div .check-box input {
+	display:inline-block;
+}
+.login-form .form-div .find {
+	float:right;
+}
+.login-form .form-div .find a {
+	font-size:16px;
+	color:#999;
+}
+.login-form .form-div .find a:first-child:after {
+	content:"";
+	display:inline-block;
+	width:7px;
+	height:7px;
+	margin:10px 5px 0 8px;
+	border-radius:50%;
+	background:#e5e5e5;
+	vertical-align:top;
+}
+.login-form .form-div .find a:hover {
+	font-weight:bold;
+	color:#ff7ab0;
+}
+.login-div .btn-wrap {
+	margin-top:40px;
+	text-align:center;
+}
+.login-div .btn-wrap a {
+	display:block;
+	width:100%;
+	margin-bottom:10px;
+}
+.login-div .btn-wrap a:last-child {
+	margin-bottom:0;
+}

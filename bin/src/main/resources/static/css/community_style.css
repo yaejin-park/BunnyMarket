@@ -1,0 +1,176 @@
+
+/* community List */
+
+.commu-wrap {
+	margin-top:40px;
+}
+.cummu-list:after{
+	content:"";
+	display:block;
+	clear:both;	
+}
+.cummu-list li{
+	position:relative;
+	float:left;
+	width:calc((100% - 90px) / 4);
+	margin-right:30px;
+	margin-top:30px;
+}
+.cummu-list li .image {
+	position:relative;
+	top: 30px;
+	width:100%;
+	overflow:hidden;
+}
+.cummu-list li .image img {
+	position:absolute;
+	top:50%;
+	left:50%;
+	transform:translate(-50%, -50%);
+}
+.cummu-list li:nth-child(4n){
+	margin-right:0;
+}
+.cummu-list li:nth-child(-n+4){
+	margin-top:0;
+}
+.cummu-list li .text-div{
+	padding: 8px 20px 10px 20px;
+}
+.cummu-list li .text-div .tit{
+	margin-top:45px;
+	width:250px;
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis;
+}
+.cummu-list li .text-div .txt{
+	margin-top:10px;
+	width:270px;
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis;
+}
+.cummu-list li .text-div .date {
+	position:absolute;
+	top:-10px;
+	right:0;
+	color: #999;
+}
+
+/* community Detail */
+
+.infoAll{
+	margin-top:40px;
+}
+
+.group{
+	margin-top:20px;
+}
+
+.group:after{
+	content:""; display:block; clear:both;
+}
+
+.child{
+	float:left;
+}
+
+/* .proimg{
+	width:90px;
+} */
+
+.profileImg{
+	border-radius:100%;
+	border:2.3px solid #f7f6fc;
+	width:70px;
+	border-bottom: none;
+}
+
+.detail-swiper {
+	position:relative;
+	overflow:hidden;
+}
+
+.bigImg{
+	padding-top:10px;
+	width:323px;
+	border:2.3px solid #f7f6fc;
+	overflow:hidden;
+}
+.bigImg img {
+	position:absolute;
+	top:50%;
+	left:50%;
+	transform:translate(-50%,-50%);
+}
+
+.smImgDiv{
+	margin-top:5px;
+}
+
+.smImg{
+	position:relative;
+	width:calc((323px -30px)/4);
+	border:2.3px solid #f7f6fc;
+	overflow:hidden;
+}
+.smImg img {
+	position:absolute;
+	top:50%;
+	left:50%;
+	transform:translate(-50%,-50%);
+}
+
+.infoAll .group{
+	margin-top:0;
+	float:left;
+	width:330px;
+	margin-right:40px;
+}
+
+.info{
+	float:left;
+    width:calc(100% - 395px);
+    margin-left:25px;
+}
+
+.infoAll:after{
+	content:""; 
+	display:block; 
+	clear:both;
+}
+
+.detailtit{
+	display:block;
+	font-size:25pt;
+	font-weight:bold;
+	margin-top:8px;
+	margin-bottom:8px;
+}
+
+.wrday
+{
+	display:block;
+	margin-top:10px;
+	text-align:left;
+}
+
+.other
+{
+	display:block;
+	margin-top:5px;
+	margin-bottom:5px;
+}
+
+.detailContent{
+	margin-top:60px;
+	height:200px;
+}
+
+.infoAll .info .table tr:last-child {
+	border-bottom:none;
+}
+.infoAll .info .table tr td:first-child {
+	width:100px;
+}
