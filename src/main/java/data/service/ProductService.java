@@ -77,4 +77,13 @@ public class ProductService {
 	public List<ProductDTO> getRelateList(@RequestParam String category, @RequestParam String idx){
 		return mapper.getRelateList(category, idx);
 	}
+	
+	public void updateStatus(@RequestParam String idx, @RequestParam String status) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		
+		map.put("idx", idx);
+		map.put("status", status);
+		
+		mapper.updateStatus(map);
+	}
 }

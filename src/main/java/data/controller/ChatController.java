@@ -26,7 +26,6 @@ public class ChatController {
 		
 		//채팅리스트 존재하지 않을때,
 		if(chatList==0) {
-			
 			//채팅방 만들기
 			//service.insertChat(null)
 			//채팅리스트 만들기

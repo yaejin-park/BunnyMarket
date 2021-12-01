@@ -115,13 +115,13 @@
 	padding: 7px;
 }
 
-/* ���̺� �׽�Ʈ�� */
-/* .table-default td{
+
+ /* .table-default td{
 	border-top:1px solid gray;
 	border-bottom: 1px solid gray;
 	border-right: 1px solid gray;
 	border-left: 1px solid gray;
-} */
+}  */
 
 .detailBtn{
 	text-align: right;
@@ -301,4 +301,24 @@ tr.lineNeed .marginZero{
 
 .relative-list {
 	margin-top: 40px;
+}
+
+select.statusSelect{
+	font-size: 16pt;
+	border: 2.3px solid #e5e5e5;
+	height: 48px;
+	padding: 0px;
+	font-weight: bold;
+	vertical-align: bottom;
+}
+
+select.statusSelect option{
+	font-weight: normal;
+	font-size: 15px;
+	padding-top: 5px; 
+	padding-bottom: 5px; 
+}
+
+.productTitle{
+	padding-bottom: 8px;
 }
