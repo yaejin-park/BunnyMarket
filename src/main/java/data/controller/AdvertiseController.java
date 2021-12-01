@@ -3,6 +3,7 @@ package data.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
@@ -17,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import data.dto.AdreplyDTO;
 import data.dto.AdvertiseDTO;
+import data.service.AdreplyService;
 import data.service.AdvertiseService;
 
 @Controller
@@ -25,6 +28,9 @@ import data.service.AdvertiseService;
 public class AdvertiseController {
 	@Autowired
 	AdvertiseService service;
+	
+	@Autowired
+	AdreplyService reservice;
 	
 	@GetMapping("/list")
 	public ModelAndView list(@RequestParam(defaultValue = "1") int currentPage) {
@@ -73,7 +79,7 @@ public class AdvertiseController {
 		return mview;
 	}
 	
-	@GetMapping("/form")
+	@GetMapping("/insertform")
 	public String from() {
 		return "/advertise/writeForm";
 	}
@@ -118,7 +124,8 @@ public class AdvertiseController {
 	@GetMapping("/detail")
 	public ModelAndView detail(@RequestParam String idx,
 				@RequestParam(defaultValue = "1") int currentPage,
-				@RequestParam(required = false) String key) {
+				@RequestParam(required = false) String key,
+				@RequestParam Map<String, String> map) {
 		ModelAndView mview=new ModelAndView();
 		
 		//조회수 증가
@@ -136,6 +143,20 @@ public class AdvertiseController {
 		//이미지
 		String []dbimg=dto.getPhoto().split(",");
 		mview.addObject("dbimg", dbimg);
+		
+		//댓글
+		List<AdreplyDTO> relist=reservice.getReplyList(Integer.parseInt(idx));
+		mview.addObject("recount", relist.size());
+		mview.addObject("relist", relist);
+		
+		String regroup=map.get("regroup");
+		String restep=map.get("restep");
+		String relevel=map.get("relevel");
+		
+		mview.addObject("idx", idx==null?"0":idx);
+		mview.addObject("regroup", regroup==null?"0":regroup);
+		mview.addObject("restep", restep==null?"0":restep);
+		mview.addObject("relevel", relevel==null?"0":relevel);
 		
 		mview.setViewName("/advertise/detail");
 		return mview;

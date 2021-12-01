@@ -7,7 +7,7 @@
 <div class="inner">
 	<div class="btn-wrap">
 		<button type="button" class="btn-add"
-			onclick="location.href='form'">글쓰기</button>
+			onclick="location.href='insertform'">글쓰기</button>
 	</div>
 	<c:if test="${totalCount==0}">
 		<div class="nodata">
