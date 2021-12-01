@@ -12,4 +12,16 @@
 	<select id="getNickCheck" parameterType="String" resultType="Integer">
 		select count(*) from member where nickname = #{nickname}
 	</select>
+	
+	<select id="getPw" parameterType="String" resultType="String">
+		select pw from member where id=#{id}
+	</select>
+	
+	<select id="getMemberId" parameterType="String" resultType="mdto">
+		select idx,id,pw from member where id = #{id}
+	</select>
+	
+	<select id="getIdFindMember" parameterType="HashMap" resultType="String">
+		select id from member where name=#{name} and hp=#{hp}
+	</select>
 </mapper>
