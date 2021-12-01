@@ -1,11 +1,16 @@
 package data.dto;
 
-import java.sql.Timestamp;
-
+import java.util.ArrayList;
+import java.util.Collection;
 import org.apache.ibatis.type.Alias;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Alias("mdto")
-public class MemberDTO {
+public class MemberDTO implements UserDetails{
+	private static final long serialVersionUID = 1L;
+	
 	private String idx;
 	private String id;
 	private String pw;
@@ -17,7 +22,6 @@ public class MemberDTO {
 	private String profile;
 	private String local;
 	private String type;
-	private Timestamp joinday;
 	private String zonecode;
 	
 	public String getIdx() {
@@ -86,16 +90,61 @@ public class MemberDTO {
 	public void setType(String type) {
 		this.type = type;
 	}
-	public Timestamp getJoinday() {
-		return joinday;
-	}
-	public void setJoinday(Timestamp joinday) {
-		this.joinday = joinday;
-	}
 	public String getZonecode() {
 		return zonecode;
 	}
 	public void setZonecode(String zonecode) {
 		this.zonecode = zonecode;
+	}
+	
+	public MemberDTO(String id, String name, String pw) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.pw = pw;
+	}
+	
+	@Override
+	public String getPassword() {
+		// TODO Auto-generated method stub
+		return this.getPw();
+	}
+	
+	@Override
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return this.getId();
+	}
+	
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		Collection<GrantedAuthority> collectors = new ArrayList<>();
+		// collectors.add(new SimpleGrantedAuthority("Role"));
+		return collectors;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return true;
 	}
 }
