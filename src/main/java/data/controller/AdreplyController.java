@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import data.dto.AdreplyDTO;
-import data.dto.AdvertiseDTO;
 import data.service.AdreplyService;
 
 @Controller
@@ -52,7 +52,9 @@ public class AdreplyController {
 	}
 	
 	@GetMapping("/redelete")
-	public void delete(int idx) {
+	public @ResponseBody String delete(@RequestParam int idx) {
+		System.out.println(idx);
 		service.deleteReply(idx);
+		return "delete";
 	}
 }

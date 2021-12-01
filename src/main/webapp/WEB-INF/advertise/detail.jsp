@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <link rel="stylesheet" type="text/css" href="/css/swiper.min.css">
 <link rel="stylesheet" type="text/css" href="/css/product_style.css">
 <link rel="stylesheet" type="text/css" href="/css/ad_style.css">
@@ -223,23 +222,25 @@ function dibsClicked(){
 		$("#dibsBtnImg").attr("src","/image/stopheart-icon.gif");
 	}
 }
+//게시글 삭제
+$(function(){
+	//삭제 버튼 alert
+	$("#deleteBtn").click(function() {
+		var idx =  $(this).val();
+		var currentPage= $("input[name='current-page']").val();
+		
+		var n = confirm("정말 게시물을 삭제하시겠습니까?");
+		if(n){
+			location.href="delete?idx="+idx+"&currentPage="+currentPage;
+		}else{
+			return;			
+		}
+	});
 
-//삭제 버튼 alert
-$("#deleteBtn").click(function() {
-	var idx =  $(this).val();
-	var currentPage= $("input[name='current-page']").val();
-	
-	var n = confirm("정말 게시물을 삭제하시겠습니까?");
-	if(n){
-		location.href="delete?idx="+idx+"&currentPage="+currentPage;
-	} else{
-		return;			
-	}
-	
-});
-
-//댓글 글자수 제한
-$(document).ready(function() {
+	//댓글 글자수 제한
+	$(document).ready(function() {
+		$()
+	});
 	$(".re-textinput").keyup(function() {
 		var inputlength=$(this).val().length;
 		var remain=+inputlength;
@@ -249,6 +250,12 @@ $(document).ready(function() {
 		}else{
 			$(".text-plus").css('color','black');
 		}
+		
+		if(remain>=101){
+			alert("100자를 초과했습니다.");
+			$(this).val($(this).val().substring(0, 100));
+            $(".text-plus").html("(100 / 100)");
+		}
 	});
 	
 	$(".re-textinput").keyup(function() {
@@ -257,27 +264,28 @@ $(document).ready(function() {
 		$(".text-plus").html(remain);
 		if(remain>=101){
 			alert("100자를 초과했습니다.")
-		}else{
 			return;
 		}
 	});
-});
 
-//댓글삭제
-$("a.redel").click(function() {
-	var idx=$(this).attr("idx");
-	console.log(idx);
-	if(confirm("댓글을 삭제하시겠습니까?")){
-		$ajax({
-			type:"get",
-			dataType:"html",
-			url:"/redelete",
-			data:{"idx":idx},
-			success:function(){
-				alert("댓글을 삭제했습니다.");
-				location.reload();
-			}
-		});
-	}
-});
+	//댓글삭제
+	$("a.redel").click(function() {
+	      var idx=$(this).attr("idx");
+	      console.log(idx);
+	      if(confirm("댓글을 삭제하시겠습니까?")){
+	         $.ajax({
+	            type:"get",
+	            dataType:"html",
+	            url:"redelete",
+	            data:{
+	               "idx":idx
+	            },
+	            success:function(){
+	               alert("댓글을 삭제했습니다.");
+	               location.reload();
+	            }
+	         });
+	      }
+	   });	
+});	
 </script>
