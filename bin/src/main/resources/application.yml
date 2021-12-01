@@ -1,3 +1,4 @@
+
 server:
   port: 9002
 
@@ -14,12 +15,39 @@ spring:
 # mysql setting
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://db-bit-final.chytaqpbnviq.us-east-2.rds.amazonaws.com:3306/bit_final
+    url: jdbc:mysql://bunnymarket-db.clihali9mgfh.ap-northeast-2.rds.amazonaws.com:3306/bunny-db
     username: admin
-    password: hhg0920*
+    password: GqyuWLHuGU6gtM4
 
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    protocol: smtp
+    default-encoding: UTF-8
+    username: marketbunny6@gmail.com
+    password: sogeppueagllkajo
+    properties:
+      mail:  
+        smtp:
+          auth: true 
+          starttls:
+            enable: true
+          ssl:
+            trust: smtp.gmail.com
+            protocals: TLSv1.2
+        transport:
+          protocal: smtp
+        # debug: true
+        
 # mybatis setting
 mybatis:
   type-aliases-package: data.*
   mapper-locations:
   - /mapper/**/*.xml
+  
+# file size setting
+servlet:
+    multipart:
+      max-file-size:50MB
+      max-request-size:50MB
+

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="data.mapper.ProductLikeMapper">
+	<select id="plikeCheck" parameterType="String" resultType="int">
+		select count(*) from product_like where id=#{id} and product=#{product}
+	</select>
+
+	<insert id="insertPlike" parameterType="pldto">
+		insert into product_like(id,product) values(#{id},#{product})
+	</insert>
+	
+	<delete id="deletePlike" parameterType="pldto">
+		delete from product_like  where id=#{id} and product=#{product}
+	</delete>
+</mapper>
