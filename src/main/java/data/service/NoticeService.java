@@ -80,6 +80,16 @@ public class NoticeService {
 	{
 		return Nmapper.next(idx);
 	}
+	
+	public String nexttitle(String idx)
+	{
+		return Nmapper.nexttitle(idx);
+	}
+	
+	public String beforetitle(String idx)
+	{
+		return Nmapper.beforetitle(idx);
+	}
 }
 	
 

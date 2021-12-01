@@ -232,14 +232,21 @@ public class NoticeController {
 		
 		String before=Nservice.before(idx);
 		String next=Nservice.next(idx);
+		String beforetitle=Nservice.beforetitle(idx);
+		String nexttitle=Nservice.nexttitle(idx);
 		
-
+		
+		mview.addObject("beforetitle", beforetitle);
+		mview.addObject("nexttitle", nexttitle);
 		mview.addObject("before", before);
 		mview.addObject("next", next);
 		mview.addObject("dto", dto);
 		mview.addObject("currentPage", currentPage);
 		mview.setViewName("/notice/content");
 		return mview;
+		
+		
+	
 	}
 	
 	

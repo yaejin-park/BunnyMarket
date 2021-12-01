@@ -1,6 +1,6 @@
 
 
-
+//체크박스모두선택
 function selectAll(selectAll) {
 	const checkboxes
 		= document.getElementsByName('del');
@@ -11,7 +11,7 @@ function selectAll(selectAll) {
 }
 
 
-
+//list에서 삭제confirm창 띄우기
 $(function() {
 	$("#delete").click(function() {
 		var cnt = $("input[name='del']:checked").length;
@@ -26,7 +26,7 @@ $(function() {
 
 
 	
-
+//체크박스 선택된 게시글삭제하기
 function deleteReport() {
 
 	var cnt = $("input[name='del']:checked").length;
@@ -55,7 +55,7 @@ function deleteReport() {
 	}
 }
 
-
+//content에서 삭제confirm창 띄우기
 $(function() {
 	$("#delete2").click(function() {
 		var a = confirm("게시글을 삭제하시겠습니까?");
@@ -72,7 +72,7 @@ $(function() {
 });
 
 
-
+//content창에서 삭제
 function delete1() {
 
 	        var idx=$('#idx').val();
@@ -95,6 +95,7 @@ function delete1() {
 
 }
 
+
   $(document).on("change", ".file-input", function(){
    
     $filename = $(this).val();
@@ -107,11 +108,18 @@ function delete1() {
   })
 
 
-$(function() {
-  $('#form').on('beforeunload', function() {
-    return "이 페이지를 벗어나면 데이터가 초기화 됩니다.";
-  });
-});
+
+	function fileUpload(){
+		var fileInput = document.getElementsByClassName("ex_file");
+		for( var i=0; i<fileInput.length; i++ ){
+			if( fileInput[i].files.length > 0 ){
+				for( var j = 0; j < fileInput[i].files.length; j++ ){
+					console.log(fileInput[i].files[j].name); 
+				}
+			}
+		}
+
+	}
 
 
 

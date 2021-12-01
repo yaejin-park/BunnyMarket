@@ -11,7 +11,7 @@
 				<th><label>제목</label><br> <input type="text"
 					required="required" placeholder="제목을 입력하세요" name="title"
 					class="title">
-					<div class="filebox">\
+					<div class="filebox">
 						
 						
 						<label for="ex_file">업로드</label> <input multiple="multiple" type="file" id="ex_file" name="upload">

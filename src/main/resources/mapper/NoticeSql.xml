@@ -31,4 +31,10 @@
 	<select id="next" resultType="String" parameterType="String">
 	select idx from notice where idx = (select idx from notice where <![CDATA[idx > #{idx}]]> order by idx desc limit 1)
 	</select>
+	<select id="beforetitle" resultType="String" parameterType="String">
+	select title from notice where idx = (select idx from notice where <![CDATA[idx < #{idx}]]> order by idx desc limit 1)
+	</select>
+	<select id="nexttitle" resultType="String" parameterType="String">
+	select title from notice where idx = (select idx from notice where <![CDATA[idx > #{idx}]]> order by idx desc limit 1)
+	</select>
 </mapper>

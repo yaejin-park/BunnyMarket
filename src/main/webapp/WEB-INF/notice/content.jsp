@@ -39,16 +39,31 @@
 		</tbody>
 
 	</table>
-	
-		<div class="paging">
+
+	<table class="table" id="bn">
+	<tr>
+	<c:if test="${next!=null}">
+		<td>
+			다음글:&nbsp;&nbsp;<a href="content?idx=${next}&currentPage=${currentPage}"><b>${nexttitle}</b></a>
+		</td>
+	</c:if>
+	</tr>
+	<tr>
+	<c:if test="${before!=null}">
+		<td>
+				이전글:&nbsp;&nbsp;<a href="content?idx=${before}&currentPage=${currentPage}" class="next">${beforetitle}</a>
+		</td>
+	</c:if>
+	</tr>
+	</table>
+		
+		
+		
 			
-				<a href="content?idx=${before}&currentPage=${currentPage}" class="prev"><span>이전</span></a>
 			
 			
-				<a href="content?idx=${next}&currentPage=${currentPage}" class="next">다음</a>
 			
-			
-	</div>
+
 	
 
 	
@@ -62,4 +77,6 @@
 	
 
 </div>
+
+
 <script type="text/javascript" src="/js/notice_script.js"></script>

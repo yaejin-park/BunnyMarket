@@ -20,4 +20,7 @@ public interface NoticeMapper {
 	public NoticeDTO getData(String idx);
 	public String before(String idx);
 	public String next(String idx);
+	public String beforetitle(String idx);
+	public String nexttitle(String idx);
+	
 }
