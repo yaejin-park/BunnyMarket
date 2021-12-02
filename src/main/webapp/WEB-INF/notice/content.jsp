@@ -51,7 +51,7 @@
 	<tr>
 	<c:if test="${before!=null}">
 		<td>
-				이전글:&nbsp;&nbsp;<a href="content?idx=${before}&currentPage=${currentPage}" class="next">${beforetitle}</a>
+			이전글:&nbsp;&nbsp;<a href="content?idx=${before}&currentPage=${currentPage}" class="next">${beforetitle}</a>
 		</td>
 	</c:if>
 	</tr>

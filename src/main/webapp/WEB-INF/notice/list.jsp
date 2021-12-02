@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+
 <link rel="stylesheet" type="text/css" href="/css/notice_style.css">
 <!-- 작성글 없을 떄 -->
 <c:if test="${totalCount==0}">

@@ -20,21 +20,24 @@
 		select ifnull(max(idx),0) from notice
 	</select>
 	<update id="updateReadCount" parameterType="String">
-	update notice set readcount=readcount+1 where idx=#{idx}
+		update notice set readcount=readcount+1 where idx=#{idx}
 	</update>	
 	<select id="getData" parameterType="String" resultType="ndto">
 		select * from notice where idx=#{idx}
 	</select>
 	<select id="before" resultType="String" parameterType="String">
-	select idx from notice where idx = (select idx from notice where <![CDATA[idx < #{idx}]]> order by idx desc limit 1)
+		select idx from notice where idx = (select idx from notice where <![CDATA[idx < #{idx}]]> order by idx desc limit 1)
 	</select>
 	<select id="next" resultType="String" parameterType="String">
-	select idx from notice where idx = (select idx from notice where <![CDATA[idx > #{idx}]]> order by idx desc limit 1)
+		select idx from notice where idx = (select idx from notice where <![CDATA[idx > #{idx}]]> order by idx limit 1)
 	</select>
 	<select id="beforetitle" resultType="String" parameterType="String">
-	select title from notice where idx = (select idx from notice where <![CDATA[idx < #{idx}]]> order by idx desc limit 1)
+		select title from notice where idx = (select idx from notice where <![CDATA[idx < #{idx}]]> order by idx desc limit 1)
 	</select>
 	<select id="nexttitle" resultType="String" parameterType="String">
-	select title from notice where idx = (select idx from notice where <![CDATA[idx > #{idx}]]> order by idx desc limit 1)
+		select title from notice where idx = (select idx from notice where <![CDATA[idx > #{idx}]]> order by idx limit 1)
+	</select>
+	<select id="admin">
+		select type from member 
 	</select>
 </mapper>
