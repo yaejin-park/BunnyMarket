@@ -37,6 +37,7 @@ tr.counts{
 }
 .reply{
 	margin-top:20px;
+	margin-bottom:20px;
 	border-top:1px solid #ddd;
 	border-right:1px solid #ddd;
     border-bottom:1px solid #ddd;
@@ -44,10 +45,12 @@ tr.counts{
 }
 .re-detail{
 	margin-top:5px;
-	margin-bottom:5px;
+	margin-bottom:10px;
 	border-bottom:1px solid #ddd;
 }
 .re-info{
+	height:100%;
+	margin-right:10px;
 	float:left;
 	font-size:12pt;
 }
@@ -85,6 +88,9 @@ tr.counts{
     resize:none;
     font-size:12pt;
     line-height:1.5;
+}
+.pre-css{
+	font-family:''Noto Sans KR', sans-serif;
 }
 .re-addbtn{
 	text-align:right;

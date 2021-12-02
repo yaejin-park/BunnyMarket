@@ -141,16 +141,12 @@
 		<c:if test="${recount>0}">
 		    <c:forEach var="ardto" items="${relist}">
 		    	<div class="re-info">
-		    		<img alt="" src="../image/profile-icon.png" class="re-profileimg">
+		    		<img alt="" src="/image/profile-icon.png" class="re-profileimg">
 		    	</div>
-	            <div class="re-info">
+	            <div class="re-info2">
 		            <span class="re-writer">${ardto.id}</span>
-		            <span class="re-day">
-		                <fmt:formatDate value="${ardto.writeday}" pattern="yy.MM.dd"/>
-		            </span>
 		        </div>
-	            <div class="re-detail">		    
-	                <!-- relevel 만큼 공백 -->
+	            	<!-- relevel 만큼 공백 -->
 	                <c:forEach var="sp" begin="1" end="${ardto.relevel}">
 	                    <div class="re-blank"></div>
 	                </c:forEach>
@@ -159,12 +155,17 @@
 	                    <!-- <img src="../photo/re.png"> -->
 	                    <div>👉</div>
 	                </c:if>
+	            <div class="re-detail">
+	               	<div class="re-content">                
 	                <!-- 댓글내용 -->
-	                <div class="re-content">
-	                	<pre>${ardto.content}</pre>
+	                	<div>${ardto.content}</div>
 				        <div class="re-rebtn">
-				        	<a href="#" role="button" class="re-reply">답글쓰기</a>
+				        	<a href="javascript:window.location.reload(true);" role="button" class="re-reply">답글쓰기</a>
 				        </div>
+			            <span class="re-day">
+			                <fmt:formatDate value="${ardto.writeday}" pattern="yy.MM.dd"/>
+			                <fmt:formatDate value="${ardto.writeday}" pattern="HH:mm"/>
+			            </span>
 	                </div>
 	                <div class="re-modbtn">
 	                	<a href="#">수정</a>
@@ -286,6 +287,6 @@ $(function(){
 	            }
 	         });
 	      }
-	   });	
+	   });
 });	
 </script>
