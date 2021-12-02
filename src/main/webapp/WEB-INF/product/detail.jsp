@@ -53,24 +53,24 @@
 		</tr>
 		<tr class="needHeight">
 			<!-- 작성자가 아닐 경우-->
-			<c:if test="true">
+			<c:if test="${id != dto.id}">
 				<c:if test="${dto.sellstatus !='판매중' }">
 					<td class="sellstatus verticalBottom">
 						<span class="${dto.sellstatus=='판매중'?'selling':dto.sellstatus=='예약중'?'reserved':'finished'} tit">${dto.sellstatus}</span>
 					</td>
 				</c:if>
 			</c:if>
-			<c:if test="false">
-				<td>
-					<select name="sellstaus">
+			<c:if test="${myId == dto.id}">
+				<td class="verticalBottom">
+					<select name="sellstaus" class="statusSelect" id="statusSelect">
 						<option class="tit selling" value="selling">판매중</option>
 						<option class="tit reserved" value="reserved">예약중</option>
 						<option class="tit finished" value="finished">거래완료</option>
 					</select>
 				</td>
 			</c:if>
-			<td ${dto.sellstatus=='판매중'?'colspan="3"':'colspan="2"'} class="tit verticalBottom">
-				${dto.title}
+			<td ${dto.sellstatus=='판매중' && dto.id != myId ?'colspan="3"':'colspan="2"'} class="tit verticalBottom">
+				<p class="productTitle">${dto.title}</p>
 			</td>
 		</tr>
 		<tr class="needHeight">
@@ -88,13 +88,13 @@
 				<button type="button" id="dibs" onclick="dibsClicked()"><img src="/image/stopheart-icon.gif" alt="dibsButton" id="dibsBtnImg"></button>
 			</td>
 			<!-- 작성자가 아니면 -->
-			<c:if test="false">
+			<c:if test="${myId != dto.id}">
 				<td colspan="2">
 					<button type="button" class="btn-add" onclick="location.href='../chat/list?idx=${dto.idx}'">채팅하기</button>
 				</td>
 			</c:if>
 			<!-- 작성자면 -->
-			<c:if test="true">
+			<c:if test="${myId == dto.id}">
 				<td colspan="2" class="detailBtn">
 					<button type="button" class="btn-update" onclick="location.href='updateForm?idx=${dto.idx}'">수정</button>
 					<button type="button" id="deleteBtn" class="btn-delete" value="${dto.idx}">삭제</button>
@@ -159,7 +159,7 @@
 <script type="text/javascript" src="/js/swiper.min.js"></script>
 <script>
 //로그인 되어 있을 경우,
-if(${isLogin}==null){
+if(${isLogin == "Y"}){
 	//좋아요 여부로 하트 버튼 변경
 	//좋아요 안했을 시,
 	if(${likeCheck==0}){
@@ -170,11 +170,21 @@ if(${isLogin}==null){
 	
 	//팔로우 여부로 팔로우 버튼 변경
 	//팔로우 했을 시,
-	if(${followCheck!=0}){
+	if(${followCheck != 0}){
 		$("#follow").addClass("btn-add");
 		$("#follow").html("팔로잉");
 	}
 }
+$(document).ready(function() {
+	//판매상태에 따라 글씨색 바뀌기
+	if($("#statusSelect").val() == "finished"){
+		$(this).css("color","#979593");
+	} else if($("#statusSelect").val() == "reserved"){
+		$(this).css("color", "#ff7ab0");
+	} else if($("#statusSelect").val() == "selling"){
+		$(this).css("color", "#3088d4");
+	}
+});
 
 //미리보기 이미지 클릭시,
 /* $(document).on("click",".smallImg", function(e) {
@@ -201,10 +211,10 @@ $(document).ready(function() {
 //찜버튼 클릭시
 function dibsClicked(){
 	var idx = ${dto.idx};
-	
+	console.log("dibs");
 	//로그인 여부
 	//로그인 안했을 경우
-	if(${isLogin}==null){
+	if(${isLogin != "Y"}){
 		alert("로그인 이후, 사용가능합니다");
 		return;
 	}  else{ //로그인 했을 경우
@@ -246,12 +256,12 @@ function dibsClicked(){
 $(document).on("click","#follow", function() {
 	//로그인 여부
 	//로그인 안했을 경우
-	if(${isLogin}==null){
+	if(${isLogin!="Y"}){
 		alert("로그인 이후, 이용가능한 서비스입니다.");
 		return;
 	}  else{
 	//로그인 했을 경우
-		var followee = '${dto.id}';
+		var followee = ${dto.id};
 		var follower = sessionStorage.getItem("myid");
 		var idx = '${dto.idx}';
 		
@@ -312,6 +322,27 @@ $("#deleteBtn").click(function() {
 	} else{
 		return;			
 	}
+});
+
+//판매상태 변경
+$(document).on("change", "#statusSelect", function() {
+	var status = $("#statusSelect").val();
+	console.log(status);
+	
+	if(status=="finished"){
+		$(this).css("color","#979593");
+	} else if(status == "reserved"){
+		$(this).css("color", "#ff7ab0");
+	} else if(status == "selling"){
+		$(this).css("color", "#3088d4");
+	}
+	//판매상태 변경(product)
+	$.ajax({
+		type : "post",  
+		url : "/updateStatus",     
+        dataType : "json",   
+        data : {"idx":idx, "status":status}        
+	}); 
 });
 
 </script>
