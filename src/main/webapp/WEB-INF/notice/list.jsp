@@ -8,8 +8,6 @@
 <!-- 작성글 없을 떄 -->
 <c:if test="${totalCount==0}">
 	<div class="inner">
-
-
 		<div class="inner">
 			<div class="nodata">
 				<p class="icon">
@@ -20,7 +18,6 @@
 			</div>
 		</div>
 		<div class="btn-wrap">
-
 			<button class="btn-add" type="button"
 				onclick="location.href='writeform'">글쓰기</button>
 		</div>
@@ -28,6 +25,7 @@
 
 
 </c:if>
+<!-- 작성글 없을 떄 -->
 <div class="inner">
 
 
@@ -105,7 +103,7 @@
 
 
 
-
+<!-- 페이징처리 -->
 <c:if test="${totalCount>0}">
 	<div class="inner">
 

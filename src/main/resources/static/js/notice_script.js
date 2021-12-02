@@ -96,30 +96,7 @@ function delete1() {
 }
 
 
-  $(document).on("change", ".file-input", function(){
-   
-    $filename = $(this).val();
 
-    if($filename == "")
-      $filename = "파일을 선택해주세요.";
-
-    $(".filename").text($filename);
-
-  })
-
-
-
-	function fileUpload(){
-		var fileInput = document.getElementsByClassName("ex_file");
-		for( var i=0; i<fileInput.length; i++ ){
-			if( fileInput[i].files.length > 0 ){
-				for( var j = 0; j < fileInput[i].files.length; j++ ){
-					console.log(fileInput[i].files[j].name); 
-				}
-			}
-		}
-
-	}
 
 
 

@@ -90,6 +90,9 @@ public class NoticeService {
 	{
 		return Nmapper.beforetitle(idx);
 	}
+	
+	
+
 }
 	
 

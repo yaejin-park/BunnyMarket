@@ -23,4 +23,5 @@ public interface NoticeMapper {
 	public String beforetitle(String idx);
 	public String nexttitle(String idx);
 	
+	
 }

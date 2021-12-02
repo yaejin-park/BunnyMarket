@@ -37,7 +37,5 @@
 	<select id="nexttitle" resultType="String" parameterType="String">
 		select title from notice where idx = (select idx from notice where <![CDATA[idx > #{idx}]]> order by idx limit 1)
 	</select>
-	<select id="admin">
-		select type from member 
-	</select>
+
 </mapper>

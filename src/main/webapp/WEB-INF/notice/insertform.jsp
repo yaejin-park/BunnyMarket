@@ -14,7 +14,7 @@
 					<div class="filebox">
 						
 						
-						<label for="ex_file">업로드</label> <input multiple="multiple" type="file" id="ex_file" name="upload">
+						<input multiple="multiple" type="file" name="upload"class="file">
 					</div>
 				</th>
 			</tr>
@@ -36,5 +36,6 @@
 </div>
 
 <script type="text/javascript" src="/js/notice_script.js"></script>
+
 
 
