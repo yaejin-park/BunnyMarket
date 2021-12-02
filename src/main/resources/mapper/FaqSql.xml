@@ -20,4 +20,8 @@
 	<select id="getListByCategory" parameterType="HashMap" resultType="fdto">
 		select * from faq where category =#{category} order by idx desc limit #{start},#{perpage}
 	</select>
+	<update id="updateFaq" parameterType="fdto">
+		update faq set category=#{category},question=#{qeustion},answer=#{answer}
+		where idx=#{idx}
+	</update>
 </mapper>

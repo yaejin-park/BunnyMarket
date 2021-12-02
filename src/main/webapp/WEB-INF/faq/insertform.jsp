@@ -20,7 +20,7 @@
 					<input type="text" class="subinput" placeholder="질문입력" required="required">
 				</div>
 			</div>
-			<div class="group">
+			<div class="child tit">
 				답변 <span class="must">*</span>
 			</div>
 			<div>

@@ -35,4 +35,7 @@ public class FaqService {
 		map.put("perpage", perpage);
 		return mapper.getListByCategory(map);
 	}
+	public void updateFaq(FaqDTO dto) {
+		mapper.updateFaq(dto);
+	}
 }

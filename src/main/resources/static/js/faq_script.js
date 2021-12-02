@@ -23,16 +23,16 @@ $(function () {
 				"currentPage": 1,
 			},
 			success:function(data){
-				alert(data);
-			},
-			error:function(){
-				alert("에러 발생");
+				$("td").text(data.length);
+				var s="";
+				$.each(data,function(i,dto) {
+					s+=dto.idx;
+					s+=dto.category;
+					s+=dto.question;
+					s+=dto.answer;
+				});
 			}
 		});
 	});
 	
-	$("select[name = 'category']").change(function() {
-		console.log($(this).val());  //  value값 얻기
-		console.log($(this).find("option:selected").text()); //  text값 가져오기
-	});
 });

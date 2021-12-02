@@ -4,12 +4,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -47,7 +50,7 @@ public class FaqController {
 		
 		start=(currentPage-1)*perPage;
 		List<FaqDTO> list = service.getList(start, perPage);
-		
+		System.out.println("1:"+list.size());
 		int no=totalCount-(currentPage-1)*perPage;
 		
 		mview.addObject("list", list);
@@ -119,4 +122,10 @@ public class FaqController {
 		return "redirect:list";
 	}
 	
+	@PostMapping("/update")
+	public String update(@ModelAttribute FaqDTO dto,
+			String currentPage, HttpSession session) {
+		service.updateFaq(dto);
+		return "redirect:list?idx="+dto.getIdx()+"&currentPage="+currentPage;
+	}
 }

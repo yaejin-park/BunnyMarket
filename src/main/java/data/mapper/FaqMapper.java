@@ -15,4 +15,5 @@ public interface FaqMapper {
 	public int getTotalCount();
 	public FaqDTO getCategory(String category);
 	public List<FaqDTO> getListByCategory(HashMap<String, Object>map);
+	public void updateFaq(FaqDTO dto);
 }

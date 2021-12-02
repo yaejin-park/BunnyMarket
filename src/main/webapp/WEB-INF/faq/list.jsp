@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <link rel="stylesheet" type="text/css" href="/css/faq_style.css">
-
 <div class="faq-div">
 	<div class="inner">
 		<select id="faq-category">
@@ -27,6 +27,8 @@
 							<td>${a.category}</td>
 							<td>${a.question}</td>
 							<td>
+								<button type="button" class="btn-update btn-sm" onclick="location.href='updateform'">수정하기</button> 
+								<button type="button" class="btn-delete btn-sm">삭제하기</button>
 								<button type="button" class="arrow1" data-idx="${a.idx}"></button>
 							</td>
 						</tr>
@@ -40,3 +42,4 @@
 	</div>
 </div>
 <script type="text/javascript" src="/js/faq_script.js"></script>
+
