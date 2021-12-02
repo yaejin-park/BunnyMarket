@@ -20,9 +20,6 @@ public class MemberService implements UserDetailsService {
 	@Autowired
 	MemberMapper mapper;
 	
-	String userId = "";
-	
-	
 	public void insertMember(MemberDTO dto) {
 		mapper.insertMember(dto);
 	}
@@ -55,12 +52,24 @@ public class MemberService implements UserDetailsService {
 		return member;
 	}
 	
-	public String currentUserId(Principal principal) {
-		userId = principal.getName();
-		return principal.getName();
+	public String currentUserName(Principal principal) {
+		String currentUserId = principal.getName();
+		String currentUserName = mapper.currentUserName(currentUserId);
+		
+		return currentUserName;
 	}
 	
-	public String currentUserNickName(String id) {
-		return "";
+	public String currentUserNickName(Principal principal) {
+		String currentUserId = principal.getName();
+		String currentUserNickName = mapper.currentUserNickName(currentUserId);
+		
+		return currentUserNickName;
+	}
+	
+	public String currentUserType(Principal principal) {
+		String currentUserId = principal.getName();
+		String currentUserType = mapper.currentUserType(currentUserId);
+		
+		return currentUserType;
 	}
 }
