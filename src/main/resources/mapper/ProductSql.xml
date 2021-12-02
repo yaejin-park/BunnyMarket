@@ -70,6 +70,6 @@
 	</select>
 	
 	<update id="updateStatus" parameterType="HashMap">
-		update product set sellstatus =${status} where idx=#{idx}
+		update product set sellstatus = #{status} where idx=#{idx}
 	</update>
 </mapper>

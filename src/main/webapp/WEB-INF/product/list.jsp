@@ -44,7 +44,7 @@
 									<div class="child">
 										<img class="icon-sm" alt="chat-icon" src="/image/chat-icon.png">
 									</div>
-									<div class="countDiv info-Div">${one.readcount}</div>
+									<div class="countDiv info-Div">${one.chatcount}</div>
 								</div>
 								<div class="info-Div">
 									<div class="info-Div">
