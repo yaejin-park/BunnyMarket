@@ -15,7 +15,7 @@
 			</c:forTokens>
 		</div>
 	<div class="btn-wrap write-btn-div">
-		<button type="button" class="btn-add" onclick="location.href='insertForm'">글쓰기</button>
+		<button type="button" class="btn-add" onclick="location.href='/product/auth/insertForm'">글쓰기</button>
 	</div>
 	<c:if test="${list.size()==0}">
 		<div class="nodata">
@@ -39,22 +39,13 @@
 							<div class="tit">
 								<fmt:formatNumber type="number" value="${one.price}"/>원
 							</div>
-							<div class="info-sm">   
-								<div class="info-Div">
-									<div class="child">
-										<img class="icon-sm" alt="chat-icon" src="/image/chat-icon.png">
-									</div>
-									<div class="countDiv info-Div">${one.chatcount}</div>
+							<div class="list-info-sm">   
+								<div class="list-info-sm-div">
+									<div class="chat list-icon-sm">${one.chatcount}</div>
 								</div>
-								<div class="info-Div">
-									<div class="info-Div">
-										<img class="icon-sm" alt="chat-icon" src="/image/heart-icon.png">
-									</div>
-									<div class="countDiv info-Div">${one.likecount}</div>
+								<div class="list-info-sm-div">
+									<div class="dibs icon-sm">${one.likecount}</div>
 								</div>
-								<!-- 실패 -->
-								<%-- <div class="chat icon-sm">&nbsp;&nbsp;${one.readcount}</div>
-								<div class="dibs icon-sm">&nbsp;&nbsp;${one.likecount}</div> --%>
 							</div>
 						</div>
 					</div>

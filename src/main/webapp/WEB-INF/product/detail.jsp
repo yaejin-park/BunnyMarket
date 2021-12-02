@@ -38,7 +38,7 @@
 				<img alt="profile" src="/image/profile-icon.png" class="profileImg">	
 			</td>
 			<td class="nick tit verticalBottom">
-			닉네임
+				${nick}
 			</td>
 			<td rowspan="2" class="detailBtn">
 				<button type="button" class="btn-list" id="follow">+ 팔로우</button>
@@ -50,7 +50,7 @@
 			</td>
 		</tr>	
 		<tr>
-			<td colspan="3" class="tit-sm"><a>${dto.category}</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<fmt:formatDate value="${dto.writeday }" pattern="yy.MM.dd"/></td>
+			<td colspan="3" class="tit-sm"><a href="list?category=${dto.category}">${dto.category}</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<fmt:formatDate value="${dto.writeday }" pattern="yy.MM.dd"/></td>
 		</tr>
 		<tr class="needHeight">
 			<!-- 작성자가 아닐 경우-->
@@ -81,7 +81,17 @@
 		</tr>
 		<tr>
 			<td colspan="3" class="tit-sm">
-				대화 <span id="chatcount">${dto.chatcount}</span>&nbsp;&nbsp;&nbsp;찜 <span id="likecount">${dto.likecount}</span>&nbsp;&nbsp;&nbsp;조회수 ${dto.readcount}
+				<div class="info-sm">   
+					<div class="info-sm-div">
+						<div class="chat icon-sm">${dto.chatcount}</div>
+					</div>
+					<div class="info-sm-div">
+						<div class="dibs icon-sm">${dto.likecount}</div>
+					</div>
+					<div class="info-sm-div">
+						<div class="read icon-sm">${dto.readcount}</div>
+					</div>
+				</div>
 			</td>
 		</tr>
 		<tr class="lineNeed">
@@ -91,7 +101,7 @@
 			<!-- 작성자가 아니면 -->
 			<c:if test="${myId != dto.id}">
 				<td colspan="2">
-					<button type="button" class="btn-add chat-btn" onclick="location.href='../chat/list?idx=${dto.idx}'">채팅하기</button>
+					<button type="button" class="btn-delete chat-btn" id="chatBtn">채팅하기</button>
 				</td>
 			</c:if>
 			<!-- 작성자면 -->
@@ -255,6 +265,7 @@ function dibsClicked(){
 		}
 	}
 }
+
 //팔로우 버튼 클릭시
 $(document).on("click","#follow", function() {
 	//로그인 여부
@@ -310,6 +321,22 @@ $(document).on("click","#follow", function() {
 				});
 			}
 		}
+	}
+});
+
+//채팅 버튼 클릭시
+$(document).on("click","#chatBtn", function() {
+	//로그인 여부
+	//로그인 안했을 경우
+	if(${isLogin!="Y"}){
+		alert("로그인 이후, 이용가능한 서비스입니다.");
+		return;
+	}  else{
+		//로그인 했을 경우
+		var id = "${myId}";
+		var idx = "${dto.idx}";
+		
+		location.href ='../chat/room?idx='+idx+"&id="+id;
 	}
 });
 

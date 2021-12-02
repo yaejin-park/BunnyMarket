@@ -73,7 +73,7 @@
 }
 
 .relative{
-	margin-top: 60px;
+	margin-top: 40px;
 }
 
 .bottomBoreder{
@@ -134,12 +134,12 @@
 
 td.sellstatus span.reserved{
 	color: #ff7ab0;
-	font-size: 1.5em;
+	font-size:  27px;
 }
 
 td.sellstatus span.finished{
 	color: #979593;
-	font-size: 1.5em;
+	font-size:  27px;;
 }
 
 .won{
@@ -245,44 +245,61 @@ tr.lineNeed .marginZero{
 }
 
 .info-sm{
+	right: 20px;
+	bottom: 20px;
+}
+
+.list-info-sm{
 	position: absolute;
 	right: 20px;
 	bottom: 20px;
 }
 
-.info-sm .countDiv{
-	vertical-align: middle;
-	float: left;
-	color: #979593;
-}
-
-.icon-sm{
-	width: 18px;
-	height: 18px;
-	margin-top:5px;
-}
-
-.info-Div{
-	float: left;
-	margin-left: 5px;
-}
-
 /* background-image�� ���� */
-/* .icon-sm{
-	background-repeat: no-repeat;
-    background-size: cover;
-    width: 22px;
-    height: 22px;
-    padding-left: 22px;
+.info-sm-div{
+	width: 24px;
+    height: 24px;
+    float: left;
+    padding-right: 46px;
 }
 
-.info-sm div.chat{
+.list-info-sm .list-info-sm-div{
+	width: 24px;
+    height: 24px;
+    float: left;
+    padding-right: 44px;
+}
+
+.list-info-sm .list-info-sm-div:nth-child(2){
+    padding-right: 7px;
+}
+
+/* list의 작은 아이콘 */
+.icon-sm{
+	background-repeat: no-repeat;
+    background-size: contain;
+    padding-left: 25px;
+    color: #746a66c7;
+}
+
+.list-icon-sm{
+	background-repeat: no-repeat;
+    background-size: contain;
+    padding-left: 25px;
+    color: #746a66c7;
+}
+
+.info-sm div.chat, .list-info-sm div.chat{
 	background-image: url("/image/chat-icon.png");
 }
 
-.info-sm div.dibs{
+.info-sm div.dibs, .list-info-sm div.dibs{
 	background-image: url("/image/heart-icon.png");
-} */
+} 
+
+.info-sm div.read, .list-info-sm div.read{
+	background-image: url("/image/eye-icon.png");
+}
 
 .write-btn-div{
 	margin-bottom: 40px;
@@ -321,7 +338,7 @@ select.statusSelect option{
 
 .productTitle{
 	padding-bottom: 2px;
-    font-size: 30px;
+    font-size: 27px;
 }
 
 .chat-btn{

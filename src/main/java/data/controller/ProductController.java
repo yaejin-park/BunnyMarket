@@ -96,7 +96,7 @@ public class ProductController {
 	}
 	 
 
-	@GetMapping("/updateForm")
+	@GetMapping("/auth/updateForm")
 	public ModelAndView updateForm(@RequestParam String idx) {
 		ModelAndView mview = new ModelAndView();
 
@@ -108,13 +108,13 @@ public class ProductController {
 		return mview;
 	}
 
-	@GetMapping("/insertForm")
+	@GetMapping("/auth/insertForm")
 	public String insertForm() {
 
 		return "/product/insertForm";
 	}
 
-	@PostMapping("/insert")
+	@PostMapping("/auth/insert")
 	public String insertData(@ModelAttribute ProductDTO dto, HttpServletRequest request, HttpSession session, Principal principal) {
 		// 로그인 안했을 경우, 종료
 		String isLogin = (String)request.getSession().getAttribute("isLogin");
@@ -180,7 +180,7 @@ public class ProductController {
 		String []photo = dto.getUploadfile().split(",");
 		
 		//닉네임 가져오기
-		mservice.get
+		String nick = mservice.getNick(dto.getId());
 		
 		//같은 카테고리 연관제품 보여주기
 		String category = dto.getCategory();
@@ -196,6 +196,7 @@ public class ProductController {
 			String id = principal.getName();
 			model.addAttribute("myId", id);
 			
+		
 			//하트 버튼 클릭여부
 			int likeCheck = plservice.plikeCheck(id,idx);
 			model.addAttribute("likeCheck", likeCheck);
@@ -221,6 +222,7 @@ public class ProductController {
 		model.addAttribute("dto", dto);
 		model.addAttribute("list", list);
 		model.addAttribute("isLogin", isLogin);
+		model.addAttribute("nick", nick);
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("photo", photo);
 		
