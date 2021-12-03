@@ -37,26 +37,15 @@ input{
 	width: 330px;
 	height: 25px;
 }
-#yourMsg{
-	display: none;
-}
+
 </style>
 
 <div id="container" class="container">
 	<input type="hidden" id="sessionId" value="">
-	
+	<input type="hidden" name="userName" id="userName" value="${nick}">
 	<div id="chating" class="chating">
 	</div>
 	
-	<div id="yourName">
-		<table class="inputTable">
-			<tr>
-				<th>사용자명</th>
-				<th><input type="text" name="userName" id="userName"></th>
-				<th><button onclick="chatName()" id="startBtn">이름 등록</button></th>
-			</tr>
-		</table>
-	</div>
 	<div id="yourMsg">
 		<table class="inputTable">
 			<tr>
@@ -69,6 +58,9 @@ input{
 </div>
 
 <script type="text/javascript">
+
+wsOpen();
+
 var ws;
 
 function wsOpen(){
@@ -111,7 +103,7 @@ function wsEvt() {
 	});
 }
 
-function chatName(){
+/* function chatName(){
 	var userName = $("#userName").val();
 	if(userName == null || userName.trim() == ""){
 		alert("사용자 이름을 입력해주세요.");
@@ -121,7 +113,7 @@ function chatName(){
 		$("#yourName").hide();
 		$("#yourMsg").show();
 	}
-}
+} */
 
 function send() {
 	var option ={
