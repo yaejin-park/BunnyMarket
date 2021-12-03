@@ -33,29 +33,41 @@
 		</div>
 	</div>
 	
-	<div class="reform tit">
-		댓글 ${recount}
-	</div>
-	<form action="reinsert" method="post">
-		<input type="hidden" value="${currentPage}" name="currentPage">
+	<div class="reply">
 		<input type="hidden" value="${dto.idx}" name="num">
-		<div class="reply">
-			<div class="re-addcontent">
-				<textarea name="content" class="re-textinput" placeholder="댓글을 입력해주세요."
-							required="required"></textarea>
-			</div>
-			<div class="re-items">
-				<div class="re-addbtn">
-					<button type="submit" class="btn-add btn-sm" id="re-addbtn">등록</button>
+		<div class="tit">
+			댓글 ${recount}
+		</div>
+		<div class="re-div">
+			<p class="re-info writer">
+				<span class="profile">
+					<img alt="" src="/image/profile-icon.png">
+				</span>
+				<c:if test="${userNickName=='no'}">
+					<a href="/login/main"><span>로그인해주세요.</span></a>
+				</c:if>
+				<c:if test="${userNickName!='no'}">
+					<span>${userNickName}</span>
+				</c:if>
+			</p>
+			<c:if test="${userNickName!='no'}">
+				<div class="re-content">
+					<textarea name="re-content" placeholder="댓글을 입력해주세요."></textarea>
 				</div>
-				<div class="text-count">
-					<span class="text-plus">0</span><span>/100</span>
+					
+				<div class="re-util">
+					<div class="btn-wrap">
+						<button type="button" class="btn-add btn-sm">등록</button>
+					</div>
+					<div class="text-count">
+						<span class="text-plus">0</span><span>/100</span>
+					</div>
 				</div>
-			</div>
-		</div>	
-	</form>
+			</c:if>
+		</div>
+	</div>
 	
-	<div class="re-list">
+	<div class="re-list-div">
 		<c:if test="${recount==0}">
 			<div class="nodata">
 				<p class="icon">
@@ -65,46 +77,52 @@
 			</div>
 		</c:if>
 		<c:if test="${recount>0}">
-		    <c:forEach var="ardto" items="${relist}">
-		    	<div class="re-info">
-		    		<img alt="" src="../image/profile-icon.png" class="re-profileimg">
-		    	</div>
-	            <div class="re-info">
-		            <span class="re-writer">${ardto.id}</span>
-		            <span class="re-day">
-		                <fmt:formatDate value="${ardto.writeday}" pattern="yy.MM.dd"/>
-		            </span>
-		        </div>
-	            <div class="re-detail">		    
-	                <!-- relevel 만큼 공백 -->
-	                <c:forEach var="sp" begin="1" end="${ardto.relevel}">
-	                    <div class="re-blank"></div>
-	                </c:forEach>
-	                <!-- 답글인 경우에만 re 이미지 출력 -->
-	                <c:if test="${ardto.relevel>0}">
-	                    <!-- <img src="../photo/re.png"> -->
-	                    <div>👉</div>
-	                </c:if>
-	                <!-- 댓글내용 -->
-	                <div class="re-content">
-	                	<pre>${ardto.content}</pre>
-				        <div class="re-rebtn">
-				        	<a href="#" role="button" class="re-reply">답글쓰기</a>
-				        </div>
-	                </div>
-	                <div class="re-modbtn">
-	                	<a href="#">수정</a>
-	                </div>
-	                <div class="re-delbtn">
-	                	<a href="#" class="redel" idx="${ardto.idx}">삭제</a>
-	                </div>
-	            </div>
-		    </c:forEach>
+		    <ul class="re-list">
+		    	<c:forEach var="replyDto" items="${relist}">
+		    		<li>
+	    				<p class="re-info writer">
+	    					<span class="profile">
+	    						<img alt="" src="/image/profile-icon.png">
+	    					</span>
+	    					<span>${replyDto.nickname}</span>
+	    				</p>
+		    			<div class="re-content">
+		                	<p class="txt">${replyDto.content}</p>
+					        <div class="btn-wrap">
+					        	<a href="javascript:" class="reply-btn">답글쓰기</a>
+			                	<a href="javascript:" class="btn-update btn-sm re-modbtn" idx="${replyDto.idx}">수정</a>
+			                	<a href="javascript:" class="btn-delete btn-sm re-modbtn" idx="${replyDto.idx}">삭제</a>
+					        </div>
+		    			</div>
+		    		</li>
+		    	</c:forEach>
+		    </ul>
 		</c:if>
 	</div>
 </div>
 <script type="text/javascript">
 	$(function(){
+		$(".reply .re-div .btn-add").click(function(){
+			var num = $(this).parents(".reply").find("input[name='num']").val();
+			var content = $(this).parents(".re-div").find("textarea[name='re-content']").val();
+			
+			$.ajax({
+				type:"post",
+				url:"auth/reply/insert",
+				data:{
+					"num":num,
+					"content":content
+				},
+				success:function(){
+					console.log("성공");
+					$(this).parents(".re-div").find("textarea[name='re-content']").val("");
+					location.reload();
+				},
+				error:function(e){
+					console.log("에러"+e);
+				}
+			})
+		});
 		//삭제 버튼 alert
 		$("#deleteBtn").click(function() {
 			var idx =  $(this).val();
@@ -116,7 +134,6 @@
 			} else{
 				return;			
 			}
-			
 		});
 	
 		//댓글 글자수 제한

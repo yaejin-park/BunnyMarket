@@ -15,10 +15,10 @@
 	</div>
 	<div class="category-div">
 		<div class="inner">
-			<a href="javascript:" class="active">카테고리1</a>
-			<a href="javascript:">카테고리2</a>
-			<a href="javascript:">카테고리3</a>
-			<a href="javascript:">카테고리4</a>
+			<a href="list?currentPage=1" class="${selectCategory == '전체'?'active':''}">전체</a>
+			<c:forEach var="category" items="${categoryArr}">
+				<a href="list?currentPage=1&category=${category}" class="${selectCategory == category?'active':''}">${category}</a>
+			</c:forEach>
 		</div>
 	</div>
 	<div class="inner">
@@ -65,13 +65,8 @@
 				<c:if test="${startPage>1}">
 					<a href="list?currentPage=${startPage-1}" class="prev"><span>이전</span></a>
 				</c:if>
-				<c:forEach var="pp" begin="${startPage}" end="${endPage}">
-					<c:if test="${currentPage==pp}">
-						<a href="list?currentPage=${pp}" class="active">${pp}</a>
-					</c:if>			
-					<c:if test="${currentPage!=pp}">
-						<a href="list?currentPage=${pp}">${pp}</a>
-					</c:if>	
+				<c:forEach var="pp" begin="${startPage}" end="${endPage}" >
+					<a href="list?currentPage=${pp}"  ${currentPage == pp ? 'class="active"' : ''} >${pp}</a>
 				</c:forEach>
 				
 				<!-- 다음 -->

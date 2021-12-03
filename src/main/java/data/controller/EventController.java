@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import data.dto.EventDTO;
+import data.dto.EventReplyDTO;
 import data.service.EventService;
 import data.service.MemberService;
 
@@ -36,6 +37,7 @@ public class EventController {
 	@GetMapping("/list")
 	public ModelAndView list(
 			@RequestParam(defaultValue = "1") int currentPage,
+			@RequestParam(defaultValue = "전체") String category,
 			Principal principal
 			) 
 	{
@@ -44,7 +46,8 @@ public class EventController {
 		if(principal != null) {
 			userType = memberService.currentUserType(principal);
 		}
-		int total = service.getTotal();
+		List<String> categoryArr = service.getCategory();
+		int total = service.getTotal(category);
 		
 		int perPage=10;
 		int totalPage;
@@ -60,8 +63,8 @@ public class EventController {
 			endPage=totalPage;
 		}
 		start=(currentPage-1)*perPage;
-
-		List<EventDTO> list = service.getPageList(start , perPage);
+		
+		List<EventDTO> list = service.getPageList(start , perPage, category);
 		
 		mview.addObject("totalCount", total);
 		mview.addObject("eventList", list);
@@ -69,6 +72,8 @@ public class EventController {
 		mview.addObject("endPage", endPage);
 		mview.addObject("currentPage", currentPage);
 		mview.addObject("userType", userType);
+		mview.addObject("categoryArr", categoryArr);
+		mview.addObject("selectCategory", category);
 		mview.setViewName("/event/list");
 		return mview;
 	}
@@ -84,18 +89,28 @@ public class EventController {
 	{
 		ModelAndView mview = new ModelAndView();
 		String userType = "no";
+		String userNickName = "no";
 		if(principal != null) {
 			userType = memberService.currentUserType(principal);
+			userNickName = memberService.currentUserNickName(principal);
 		}
-		if(key=="list") {
+		if(key != null) {
 			service.updateReadCount(idx);
 		}
 		EventDTO dto = service.getData(idx);
 		String[] photoList = dto.getPhoto().split(",");
+		List<EventReplyDTO> relist = service.getReplyList();
+		int recount = relist.size();
 		
+		for(EventReplyDTO reDto:relist) {
+			reDto.setNickname(memberService.getNick(reDto.getId()));
+		}
 		mview.addObject("dto", dto);
 		mview.addObject("photoList", photoList);
 		mview.addObject("userType", userType);
+		mview.addObject("userNickName", userNickName);
+		mview.addObject("relist", relist);
+		mview.addObject("recount", recount);
 		
 		mview.setViewName("/event/detail");
 		
@@ -165,4 +180,19 @@ public class EventController {
 		
 		service.insertData(dto);
 	}
+	
+	@PostMapping("/auth/reply/insert")
+	public @ResponseBody void replyInsert(
+			@RequestParam String num,
+			@RequestParam String content,
+			Principal principal
+			) 
+	{
+		EventReplyDTO dto = new EventReplyDTO();
+		dto.setId(principal.getName());
+		dto.setNum(num);
+		dto.setContent(content);
+		service.insertReplyData(dto);
+	}
+	
 }

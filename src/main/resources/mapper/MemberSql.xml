@@ -34,7 +34,7 @@
 	</select>
 	
 	<select id="currentUserNickName" resultType="String">
-		select nick from member where id=#{id}
+		select nickname from member where id=#{id}
 	</select>
 	
 	<select id="currentUserType" resultType="String">
