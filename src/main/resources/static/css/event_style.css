@@ -11,3 +11,35 @@
 .event-div .category-div a:last-child {
 	margin-right:0;
 }
+.event-detail-div {
+	margin-top:40px;
+}
+.event-detail-div .title-div {
+	padding-bottom:30px;
+	border-bottom:1px solid #e5e5e5;
+}
+.event-detail-div .title-div .label {
+	display:inline-block;
+	padding:4px 8px;
+	font-size:14px;
+	border:1px solid #e5e5e5;
+	border-radius:15px;
+}
+.event-detail-div .title-div .tit {
+	margin:10px 0;
+	font-size:35px;
+}
+.event-detail-div .title-div .date {
+	font-size:14px;
+	color:#999;
+}
+.event-detail-div .view-div {
+	padding:60px 0 40px;
+}
+.event-detail-div .view-div .img-div {
+	width:70%;
+	margin:0 auto 60px;
+}
+.event-detail-div .view-div .img-div img {
+	width:100%;
+}
