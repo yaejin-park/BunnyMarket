@@ -149,14 +149,14 @@ public class AdvertiseController {
 		mview.addObject("recount", relist.size());
 		mview.addObject("relist", relist);
 		
-		String regroup=map.get("regroup");
-		String restep=map.get("restep");
-		String relevel=map.get("relevel");
-		
-		mview.addObject("idx", idx==null?"0":idx);
-		mview.addObject("regroup", regroup==null?"0":regroup);
-		mview.addObject("restep", restep==null?"0":restep);
-		mview.addObject("relevel", relevel==null?"0":relevel);
+//		String regroup=map.get("regroup");
+//		String restep=map.get("restep");
+//		String relevel=map.get("relevel");
+//		
+//		mview.addObject("idx", idx==null?"0":idx);
+//		mview.addObject("regroup", regroup==null?"0":regroup);
+//		mview.addObject("restep", restep==null?"0":restep);
+//		mview.addObject("relevel", relevel==null?"0":relevel);
 		
 		mview.setViewName("/advertise/detail");
 		return mview;

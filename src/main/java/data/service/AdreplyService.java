@@ -66,7 +66,7 @@ public class AdreplyService {
 		return mapper.getReply(idx);
 	}
 	
-	public List<AdreplyDTO> getReplyList(int num) {
-		return mapper.getReplyList(num);
+	public List<AdreplyDTO> getReplyList(int idx) {
+		return mapper.getReplyList(idx);
 	}
 }

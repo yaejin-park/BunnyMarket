@@ -1,6 +1,7 @@
 package data.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import data.dto.AdreplyDTO;
 import data.service.AdreplyService;
@@ -20,7 +22,28 @@ import data.service.AdreplyService;
 @RequestMapping("/advertise")
 public class AdreplyController {
 	@Autowired
-	AdreplyService service;	
+	AdreplyService service;
+	
+	@GetMapping("/reply")
+	public ModelAndView detail(@RequestParam Map<String, String> map) {
+		ModelAndView mview=new ModelAndView();
+	
+		//댓글
+		String currentPage=map.get("currentPage");
+		String idx=map.get("idx");
+		String regroup=map.get("regroup");
+		String restep=map.get("restep");
+		String relevel=map.get("relevel");
+		
+		mview.addObject("currentPage", currentPage==null?"1":currentPage);
+		mview.addObject("idx", idx==null?"0":idx);
+		mview.addObject("regroup", regroup==null?"0":regroup);
+		mview.addObject("restep", restep==null?"0":restep);
+		mview.addObject("relevel", relevel==null?"0":relevel);
+		
+		mview.setViewName("/advertise/detail");
+		return mview;
+	}
 	
 	@PostMapping("/reinsert")
 	public String insert(@ModelAttribute AdreplyDTO dto, HttpSession session,
