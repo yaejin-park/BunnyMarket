@@ -5,10 +5,10 @@
 	<div class="inner"> 
 		<select class="category" value="${dto.category}">
 			<option value="">선택</option>
-			<option value="all">전체</option>
-			<option value="order">주문관련</option>
-			<option value="calcle">교환/반품</option>
-			<option value="delivery">배송관련</option>
+			<option value="전체">전체</option>
+			<option value="주문관련">주문관련</option>
+			<option value="교환/반품">교환/반품</option>
+			<option value="배송관련">배송관련</option>
 		</select> 
 		<form action="update" method="post">
 			<input type="hidden" name="idx" value="${dto.idx}">

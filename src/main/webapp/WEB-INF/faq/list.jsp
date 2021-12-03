@@ -5,10 +5,10 @@
 <div class="faq-div">
 	<div class="inner">
 		<select id="faq-category">
-			<option value="all">전체</option>
-			<option value="order">주문관련</option> 
-			<option value="cancle">교환/반품</option>
-			<option value="delivery">배송관련</option>
+			<option value="전체">전체</option>
+			<option value="주문관련">주문관련</option> 
+			<option value="교환/반품">교환/반품</option>
+			<option value="배송관련">배송관련</option>
 		</select>
 		<table class="table">
 			<thead>
