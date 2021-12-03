@@ -3,8 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <link rel="stylesheet" type="text/css" href="/css/event_style.css">
-<div class="event-detail-div">
-	<div class="inner">
+<div class="event-div inner">
+	<div class="event-detail-div">
 		<div class="title-div">
 			<span class="label">${dto.category}</span>
 			<p class="tit">${dto.title}</p>
@@ -23,6 +23,11 @@
 			<div class="txt-div">
 				${dto.content}
 			</div>
+		</div>
+		<div class="btn-wrap">
+			<a href="javascript:" class="btn-list">목록</a>
+			<a href="javascript:" class="btn-update">수정</a>
+			<a href="javascript:" class="btn-delete">삭제</a>
 		</div>
 	</div>
 	
@@ -47,7 +52,7 @@
 			</div>
 		</div>	
 	</form>
-	<!-- 댓글목록 -->
+	
 	<div class="re-list">
 		<c:if test="${recount==0}">
 			<div class="nodata">
@@ -57,8 +62,6 @@
 				<p>등록된 댓글이 없습니다.</p>
 			</div>
 		</c:if>
-	</div>
-	<div class="re-list">
 		<c:if test="${recount>0}">
 		    <c:forEach var="ardto" items="${relist}">
 		    	<div class="re-info">
