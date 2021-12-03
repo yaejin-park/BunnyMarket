@@ -51,7 +51,8 @@ public class SocketHandler extends TextWebSocketHandler {
 		sessionMap.remove(session.getId());
 		super.afterConnectionClosed(session, status);
 	}
-
+	//JSON 파일 파싱
+	//:json형태의 문자열을 파라미터로 받아서 SimpleJson의 파서를 활용하여 JSONObject로 파싱처리
 	private static JSONObject jsonToObjectParser(String jsonStr) {
 		JSONParser parser = new JSONParser();
 		JSONObject obj = null;

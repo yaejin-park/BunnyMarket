@@ -14,8 +14,8 @@ public class ChatService {
 	@Autowired
 	ChatMapper mapper;
 	
-	public int checkChatList(@RequestParam String idx) {
-		return mapper.checkChatList(idx);
+	public int checkChatList(@RequestParam String idx, @RequestParam String id) {
+		return mapper.checkChatList(idx, id);
 	}
 	
 	public void insertChatList(@ModelAttribute ChatListDTO cldto) {

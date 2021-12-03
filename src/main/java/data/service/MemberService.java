@@ -36,6 +36,10 @@ public class MemberService implements UserDetailsService {
 		return mapper.getPw(id);
 	}
 	
+	public String getNick(String id) {
+		return mapper.getNick(id);
+	}
+	
 	public String getIdFindMember(HashMap<String, String> map) {
 		return mapper.getIdFindMember(map);
 	}

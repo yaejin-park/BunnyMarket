@@ -3,7 +3,7 @@
 
 <mapper namespace="data.mapper.ChatMapper">
 	<select id="checkChatList" parameterType="String" resultType="int">
-		select count(*) from chat_list where product_idx = #{product_idx}
+		select count(*) from chat_list where product_idx = #{product_idx} and id=#{id}
 	</select>
 	
 	<insert id="insertChatList" parameterType="cldto">

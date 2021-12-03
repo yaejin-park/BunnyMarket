@@ -96,7 +96,7 @@ public class ProductController {
 	}
 	 
 
-	@GetMapping("/updateForm")
+	@GetMapping("/auth/updateForm")
 	public ModelAndView updateForm(@RequestParam String idx) {
 		ModelAndView mview = new ModelAndView();
 
@@ -108,13 +108,13 @@ public class ProductController {
 		return mview;
 	}
 
-	@GetMapping("/insertForm")
+	@GetMapping("/auth/insertForm")
 	public String insertForm() {
 
 		return "/product/insertForm";
 	}
 
-	@PostMapping("/insert")
+	@PostMapping("/auth/insert")
 	public String insertData(@ModelAttribute ProductDTO dto, HttpServletRequest request, HttpSession session, Principal principal) {
 		// 로그인 안했을 경우, 종료
 		String isLogin = (String)request.getSession().getAttribute("isLogin");
@@ -166,7 +166,7 @@ public class ProductController {
 	
 	@GetMapping("/detail")
 	public String content(@RequestParam String idx,
-			@RequestParam (defaultValue = "1" ) int currentPage, 
+			@RequestParam (defaultValue = "1") int currentPage, 
 			@RequestParam (required = false) String key,
 			Model model, HttpServletRequest request, Principal principal) {
 		//리스트에서 디테일페이지가면 조회수 올라가게
@@ -179,6 +179,9 @@ public class ProductController {
 		//사진 ,로 split(대표 이미지)
 		String []photo = dto.getUploadfile().split(",");
 		
+		//닉네임 가져오기
+		String nick = mservice.getNick(dto.getId());
+		
 		//같은 카테고리 연관제품 보여주기
 		String category = dto.getCategory();
 		List<ProductDTO> list = service.getRelateList(category,idx);
@@ -186,7 +189,6 @@ public class ProductController {
 		//로그인 여부
 		String isLogin = "N";
 		isLogin = (String)request.getSession().getAttribute("isLogin");
-		System.out.println(isLogin);
 		
 		//로그인 되어 있을 경우,
 		if(isLogin!=null) {
@@ -194,18 +196,33 @@ public class ProductController {
 			String id = principal.getName();
 			model.addAttribute("myId", id);
 			
+		
 			//하트 버튼 클릭여부
 			int likeCheck = plservice.plikeCheck(id,idx);
 			model.addAttribute("likeCheck", likeCheck);
 			
 			//팔로우 여부
 			int followCheck = flservice.followCheck(dto.getId(), id);
+			System.out.println("follow?"+followCheck);
 			model.addAttribute("followCheck", followCheck);
+			
+			if(id.equals(dto.getId())) {
+				//판매상태
+				String sellstatus = dto.getSellstatus();
+				if(sellstatus.equals("판매중")) {
+					dto.setSellstatus("selling");
+				} else if(sellstatus.equals("예약중")) {
+					dto.setSellstatus("reserved");
+				} else {
+					dto.setSellstatus("finished");
+				}
+			}
 		}
 		
 		model.addAttribute("dto", dto);
 		model.addAttribute("list", list);
 		model.addAttribute("isLogin", isLogin);
+		model.addAttribute("nick", nick);
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("photo", photo);
 		
@@ -249,6 +266,13 @@ public class ProductController {
 	@ResponseBody
 	@PostMapping("/updateStatus")
 	public void updateStatus(@RequestParam String idx, @RequestParam String status) {
+		if(status.equals("selling")) {
+			status = "판매중";
+		} else if(status.equals("reserved")) {
+			status = "예약중";
+		} else if(status.equals("finished")) {
+			status = "판매완료";
+		}
 		service.updateStatus(idx, status);
 	}
 }

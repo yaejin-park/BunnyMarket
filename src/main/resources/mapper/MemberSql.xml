@@ -17,6 +17,10 @@
 		select pw from member where id=#{id}
 	</select>
 	
+	<select id="getNick" parameterType="String" resultType="String">
+		select nickname from member where id=#{id}
+	</select>
+	
 	<select id="getMemberId" parameterType="String" resultType="mdto">
 		select idx,id,pw from member where id=#{id}
 	</select>
