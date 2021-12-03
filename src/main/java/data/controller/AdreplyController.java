@@ -1,8 +1,10 @@
 package data.controller;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +14,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import data.dto.AdreplyDTO;
 import data.service.AdreplyService;
+import data.service.MemberService;
 
 @Controller
 @RequestMapping("/advertise")
@@ -23,8 +27,12 @@ public class AdreplyController {
 	@Autowired
 	AdreplyService service;
 	
+	@Autowired
+	MemberService mservice;
+	
 	@GetMapping("/reply")
-	public ModelAndView detail(@RequestParam Map<String, String> map) {
+	public ModelAndView detail(@RequestParam Map<String, String> map, 
+			HttpServletRequest request, Principal principal) {
 		ModelAndView mview=new ModelAndView();
 	
 		//댓글
@@ -44,14 +52,24 @@ public class AdreplyController {
 		return mview;
 	}
 	
-	@PostMapping("/auth/reinsert")
-	public String insert(@ModelAttribute AdreplyDTO dto, HttpSession session,
+	@PostMapping("/reinsert")
+	public String insert(@ModelAttribute AdreplyDTO dto, HttpSession session, 
+			HttpServletRequest request, Principal principal,
 			@RequestParam(value = "currentPage", required = false) String currentPage) {
-		//세션에 로그인한 아이디 얻기
+		// 로그인 안했을 경우, 종료
+		String isLogin = (String)request.getSession().getAttribute("isLogin");
 
+		if (isLogin == null) {
+			return "login/loginmsg";
+		}
+		
+		//세션 로그인한 아이디 얻기
+		
 		//아이디에 대한 작성자 얻기
+		String id=principal.getName();
 		
 		//dto에 넣기
+		dto.setId(id);
 		
 		//insert
 		service.insertReply(dto);
@@ -59,7 +77,7 @@ public class AdreplyController {
 	}
 	
 	@GetMapping("/relist")
-	public List<AdreplyDTO> relist(int num) {
+	public List<AdreplyDTO> relist(int num) {		
 		return service.getReplyList(num);
 	}
 	
@@ -72,10 +90,11 @@ public class AdreplyController {
 	public void aupdate(@ModelAttribute AdreplyDTO dto) {
 		service.updateReply(dto);
 	}
-	
+
 	@GetMapping("/auth/redelete")
-	public void delete(@RequestParam int idx) {
+	public @ResponseBody String delete(@RequestParam int idx) {
 		System.out.println(idx);
 		service.deleteReply(idx);
+		return "delete";
 	}
 }

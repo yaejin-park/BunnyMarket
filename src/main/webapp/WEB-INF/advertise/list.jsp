@@ -32,11 +32,11 @@
 						</div>
 						<div class="txt-div">
 							<p class="tit">${addto.title}</p>
-							<p class="writer">작성자${addto.id}</p>
+							<p class="writer">${nick}</p>
 							<p class="date"><fmt:formatDate value="${addto.writeday}" pattern="yy.MM.dd"/></p>
 							<div class="etc">
-								<p class="good-count">좋아요 12</p>
-								<p class="read-count">댓글 6</p>
+								<p class="good-count">공감 ${addto.goodcount}</p>
+								<p class="read-count">조회수 ${addto.readcount}</p>
 							</div>
 						</div>
 					</a>

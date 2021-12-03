@@ -2,14 +2,17 @@ package data.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +25,7 @@ import data.dto.AdreplyDTO;
 import data.dto.AdvertiseDTO;
 import data.service.AdreplyService;
 import data.service.AdvertiseService;
+import data.service.MemberService;
 
 @Controller
 @RequestMapping("/advertise")
@@ -32,9 +36,14 @@ public class AdvertiseController {
 	@Autowired
 	AdreplyService reservice;
 	
+	@Autowired
+	MemberService mservice;
+	
 	@GetMapping("/list")
-	public ModelAndView list(@RequestParam(defaultValue = "1") int currentPage) {
+	public ModelAndView list(@RequestParam(defaultValue = "1") int currentPage,
+			HttpServletRequest request, Principal principal) {
 		ModelAndView mview=new ModelAndView();
+		
 		int totalCount=service.getTotalCount();
 		
 		//페이징에 필요한 변수들
@@ -58,13 +67,19 @@ public class AdvertiseController {
 		
 		//각 페이지에서 필요한 게시글 가져오기
 		List<AdvertiseDTO> list=service.getList(start, perPage);
-		//list에 각 글에 대한 작성자 추가
-		for(AdvertiseDTO a:list) {			
-			
-		}
+		
+		//닉네임 가져오기
+		AdvertiseDTO dto=new AdvertiseDTO();
+		String nick = mservice.getNick(dto.getId());
+		mview.addObject("nick", nick);
 		
 		//시작번호
 		//int no=totalCount-(currentPage-1)*perPage;
+		
+		//리스트에 댓글수 표시하기 위해 필요
+//		List<AdreplyDTO> relist=reservice.getReplyList(Integer.parseInt(idx));
+//		mview.addObject("recount", relist.size());
+//		mview.addObject("relist", relist);
 		
 		//출력에 필요한 변수들 request에 저장
 		mview.addObject("list", list);
@@ -79,15 +94,22 @@ public class AdvertiseController {
 		return mview;
 	}
 	
-	@GetMapping("/auth/insertform")
+	@GetMapping("/insertform")
 	public String from() {
 		return "/advertise/writeForm";
 	}
 	
-	@PostMapping("/auth/insert")
-	public String insert(@ModelAttribute AdvertiseDTO dto, HttpSession session,
+	@PostMapping("/insert")
+	public String insert(@ModelAttribute AdvertiseDTO dto, HttpSession session, 
+				HttpServletRequest request, Principal principal,
 				@RequestParam List<MultipartFile> photoupload) {
-		//uuid 생성
+		//로그인중이 아닐 경우 종료
+		String isLogin=(String)request.getSession().getAttribute("isLogin");
+		if(isLogin==null) {
+			return "Login/loginmsg";
+		}
+		
+		//uuid(랜덤이름) 생성
 		UUID uuid=UUID.randomUUID();
 
 		List<MultipartFile> mf = dto.getPhotoupload(); 
@@ -116,6 +138,10 @@ public class AdvertiseController {
 			photoplus = photoplus.substring(0, photoplus.length()-1);
 			dto.setPhoto(photoplus);
 		}
+		//아이디 얻어서 dto에 저장
+		String id=principal.getName();
+		dto.setId(id);
+		
 		//insert
 		service.insertAdvertise(dto);
 		return "redirect:detail?idx="+service.getMaxIdx();
@@ -125,7 +151,8 @@ public class AdvertiseController {
 	public ModelAndView detail(@RequestParam String idx,
 				@RequestParam(defaultValue = "1") int currentPage,
 				@RequestParam(required = false) String key,
-				@RequestParam Map<String, String> map) {
+				@RequestParam Map<String, String> map,
+				HttpServletRequest request, Principal principal) {
 		ModelAndView mview=new ModelAndView();
 		
 		//조회수 증가
@@ -135,28 +162,34 @@ public class AdvertiseController {
 		
 		AdvertiseDTO dto=service.getData(idx);
 		
-		//id,,,
+		//닉네임 가져오기
+		String nick = mservice.getNick(dto.getId());
+		
+		//로그인 체크
+		String isLogin="N";
+		isLogin=(String)request.getSession().getAttribute("isLogin");
+		
+		//로그인 되어 있을 경우,
+		if(isLogin!=null) {
+			//로그인 아이디 가져오기
+			String id = principal.getName();
+			mview.addObject("myId", id);
+
+			//공감
+		}
 		
 		mview.addObject("dto", dto);
 		mview.addObject("currentPage", currentPage);
-		
+		mview.addObject("isLogin", isLogin);
+		mview.addObject("nick", nick);
 		//이미지
 		String []dbimg=dto.getPhoto().split(",");
 		mview.addObject("dbimg", dbimg);
 		
-		//댓글
+		//댓글관련
 		List<AdreplyDTO> relist=reservice.getReplyList(Integer.parseInt(idx));
 		mview.addObject("recount", relist.size());
 		mview.addObject("relist", relist);
-		
-//		String regroup=map.get("regroup");
-//		String restep=map.get("restep");
-//		String relevel=map.get("relevel");
-//		
-//		mview.addObject("idx", idx==null?"0":idx);
-//		mview.addObject("regroup", regroup==null?"0":regroup);
-//		mview.addObject("restep", restep==null?"0":restep);
-//		mview.addObject("relevel", relevel==null?"0":relevel);
 		
 		mview.setViewName("/advertise/detail");
 		return mview;

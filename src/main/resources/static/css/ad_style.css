@@ -6,13 +6,15 @@
 	margin-bottom:40px;
 	text-align:right;
 }
+.info-sm div.read, .list-info-sm div.read{
+	background-image: url("/image/eye-icon.png");
+}
 
 /* advertise detail-style */
 .detailbtn{
 	text-align:right;
 	margin-top:20px;
 }
-/* detail */
 .nick{
 	font-size:25px;
 }
@@ -21,6 +23,9 @@
 }
 .counts{
 	text-align:right;
+}
+.info-sm div.comment, .list-info-sm div.comment{
+	background-image: url("/image/comment-icon.png");
 }
 
 /* detail-reply */
