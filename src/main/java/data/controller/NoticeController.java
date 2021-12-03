@@ -3,6 +3,7 @@ package data.controller;
 import java.io.File;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -24,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import data.dto.NoticeDTO;
 import data.mapper.NoticeMapper;
+import data.service.MemberService;
 import data.service.NoticeService;
 
 @Controller
@@ -32,12 +34,14 @@ public class NoticeController {
 
 	@Autowired
 	NoticeService Nservice;
+	@Autowired
+	MemberService Mservice;
 
 	@Autowired
 	NoticeMapper Nmapper;
 
 	@GetMapping("/list")
-	public ModelAndView notice(@RequestParam(defaultValue = "1") int currentPage// 현재페이지번호
+	public ModelAndView list(@RequestParam(defaultValue = "1") int currentPage
 	)
 
 	{
@@ -65,7 +69,8 @@ public class NoticeController {
 		List<NoticeDTO> list = Nservice.NgetList(start, perPage);
 
 		int no = totalCount - (currentPage - 1) * perPage;
-
+		
+	
 		mview.addObject("list", list);
 		mview.addObject("startPage", startPage);
 		mview.addObject("endPage", endPage);
@@ -234,8 +239,7 @@ public class NoticeController {
 		String next=Nservice.next(idx);
 		String beforetitle=Nservice.beforetitle(idx);
 		String nexttitle=Nservice.nexttitle(idx);
-		
-		
+	
 		mview.addObject("beforetitle", beforetitle);
 		mview.addObject("nexttitle", nexttitle);
 		mview.addObject("before", before);

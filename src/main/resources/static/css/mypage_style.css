@@ -1,0 +1,32 @@
+.profile{
+	
+	border: solid 1px black;
+	margin-left: 150px;
+    margin-top: 15px;
+	
+}
+
+.sidemenu{
+	
+	border: solid 1px black;
+	float: left;
+	height: 100%;
+	
+	
+	
+}
+
+.img{
+	border: solid 1px black;
+	float:left;
+	width:30%;	
+}
+
+.name{
+	border: solid 1px black;
+	width:70%;	
+	float:left;
+	margin: auto;
+  
+}
+
