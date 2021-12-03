@@ -45,7 +45,7 @@ public class AdreplyController {
 		return mview;
 	}
 	
-	@PostMapping("/reinsert")
+	@PostMapping("/auth/reinsert")
 	public String insert(@ModelAttribute AdreplyDTO dto, HttpSession session,
 			@RequestParam(value = "currentPage", required = false) String currentPage) {
 		//세션에 로그인한 아이디 얻기
@@ -69,12 +69,12 @@ public class AdreplyController {
 		return service.getReply(idx);
 	}
 	
-	@PostMapping("/reupdate")
+	@PostMapping("/auth/reupdate")
 	public void aupdate(@ModelAttribute AdreplyDTO dto) {
 		service.updateReply(dto);
 	}
 	
-	@GetMapping("/redelete")
+	@GetMapping("/auth/redelete")
 	public @ResponseBody String delete(@RequestParam int idx) {
 		System.out.println(idx);
 		service.deleteReply(idx);

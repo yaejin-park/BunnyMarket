@@ -42,9 +42,9 @@
 		
 		<div class="info">
 			<table class="table table-default">
-				<tr>			
-					<td class="ad-tit">
-						${dto.title}
+				<tr>				
+					<td class="ad-tit" colspan="3">
+						제목부분입니다. ${dto.title}
 					</td>
 				</tr>
 				<tr>
@@ -52,48 +52,37 @@
 						<img alt="profile" src="/image/profile-icon.png" class="profileImg">	
 					</td>
 					<td class="nick tit verticalBottom">
-						닉네임
+						닉네임부분
 					</td>
-					<!-- <td rowspan="2" class="detailBtn ad-dbtn">
-						<button class="btn-list" id="follow">
-							<span class="glyphicon glyphicon-plus"></span>
-						팔로우</button>
-					</td> -->
 				</tr>
 				<tr>
-					<td colspan="3" class="tit-sm">
+					<td colspan="2" class="tit-sm">
 						작성일 <fmt:formatDate value="${dto.writeday}" pattern="yy.MM.dd HH:mm"/>
 					</td>
-				</tr>
-				<tr class="counts">
-					<td colspan="3" class="tit-sm">
-					공감 <span id="likecount">${dto.goodcount}</span>&nbsp;&nbsp;&nbsp;조회수 ${dto.readcount}
+					<td class="tit-sm">
+						공감 <span id="likecount">${dto.goodcount}</span>&nbsp;&nbsp;&nbsp;조회수 ${dto.readcount}
 					</td>
 				</tr>
-				<tr class="lineNeed">
+				<%-- <tr class="lineNeed">
 					<td class="marginZero">
 						<button type="button" id="dibs" onclick="dibsClicked()"><img src="/image/stopheart-icon.gif" alt="dibsButton" id="dibsBtnImg"></button>
 					<!-- 로그인중(작성자) -->
 					<c:if test="true">
 						<td colspan="2" class="detailBtn">
-							<button type="button" class="btn-update" onclick="location.href='updateform?idx=${dto.idx}&currentPage=${currentPage}'">수정</button>
-							<button type="button" id="deleteBtn" class="btn-delete" value="${dto.idx}">삭제</button>
+							<button type="button" class="btn-list delist" onclick="location.href='list'">목록</button>
+							<button type="button" class="btn-add gdcount">공감</button>
 						</td>
 					</c:if>
 					</td>
-				</tr>
+				</tr> --%>
 			</table>
 		</div>
 	</div>
 
-	<div class="detailContentDiv">
-		<pre class="detailContent">${dto.content}</pre>
-	</div>
 	<div class="detailbtn">
 		<!-- 로그인 안했을경우 -->
 		<c:if test="false">
-			<button type="button" class="btn-list delist"
-			onclick="location.href='list'">목록</button>
+			<button type="button" class="btn-list delist" onclick="location.href='list'">목록</button>
 		</c:if>
 		
 		<!-- 로그인 했을경우 -->
@@ -101,7 +90,12 @@
 			<button type="button" class="btn-list delist"
 				onclick="location.href='list'">목록</button>
 			<button type="button" class="btn-add gdcount">공감</button>
+			<button type="button" class="btn-update" onclick="location.href='updateform?idx=${dto.idx}&currentPage=${currentPage}'">수정</button>
+			<button type="button" id="deleteBtn" class="btn-delete" value="${dto.idx}">삭제</button>
 		</c:if>
+	</div>
+	<div class="detailContentDiv">
+		<pre class="detailContent">${dto.content}</pre>
 	</div>
 	<!-- 댓글 -->
 	<div class="reform tit">

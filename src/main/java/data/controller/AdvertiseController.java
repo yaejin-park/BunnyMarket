@@ -79,12 +79,12 @@ public class AdvertiseController {
 		return mview;
 	}
 	
-	@GetMapping("/insertform")
+	@GetMapping("/auth/insertform")
 	public String from() {
 		return "/advertise/writeForm";
 	}
 	
-	@PostMapping("/insert")
+	@PostMapping("/auth/insert")
 	public String insert(@ModelAttribute AdvertiseDTO dto, HttpSession session,
 				@RequestParam List<MultipartFile> photoupload) {
 		//uuid 생성
@@ -162,7 +162,7 @@ public class AdvertiseController {
 		return mview;
 	}
 	
-	@GetMapping("/updateform")
+	@GetMapping("/auth/updateform")
 	public ModelAndView updateForm(@RequestParam String idx,
 				@RequestParam String currentPage) {
 		ModelAndView mview=new ModelAndView();
@@ -174,7 +174,7 @@ public class AdvertiseController {
 		return mview;
 	}
 	
-	@PostMapping("/update")
+	@PostMapping("/auth/update")
 	public String update(@ModelAttribute AdvertiseDTO dto, HttpSession session,
 				@RequestParam List<MultipartFile> photoupload,
 				@RequestParam String currentPage) {
@@ -217,7 +217,7 @@ public class AdvertiseController {
 		return "redirect:detail?idx="+dto.getIdx()+"&currentPage="+currentPage;
 	}
 	
-	@GetMapping("/delete")
+	@GetMapping("/auth/delete")
 	public String delete(@RequestParam String idx,
 				@RequestParam String currentPage,
 				HttpSession session, AdvertiseDTO dto) {
