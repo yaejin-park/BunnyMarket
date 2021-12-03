@@ -10,6 +10,10 @@ public class EventDTO {
 	private String title;
 	private String content;
 	private String photo;
+	private String original_photo;
+	private String category;
+	private Timestamp event_start;
+	private Timestamp event_end;
 	private String readcount;
 	private String applycount;
 	private Timestamp writeday;
@@ -37,6 +41,30 @@ public class EventDTO {
 	}
 	public void setPhoto(String photo) {
 		this.photo = photo;
+	}
+	public String getOriginal_photo() {
+		return original_photo;
+	}
+	public void setOriginal_photo(String original_photo) {
+		this.original_photo = original_photo;
+	}
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	public Timestamp getEvent_start() {
+		return event_start;
+	}
+	public void setEvent_start(Timestamp event_start) {
+		this.event_start = event_start;
+	}
+	public Timestamp getEvent_end() {
+		return event_end;
+	}
+	public void setEvent_end(Timestamp event_end) {
+		this.event_end = event_end;
 	}
 	public String getReadcount() {
 		return readcount;
