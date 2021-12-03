@@ -5,7 +5,7 @@
 		select count(*) from comreply
 	</select>
 	
-	<!-- idx max값이 null일 경우 0 -->
+	<!-- idx max값이 null일 경우 0으로 나오게하기 -->
 	<select id="getMaxIdx" resultType="int">
 		select ifnull(max(idx),0) from comreply
 	</select>

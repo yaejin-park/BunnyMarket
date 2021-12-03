@@ -54,7 +54,7 @@
 						<fmt:formatDate value="${dto.writeday}" pattern="yy.MM.dd"/>
 					</td>
 					<td>
-						<a class="txt readcount">조회수 ${dto.readcount}</a>
+						<a class="txt readcount">조회수 : ${dto.readcount}</a>
 					</td>
 				</tr>
 				<tr>
@@ -65,8 +65,6 @@
 				<tr>
 					<td class="proimg">
 						<img alt="profile" src="/image/profile-icon.png" class="profileImg" />
-					</td>
-					<td class="profile">
 						<span class="nick txt">닉네임</span>
 					</td>
 				</tr>
@@ -77,7 +75,7 @@
 				</tr>
 				<tr>
 					<td colspan="2">
-						<div class="detailbtn">
+						<div class="loginokbtn">
 							<!-- 로그인 했을경우에만 -->
 							<c:if test="true">
 								<button type="button" class="btn-update deupdate"
@@ -111,8 +109,8 @@
 	</div>
 	
 	<!-- 댓글 -->
-	<div class="reform tit">
-		<b>댓글 ${recount}</b>
+	<div class="reform txt">
+		<b>댓글수 : ${recount}</b>
 	</div>
 	
 	<!-- 댓글작성 -->
@@ -121,15 +119,12 @@
 		<input type="hidden" value="${dto.idx}" name="num">
 		<div class="reply">
 			<div class="re-addcontent">
-				<textarea name="content" class="re-textinput" placeholder="댓글을 입력해주세요."
+				<textarea name="content" class="re-textinput" placeholder=" 댓글을 입력해주세요."
 				required="required" id="re-textinput"></textarea>
 			</div>
 			<div class="re-items">
 				<div class="re-addbtn">
-					<button type="submit" class="btn-add btn-sm" id="re-addbtn">등록</button>
-				</div>
-				<div class="text-count">
-					<span class="text-plus" id="text-plus">0</span>
+					<button type="submit" class="btn-add replyadd" id="re-addbtn">등록</button>
 				</div>
 			</div>
 		</div>
@@ -145,36 +140,60 @@
 				<p>등록된 댓글이 없습니다.</p>
 			</div>
 		</c:if>
-	</div>
-	
-	<div class="re-list">
 		<c:if test="${recount>0}">
 			<c:forEach var="cdto" items="${relist}">
-			<div  class="re-info">
-				<img alt="" src="../image/profile-icon.png" class="re-profileimg">
-			</div> 
-			<div  class="re-info">
-			 	<span class="re-writer">${cdto.id}</span>
-			 	<span class="re-day">
-			 		<fmt:formatDate value="${cdto.writeday}" pattern="yy.MM.dd"/>
-			 	</span>
-			</div>
-	<div class="re-detail">
-		 <!-- relevel만큼 공백 -->
-		 <c:forEach var="sp" begin="1" end="${cdto.relevel}">
-		 	<div class="re-blank"></div>
-		 </c:forEach>
-		 <!-- 답글인 경우에만 re 이미지출력 -->
-		 <c:if test="${cdto.relevel>0}">
-		 	<div>ㄴ</div>
-		 </c:if>
-		<!-- 댓글내용 -->
-			<div class="re-content">
-				<pre>${cdto.content}</pre>
-				<div class="re-rebtn"></div>
-					<a>답글쓰기</a>
-			</div>	 
-			</div>
+				<%-- <div class="re-detail">
+			 		<!-- relevel만큼 공백 -->
+			 		<c:forEach var="sp" begin="1" end="${cdto.relevel}">
+			 			<div class="re-blank"></div>
+					 </c:forEach>
+					 <!-- 답글인 경우에만 re 이미지출력 -->
+			 		<c:if test="${cdto.relevel>0}">
+			 			<div>ㄴ</div>
+					 </c:if> 
+				</div> --%>
+				<div class="re-div">
+					<div class="re-info">
+						<div class="writer-info">
+							<p class="profile-img"><img alt="" src="/image/profile-icon.png" class="re-profileimg"></p>
+						 	<span class="re-writer">${cdto.id} 닉네임</span>
+						</div>
+						<div class="re-content">
+							<div class="txt">
+								${cdto.content}
+								<span class="adel" idx="${cdto.idx}"></span>
+							</div>
+								
+							<div class="re-util">
+							 	<span class="re-day">
+							 		<fmt:formatDate value="${cdto.writeday}" pattern="yy.MM.dd HH:mm"/>
+							 	</span>
+							 	<div class="re-rebtn">
+									<a href="javascript:" class="wr-reply">답글쓰기</a>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="re-reply">
+						<form action="reinsert" method="post">
+							<input type="hidden" value="${currnetPage}" name="currentPage">
+							<input type="hidden" value="${dto.idx}" name="num">
+							<input type="hidden" name="regroup" value="${regroup}">
+							<input type="hidden" name="relevel" value="${relevel}">
+							<input type="hidden" name="restep" value="${restep}">
+							<div class="reply">
+								<div class="re-addcontent">
+									<textarea name="content" class="re-text-input" placeholder=" 댓글을 입력해주세요."
+									required="required" id="re-textinput"></textarea>
+								</div>
+								<div class="re-items">
+									<button type="submit" class="btn-add re-add-btn">등록</button>
+								</div>
+							</div>
+						</form>
+					</div>	
+				</div>
 			</c:forEach>
 		</c:if>
 	</div>
@@ -191,6 +210,7 @@ $(document).on("click",".smallImg", function(e) {
 
 //미리보기 이미지 호버시,
 $(document).ready(function() {
+	
 	$(".smImgDiv").mouseenter(function() {
 		var original = $(".bigImage").attr("src");
 		console.log("enter"+original);
@@ -206,33 +226,79 @@ $(document).ready(function() {
 	
 	//댓글 글자수제한
 	$('#re-textinput').on('keyup',function(){
-		$('#text-plus').html("("+$(this).val().length+" / 100)");
+		$('#text-plus').html("("+$(this).val().length+" / 100)입력");
+		
+		if($(this).val().length >90 && $(this).val().length <=100) {
+			$('#text-plus').css("color","red");
+		}else{
+			$('#text-plus').css("color","black");
+		}
 		
 		if($(this).val().length > 100) {
 			$(this).val($(this).val().substring(0, 100));
-			$('#text-plus').html("(100 / 100)");
+			$('#text-plus').html("(100 / 100)입력");
 		}
-		
 	});
 		
 });
 
+
+//답글쓰기 토글
+$(document).on("click",".re-rebtn", function(e) {
+	$(this).parents(".re-div").siblings().find(".re-reply").hide();
+	$(this).parents(".re-div").find(".re-reply").show();
+});
 
 
 //게시글 삭제버튼 클릭시 확인
 $("#deleteBtn").click(function(){
 	var idx = $(this).val();
 	var currentPage = $("input[name='currentPage']").val();
-	
 	var check = confirm("해당 글을 삭제하시겠습니까?");
-	
 	if(check){
 		location.href="delete?idx="+idx+"&currentPage="+currentPage;
 			 }
 	else{
 		return;
 		}
-
 });
+
+
+//댓글 삭제
+$("span.adel").click(function(){
+	var idx=$(this).attr("idx");
+	//alert(num);
+	
+	var check = confirm("댓글을 삭제하시겠습니까?");
+	//alert(check);
+	if(check == true){
+	 $.ajax({
+		type: "get",
+		dataType: "text",
+		url: "redelete",
+		data: {"idx":idx},
+		success: function(data){
+			alert("삭제완료");
+			location.reload();
+		},error: function(e){
+			console.log("에러",e);
+		}
+	}); 
+	}else{
+		alert("취소 되었습니다.");
+		return;
+	}
+});
+
+
+
+
+
+
+
+
+
+
+
 
 </script>
