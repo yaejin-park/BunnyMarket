@@ -1,0 +1,257 @@
+.join-intro {
+	width:650px;
+	margin:0 auto;
+	padding-top:100px;
+}
+.join-intro .title-div {
+	position:relative;
+}
+.join-intro .title-div .tit {
+	margin-bottom:40px;
+	font-size:30px;
+}
+.join-intro .title-div .tit span {
+	color:#ff7ab0;
+}
+.join-intro .title-div .join-btn {
+	position:absolute;
+	bottom:0;
+	right:0;
+}
+.join-intro .title-div .admin-btn {
+	display:inline-block;
+	margin-top:20px;
+	padding-left:40px;
+	font-size:16px;
+	font-weight:bold;
+	line-height:30px;
+	background:url("../image/exclamation-icon.png") no-repeat left center / 30px;
+}
+.join-intro .title-div .admin-btn:hover, .join-intro .title-div .admin-btn:focus {
+	color:#333;
+}
+.join-div .sns-login-div {
+	margin-bottom:60px;
+	padding:60px;
+	background:#f5f5f5;
+	border:1px solid #e5e5e5;
+	text-align:center;
+}
+.join-div .sns-login {
+	margin-top:20px;
+}
+.join-div .sns-login a {
+	display:inline-block;
+	width:50px;
+	height:50px;
+	margin-right:10px;
+	border:1px solid #e5e5e5;
+	border-radius:50%;
+	text-indent:-999px;
+	overflow:hidden;
+}
+.join-div .sns-login a:last-child {
+	margin-right:0;
+}
+.join-div .sns-login a.kakao {
+	background:#381e1f url("../image/login-kakao-icon.png") no-repeat center / 80% auto;
+}
+.join-div .sns-login a.naver {
+	background:#00c73c url("../image/login-naver-icon.png") no-repeat center / 80% auto;
+}
+.join-div .sns-login a.google {
+	background:#fff url("../image/login-google-icon.png") no-repeat center / 80% auto;
+}
+.join-div .write-form {
+	border-top:2px solid #ff7ab0;
+}
+.join-div .write-form .child {
+	width:calc(100% - 200px);
+}
+.join-div .write-form .child:first-child {
+	width:200px;
+}
+.join-div .write-form .form-div input {
+	width:300px;
+}
+.join-div .write-form .has-btn-type button {
+	height:42px;
+	margin-left:20px;
+	padding:0 20px;
+}
+.join-div .write-form .info-txt {
+	margin-top:10px;
+	font-size:16px;
+	color:#999;
+}
+.join-div .write-form .pw-msg, .join-div .write-form .pw-check-msg {
+	display:inline-block;
+	margin-left:15px;
+	font-size:16px;
+	color:#ff7ab0;
+	line-height:42px;
+}
+.join-div .write-form .pw-msg.success, .join-div .write-form .pw-check-msg.success {
+	color:#7aa6ff;
+}
+.join-div .write-form .form-div.email-div {
+	display:flex;
+	flex-wrap:nowrap;
+}
+.join-div .write-form .form-div.email-div input {
+	width:200px;
+}
+.join-div .write-form .form-div.email-div span {
+	margin:0 10px;
+	font-weight:bold;
+	line-height:42px;
+	vertical-align:top;
+}
+.join-div .write-form .form-div.email-div .domain {
+	width:200px;
+	margin-left:15px;
+}
+.join-div .write-form .form-div.email-div .email-check {
+	margin-left:15px;
+}
+.join-div .write-form .email-certify {
+	display:none;
+	margin-top:20px;
+}
+.join-div .write-form .email-certify .txt {
+	margin-bottom:10px;
+	font-size:16px;
+	font-weight:bold;
+	color:#333;
+}
+.join-div .write-form .email-certify .form-div input {
+	width:300px;
+}
+.join-div .write-form .email-certify .form-div .btn-list {
+	margin:5px 0 0 10px;
+}
+.join-div .write-form .email-certify .form-div .email-msg {
+	margin-top:10px;
+	font-size:16px;
+	color:#ff7ab0;
+}
+.join-div .write-form .email-certify .form-div .email-msg.success {
+	color:#7aa6ff;
+}
+.join-div .write-form .hp-div {
+	display:flex;
+	flex-wrap:nowrap;
+}
+.join-div .write-form .hp-div select, .join-div .write-form .hp-div input {
+	width:200px;
+}
+.join-div .write-form .hp-div span {
+	margin:0 15px;
+	font-weight:bold;
+	line-height:42px;
+	vertical-align:top;
+}
+.join-div .write-form .addr-div .form-div {
+	margin-bottom:10px;
+}
+.join-div .write-form .addr-div .form-div:last-child {
+	margin-bottom:0;
+}
+.join-div .write-form .addr-div .form-div input {
+	width:100%;
+}
+.join-div .write-form .addr-div .form-div.has-btn-type {
+	display:flex;
+	flex-wrap:nowrap;
+}
+.join-div .write-form .addr-div .form-div.has-btn-type input {
+	width:200px;
+}
+.join-div .write-form .addr-div .form-div.has-btn-type span {
+	margin:0 15px;
+	font-weight:bold;
+	line-height:42px;
+	vertical-align:top;
+}
+.join-div .term-area {
+	margin-top:60px;
+}
+.join-div .term-area .all-check {
+	padding:20px;
+	font-weight:bold;
+	color:#ff7ab0;
+	border-top:2px solid #ff7ab0;
+	border-bottom:1px solid #e5e5e5;
+}
+.join-div .term-area input[type="checkbox"]{
+	margin-right:10px;
+}
+.join-div .term-area .acco-btn {
+	padding:20px;
+	color:#999;
+	border-bottom:1px solid #e5e5e5;
+}
+.join-div .term-area .acco-btn label span {
+	margin-left:5px;
+	font-size:14px;
+	color:#ff7ab0;
+}
+.join-div .acco-div .acco-con {
+	display:none;
+	height:300px;
+	padding:20px;
+	overflow-y:auto;
+} 
+.join-div .acco-con .inner {
+	width:100%;
+	border:none;
+}
+.join-div .complete-div {
+	padding-top:60px;
+	text-align:center;
+}
+.join-div .complete-div .icon {
+	width:100px;
+	margin:0 auto 30px;
+}
+.join-div .complete-div .icon img {
+	width:100%;
+}
+.join-div .complete-div .tit {
+	margin-bottom:20px;
+	font-size:25px;
+}
+.join-div .complete-div .btn-wrap {
+	margin-top:40px;
+	text-align:center;
+}
+#adminPop .admin-code {
+	margin:20px 0;
+}
+#idCheckPop .write-form, #nickCheckPop .write-form {
+	margin-top:0;
+}
+#idCheckPop .form-div , #nickCheckPop .form-div {
+	margin:20px 0;
+}
+#idCheckPop .has-btn-type input, #nickCheckPop .has-btn-type input {
+	display:inline-block;
+	width:calc(100% - 100px);
+	margin-right:10px;
+} 
+#idCheckPop .has-btn-type button, #nickCheckPop .has-btn-type button {
+	display:inline-block;
+	padding:10px 15px;
+}
+#idCheckPop .result-div, #nickCheckPop .result-div {
+	padding:20px;
+	background:rgb(255, 241, 247);
+	text-align:center;
+}
+#idCheckPop .result-msg, #nickCheckPop .result-msg {
+	margin-bottom:10px;
+}
+#idCheckPop .result-msg span, #nickCheckPop .result-msg span {
+	font-weight:bold;
+	color:#ff7ab0;
+}

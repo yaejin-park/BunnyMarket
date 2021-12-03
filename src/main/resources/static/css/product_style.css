@@ -2,12 +2,12 @@
 	margin-top: 40px;
 }
 
-.tit{
+.group.tit{
 	width: 150px;
 }
 
 .group{
-	margin-top: 20px;
+	margin-top: 40px;
 }
 
 .group:after{
@@ -73,7 +73,7 @@
 }
 
 .relative{
-	margin-top: 60px;
+	margin-top: 40px;
 }
 
 .bottomBoreder{
@@ -94,7 +94,7 @@
 }
 
 .profile{
-	width: 120px;
+	width: 130px;
 }
 
 .table-default{
@@ -115,13 +115,13 @@
 	padding: 7px;
 }
 
-/* ≈◊¿Ã∫Ì ≈◊Ω∫∆ÆøÎ */
-/* .table-default td{
+
+ /* .table-default td{
 	border-top:1px solid gray;
 	border-bottom: 1px solid gray;
 	border-right: 1px solid gray;
 	border-left: 1px solid gray;
-} */
+}  */
 
 .detailBtn{
 	text-align: right;
@@ -134,12 +134,12 @@
 
 td.sellstatus span.reserved{
 	color: #ff7ab0;
-	font-size: 1.1em;
+	font-size:  27px;
 }
 
 td.sellstatus span.finished{
 	color: #979593;
-	font-size: 1.1em;
+	font-size:  27px;;
 }
 
 .won{
@@ -191,22 +191,23 @@ tr.lineNeed .marginZero{
 }
 
 .category-div{
-	margin-bottom: 80px;
+	margin-bottom: 40px;
 }
 
-.category-div a:last-child {
+.category-div a:nth-child(6n) {
 	margin-right:0;
 }
 
 .category-div a {
-	display: inline-block;
+	display: block;
     padding: 10px 24px;
     margin: 5px;
-    width: calc((100%-10px*6)/6);
+    width: calc((100% - 10px * 6) / 6);
     background-color: #f7f6fc;
     border-radius: 10px;
     vertical-align: middle;
     font-weight: 500;
+    float: left;
 }
 
 .category-div a.active {
@@ -244,51 +245,102 @@ tr.lineNeed .marginZero{
 }
 
 .info-sm{
+	right: 20px;
+	bottom: 20px;
+}
+
+.list-info-sm{
 	position: absolute;
 	right: 20px;
 	bottom: 20px;
 }
 
-.info-sm .countDiv{
-	vertical-align: middle;
-	float: left;
-	color: #979593;
+/* background-imageÔøΩÔøΩ ÔøΩÔøΩÔøΩÔøΩ */
+.info-sm-div{
+	width: 24px;
+    height: 24px;
+    float: left;
+    padding-right: 46px;
 }
 
+.list-info-sm .list-info-sm-div{
+	width: 24px;
+    height: 24px;
+    float: left;
+    padding-right: 44px;
+}
+
+.list-info-sm .list-info-sm-div:nth-child(2){
+    padding-right: 7px;
+}
+
+/* listÏùò ÏûëÏùÄ ÏïÑÏù¥ÏΩò */
 .icon-sm{
-	width: 18px;
-	height: 18px;
-	margin-top:5px;
-}
-
-.info-Div{
-	float: left;
-	margin-left: 5px;
-}
-
-/* background-image∑Œ µµ¿¸ */
-/* .icon-sm{
 	background-repeat: no-repeat;
-    background-size: cover;
-    width: 22px;
-    height: 22px;
-    padding-left: 22px;
+    background-size: contain;
+    padding-left: 25px;
+    color: #746a66c7;
 }
 
-.info-sm div.chat{
+.list-icon-sm{
+	background-repeat: no-repeat;
+    background-size: contain;
+    padding-left: 25px;
+    color: #746a66c7;
+}
+
+.info-sm div.chat, .list-info-sm div.chat{
 	background-image: url("/image/chat-icon.png");
 }
 
-.info-sm div.dibs{
+.info-sm div.dibs, .list-info-sm div.dibs{
 	background-image: url("/image/heart-icon.png");
-} */
+} 
+
+.info-sm div.read, .list-info-sm div.read{
+	background-image: url("/image/eye-icon.png");
+}
 
 .write-btn-div{
-	padding-bottom: 30px;
-	margin-bottom: 30px;
-	border-bottom: 2px solid #f7f6fc;
-}
+	margin-bottom: 40px;
+	/* border-bottom: 2px solid #f7f6fc; */
+} 
 
 .tit-bottom{
 	margin-bottom: 40px;
+    padding: 20px 0px 20px 0px;
+}
+
+.relative-list .nodata{
+	border-bottom: 2.3px solid #f7f6fc;
+    border-top: 0px;
+}
+
+.relative-list {
+	margin-top: 40px;
+}
+
+select.statusSelect{
+	font-size: 16pt;
+	border: 2.3px solid #e5e5e5;
+	height: 48px;
+	padding: 6px;
+	font-weight: bold;
+	vertical-align: bottom;
+}
+
+select.statusSelect option{
+	font-weight: normal;
+	font-size: 15px;
+	padding-top: 5px; 
+	padding-bottom: 5px; 
+}
+
+.productTitle{
+	padding-bottom: 2px;
+    font-size: 27px;
+}
+
+.chat-btn{
+	float: right;
 }

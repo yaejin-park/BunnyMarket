@@ -9,14 +9,14 @@ import org.springframework.web.servlet.view.tiles3.TilesView;
 import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
 
 @Configuration
-public class TilesConfig {	   
+public class TilesConfig{	   
 	   @Bean
 	   public TilesConfigurer tilesConfigurer() {
 		  System.out.println("tiles");
 	      TilesConfigurer tilesConfigurer = new TilesConfigurer();
 	      tilesConfigurer.setDefinitions(new String[] {"/WEB-INF/tiles.xml"});
 	      tilesConfigurer.setCheckRefresh(true);
-	      //ViewPreparer¿¡¼­ Autowired°¡ °¡´ÉÇÏ°Ô ÇÏ´Â ¼³Á¤
+	      //ViewPreparerï¿½ï¿½ï¿½ï¿½ Autowiredï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½
 	      tilesConfigurer.setPreparerFactoryClass(SimpleSpringPreparerFactory.class);
 	      return tilesConfigurer;
 	   }

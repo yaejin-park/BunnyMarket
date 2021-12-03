@@ -10,12 +10,15 @@ import org.springframework.web.servlet.ModelAndView;
 
 import data.dto.EventDTO;
 import data.service.EventService;
+import data.service.MemberService;
 
 @Controller
 @RequestMapping("/event")
 public class EventController {
 	@Autowired
 	EventService service;
+	@Autowired
+	MemberService memberService;
 	
 	@GetMapping("/list")
 	public ModelAndView list() {
@@ -31,7 +34,7 @@ public class EventController {
 		return mview;
 	}
 	
-	@GetMapping("/add")
+	@GetMapping("/auth/add")
 	public String addForm() {
 		return "/event/writeForm";
 	}

@@ -2,12 +2,19 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"  %>
 <c:set var="root" value="<%=request.getContextPath() %>"></c:set>
 <header id="header">
 	<div class="util">
 		<div class="inner">
-			<a href="${root}/login/main" class="">로그인</a>
-			<a href="${root}/join/main" class="">회원가입</a>
+			<sec:authorize access="isAnonymous()">
+				<a href="${root}/login/main" class="login-btn">로그인</a>
+				<a href="${root}/join/main" class="join-btn">회원가입</a>
+			</sec:authorize>
+			<sec:authorize access="isAuthenticated()">
+				<a href="${root}/mypage" class="mypage-btn">마이페이지</a>
+				<a href="${root}/logout" class="logout-btn">로그아웃</a>
+			</sec:authorize>
 		</div>
 	</div>
 	<div class="header-div">

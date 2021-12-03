@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="data.mapper.ChatMapper">
+	<select id="checkChatList" parameterType="String" resultType="int">
+		select count(*) from chat_list where product_idx = #{product_idx} and id=#{id}
+	</select>
+	
+	<insert id="insertChatList" parameterType="cldto">
+		insert into chat_list(chat_idx, id, product_idx) values(#{chat_idx}, #{id}, #{product_idx})
+	</insert>
+	
+	<insert id="insertChat" parameterType="chdto">
+		insert into chat(product_idx, buyer_id, chat_file, last_time) values(#{product_idx}, #{buyer_id}, #{chat_file}, now())
+	</insert>
+	
+</mapper>

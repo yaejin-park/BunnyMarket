@@ -9,7 +9,7 @@ import data.dto.ProductDTO;
 
 @Mapper
 public interface ProductMapper {
-	public int getTotalCount();
+	public int getTotalCount(String category);
 	public List<ProductDTO> getList(HashMap<String, Object> map);
 	public ProductDTO getData(String idx);
 	public void insertData(ProductDTO dto);
@@ -22,4 +22,5 @@ public interface ProductMapper {
 	public int chatCheck(String idx);
 	public void deleteData(String idx);
 	public List<ProductDTO> getRelateList(String category, String idx);
+	public void updateStatus(HashMap<String, String> map);
 }
