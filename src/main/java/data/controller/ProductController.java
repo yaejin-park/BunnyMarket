@@ -96,7 +96,7 @@ public class ProductController {
 	}
 	 
 
-	@GetMapping("/updateForm")
+	@GetMapping("/auth/updateForm")
 	public ModelAndView updateForm(@RequestParam String idx) {
 		ModelAndView mview = new ModelAndView();
 
@@ -108,20 +108,20 @@ public class ProductController {
 		return mview;
 	}
 
-	@GetMapping("/insertForm")
+	@GetMapping("/auth/insertForm")
 	public String insertForm() {
 
 		return "/product/insertForm";
 	}
 
-	@PostMapping("/insert")
-	public String insertData(@ModelAttribute ProductDTO dto, HttpSession session) {
+	@PostMapping("/auth/insert")
+	public String insertData(@ModelAttribute ProductDTO dto, HttpServletRequest request, HttpSession session, Principal principal) {
 		// 로그인 안했을 경우, 종료
-//		String loginok = (String) session.getAttribute("loginok");
-//
-//		if (loginok == null) {
-//			return "login/loginmsg";
-//		}
+		String isLogin = (String)request.getSession().getAttribute("isLogin");
+
+		if (isLogin == null) {
+			return "login/loginmsg";
+		}
 
 		// 로그인 했을 경우,
 		//업로드된 파일 리스트
@@ -155,10 +155,10 @@ public class ProductController {
 			
 			dto.setUploadfile(fileplus);
 		}
-//		//세션에서 아이디 얻어서 dto에 저장
-//		String id = (String)session.getAttribute("myid");
-//		dto.setId(id);
-//		
+		//세션에서 아이디 얻어서 dto에 저장
+		String id = principal.getName();
+		dto.setId(id);
+		
 		service.insertData(dto);
 	  
 		return "redirect:detail?idx="+service.getMaxIdx();
@@ -166,17 +166,21 @@ public class ProductController {
 	
 	@GetMapping("/detail")
 	public String content(@RequestParam String idx,
-			@RequestParam (defaultValue = "1" ) int currentPage, 
+			@RequestParam (defaultValue = "1") int currentPage, 
 			@RequestParam (required = false) String key,
 			Model model, HttpServletRequest request, Principal principal) {
 		//리스트에서 디테일페이지가면 조회수 올라가게
 		if(key!=null) {
 			service.updateReadcount(idx);
 		}
+		
 		//해당 idx의 데이터 가져오기
 		ProductDTO dto = service.getData(idx);
 		//사진 ,로 split(대표 이미지)
 		String []photo = dto.getUploadfile().split(",");
+		
+		//닉네임 가져오기
+		String nick = mservice.getNick(dto.getId());
 		
 		//같은 카테고리 연관제품 보여주기
 		String category = dto.getCategory();
@@ -190,20 +194,35 @@ public class ProductController {
 		if(isLogin!=null) {
 			//로그인 아이디 가져오기
 			String id = principal.getName();
-			model.addAttribute("myid", id);
+			model.addAttribute("myId", id);
 			
+		
 			//하트 버튼 클릭여부
 			int likeCheck = plservice.plikeCheck(id,idx);
+			model.addAttribute("likeCheck", likeCheck);
 			
 			//팔로우 여부
-			int followCheck = flservice.followCheck(dto.getId() , id);
-			model.addAttribute("likeCheck", likeCheck);
+			int followCheck = flservice.followCheck(dto.getId(), id);
+			System.out.println("follow?"+followCheck);
 			model.addAttribute("followCheck", followCheck);
+			
+			if(id.equals(dto.getId())) {
+				//판매상태
+				String sellstatus = dto.getSellstatus();
+				if(sellstatus.equals("판매중")) {
+					dto.setSellstatus("selling");
+				} else if(sellstatus.equals("예약중")) {
+					dto.setSellstatus("reserved");
+				} else {
+					dto.setSellstatus("finished");
+				}
+			}
 		}
 		
 		model.addAttribute("dto", dto);
 		model.addAttribute("list", list);
 		model.addAttribute("isLogin", isLogin);
+		model.addAttribute("nick", nick);
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("photo", photo);
 		
@@ -219,9 +238,8 @@ public class ProductController {
 	
 	@ResponseBody
 	@PostMapping("/updateLikecount")
-	public int updateLikecount(@RequestParam String idx, HttpSession session) {
-		String id = (String)session.getAttribute("myid");
-		System.out.println(id);
+	public int updateLikecount(@RequestParam String idx, Principal principal) {
+		String id = principal.getName();
 		//product의 likecount+1
 		service.updateLikecount(idx);
 		//product_like의 데이터 추가
@@ -233,8 +251,8 @@ public class ProductController {
 	
 	@ResponseBody
 	@PostMapping("/updateLikeMinuscount")
-	public int updateLikeMinuscount(@RequestParam String idx, HttpSession session) {
-		String id = (String)session.getAttribute("myid");
+	public int updateLikeMinuscount(@RequestParam String idx, Principal principal) {
+		String id = principal.getName();
 		//product의 likecount-1
 		service.updateLikeMinuscount(idx);
 		
@@ -243,5 +261,18 @@ public class ProductController {
 		
 		//like 수 리턴
 		return service.getLikeCount(idx);
+	}
+	
+	@ResponseBody
+	@PostMapping("/updateStatus")
+	public void updateStatus(@RequestParam String idx, @RequestParam String status) {
+		if(status.equals("selling")) {
+			status = "판매중";
+		} else if(status.equals("reserved")) {
+			status = "예약중";
+		} else if(status.equals("finished")) {
+			status = "판매완료";
+		}
+		service.updateStatus(idx, status);
 	}
 }

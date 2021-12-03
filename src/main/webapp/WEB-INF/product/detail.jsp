@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 <link rel="stylesheet" type="text/css" href="/css/swiper.min.css">
 <link rel="stylesheet" type="text/css" href="/css/product_style.css">
 
@@ -37,7 +38,7 @@
 				<img alt="profile" src="/image/profile-icon.png" class="profileImg">	
 			</td>
 			<td class="nick tit verticalBottom">
-			닉네임
+				${nick}
 			</td>
 			<td rowspan="2" class="detailBtn">
 				<button type="button" class="btn-list" id="follow">+ 팔로우</button>
@@ -49,28 +50,28 @@
 			</td>
 		</tr>	
 		<tr>
-			<td colspan="3" class="tit-sm"><a>${dto.category}</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<fmt:formatDate value="${dto.writeday }" pattern="yy.MM.dd"/></td>
+			<td colspan="3" class="tit-sm"><a href="list?category=${dto.category}">${dto.category}</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<fmt:formatDate value="${dto.writeday }" pattern="yy.MM.dd"/></td>
 		</tr>
 		<tr class="needHeight">
 			<!-- 작성자가 아닐 경우-->
-			<c:if test="true">
+			<c:if test="${myId != dto.id}">
 				<c:if test="${dto.sellstatus !='판매중' }">
 					<td class="sellstatus verticalBottom">
 						<span class="${dto.sellstatus=='판매중'?'selling':dto.sellstatus=='예약중'?'reserved':'finished'} tit">${dto.sellstatus}</span>
 					</td>
 				</c:if>
 			</c:if>
-			<c:if test="false">
-				<td>
-					<select name="sellstaus">
+			<c:if test="${myId == dto.id}">
+				<td class="verticalBottom">
+					<select name="sellstaus" class="statusSelect" id="statusSelect">
 						<option class="tit selling" value="selling">판매중</option>
 						<option class="tit reserved" value="reserved">예약중</option>
-						<option class="tit finished" value="finished">거래완료</option>
+						<option class="tit finished" value="finished">판매완료</option>
 					</select>
 				</td>
 			</c:if>
-			<td ${dto.sellstatus=='판매중'?'colspan="3"':'colspan="2"'} class="tit verticalBottom">
-				${dto.title}
+			<td ${dto.sellstatus=='판매중' && dto.id != myId ?'colspan="3"':'colspan="2"'} class="tit verticalBottom">
+				<p class="productTitle">${dto.title}</p>
 			</td>
 		</tr>
 		<tr class="needHeight">
@@ -80,7 +81,17 @@
 		</tr>
 		<tr>
 			<td colspan="3" class="tit-sm">
-				대화 <span id="chatcount">${dto.chatcount}</span>&nbsp;&nbsp;&nbsp;찜 <span id="likecount">${dto.likecount}</span>&nbsp;&nbsp;&nbsp;조회수 ${dto.readcount}
+				<div class="info-sm">   
+					<div class="info-sm-div">
+						<div class="chat icon-sm">${dto.chatcount}</div>
+					</div>
+					<div class="info-sm-div">
+						<div class="dibs icon-sm">${dto.likecount}</div>
+					</div>
+					<div class="info-sm-div">
+						<div class="read icon-sm">${dto.readcount}</div>
+					</div>
+				</div>
 			</td>
 		</tr>
 		<tr class="lineNeed">
@@ -88,13 +99,13 @@
 				<button type="button" id="dibs" onclick="dibsClicked()"><img src="/image/stopheart-icon.gif" alt="dibsButton" id="dibsBtnImg"></button>
 			</td>
 			<!-- 작성자가 아니면 -->
-			<c:if test="false">
+			<c:if test="${myId != dto.id}">
 				<td colspan="2">
-					<button type="button" class="btn-add" onclick="location.href='../chat/list?idx=${dto.idx}'">채팅하기</button>
+					<button type="button" class="btn-delete chat-btn" id="chatBtn">채팅하기</button>
 				</td>
 			</c:if>
 			<!-- 작성자면 -->
-			<c:if test="true">
+			<c:if test="${myId == dto.id}">
 				<td colspan="2" class="detailBtn">
 					<button type="button" class="btn-update" onclick="location.href='updateForm?idx=${dto.idx}'">수정</button>
 					<button type="button" id="deleteBtn" class="btn-delete" value="${dto.idx}">삭제</button>
@@ -154,27 +165,45 @@
 		</c:if>
 	</div>
 </div>
+<input type="hidden" id="sellstatus" name="sellstatus" value="${dto.sellstatus}">
 </div>
 
 <script type="text/javascript" src="/js/swiper.min.js"></script>
 <script>
-//로그인 되어 있을 경우,
-if(${isLogin}==null){
-	//좋아요 여부로 하트 버튼 변경
-	//좋아요 안했을 시,
-	if(${likeCheck==0}){
-		$("#dibsBtnImg").attr("src","/image/stopheart-icon.gif");
-	} else{
-		$("#dibsBtnImg").attr("src","/image/fullheart-icon.gif");
+$(document).ready(function() {
+	//로그인 되어 있을 경우,
+	if(${isLogin == "Y"}){
+		//좋아요 여부로 하트 버튼 변경
+		//좋아요 안했을 시,
+		if(${likeCheck==0}){
+			$("#dibsBtnImg").attr("src","/image/stopheart-icon.gif");
+		} else{
+			$("#dibsBtnImg").attr("src","/image/fullheart-icon.gif");
+		}
+		
+		//팔로우 여부로 팔로우 버튼 변경
+		//팔로우 했을 시,
+		if(${followCheck != 0}){
+			$("#follow").addClass("btn-add");
+			$("#follow").removeClass("btn-list");
+			$("#follow").html("팔로잉");
+		}
+		//유저가 판매자일 경우,
+		if(${myId == dto.id}){
+			//판매상태 dto에 맞게 선택되게
+			$("#statusSelect").val($('#sellstatus').val()).attr("selected","selected");
+			console.log($("#statusSelect").val());
+			//판매상태에 따라 글씨색 바뀌기
+			if($("#statusSelect").val() == "finished"){
+				$("#statusSelect").css("color","#979593");
+			} else if($("#statusSelect").val() == "reserved"){
+				$("#statusSelect").css("color", "#ff7ab0");
+			} else if($("#statusSelect").val() == "selling"){
+				$("#statusSelect").css("color", "#3088d4");
+			}
+		}
 	}
-	
-	//팔로우 여부로 팔로우 버튼 변경
-	//팔로우 했을 시,
-	if(${followCheck!=0}){
-		$("#follow").addClass("btn-add");
-		$("#follow").html("팔로잉");
-	}
-}
+});
 
 //미리보기 이미지 클릭시,
 /* $(document).on("click",".smallImg", function(e) {
@@ -201,10 +230,10 @@ $(document).ready(function() {
 //찜버튼 클릭시
 function dibsClicked(){
 	var idx = ${dto.idx};
-	
+	console.log("dibs");
 	//로그인 여부
 	//로그인 안했을 경우
-	if(${isLogin}==null){
+	if(${isLogin != "Y"}){
 		alert("로그인 이후, 사용가능합니다");
 		return;
 	}  else{ //로그인 했을 경우
@@ -219,10 +248,7 @@ function dibsClicked(){
 		        success : function (data) {
 					$("#likecount").html(data);
 		        	console.log("success+");
-				},
-				error : function(){
-	                alert("통신 에러","error","확인",function(){});
-	            }
+				}
 			});
 		} else{
 			$("#dibsBtnImg").attr("src","/image/stopheart-icon.gif");
@@ -234,26 +260,25 @@ function dibsClicked(){
 		        success : function (data) {
 					$("#likecount").html(data);
 		        	console.log("success-");
-				},
-				error : function(){
-	                alert("통신 에러","error","확인",function(){});
-	            }
+				}
 			});
 		}
 	}
 }
+
 //팔로우 버튼 클릭시
 $(document).on("click","#follow", function() {
 	//로그인 여부
 	//로그인 안했을 경우
-	if(${isLogin}==null){
+	if(${isLogin!="Y"}){
 		alert("로그인 이후, 이용가능한 서비스입니다.");
 		return;
 	}  else{
+		console.log("login됨");
 	//로그인 했을 경우
-		var followee = '${dto.id}';
-		var follower = sessionStorage.getItem("myid");
-		var idx = '${dto.idx}';
+		var followee = "${dto.id}";
+		var follower = "${myId}";
+		var idx = "${dto.idx}";
 		
 		//나를 팔로우 눌렀을 경우
 		if(follower==followee){
@@ -266,38 +291,52 @@ $(document).on("click","#follow", function() {
 				$.ajax({
 					type : "post",  
 			        url : "../follow",       
-			        dataType : "json",   
+			        dataType : "text",   
 			        data : {"followee":followee, "follower":follower},
 			        success : function (data) {
 			        	$("#follow").removeClass("btn-list");
 						$("#follow").addClass("btn-add");
 						$("#follow").html("팔로잉");
-			        	console.log("follow+");
+			        	alert("팔로우 되었습니다.");
 					},
-					error : function(){
-						alert("에러");
-		                console.log("통신 에러","error","확인",function(){});
+					error : function(e){
+		                console.log("통신 에러",e);
 		            }
 				});
 			} else{ //팔로우했을 경우,
 				$.ajax({
 					type : "post",  
 			        url : "../unfollow",       
-			        dataType : "json",   
+			        dataType : "text",   
 			        data : {"followee":followee, "follower":follower},
 			        success : function (data) {
 			        	$("#follow").removeClass("btn-add");
 						$("#follow").addClass("btn-list");
 						$("#follow").html("+ 팔로우");
-			        	console.log("follow-");
+						alert("팔로우가 취소되었습니다.");
 					},
-					error : function(){
-						alert("에러");
-		                console.log("통신 에러","error","확인",function(){});
+					error : function(e){
+		                console.log("통신 에러",e);
 		            }
 				});
 			}
 		}
+	}
+});
+
+//채팅 버튼 클릭시
+$(document).on("click","#chatBtn", function() {
+	//로그인 여부
+	//로그인 안했을 경우
+	if(${isLogin!="Y"}){
+		alert("로그인 이후, 이용가능한 서비스입니다.");
+		return;
+	}  else{
+		//로그인 했을 경우
+		var id = "${myId}";
+		var idx = "${dto.idx}";
+		
+		location.href ='../chat/room?idx='+idx+"&id="+id;
 	}
 });
 
@@ -312,6 +351,37 @@ $("#deleteBtn").click(function() {
 	} else{
 		return;			
 	}
+});
+
+//판매상태 변경
+$(document).on("change", "#statusSelect", function() {
+	var idx = ${dto.idx};
+	var status = $("#statusSelect").val();
+	//console.log(status);
+
+	//판매상태 변경(product)
+	$.ajax({
+		type : "post",  
+		url : "updateStatus",     
+        dataType : "text",   
+        data : {"idx":idx, "status":status},
+        success: function(){
+        	//판매상태에 따라 글씨색 바뀌기
+			if($("#statusSelect").val() == "finished"){
+				$("#statusSelect").css("color","#979593");
+			} else if($("#statusSelect").val() == "reserved"){
+				$("#statusSelect").css("color", "#ff7ab0");
+			} else if($("#statusSelect").val() == "selling"){
+				$("#statusSelect").css("color", "#3088d4");
+			}
+        	setTimeout(() => {
+        		alert("판매상태 변경 완료");
+			}, 100);
+        },
+        error: function(e){
+        	console.log("Status error",e);
+        }
+	}); 
 });
 
 </script>

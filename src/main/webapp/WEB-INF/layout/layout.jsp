@@ -20,7 +20,7 @@
 	<div id="wrap">
 		<tiles:insertAttribute name="header" />
 		<div id="cBody">
-			<c:if test="${path!='/' || path!='/index'}">
+			<c:if test="${path!='/' and path!='/index'}">
 				<tiles:insertAttribute name="subcontent" />
 			</c:if>
 			<tiles:insertAttribute name="content" />
