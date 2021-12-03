@@ -26,8 +26,10 @@
 		</div>
 		<div class="btn-wrap">
 			<a href="javascript:" class="btn-list">목록</a>
-			<a href="javascript:" class="btn-update">수정</a>
-			<a href="javascript:" class="btn-delete">삭제</a>
+			<c:if test="${userType == 'admin'}">
+				<a href="javascript:" class="btn-update">수정</a>
+				<a href="javascript:" class="btn-delete">삭제</a>
+			</c:if>
 		</div>
 	</div>
 	

@@ -40,7 +40,10 @@ public class EventController {
 			) 
 	{
 		ModelAndView mview = new ModelAndView();
-		String userType = memberService.currentUserType(principal);
+		String userType = "no";
+		if(principal != null) {
+			userType = memberService.currentUserType(principal);
+		}
 		int total = service.getTotal();
 		
 		int perPage=10;
@@ -75,10 +78,15 @@ public class EventController {
 			@RequestParam String idx,
 			@RequestParam(defaultValue = "1") int currentPage,
 			@RequestParam(required = false) String key,
-			@RequestParam Map<String, String> map
+			@RequestParam Map<String, String> map,
+			Principal principal
 			) 
 	{
 		ModelAndView mview = new ModelAndView();
+		String userType = "no";
+		if(principal != null) {
+			userType = memberService.currentUserType(principal);
+		}
 		if(key=="list") {
 			service.updateReadCount(idx);
 		}
@@ -87,6 +95,7 @@ public class EventController {
 		
 		mview.addObject("dto", dto);
 		mview.addObject("photoList", photoList);
+		mview.addObject("userType", userType);
 		
 		mview.setViewName("/event/detail");
 		
