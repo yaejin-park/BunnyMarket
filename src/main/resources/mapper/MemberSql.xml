@@ -25,15 +25,15 @@
 		select id from member where name=#{name} and hp=#{hp}
 	</select>
 	
-	<select id="currentUserName">
+	<select id="currentUserName" resultType="String">
 		select name from member where id=#{id}
 	</select>
 	
-	<select id="currentUserNickName">
+	<select id="currentUserNickName" resultType="String">
 		select nick from member where id=#{id}
 	</select>
 	
-	<select id="currentUserType">
+	<select id="currentUserType" resultType="String">
 		select type from member where id=#{id}
 	</select>
 </mapper>

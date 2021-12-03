@@ -3,6 +3,7 @@ server:
 
 # jsp setting
 spring:
+  main:    allow-bean-definition-overriding: true
 #  mvc:
 #    view:
 #      prefix: /WEB-INF/shop/
@@ -37,7 +38,8 @@ spring:
         transport:
           protocal: smtp
            # debug: true
-  # file size setting           servlet:    multipart:      max-file-size: 50MB      max-request-size: 50MB        
+  # file size setting           servlet:    multipart:
+      enabled: true      max-file-size: 50MB      max-request-size: 50MB        
 # mybatis setting
 mybatis:
   type-aliases-package: data.*
