@@ -26,7 +26,7 @@ public class AdreplyService {
 		HashMap<String, Integer> map=new HashMap<String, Integer>();
 		map.put("regroup", regroup);
 		map.put("restep", restep);
-		return;
+		mapper.updateRestep(map);
 	}
 	
 	public void insertReply(AdreplyDTO dto) {
@@ -66,7 +66,7 @@ public class AdreplyService {
 		return mapper.getReply(idx);
 	}
 	
-	public List<AdreplyDTO> getReplyList(int num) {
-		return mapper.getReplyList(num);
+	public List<AdreplyDTO> getReplyList(int idx) {
+		return mapper.getReplyList(idx);
 	}
 }

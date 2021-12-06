@@ -6,11 +6,57 @@
 	margin-bottom:40px;
 	text-align:right;
 }
+.info-sm div.read, .list-info-sm div.read{
+	background-image: url("/image/eye-icon.png");
+}
 
+/* writeForm */
+.text-input{
+	height:400px;
+}
 /* advertise detail-style */
 .detailbtn{
 	text-align:right;
 	margin-top:20px;
+}
+.nick{
+	font-size:25px;
+}
+.profile{
+	margin-right:20px;
+}
+.counts{
+	text-align:right;
+}
+.info-sm div.comment, .list-info-sm div.comment{
+	background-image: url("/image/comment-icon.png");
+}
+.content-detail-div{
+	border:1px solid #ddd;
+	margin-top:20xp;
+	height:250px;
+	width:100%;
+}
+.detailContent{
+	border:0px;
+	margin:0px;
+	height:auto;
+}
+.content-img{
+	border:1px solid #ddd;
+	margin-bottom:20px;
+	margin-top:10px;
+}
+.content-img img{
+	margin:20px;
+	border:1px solid #ddd;
+	width:600px;
+}
+.img-detail-div{
+	margin-bottom:10px;
+}
+.img-detail-view{
+	color:#999;
 }
 
 /* detail-reply */
@@ -24,47 +70,64 @@ tr.counts{
 .ad-dbtn{
 	width:100%;
 }
-.profile{
-	width:90px;
+.re-list .re-div {
+	position:relative;
+	padding:20px;
+	padding-left:80px;
+	border-bottom:1px solid #ddd;
 }
-.profileImg{
-	width:70px;
+
+.re-list .re-info {
+	float:left;
+	margin-right:10px;
+	font-size:12pt;
 }
-.ad-tit{
+.re-info .re-writer {
+	font-weight:bold;
+}
+.re-info .profile-img {
+	position:absolute;
+	top:20px;
+	left:20px;
+	width:50px;
+	border-radius:50%;
+	border:2px solid #f7f6fc;
+	overflow:hidden;
+}
+.re-info .profile-img  img {
+	width:100%;
+}
+.re-list .re-detail {
+	clear:both;
+}
+.re-detail .re-util .re-day {
+	margin-right:20px;
+	font-size:13px;
+	color:#999;
+}
+.re-detail .re-util > a {
+	margin-left:10px;
+	font-size:13px;
+	color:#999;
+}
+.info .ad-tit{
 	font-size:25pt;
 	font-weight:bold;
 	color:#333;
 }
 .reply{
 	margin-top:20px;
+	margin-bottom:20px;
 	border-top:1px solid #ddd;
 	border-right:1px solid #ddd;
     border-bottom:1px solid #ddd;
     border-left:1px solid #ddd;
 }
-.re-detail{
-	margin-top:5px;
-	margin-bottom:5px;
-	border-bottom:1px solid #ddd;
-}
-.re-info{
-	float:left;
-	font-size:12pt;
-}
-.re-profileimg{
-	border-radius: 100%;
-	border: 2.3px solid #f7f6fc;
-	width: 50px;
-}
-.re-writer{
-	margin-right:10px;
-	font-weight:bold;
-}
 .nodata{
 	border:0px;
 }
 .re-blank{
-	padding-right:10px;
+	margin-right:50px;
 }
 .re-addcontent{
 	width:100%;
@@ -76,24 +139,30 @@ tr.counts{
 	font-size:10pt;
 	text-align:left;
 }
-.re-textinput{
+.re-textinput, .re-retextinput{
 	border:0px;
 }
-.re-textinput{
+.re-textinput, .re-retextinput{
 	width:100%;
     height:100%;
     resize:none;
     font-size:12pt;
     line-height:1.5;
 }
+.re-content{
+	margin-right:5px;
+}
 .re-addbtn{
 	text-align:right;
 }
-.re-rebtn{
+.re-replybtn{
 	font-size:9pt;
 	color:#ddd;
 }
-.re-btn{
+.re-reply{
+	display:none;
+}
+.re-replybtn{
 	display:flex;
     width:100%;
     height:50px;
@@ -103,13 +172,12 @@ tr.counts{
     justify-content:space-between;
     padding:0px 10px;
 }
-.re-modbtn{
+.re-btns{
 	text-align:right;
 	font-size:11pt;
 	color:#ddd;
 }
-.re-delbtn{
-	text-align:right;
-	font-size:11pt;
-	color:#ddd;
+.reform{
+	margin-top:50px;
 }
+
