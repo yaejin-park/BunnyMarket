@@ -36,16 +36,23 @@ public class EventController {
 	
 	@GetMapping("/list")
 	public ModelAndView list(
-			@RequestParam(defaultValue = "1") int currentPage,
-			@RequestParam(defaultValue = "전체") String category,
-			Principal principal
-			) 
+		@RequestParam(defaultValue = "1") int currentPage,
+		@RequestParam(defaultValue = "전체") String category,
+		Principal principal
+		) 
 	{
 		ModelAndView mview = new ModelAndView();
 		String userType = "no";
+		String userId = "no";
+		String local ="";
+		String[] localArr = {};
 		if(principal != null) {
+			userId = principal.getName();
 			userType = memberService.currentUserType(principal);
+			local = memberService.getLocal(principal);
+			localArr = local.split(",");
 		}
+		
 		List<String> categoryArr = service.getCategory();
 		int total = service.getTotal(category);
 		
@@ -74,31 +81,40 @@ public class EventController {
 		mview.addObject("userType", userType);
 		mview.addObject("categoryArr", categoryArr);
 		mview.addObject("selectCategory", category);
+		mview.addObject("localCnt", localArr.length);
+		mview.addObject("localArr", localArr);
 		mview.setViewName("/event/list");
 		return mview;
 	}
 	
 	@GetMapping("/detail")
 	public ModelAndView detail(
-			@RequestParam String idx,
-			@RequestParam(defaultValue = "1") int currentPage,
-			@RequestParam(required = false) String key,
-			@RequestParam Map<String, String> map,
-			Principal principal
-			) 
+		@RequestParam String idx,
+		@RequestParam(defaultValue = "1") int currentPage,
+		@RequestParam(required = false) String key,
+		@RequestParam Map<String, String> map,
+		Principal principal
+		) 
 	{
 		ModelAndView mview = new ModelAndView();
+		String userId = "no";
 		String userType = "no";
 		String userNickName = "no";
+		String local = "";
+		String[] localArr = {};
 		if(principal != null) {
+			userId = principal.getName();
 			userType = memberService.currentUserType(principal);
 			userNickName = memberService.currentUserNickName(principal);
+			local = memberService.getLocal(principal);
+			localArr = local.split(",");
 		}
 		if(key != null) {
 			service.updateReadCount(idx);
 		}
 		EventDTO dto = service.getData(idx);
 		String[] photoList = dto.getPhoto().split(",");
+		
 		List<EventReplyDTO> relist = service.getReplyList(idx);
 		int recount = relist.size();
 		
@@ -111,6 +127,8 @@ public class EventController {
 		mview.addObject("userNickName", userNickName);
 		mview.addObject("relist", relist);
 		mview.addObject("recount", recount);
+		mview.addObject("localCnt", localArr.length);
+		mview.addObject("localArr", localArr);
 		
 		mview.setViewName("/event/detail");
 		
@@ -118,16 +136,32 @@ public class EventController {
 	}
 	
 	@GetMapping("/auth/insertform")
-	public String addForm() {
-		return "/event/writeForm";
+	public ModelAndView addForm(
+			Principal principal
+			) 
+	{
+		ModelAndView mview = new ModelAndView();
+		String userId = "no";
+		String local = "";
+		String[] localArr = {};
+		if(principal != null) {
+			userId = principal.getName();
+			local = memberService.getLocal(principal);
+			localArr = local.split(",");
+		}
+
+		mview.addObject("localCnt", localArr.length);
+		mview.addObject("localArr", localArr);
+		mview.setViewName("/event/writeForm");
+		return mview;
 	}
 	
 	@PostMapping("/auth/insert")
 	public @ResponseBody void fileUpload(
-			MultipartHttpServletRequest multiRequest,
-			HttpServletRequest request,
-			HttpSession session
-			) throws Exception
+		MultipartHttpServletRequest multiRequest,
+		HttpServletRequest request,
+		HttpSession session
+		) throws Exception
 	{
 		//System.out.println("fileList =>" + multiRequest.getFile("uploadFile"));
 		List<MultipartFile> fileList = multiRequest.getFiles("uploadFile");
@@ -183,10 +217,10 @@ public class EventController {
 	
 	@PostMapping("/auth/reply/insert")
 	public @ResponseBody void replyInsert(
-			@RequestParam String num,
-			@RequestParam String content,
-			Principal principal
-			) 
+		@RequestParam String num,
+		@RequestParam String content,
+		Principal principal
+		) 
 	{
 		EventReplyDTO dto = new EventReplyDTO();
 		dto.setId(principal.getName());
