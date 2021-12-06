@@ -73,7 +73,6 @@ public class CommunityController {
 		startPage = (currentPage-1)/perBlock * perBlock +1; 
 		endPage = startPage + perBlock-1;
 		if(endPage>totalPage){ endPage = totalPage; }
-		int no = totalCount-(currentPage-1)*perPage;
 		start = (currentPage-1) * perPage; 
 		
 			
@@ -91,7 +90,6 @@ public class CommunityController {
 		mview.addObject("startPage",startPage);
 		mview.addObject("endPage",endPage);
 		mview.addObject("totalPage",totalPage);
-		//mview.addObject("no",no);
 		mview.addObject("currentPage",currentPage);
 
 		mview.addObject("totalCount",list.size());
@@ -161,6 +159,8 @@ public class CommunityController {
 			@RequestParam Map<String, String> map
 			)
 	{
+		ModelAndView mview = new ModelAndView();
+		
 		//커뮤니티DTO 데이터 가져오기 
 		CommunityDTO dto = service.getData(idx);
 		
@@ -168,7 +168,6 @@ public class CommunityController {
 		MemberDTO mdto =service.getMemData(idx);
 		 
 		
-		ModelAndView mview = new ModelAndView();
 		
 		//닉네임 가져오기
 		String nick = mservice.getNick(dto.getId());
@@ -208,21 +207,23 @@ public class CommunityController {
 		mview.addObject("relist", relist);
 		
 		
-		//아래값은 답글일 경우만 넘어옴(num, currentPage도)
-		String currentPage=map.get("currentPage");
-		String num=map.get("num");
-		String regroup=map.get("regroup");
-		String restep=map.get("restep");
+		
+		 //아래값은 답글일 경우만 넘어옴(num, currentPage도) 
+		String currentPage=map.get("currentPage"); 
+		String num=map.get("num"); 
+		String regroup=map.get("regroup"); 
+		String restep=map.get("restep"); 
 		String relevel=map.get("relevel");
-	  
-		//입력폼에 hidden 넣어줘야함
+		  
+		  //입력폼에 hidden 넣어줘야함 
 		mview.addObject("num", num==null?"0":num);
 		mview.addObject("currentPage",currentPage==null?"1":currentPage);
 		mview.addObject("regroup",regroup==null?"0":regroup);
 		mview.addObject("restep",restep==null?"0":restep);
 		mview.addObject("relevel",relevel==null?"0":relevel);
+		 
 	
-		mview.setViewName("/product/detail");
+		mview.setViewName("/community/detail");
 		
 		return mview;
 	}

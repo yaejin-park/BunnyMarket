@@ -29,7 +29,7 @@
 						<li>
 							<a href="detail?idx=${a.idx}&currentPage=${currentPage}&key=list">
 								
-								<div class="image">
+								<div class="img-div">
 								<!-- 이미지 없을경우 -->
 									<c:if test="${a.photo=='no'}">
 										<img src="../image/co-noimg.jpg">
@@ -52,13 +52,17 @@
 								<div class="reply-heart">
 								<!-- 공감수표시 -->
 									<div class="gdcount-icon">
+										<div class="gd-img">
 										<img src="../image/heart-icon.png">
+										</div>
 										<span class="txt gdcount">${a.goodcount}</span>
 									</div>
 								<!-- 댓글수표시 -->
 									<div class="reply-icon">
-											<img src="../image/comment-icon.png">
-											<span class="txt recount">${a.acount}</span>
+										<div class="rec-img">
+										<img src="../image/comment-icon.png">
+										</div>
+										<span class="txt recount">${a.acount}</span>
 									</div>
 								</div>
 							</a>

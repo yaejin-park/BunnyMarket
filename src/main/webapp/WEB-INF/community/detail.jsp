@@ -7,8 +7,7 @@
 <link rel="stylesheet" type="text/css" href="/css/common.css">
 <link rel="stylesheet" type="text/css" href="/css/community_style.css">
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
-<div>detail</div>
-<%-- <div class="inner">
+<div class="inner">
 	<input type="hidden" name="currentPage" value="${currentPage}">
 	
 	<div class="infoAll">
@@ -89,11 +88,11 @@
 					<td colspan="3">
 						<div class="loginokbtn">
 							<!-- 로그인 했을경우에만 -->
-								<c:if test="${myId ==dto.id}">
+								<c:if test="${myId == dto.id}">
 								<button type="button" class="btn-update deupdate"
 								onclick="location.href='updateform?idx=${dto.idx}&currentPage=${currentPage}'">수정</button>
 								<button type="button" id="deleteBtn" class="btn-delete dedelete" value="${dto.idx}">삭제</button>
-								</c:if>
+								</c:if> 
 						</div>
 					</td>
 				</tr>
@@ -107,17 +106,17 @@
 	
 	<div class="detailbtn">
 	<!-- 로그인 안했을경우 -->
-	<c:if test="${myId !=dto.id}">
+	 <c:if test="${myId !=dto.id}"> 
 		<button type="button" class="btn-list delist"
 		onclick="location.href='list'">목록</button>
-	</c:if>
+	 </c:if> 
 	
 	<!-- 로그인 했을경우 -->
 		<c:if test="${myId ==dto.id}">
 			<button type="button" class="btn-add gdcount" onclick="gdClick()">공감♥</button>
 			<button type="button" class="btn-list delist"
 				onclick="location.href='list'">목록</button>
-		</c:if>
+		</c:if> 
 	</div>
 	
 	<!-- 댓글 -->
@@ -222,14 +221,15 @@ $(document).on("click",".smallImg", function(e) {
 
 $(document).ready(function() {
 	//로그인 되있을 경우
-	if(${isLogin == "Y"}){
+	let loginCheck = '${isLogin}';
+	 if($(loginCheck == "Y")){
 		//공감버튼 클릭시 글자색 변경
-		if(${goodCheck == 0}){
+		if($(goodCheck == 0)){
 			$(".gdcount").css("color","#fcfef9");
 		}else{
 			$(".gdcount").css("color","#98077e");
 		}
-	} 
+	}  
 	
 	//미리보기 이미지 호버시,
 	$(".smImgDiv").mouseenter(function() {
@@ -344,4 +344,4 @@ $(document).on("click",".re-rebtn", function(e) {
 });
 
 
-</script> --%>
+</script> 
