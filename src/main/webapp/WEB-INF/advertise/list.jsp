@@ -3,11 +3,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <link rel="stylesheet" type="text/css" href="/css/ad_style.css">
 <div class="inner">
 	<div class="btn-wrap">
 		<button type="button" class="btn-add"
-			onclick="location.href='insertform'">글쓰기</button>
+			onclick="location.href='./auth/insertform'">글쓰기</button>
 	</div>
 	<c:if test="${totalCount==0}">
 		<div class="nodata">
@@ -32,11 +33,11 @@
 						</div>
 						<div class="txt-div">
 							<p class="tit">${addto.title}</p>
-							<p class="writer">작성자${addto.id}</p>
+							<p class="writer">${nick}</p>
 							<p class="date"><fmt:formatDate value="${addto.writeday}" pattern="yy.MM.dd"/></p>
 							<div class="etc">
-								<p class="good-count">좋아요 12</p>
-								<p class="read-count">댓글 6</p>
+								<p class="good-count">공감 ${addto.goodcount}</p>
+								<p class="read-count">조회수 ${addto.readcount}</p>
 							</div>
 						</div>
 					</a>

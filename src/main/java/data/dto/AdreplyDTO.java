@@ -7,7 +7,7 @@ import org.apache.ibatis.type.Alias;
 @Alias("ardto")
 public class AdreplyDTO {
 	private int idx;
-	private String num;
+	private int num;
 	private String id;
 	private String content;
 	private Timestamp writeday;
@@ -22,10 +22,10 @@ public class AdreplyDTO {
 	public void setIdx(int idx) {
 		this.idx = idx;
 	}
-	public String getNum() {
+	public int getNum() {
 		return num;
 	}
-	public void setNum(String num) {
+	public void setNum(int num) {
 		this.num = num;
 	}
 	public String getId() {
