@@ -6,7 +6,13 @@
 	padding:7px 15px;
 	margin-right:10px;
 	border-radius:30px;
+	border:1px solid rgba(255,122,176,0.3);
+	background:#fff;
+}
+.event-div .category-div a.active {
+	color:#333;
 	background:rgba(255,122,176,0.3);
+	border:none;
 }
 .event-div .category-div a:last-child {
 	margin-right:0;
@@ -42,4 +48,65 @@
 }
 .event-detail-div .view-div .img-div img {
 	width:100%;
+}
+.event-div .reply .tit {
+	margin-bottom:20px;
+}
+.event-div .reply .re-div {
+	padding:10px;
+	border:1px solid #e5e5e5;
+	border-radius:5px;
+}
+.event-div .re-info.writer span {
+	display:inline-block;
+	font-size:16px;
+	font-weight:bold;
+	vertical-align:middle;
+}
+.event-div .re-info.writer .profile {
+	width:40px;
+	height:40px;
+	margin-right:10px;
+	border-radius:50%;
+	border:1px solid #e5e5e5;
+	overflow:hidden;
+}
+.event-div .re-info.writer .profile img {
+	width:100%;
+}
+.event-div .re-content {
+	margin:10px 0;
+}
+.event-div .re-content textarea {
+	height:100px;
+	border:none;
+}
+.event-div .re-div .re-util {
+	position:relative;
+	padding-top:10px;
+	border-top:1px solid #e5e5e5;
+}
+.event-div .re-div .re-util .text-count {
+	position:absolute;
+	bottom:10px;
+	left:10px;
+	font-size:14px;
+	color:#999;
+}
+.event-div .re-list-div {
+	margin-top:40px;
+}
+.event-div .re-list {
+	border-top:2px solid #ff7ab0;
+}
+.event-div .re-list li {
+	padding:20px 0;
+	border-bottom:1px solid #e5e5e5;
+}
+.event-div .re-list .re-content .btn-wrap {
+	margin-top:10px;
+}
+.event-div .re-list .re-content .btn-wrap .reply-btn {
+	float:left;
+	font-size:14px;
 }

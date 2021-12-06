@@ -1,0 +1,98 @@
+.local-map-div {
+	margin-top:40px;
+}
+.local-map-div .map-area {
+	position:relative;
+	z-index:0;
+}
+.local-map-div #map {
+	width:100%; 
+	height:30vh;
+}
+.local-map-div #map .map-util {
+	position:absolute;
+	top:10px;
+	right:0;
+	width:calc((100vw - 1240px) /2);
+}
+.local-map-div #map .map-util .current-btn {
+	display:block;
+	width:40px;
+	height:40px;  
+	border-radius:5px; 
+	border:1px solid #e5e5e5;
+	background:#fff url("/image/current-local-icon.png") no-repeat center/ 25px;
+	text-indent:-999px;
+	overflow:hidden;
+}
+.local-map-div .choose-div {
+	margin-top:60px;
+}
+.local-map-div .choose-div .title-div {
+	margin-bottom:40px;
+}
+.local-map-div .choose-div .title-div .tit {
+	margin-bottom:10px;
+}
+.local-map-div .user-local-list li {
+	display:inline-block;
+	margin-right:20px;
+	padding:10px 20px;
+	color:#fff;
+	border-radius:5px;
+	background:rgba(255,122,176,0.6);
+}
+.local-map-div .user-local-list li.plus-type {
+	color:#666;
+	border:1px solid #e5e5e5;
+	background:none;
+}
+.local-map-div .user-local-list li span {
+	vertical-align:top;
+}
+.local-map-div .user-local-list li a {
+	display:inline-block;
+	width:20px;
+	height:20px;
+	margin:3px 0 0 10px;
+	border-radius:50%;
+	text-indent:-999px;
+	overflow:hidden;
+}
+.local-map-div .user-local-list li .delete-btn {
+	border:1px solid #fff;
+	background:#ff7ab0 url("/image/close-icon.png") no-repeat center / 100%;
+}
+
+.local-map-div .user-local-list li.plus-type .plus-btn {
+	margin-left:0;
+	border:1px solid #e5e5e5;
+	background:url("/image/plus-icon.png") no-repeat center / 100%;
+}
+.local-map-div .search-area {
+	display:none;
+	width:600px;
+	margin-top:40px;
+}
+.local-map-div .search-div {
+	display:flex;
+	margin-bottom:40px;
+}
+.local-map-div .search-div button {
+	margin-left:10px;
+	padding:7px 20px;
+}
+.local-map-div .search-list {
+	width:600px;
+	border-top:2px solid #ff7ab0;
+}
+.local-map-div .search-list li {
+	padding:10px 20px;
+	border-bottom:1px solid #e5e5e5;
+}
+.local-map-div .search-list li.active {
+	background:#e5e5e5;
+}
+#setLocalPop .btn-wrap, #setCurrentPop .btn-wrap {
+	margin-top:40px;
+}
