@@ -51,23 +51,23 @@ public class NoticeController {
 
 		int totalCount = Nservice.NgetTotalCount();
 
-		int perPage = 5; // 한 페이지에 보여질 글의 갯수
-		int totalPage; // 총 페이지 수
-		int start; // 각 페이지에서 불러올 db시작번호
-		int perBlock = 5; // 몇개의 몇페이지씩 표현할 것인가
-		int startPage; // 각 블럭에 표시할 시작페이지
-		int endPage; // 각 블럭에 표시할 마지막 페이지
+		int perPage = 5; 
+		int totalPage; 
+		int start; 
+		int perBlock = 5; 
+		int startPage; 
+		int endPage; 
 
-		// 총 페이지 갯수 구하기
+		
 		totalPage = totalCount / perPage + (totalCount % perPage == 0 ? 0 : 1);
-		// 각 블럭의 시작페이지
+		
 		startPage = (currentPage - 1) / perBlock * perBlock + 1;
 		endPage = startPage + perBlock - 1;
 		if (endPage > totalPage)
 			endPage = totalPage;
-		// 각 페이지에서 불러올 시작번호
+		
 		start = (currentPage - 1) * perPage;
-		// 각 페이지에서 필요한 게시글 가져오기
+		
 		List<NoticeDTO> list = Nservice.NgetList(start, perPage);
 
 		int num = totalCount - (currentPage - 1) * perPage;
@@ -268,6 +268,11 @@ public class NoticeController {
 		
 		
 	
+	}
+	
+	@GetMapping("/test")
+	public String test() {
+		return "/notice/test";
 	}
 	
 	
