@@ -2,12 +2,14 @@ package data.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +28,14 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import ch.qos.logback.classic.Logger;
+import data.dto.AdreplyDTO;
+import data.dto.ComReplyDTO;
 import data.dto.CommunityDTO;
+import data.dto.MemberDTO;
 import data.mapper.CommunityMapper;
 import data.service.CommunityService;
+import data.service.ComreplyService;
+import data.service.MemberService;
 
 @Controller
 @RequestMapping("/community")
@@ -36,9 +43,14 @@ public class CommunityController {
 
 	@Autowired
 	CommunityService service;
+	@Autowired
+	ComreplyService reservice;
+	@Autowired
+	MemberService mservice;
 
 	@Autowired
 	CommunityMapper mapper;
+	
 
 	@GetMapping("/list")
 	public ModelAndView list(
@@ -47,7 +59,7 @@ public class CommunityController {
 	{
 		ModelAndView mview = new ModelAndView();
 
-
+		
 		int totalCount = service.getTotalCount(); 
 		int perPage = 15; 
 		int totalPage;
@@ -61,19 +73,23 @@ public class CommunityController {
 		startPage = (currentPage-1)/perBlock * perBlock +1; 
 		endPage = startPage + perBlock-1;
 		if(endPage>totalPage){ endPage = totalPage; }
-		//int no = totalCount-(currentPage-1)*perPage;
 		start = (currentPage-1) * perPage; 
 		
-		//list에 각 글에 대한 작성자 추가해야함
-
-		
+			
+		//페이징
 		List<CommunityDTO> list= service.getList(start, perPage);
 
+		for(CommunityDTO d:list) {
+			//댓글
+			List<ComReplyDTO> relist=reservice.getReplyList(Integer.parseInt(d.getIdx()));
+			d.setAcount(relist.size());
+			
+
+		}
 		mview.addObject("commulist", list); 
 		mview.addObject("startPage",startPage);
 		mview.addObject("endPage",endPage);
 		mview.addObject("totalPage",totalPage);
-		//mview.addObject("no",no);
 		mview.addObject("currentPage",currentPage);
 
 		mview.addObject("totalCount",list.size());
@@ -137,23 +153,78 @@ public class CommunityController {
 	@GetMapping("/detail")
 	public ModelAndView detail(
 			@RequestParam String idx,
-			@RequestParam(defaultValue = "1") int currentPage,
-			@RequestParam(required = false) String key
+			@RequestParam(required = false) String key,
+			HttpServletRequest request,
+			Principal principal,
+			@RequestParam Map<String, String> map
 			)
 	{
 		ModelAndView mview = new ModelAndView();
-
+		
+		//커뮤니티DTO 데이터 가져오기 
+		CommunityDTO dto = service.getData(idx);
+		
+		//멤버DTO 데이터 가져오기 
+		MemberDTO mdto =service.getMemData(idx);
+		 
+		
+		
+		//닉네임 가져오기
+		String nick = mservice.getNick(dto.getId());
+		
+		//로그인 여부
+		String isLogin = "N";
+		isLogin = (String)request.getSession().getAttribute("isLogin");
+		
+		//로그인 되어있을때 
+		if(isLogin!=null) {
+			//로그인 아이디 가져오기
+			String id = principal.getName();
+			mview.addObject("myId",id);
+			
+			//공감 클릭여부
+			int goodCheck = service.goodCheck(id, idx);
+			mview.addObject("goodCheck",goodCheck);
+		}
+		
+		//리스트에서 들어올 경우 조회수 증가하기
 		if(key!=null)
 			service.updateReadCount(idx);
-
-		CommunityDTO dto = service.getData(idx);
+		
+		//,로 사진나누기 (대표이미지)
 		String []photo = dto.getPhoto().split(",");
-
+		
 		mview.addObject("dto",dto);
+		mview.addObject("mdto",mdto);
 		mview.addObject("photo",photo);
-		mview.addObject("currentPage",currentPage);
+		mview.addObject("isLogin",isLogin);
+		mview.addObject("nick",nick);
+		
+		
+		//댓글
+		List<ComReplyDTO> relist=reservice.getReplyList(Integer.parseInt(idx));
+		mview.addObject("recount", relist.size());
+		mview.addObject("relist", relist);
+		
+		
+		
+		 //아래값은 답글일 경우만 넘어옴(num, currentPage도) 
+		String currentPage=map.get("currentPage"); 
+		String num=map.get("num"); 
+		String regroup=map.get("regroup"); 
+		String restep=map.get("restep"); 
+		String relevel=map.get("relevel");
+		  
+		  //입력폼에 hidden 넣어줘야함 
+		mview.addObject("num", num==null?"0":num);
+		mview.addObject("currentPage",currentPage==null?"1":currentPage);
+		mview.addObject("regroup",regroup==null?"0":regroup);
+		mview.addObject("restep",restep==null?"0":restep);
+		mview.addObject("relevel",relevel==null?"0":relevel);
+		 
+	
 		mview.setViewName("/community/detail");
-
+		
 		return mview;
 	}
 	
@@ -241,9 +312,29 @@ public class CommunityController {
 		return "redirect:detail?idx="+dto.getIdx()+"&currentPage="+currentPage;
 	}
 	
+	@ResponseBody
+	@PostMapping("/updateGoodcount")
+	public int updateGoodcount(@RequestParam String idx, Principal principal) {
+		String id = principal.getName();
+		//goodcount +1 하기 
+		service.updateGoodcount(idx);
+		//데이터 추가
+		service.insertGood(id, idx);
+		
+		return service.getGoodCount(idx);
+	}
 	
-	
-	
+	@ResponseBody
+	@PostMapping("/updateGoodCancel")
+	public int updateGoodCancel(@RequestParam String idx, Principal principal) {
+		String id = principal.getName();
+		//goodcount -1하기
+		service.updateGoodCancel(idx);
+		//데이터 삭제
+		service.deleteGood(id, idx);
+		
+		return service.getGoodCount(idx);
+	}
 	
 }
 
