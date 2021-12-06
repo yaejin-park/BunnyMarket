@@ -46,13 +46,13 @@ public class ProductController {
 	@GetMapping("/list")
 	public ModelAndView productList(
 			@RequestParam (defaultValue = "1") int currentPage,
-			@RequestParam (defaultValue = "전체") String category,
+			@RequestParam (defaultValue = "전") String category,
 			@RequestParam (required = false) String keyword) { 
 	ModelAndView mview = new ModelAndView();
 	
 	int totalCount = service.getTotalCount(category);
 	
-	//페이징 처리에 필요한 변수 선언
+	//�럹�씠吏� 泥섎━�뿉 �븘�슂�븳 蹂��닔 �꽑�뼵
 	int perPage = 20;
 	int totalPage;
 	int start;
@@ -60,26 +60,26 @@ public class ProductController {
 	int startPage;
 	int endPage;
 	
-	//총 페이지 갯수 구하기
+	//珥� �럹�씠吏� 媛��닔 援ы븯湲�
 	totalPage = totalCount/perPage+(totalCount%perPage==0?0:1);
-	//각 블럭의 시작 페이지
+	//媛� 釉붾윮�쓽 �떆�옉 �럹�씠吏�
 	startPage = (currentPage-1)/perBlock*perBlock +1;
-	//각 블럭의 마지막 페이지
+	//媛� 釉붾윮�쓽 留덉�留� �럹�씠吏�
 	endPage = startPage + perBlock -1;
 	
 	if(endPage > totalPage) {
 		endPage = totalPage;
 	}
 	
-	//각 페이지에서 불러올 시작번호
+	//媛� �럹�씠吏��뿉�꽌 遺덈윭�삱 �떆�옉踰덊샇
 	start = (currentPage-1)*perPage;
 	
 	List<ProductDTO> list = service.getList(start, perPage, category, keyword);
 	
-	//각 페이지에 출력할 시작번호
+	//媛� �럹�씠吏��뿉 異쒕젰�븷 �떆�옉踰덊샇
 	int no = totalCount-(currentPage-1)*perPage;
 	
-	//출력에 필요한 변수들을 request에 저장
+	//異쒕젰�뿉 �븘�슂�븳 蹂��닔�뱾�쓣 request�뿉 ���옣
 	mview.addObject("list",list);
 	mview.addObject("startPage", startPage);
 	mview.addObject("endPage", endPage);
@@ -116,32 +116,32 @@ public class ProductController {
 
 	@PostMapping("/auth/insert")
 	public String insertData(@ModelAttribute ProductDTO dto, HttpServletRequest request, HttpSession session, Principal principal) {
-		// 로그인 안했을 경우, 종료
+		// 濡쒓렇�씤 �븞�뻽�쓣 寃쎌슦, 醫낅즺
 		String isLogin = (String)request.getSession().getAttribute("isLogin");
 
 		if (isLogin == null) {
 			return "login/loginmsg";
 		}
 
-		// 로그인 했을 경우,
-		//업로드된 파일 리스트
+		// 濡쒓렇�씤 �뻽�쓣 寃쎌슦,
+		//�뾽濡쒕뱶�맂 �뙆�씪 由ъ뒪�듃
 		List<MultipartFile> mf = dto.getUpload(); 
 		
-		// 파일 업로드 안했을 경우,
+		// �뙆�씪 �뾽濡쒕뱶 �븞�뻽�쓣 寃쎌슦,
 		if (mf.get(0).getOriginalFilename().equals("")) {
 			return "history.back()";
-			// 파일 업로드 했을 경우,
+			// �뙆�씪 �뾽濡쒕뱶 �뻽�쓣 寃쎌슦,
 		} else{
-			// 저장할 폴더 지정
+			// ���옣�븷 �뤃�뜑 吏��젙
 			String path = session.getServletContext().getRealPath("/photo");
 			String fileplus="";
 			
 			for(int i=0; i<mf.size(); i++) {
-				// uuid 생성
+				// uuid �깮�꽦
 				UUID uuid = UUID.randomUUID();
-				// uuid 활용해 파일이름 지정 
+				// uuid �솢�슜�빐 �뙆�씪�씠由� 吏��젙 
 				String uploadfile = uuid.toString() + "_" + mf.get(i).getOriginalFilename();
-				// 실제 업로드
+				// �떎�젣 �뾽濡쒕뱶
 				try {
 					mf.get(i).transferTo(new File(path + "\\" + uploadfile));
 				} catch (IllegalStateException | IOException e) {
@@ -150,12 +150,12 @@ public class ProductController {
 				}
 				fileplus += uploadfile+",";
 			}
-			//마지막 컴마 제거
+			//留덉�留� 而대쭏 �젣嫄�
 			fileplus = fileplus.substring(0,fileplus.length()-1);
 			
 			dto.setUploadfile(fileplus);
 		}
-		//세션에서 아이디 얻어서 dto에 저장
+		//�꽭�뀡�뿉�꽌 �븘�씠�뵒 �뼸�뼱�꽌 dto�뿉 ���옣
 		String id = principal.getName();
 		dto.setId(id);
 		
@@ -169,49 +169,49 @@ public class ProductController {
 			@RequestParam (defaultValue = "1") int currentPage, 
 			@RequestParam (required = false) String key,
 			Model model, HttpServletRequest request, Principal principal) {
-		//리스트에서 디테일페이지가면 조회수 올라가게
+		//由ъ뒪�듃�뿉�꽌 �뵒�뀒�씪�럹�씠吏�媛�硫� 議고쉶�닔 �삱�씪媛�寃�
 		if(key!=null) {
 			service.updateReadcount(idx);
 		}
 		
-		//해당 idx의 데이터 가져오기
+		//�빐�떦 idx�쓽 �뜲�씠�꽣 媛��졇�삤湲�
 		ProductDTO dto = service.getData(idx);
-		//사진 ,로 split(대표 이미지)
+		//�궗吏� ,濡� split(���몴 �씠誘몄�)
 		String []photo = dto.getUploadfile().split(",");
 		
-		//닉네임 가져오기
+		//�땳�꽕�엫 媛��졇�삤湲�
 		String nick = mservice.getNick(dto.getId());
 		
-		//같은 카테고리 연관제품 보여주기
+		//媛숈� 移댄뀒怨좊━ �뿰愿��젣�뭹 蹂댁뿬二쇨린
 		String category = dto.getCategory();
 		List<ProductDTO> list = service.getRelateList(category,idx);
 		
-		//로그인 여부
+		//濡쒓렇�씤 �뿬遺�
 		String isLogin = "N";
 		isLogin = (String)request.getSession().getAttribute("isLogin");
 		
-		//로그인 되어 있을 경우,
+		//濡쒓렇�씤 �릺�뼱 �엳�쓣 寃쎌슦,
 		if(isLogin!=null) {
-			//로그인 아이디 가져오기
+			//濡쒓렇�씤 �븘�씠�뵒 媛��졇�삤湲�
 			String id = principal.getName();
 			model.addAttribute("myId", id);
 			
 		
-			//하트 버튼 클릭여부
+			//�븯�듃 踰꾪듉 �겢由��뿬遺�
 			int likeCheck = plservice.plikeCheck(id,idx);
 			model.addAttribute("likeCheck", likeCheck);
 			
-			//팔로우 여부
+			//�뙏濡쒖슦 �뿬遺�
 			int followCheck = flservice.followCheck(dto.getId(), id);
 			System.out.println("follow?"+followCheck);
 			model.addAttribute("followCheck", followCheck);
 			
 			if(id.equals(dto.getId())) {
-				//판매상태
+				//�뙋留ㅼ긽�깭
 				String sellstatus = dto.getSellstatus();
-				if(sellstatus.equals("판매중")) {
+				if(sellstatus.equals("�뙋留ㅼ쨷")) {
 					dto.setSellstatus("selling");
-				} else if(sellstatus.equals("예약중")) {
+				} else if(sellstatus.equals("�삁�빟以�")) {
 					dto.setSellstatus("reserved");
 				} else {
 					dto.setSellstatus("finished");
@@ -240,12 +240,12 @@ public class ProductController {
 	@PostMapping("/updateLikecount")
 	public int updateLikecount(@RequestParam String idx, Principal principal) {
 		String id = principal.getName();
-		//product의 likecount+1
+		//product�쓽 likecount+1
 		service.updateLikecount(idx);
-		//product_like의 데이터 추가
+		//product_like�쓽 �뜲�씠�꽣 異붽�
 		plservice.insertPlike(id,idx);
 		
-		//like 수 리턴
+		//like �닔 由ы꽩
 		return service.getLikeCount(idx);
 	}
 	
@@ -253,13 +253,13 @@ public class ProductController {
 	@PostMapping("/updateLikeMinuscount")
 	public int updateLikeMinuscount(@RequestParam String idx, Principal principal) {
 		String id = principal.getName();
-		//product의 likecount-1
+		//product�쓽 likecount-1
 		service.updateLikeMinuscount(idx);
 		
-		//product_like의 데이터 삭제
+		//product_like�쓽 �뜲�씠�꽣 �궘�젣
 		plservice.deletePlike(id,idx);
 		
-		//like 수 리턴
+		//like �닔 由ы꽩
 		return service.getLikeCount(idx);
 	}
 	
@@ -267,11 +267,11 @@ public class ProductController {
 	@PostMapping("/updateStatus")
 	public void updateStatus(@RequestParam String idx, @RequestParam String status) {
 		if(status.equals("selling")) {
-			status = "판매중";
+			status = "�뙋留ㅼ쨷";
 		} else if(status.equals("reserved")) {
-			status = "예약중";
+			status = "�삁�빟以�";
 		} else if(status.equals("finished")) {
-			status = "판매완료";
+			status = "�뙋留ㅼ셿猷�";
 		}
 		service.updateStatus(idx, status);
 	}

@@ -41,7 +41,9 @@ public class NoticeController {
 	NoticeMapper Nmapper;
 
 	@GetMapping("/list")
-	public ModelAndView list(@RequestParam(defaultValue = "1") int currentPage
+	public ModelAndView list(
+			@RequestParam(defaultValue = "1") int currentPage,
+			Principal principal
 	)
 
 	{
@@ -68,14 +70,20 @@ public class NoticeController {
 		// 각 페이지에서 필요한 게시글 가져오기
 		List<NoticeDTO> list = Nservice.NgetList(start, perPage);
 
-		int no = totalCount - (currentPage - 1) * perPage;
+		int num = totalCount - (currentPage - 1) * perPage;
 		
-	
+
+		String admin="no";
+		if(principal != null) {
+			admin=Mservice.currentUserType(principal);
+		}
+		
+		mview.addObject("admin", admin);
 		mview.addObject("list", list);
 		mview.addObject("startPage", startPage);
 		mview.addObject("endPage", endPage);
 		mview.addObject("totalPage", totalPage);
-		mview.addObject("no", no);
+		mview.addObject("num", num);
 		mview.addObject("currentPage", currentPage);
 		mview.addObject("totalCount", totalCount);
 		mview.setViewName("/notice/list");
@@ -215,7 +223,8 @@ public class NoticeController {
 
 	@GetMapping("/content")
 	public ModelAndView content(@RequestParam String idx, @RequestParam(defaultValue = "1") int currentPage,
-			@RequestParam(required = false) String key)
+			@RequestParam(required = false) String key,
+			Principal principal)
 
 	{
 		ModelAndView mview = new ModelAndView();
@@ -239,13 +248,21 @@ public class NoticeController {
 		String next=Nservice.next(idx);
 		String beforetitle=Nservice.beforetitle(idx);
 		String nexttitle=Nservice.nexttitle(idx);
-	
+		
+		
+		String admin="no";
+		if(principal != null) {
+			admin=Mservice.currentUserType(principal);
+		}
+		
+		mview.addObject("admin", admin);
 		mview.addObject("beforetitle", beforetitle);
 		mview.addObject("nexttitle", nexttitle);
 		mview.addObject("before", before);
 		mview.addObject("next", next);
 		mview.addObject("dto", dto);
 		mview.addObject("currentPage", currentPage);
+		
 		mview.setViewName("/notice/content");
 		return mview;
 		

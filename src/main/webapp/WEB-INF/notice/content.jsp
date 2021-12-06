@@ -67,13 +67,14 @@
 
 	
 
-
+<c:if test="${admin == 'admin'}">
 	<div class="btn-wrap">
 		<button type="button" class="btn-list" onclick="location.href='list'">목록</button>
 		<button class="btn-update"
 			onclick="location.href='updateform?idx=${dto.idx}&currentPage=${currentPage}'">수정</button>
 		<button class="btn-delete" id="delete2">삭제</button>
 	</div>
+</c:if>
 
 
 	

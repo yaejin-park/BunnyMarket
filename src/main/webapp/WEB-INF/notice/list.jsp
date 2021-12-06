@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
@@ -17,7 +16,7 @@
 				<p>등록된 데이터가 없습니다.</p>
 			</div>
 		</div>
-		<div class="btn-wrap">
+				<div class="btn-wrap">
 			<button class="btn-add" type="button"
 				onclick="location.href='writeform'">글쓰기</button>
 		</div>
@@ -29,7 +28,7 @@
 <div class="inner">
 
 
-	<c:if test="${totalCount>0}">
+
 
 		<table class="table">
 
@@ -37,67 +36,76 @@
 			<thead>
 				<tr>
 					<!-- 관리자가 로그인 했을 떄만 체크박스로 변경 -->
-					<c:choose>
-						<c:when test="${dto.type==admin}">
+				 <c:choose>
+						<c:when test="${admin == 'admin'}">
 							<th class="num"><input type="checkbox" value="selectall"
 								onclick="selectAll(this)"></th>
 						</c:when>
 						<c:otherwise>
 							<th class="num">번호</th>
 						</c:otherwise>
-					</c:choose>
-
+					</c:choose> 
+					
+					
 					<th class="title">제목</th>
 					<th class="writeday">작성일</th>
 					<th class="readcount">조회수</th>
-				</tr>
+				</tr> 
 			</thead>
 
 
 
-
-
-			<c:forEach var="n" items="${list}">
+			<c:if test="${totalCount>0}">	
 				<tbody>
-					<%--  <tr>
+					
+				
+					
+						<c:forEach var="n" items="${list}">
+							<tr>
 					   <c:choose>
-						<c:when test="${n.type==admin}">
+					   
+						<c:when test="${admin == 'admin'}">
+						
 							<td><input type="checkbox" name="delete"></td>
 						</c:when>
 						<c:otherwise>
-							<td>{n.idx}</td>
+						
+							<td>${num}</td>
+				<c:set var="num" value="${num-1}"/>
+				
 						</c:otherwise>
 					</c:choose> 
-					
-				
-				</tr>
-			 --%>
-
-
-					<tr>
-
-						<td><input type="checkbox" name="del" id="${n.idx}"></td>
-						<td><a
-							href="content?idx=${n.idx}&currentPage=${currentPage}&key=list">${n.title}</a>
+						<td><a href="content?idx=${n.idx}&currentPage=${currentPage}&key=list">${n.title}</a>
 						</td>
 						<td><fmt:formatDate value="${n.writeday}" pattern="yy.MM.dd" /></td>
 						<td>${n.readcount}</td>
-					</tr>
+							</tr>
+						</c:forEach>
+					
+				
+					
+				
+			
+			
+			
+
+				
 
 
 				</tbody>
-			</c:forEach>
-
+	</c:if>
 		</table>
+	
 		<!-- 관리자가 로그인 했을 떄만 버튼 나타남 -->
-		<!--<c:if test="${dto.type==admin}">-->
+		<c:if test="${admin == 'admin'}">
 		<div class="btn-wrap">
 			<button class="btn-add" type="button"
 				onclick="location.href='writeform'">글쓰기</button>
 			<button class="btn-delete" type="button" id="delete">글삭제</button>
 		</div>
-		<!--</c:if>-->
-	</c:if>
+		
+		</c:if>
+	
 </div>
 
 
