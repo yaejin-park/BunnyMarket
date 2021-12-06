@@ -1,8 +1,13 @@
 package data.service;
 
+
+
+
 import java.util.HashMap;
 
+
 import java.util.List;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -64,5 +69,30 @@ public class NoticeService {
 	{
 		 Nmapper.NoticeUpdate(dto);
 	}
+	
+	
+	public String before(String idx)
+	{
+		return Nmapper.before(idx);
+	}
+	
+	public String next(String idx)
+	{
+		return Nmapper.next(idx);
+	}
+	
+	public String nexttitle(String idx)
+	{
+		return Nmapper.nexttitle(idx);
+	}
+	
+	public String beforetitle(String idx)
+	{
+		return Nmapper.beforetitle(idx);
+	}
+	
+	
 
 }
+	
+

@@ -1,11 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="data.mapper.EventMapper">
-	<select id="getList" resultType="edto">
-		select * from event 
+	<select id="getTotal" parameterType="String" resultType="int">
+		select count(*) from event
+		<if test="category!='전체'">
+			where category=#{category}
+		</if>
 	</select>
 	
-	<select id="getTitle" resultType="String">
-		select title from event where idx=2
+	<select id="getAllList" resultType="edto">
+		select * from event order by idx desc
+	</select>
+	
+	<select id="getPageList" parameterType="HashMap" resultType="edto">
+		select * from event 
+		<if test="category!='전체'">
+			where category=#{category}
+		</if>
+		order by idx desc limit #{start}, #{perPage}
+	</select>
+
+	<select id="getData" parameterType="String" resultType="edto">
+		select * from event where idx=#{idx}
+	</select>
+	
+	<select id="getCategory" resultType="String">
+		select distinct category from event order by category desc
+	</select>
+	
+	<insert id="insertData" parameterType="edto">
+		insert into event (title, content, photo, original_photo, category, event_start, event_end, writeday) values (#{title}, #{content}, #{photo}, #{original_photo}, #{category}, #{event_start}, #{event_end}, now())
+	</insert>
+	
+	<update id="updateReadCount" parameterType="String">
+		update event set readcount=readcount+1 where idx=#{idx}
+	</update>
+	
+	<insert id="insertReplyData" parameterType="eReDto">
+		insert into event_reply (num, id, content, regroup, restep, relevel, writeday) values (#{num}, #{id}, #{content}, #{regroup}, #{restep}, #{relevel}, now())
+	</insert>
+	
+	<select id="getReplyList" parameterType="String" resultType="eReDto">
+		select * from event_reply where num=#{idx}
 	</select>
 </mapper>
