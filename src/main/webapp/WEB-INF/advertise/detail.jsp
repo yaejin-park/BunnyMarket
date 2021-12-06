@@ -45,7 +45,7 @@
 			<table class="table table-default">
 				<tr>				
 					<td class="ad-tit" colspan="3">
-						제목부분입니다. ${dto.title}
+						제목부분입니다.[ ${dto.title} ]
 					</td>
 				</tr>
 				<tr>
@@ -53,7 +53,7 @@
 						<img alt="profile" src="/image/profile-icon.png" class="profileImg">	
 					</td>
 					<td class="nick tit verticalBottom">
-						${nick}
+						닉네임나올곳 [ ${nick} ]
 					</td>
 				</tr>
 				<tr>
@@ -88,14 +88,22 @@
 		</c:if>
 		
 		<!-- 로그인 했을경우 -->
-		<c:if test="${sessionScope.isLogin!=null and sessionScope.myId==dto.id}">
+		<c:if test="true">
 			<button type="button" class="btn-list delist" onclick="location.href='list'">목록</button>
 			<button type="button" class="btn-add gdcount">공감</button>
-			<button type="button" class="btn-update" onclick="location.href='updateform?idx=${dto.idx}&currentPage=${currentPage}'">수정</button>
+			<button type="button" class="btn-update" onclick="location.href='./auth/updateform?idx=${dto.idx}&currentPage=${currentPage}'">수정</button>
 			<button type="button" id="deleteBtn" class="btn-delete" value="${dto.idx}">삭제</button>
 		</c:if>
 	</div>
-	<div class="detailContentDiv">
+	<div class="img-detail-div">
+		<a href="javascript:" class="img-detail-view">사진상세보기</a>
+		<div class="content-img">
+		<c:forEach var="photo" items="${dto.photo}">
+				<img src="/photo/${photo}" alt="">
+		</c:forEach>
+		</div>
+	</div>
+	<div class="content-detail-div">
 		<pre class="detailContent">${dto.content}</pre>
 	</div>
 	
@@ -134,23 +142,23 @@
 		</c:if>
 		<c:if test="${recount>0}">
 			<c:forEach var="ardto" items="${relist}">
+			    <!-- relevel 만큼 공백 -->
+                <c:forEach var="sp" begin="0" end="${ardto.relevel}">
+                  	<span class="re-blank"></span>
+                </c:forEach>
+				<!-- 답글인 경우에만 re 이미지 출력 -->
+				<c:if test="${ardto.relevel>0}">
+					<span>👉</span>
+				</c:if>
 			    <div class="re-div">
 			    	<div class="re-info">
 			    		<p class="profile-img"><img alt="" src="/image/profile-icon.png"></p>
 			            <span class="re-writer">댓글 작성자 안됨 ${nick}</span>
 			    	</div>
-				    <!-- relevel 만큼 공백 -->
-	                <c:forEach var="sp" begin="0" end="${ardto.relevel}">
-	                    <div class="re-blank"></div>
-	                </c:forEach>
-	                <!-- 답글인 경우에만 re 이미지 출력 -->
-	                <c:if test="${ardto.relevel>0}">
-	                    <div>👉</div>
-	                </c:if>
 			    	<div class="re-detail" id="re-detail">
 			    		<div class="re-content">                
 			                <!-- 댓글내용 --> 
-			                <div>${ardto.content}</div>	
+			                <div><pre>${ardto.content}</pre></div>	
 			                <div class="re-util">                	
 					            <span class="re-day">
 					                <fmt:formatDate value="${ardto.writeday}" pattern="yy.MM.dd"/>
@@ -261,7 +269,7 @@ $(function(){
 		
 		var n = confirm("정말 게시물을 삭제하시겠습니까?");
 		if(n){
-			location.href="delete?idx="+idx+"&currentPage="+currentPage;
+			location.href="./auth/delete?idx="+idx+"&currentPage="+currentPage;
 		}else{
 			return;			
 		}
@@ -328,6 +336,12 @@ $(function(){
 			$(this).val($(this).val().substring(0, 100));
             $(".retext-plus").html("100");
 		}
+	});
+	
+	//이미지 상세 보기
+	$(".img-detail-view").click(function() {
+		$(this).parents(".img-detail-div").siblings().find(".content-img").hide();
+		$(this).parents(".img-detail-div").find(".content-img").toggle();
 	});
 });	
 </script>

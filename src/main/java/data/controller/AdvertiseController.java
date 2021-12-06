@@ -12,7 +12,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,15 +33,22 @@ public class AdvertiseController {
 	AdvertiseService service;
 	
 	@Autowired
-	AdreplyService reservice;
+	AdreplyService reService;
 	
 	@Autowired
-	MemberService mservice;
+	MemberService memService;
 	
 	@GetMapping("/list")
 	public ModelAndView list(@RequestParam(defaultValue = "1") int currentPage,
-			HttpServletRequest request, Principal principal) {
+			Principal principal) {
 		ModelAndView mview=new ModelAndView();
+		
+		String userId="no";
+		if(principal != null) {
+			userId=principal.getName();
+		}
+		
+		//String local=memService;
 		
 		int totalCount=service.getTotalCount();
 		
@@ -70,23 +76,14 @@ public class AdvertiseController {
 		
 		//닉네임 가져오기
 		AdvertiseDTO dto=new AdvertiseDTO();
-		String nick = mservice.getNick(dto.getId());
+		String nick = memService.getNick(dto.getId());
 		mview.addObject("nick", nick);
-		
-		//시작번호
-		//int no=totalCount-(currentPage-1)*perPage;
-		
-		//리스트에 댓글수 표시하기 위해 필요
-//		List<AdreplyDTO> relist=reservice.getReplyList(Integer.parseInt(idx));
-//		mview.addObject("recount", relist.size());
-//		mview.addObject("relist", relist);
 		
 		//출력에 필요한 변수들 request에 저장
 		mview.addObject("list", list);
 		mview.addObject("startPage", startPage);
 		mview.addObject("endPage", endPage);
 		mview.addObject("totalPage", totalPage);
-		//mview.addObject("no", no);
 		mview.addObject("currentPage", currentPage);
 		mview.addObject("totalCount", totalCount);
 		
@@ -94,12 +91,18 @@ public class AdvertiseController {
 		return mview;
 	}
 	
-	@GetMapping("/insertform")
-	public String from() {
+	@GetMapping("/auth/insertform")
+	public String from(Principal principal) {
+
+		String userId="no";
+		if(principal != null) {
+			userId=principal.getName();
+		}
+		
 		return "/advertise/writeForm";
 	}
 	
-	@PostMapping("/insert")
+	@PostMapping("/auth/insert")
 	public String insert(@ModelAttribute AdvertiseDTO dto, HttpSession session, 
 				HttpServletRequest request, Principal principal,
 				@RequestParam List<MultipartFile> photoupload) {
@@ -112,10 +115,10 @@ public class AdvertiseController {
 		//uuid(랜덤이름) 생성
 		UUID uuid=UUID.randomUUID();
 
-		List<MultipartFile> mf = dto.getPhotoupload(); 
+		photoupload = dto.getPhotoupload(); 
 
 		//이미지 업로드 안했을때
-		if(mf.get(0).getOriginalFilename().equals("")) {
+		if(photoupload.get(0).getOriginalFilename().equals("")) {
 			dto.setPhoto("no");
 		}else {	//이미지 업로드 했을때
 			//이미지 업로드 폴더 지정
@@ -123,11 +126,11 @@ public class AdvertiseController {
 			String photoplus="";
 			System.out.println(path);
 
-			for(int i=0;i<mf.size();i++) {
-				String photo=uuid.toString()+"_"+mf.get(i).getOriginalFilename();
+			for(int i=0;i<photoupload.size();i++) {
+				String photo=uuid.toString()+"_"+photoupload.get(i).getOriginalFilename();
 				//실제 업로드
 				try {
-					mf.get(i).transferTo(new File(path+"\\"+photo));
+					photoupload.get(i).transferTo(new File(path+"\\"+photo));
 				} catch (IllegalStateException | IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -144,7 +147,7 @@ public class AdvertiseController {
 		
 		//insert
 		service.insertAdvertise(dto);
-		return "redirect:detail?idx="+service.getMaxIdx();
+		return "redirect:/advertise/detail?idx="+service.getMaxIdx();
 	}
 	
 	@GetMapping("/detail")
@@ -163,7 +166,7 @@ public class AdvertiseController {
 		AdvertiseDTO dto=service.getData(idx);
 		
 		//닉네임 가져오기
-		String nick = mservice.getNick(dto.getId());
+		String nick = memService.getNick(dto.getId());
 		
 		//로그인 체크
 		String isLogin="N";
@@ -187,7 +190,7 @@ public class AdvertiseController {
 		mview.addObject("dbimg", dbimg);
 		
 		//댓글관련
-		List<AdreplyDTO> relist=reservice.getReplyList(Integer.parseInt(idx));
+		List<AdreplyDTO> relist=reService.getReplyList(Integer.parseInt(idx));
 		mview.addObject("recount", relist.size());
 		mview.addObject("relist", relist);
 		
@@ -197,7 +200,7 @@ public class AdvertiseController {
 	
 	@GetMapping("/auth/updateform")
 	public ModelAndView updateForm(@RequestParam String idx,
-				@RequestParam String currentPage) {
+				@RequestParam(defaultValue = "1") int currentPage) {
 		ModelAndView mview=new ModelAndView();
 		AdvertiseDTO dto=service.getData(idx);
 		
@@ -208,18 +211,25 @@ public class AdvertiseController {
 	}
 	
 	@PostMapping("/auth/update")
-	public String update(@ModelAttribute AdvertiseDTO dto, HttpSession session,
+	public String update(@ModelAttribute AdvertiseDTO dto, HttpSession session, 
+				HttpServletRequest request, Principal principal,
 				@RequestParam List<MultipartFile> photoupload,
-				@RequestParam String currentPage) {
+				@RequestParam(defaultValue = "1") int currentPage) {
+		//로그인중이 아닐 경우 종료
+		String isLogin=(String)request.getSession().getAttribute("isLogin");
+		if(isLogin==null) {
+			return "Login/loginmsg";
+		}
+				
 		//uuid 생성
 		UUID uuid=UUID.randomUUID();
 
-		List<MultipartFile> mf = dto.getPhotoupload(); 
+		photoupload = dto.getPhotoupload(); 
 
 		String path=session.getServletContext().getRealPath("/photo");
 		//이미지 업로드 안했을때
-		if(mf.get(0).getOriginalFilename().equals("")) {
-			dto.setPhoto(null);
+		if(photoupload.get(0).getOriginalFilename().equals("")) {
+			dto.setPhoto("no");
 		}else {	//이미지 업로드 했을때
 			//이전 사진 삭제
 			String ufile=service.getData(dto.getIdx()).getPhoto();
@@ -230,11 +240,11 @@ public class AdvertiseController {
 			String photoplus="";
 			System.out.println(path);
 
-			for(int i=0;i<mf.size();i++) {
-				String photo=uuid.toString()+"_"+mf.get(i).getOriginalFilename();
+			for(int i=0;i<photoupload.size();i++) {
+				String photo=uuid.toString()+"_"+photoupload.get(i).getOriginalFilename();
 				//실제 업로드
 				try {
-					mf.get(i).transferTo(new File(path+"\\"+photo));
+					photoupload.get(i).transferTo(new File(path+"\\"+photo));
 				} catch (IllegalStateException | IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -245,9 +255,14 @@ public class AdvertiseController {
 			photoplus = photoplus.substring(0, photoplus.length()-1);
 			dto.setPhoto(photoplus);
 		}
+		//아이디 얻어서 dto에 저장
+		String id=principal.getName();
+		dto.setId(id);
+		
 		//update
 		service.updateAdvertise(dto);
-		return "redirect:detail?idx="+dto.getIdx()+"&currentPage="+currentPage;
+		//return "redirect:detail?idx="+dto.getIdx()+"&currentPage="+currentPage;
+		return "redirect:/advertise/detail?idx="+dto.getIdx()+"&currentPage="+currentPage;
 	}
 	
 	@GetMapping("/auth/delete")
@@ -264,6 +279,6 @@ public class AdvertiseController {
 		file.delete();
 		
 		service.deleteAdvertise(idx);
-		return "redirect:list?currentPage="+currentPage;
+		return "redirect:/advertise/list?currentPage="+currentPage;
 	}
 }

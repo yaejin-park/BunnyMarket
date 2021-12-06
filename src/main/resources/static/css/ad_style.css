@@ -10,6 +10,10 @@
 	background-image: url("/image/eye-icon.png");
 }
 
+/* writeForm */
+.text-input{
+	height:400px;
+}
 /* advertise detail-style */
 .detailbtn{
 	text-align:right;
@@ -26,6 +30,33 @@
 }
 .info-sm div.comment, .list-info-sm div.comment{
 	background-image: url("/image/comment-icon.png");
+}
+.content-detail-div{
+	border:1px solid #ddd;
+	margin-top:20xp;
+	height:250px;
+	width:100%;
+}
+.detailContent{
+	border:0px;
+	margin:0px;
+	height:auto;
+}
+.content-img{
+	border:1px solid #ddd;
+	margin-bottom:20px;
+	margin-top:10px;
+}
+.content-img img{
+	margin:20px;
+	border:1px solid #ddd;
+	width:600px;
+}
+.img-detail-div{
+	margin-bottom:10px;
+}
+.img-detail-view{
+	color:#999;
 }
 
 /* detail-reply */
@@ -96,7 +127,7 @@ tr.counts{
 	border:0px;
 }
 .re-blank{
-	padding-left:50px;
+	margin-right:50px;
 }
 .re-addcontent{
 	width:100%;
@@ -145,5 +176,8 @@ tr.counts{
 	text-align:right;
 	font-size:11pt;
 	color:#ddd;
+}
+.reform{
+	margin-top:50px;
 }
 

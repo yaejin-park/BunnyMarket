@@ -22,7 +22,7 @@
 	</insert>
 	
 	<select id="getReplyList" parameterType="int" resultType="ardto">
-		select * from adreply where num=#{num} order by regroup, restep
+		select * from adreply where num=#{num} order by regroup desc, restep
 	</select>
 	
 	<select id="getReply" parameterType="int" resultType="ardto">

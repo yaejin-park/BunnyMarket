@@ -3,11 +3,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <link rel="stylesheet" type="text/css" href="/css/ad_style.css">
 <div class="inner">
 	<div class="btn-wrap">
 		<button type="button" class="btn-add"
-			onclick="location.href='insertform'">글쓰기</button>
+			onclick="location.href='./auth/insertform'">글쓰기</button>
 	</div>
 	<c:if test="${totalCount==0}">
 		<div class="nodata">
