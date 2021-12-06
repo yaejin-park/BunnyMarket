@@ -6,7 +6,8 @@
 	<div class="inner">
 		<div class="side-menu-div">
 			<a href="">판매내역</a>
-			<a href="">상품후기</a>
+			<a href="">관심목록</a>
+			<a href="">나의후기</a>
 			<a href="">회원탈퇴</a>
 		</div>
 		<div class="my-page">

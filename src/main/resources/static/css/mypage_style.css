@@ -46,3 +46,37 @@ h3{
 .my-page .my-info{
 	margin-bottom:10px;
 }
+
+
+/* unregister */
+.unregister-form .inner .unregi-image img{
+	width:300px;
+}
+.unregister-form .inner .unregi-message .unregi-msg1{
+	font-size:20px;
+	font-weight:bold;
+	
+}
+.unregister-form .inner .unregi-message .unregi-msg2{
+	display:block;
+	margin-top: 10px;
+	font-size:17px;
+}
+.unregister-form .inner .unregi-question .unregi-ques{
+	display:block;
+	margin-top:80px;
+	font-size:20px;
+	font-weight:bold;
+}
+.unregister-form .inner .unregi-question .unregi-reason{
+	display:block;
+	margin-top:10px;
+	width:400px;
+}
+.unregister-form .inner .unregi-question .btn .btn-add{
+	margin-top:15px;
+}
+.unregister-form .inner .unregi-question .btn .btn-list{
+	margin-top:15px;
+	margin-left:10px;
+}
