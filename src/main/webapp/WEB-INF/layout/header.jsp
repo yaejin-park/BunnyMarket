@@ -12,7 +12,7 @@
 				<a href="${root}/join/main" class="join-btn">회원가입</a>
 			</sec:authorize>
 			<sec:authorize access="isAuthenticated()">
-				<a href="${root}/mypage" class="mypage-btn">마이페이지</a>
+				<a href="${root}/mypage/detail" class="mypage-btn">마이페이지</a>
 				<a href="${root}/logout" class="logout-btn">로그아웃</a>
 			</sec:authorize>
 		</div>
