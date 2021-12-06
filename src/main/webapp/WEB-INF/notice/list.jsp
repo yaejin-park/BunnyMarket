@@ -39,7 +39,7 @@
 				 <c:choose>
 						<c:when test="${admin == 'admin'}">
 							<th class="num"><input type="checkbox" value="selectall"
-								onclick="selectAll(this)"></th>
+								onclick="selectAll(this)" name="del"></th>
 						</c:when>
 						<c:otherwise>
 							<th class="num">번호</th>
@@ -66,7 +66,7 @@
 					   
 						<c:when test="${admin == 'admin'}">
 						
-							<td><input type="checkbox" name="delete"></td>
+							<td><input type="checkbox" name="del"></td>
 						</c:when>
 						<c:otherwise>
 						
