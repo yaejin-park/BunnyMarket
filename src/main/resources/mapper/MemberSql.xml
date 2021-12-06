@@ -48,4 +48,12 @@
 	<update id="updateLocal" parameterType="HashMap">
 		update member set local=#{local} where id=#{id}
 	</update>
+	
+	<select id="checkPw" parameterType="HashMap" resultType="String">
+		select pw from member where id=#{id} and name=#{name} and email=#{email}
+	</select>
+	
+	<update id="updatePw" parameterType="HashMap">
+		update member set pw=#{pw} where id=#{id}
+	</update>
 </mapper>
