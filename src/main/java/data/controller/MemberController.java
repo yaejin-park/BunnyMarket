@@ -44,16 +44,19 @@ public class MemberController {
 
 	@GetMapping("/addForm")
 	public String rightForm(
-			@RequestParam String type,
-			Model model
-			) 
+		@RequestParam String type,
+		Model model
+		) 
 	{
 		model.addAttribute("joinType", type);
 		return "/join/joinForm";
 	}	
 	
 	@PostMapping("/CheckMail")
-	public @ResponseBody HashMap<String, String> sendMail(String mail){
+	public @ResponseBody HashMap<String, String> sendMail(
+		String mail
+		)
+	{
 		Random random = new Random();
 		String key="";
 		for(int i=0; i<3; i++) {
@@ -154,18 +157,18 @@ public class MemberController {
 	
 	@PostMapping("/insert") 
 	public String insertMember(
-			@RequestParam String type,
-			@RequestParam String email1,
-			@RequestParam String email2,
-			@RequestParam String hp1,
-			@RequestParam String hp2,
-			@RequestParam String hp3,
-			@RequestParam String addrLocal,
-			@RequestParam String zonecode,
-			@RequestParam String addr1,
-			@RequestParam String addr2,
-			MemberDTO dto
-			) 
+		@RequestParam String type,
+		@RequestParam String email1,
+		@RequestParam String email2,
+		@RequestParam String hp1,
+		@RequestParam String hp2,
+		@RequestParam String hp3,
+		@RequestParam String addrLocal,
+		@RequestParam String zonecode,
+		@RequestParam String addr1,
+		@RequestParam String addr2,
+		MemberDTO dto
+		) 
 	{	
 		dto.setType(type);
 		dto.setPw(encoder.encode(dto.getPw()));
@@ -185,8 +188,8 @@ public class MemberController {
 	
 	@GetMapping("/idCheck")
 	public @ResponseBody HashMap<String, Integer> getIdCheck(
-			@RequestParam String id
-			) 
+		@RequestParam String id
+		) 
 	{
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		map.put("id", service.getIdCheck(id));
@@ -195,8 +198,8 @@ public class MemberController {
 	
 	@GetMapping("/nickCheck")
 	public @ResponseBody HashMap<String, Integer> getNickCheck(
-			@RequestParam String nick
-			) 
+		@RequestParam String nick
+		) 
 	{
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		map.put("nick", service.getNickCheck(nick));

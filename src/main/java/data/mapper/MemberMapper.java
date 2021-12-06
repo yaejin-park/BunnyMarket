@@ -18,4 +18,6 @@ public interface MemberMapper {
 	public String currentUserType(String id);
 	public String getLocal(String id);
 	public void updateLocal(HashMap<String, String> map);
+	public String checkPw(HashMap<String, String> map);
+	public void updatePw(HashMap<String, String> map);
 }

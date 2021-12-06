@@ -87,4 +87,11 @@ public class MemberService implements UserDetailsService {
 	public void updateLocal(HashMap<String, String> map) {
 		mapper.updateLocal(map);
 	}
+	
+	public String checkPw(HashMap<String, String> map) {
+		return mapper.checkPw(map);
+	}
+	public void updatePw(HashMap<String, String> map) {
+		mapper.updatePw(map);
+	}
 }
