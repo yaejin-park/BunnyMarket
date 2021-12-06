@@ -6,7 +6,9 @@
 
 
 	<table class="intro">
+	<div>
 		<tr class="computer">
+			
 			<td class="picture" >
 				<img src="../image/test1.jpg" class="picture1">
 			</td>
@@ -15,9 +17,11 @@
 					<p>중고 거래부터 이웃들과의 소통까지, 바니마켓과 함께해요.
 					</p>
 			</td>
+			
 		</tr>
+		</div>
 		
-		<tr class="phone">
+		<tr class="phone" style="background-color:#FFF0F5;">
 			<td class="ment">
 					
 					<p>동네 주민들과 가깝고 따뜻한 거래를 지금 경험해보세요.</p>

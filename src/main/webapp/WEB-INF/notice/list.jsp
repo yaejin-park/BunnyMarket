@@ -34,17 +34,22 @@
 
 
 			<thead>
+		
 				<tr>
+					
 					<!-- 관리자가 로그인 했을 떄만 체크박스로 변경 -->
+					
 				 <c:choose>
+				 
 						<c:when test="${admin == 'admin'}">
-							<th class="num"><input type="checkbox" value="selectall"
-								onclick="selectAll(this)" name="del"></th>
-						</c:when>
+							<th class="num"><input type="checkbox" value="selectall" onclick="selectAll(this)" name="del" ></th>
+					</c:when>
 						<c:otherwise>
 							<th class="num">번호</th>
 						</c:otherwise>
+						
 					</c:choose> 
+					
 					
 					
 					<th class="title">제목</th>
@@ -62,11 +67,13 @@
 					
 						<c:forEach var="n" items="${list}">
 							<tr>
+							
 					   <c:choose>
+					  
 					   
 						<c:when test="${admin == 'admin'}">
 						
-							<td><input type="checkbox" name="del"></td>
+							<td><input type="checkbox" name="del" id="${n.idx}"></td>
 						</c:when>
 						<c:otherwise>
 						
@@ -75,6 +82,7 @@
 				
 						</c:otherwise>
 					</c:choose> 
+					
 						<td><a href="content?idx=${n.idx}&currentPage=${currentPage}&key=list">${n.title}</a>
 						</td>
 						<td><fmt:formatDate value="${n.writeday}" pattern="yy.MM.dd" /></td>
