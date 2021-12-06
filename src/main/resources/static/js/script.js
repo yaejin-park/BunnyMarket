@@ -142,3 +142,7 @@ function popOpen(pop){
 		$(pop).fadeOut(500);	
 	});
 }
+
+function popClose(pop){
+	$(pop).fadeOut(500);
+}

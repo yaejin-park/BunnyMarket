@@ -1,8 +1,10 @@
 package data.dto;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 
 import org.apache.ibatis.type.Alias;
+import org.springframework.web.multipart.MultipartFile;
 
 
 @Alias("ndto")
@@ -13,8 +15,22 @@ public class NoticeDTO {
 	private String content;
 	private int readcount;
 	private Timestamp writeday;
+	private String photo;
 	
 	
+	
+	
+	
+	
+	
+
+
+	public String getPhoto() {
+		return photo;
+	}
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
 	public int getIdx() {
 		return idx;
 	}

@@ -1,0 +1,34 @@
+.intro{
+	width:100%; 
+	border-collapse:collapse; 
+	table-layout:fixed; 
+	
+	
+}
+
+
+@media all and (max-width: 1300px){
+	.inner {
+		width:94%;
+	}
+	.picture {
+		width:25%;
+	}
+	.ment {
+		width:10%;
+	}
+	
+}
+@media all and (max-width: 768px){
+	.picture {
+		width:25%;
+	}
+	.ment {
+		width:10%;
+	}
+	
+}
+
+img{
+	width:300px;
+}
