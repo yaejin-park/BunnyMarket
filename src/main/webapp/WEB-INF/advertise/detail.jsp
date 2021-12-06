@@ -99,7 +99,7 @@
 		<a href="javascript:" class="img-detail-view">사진상세보기</a>
 		<div class="content-img">
 		<c:forEach var="photo" items="${dto.photo}">
-				<img src="/photo/${photo}" alt="">
+			<img src="/photo/${photo}" alt="">
 		</c:forEach>
 		</div>
 	</div>

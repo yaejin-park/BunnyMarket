@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link rel="stylesheet" type="text/css" href="/css/ad_style.css">
 <div class="write-form ad-div">
 	<div class="inner">
@@ -15,7 +16,7 @@
 					</label>
 					<input type="file" id="chooseFile" name="photoupload" class="img-input" multiple="multiple"/>
 				</div>
-				<div class="preview-area">저장된 이미지가 나와야하는데 안나와</div>
+				<div class="preview-area"></div>
 			</div>
 		</div>
 		<div class="group">

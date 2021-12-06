@@ -36,7 +36,7 @@
 							<p class="writer">${nick}</p>
 							<p class="date"><fmt:formatDate value="${addto.writeday}" pattern="yy.MM.dd"/></p>
 							<div class="etc">
-								<p class="good-count">공감 ${addto.goodcount}</p>
+								<p class="reply-count">댓글수 ${recount}</p>
 								<p class="read-count">조회수 ${addto.readcount}</p>
 							</div>
 						</div>

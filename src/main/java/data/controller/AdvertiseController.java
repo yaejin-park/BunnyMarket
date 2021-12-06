@@ -3,6 +3,7 @@ package data.controller;
 import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -17,7 +18,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import data.dto.AdreplyDTO;
@@ -108,19 +111,25 @@ public class AdvertiseController {
 	}
 	
 	@PostMapping("/auth/insert")
-	public String insert(@ModelAttribute AdvertiseDTO dto, HttpSession session, 
-				HttpServletRequest request, Principal principal,
-				@RequestParam List<MultipartFile> photoupload) {
+	public @ResponseBody void insert(@ModelAttribute AdvertiseDTO dto,
+				HttpSession session, 
+				HttpServletRequest request,
+				MultipartHttpServletRequest multiRequest,
+				Principal principal,
+				@RequestParam List<MultipartFile> photoupload) throws Exception {
+
 		//로그인중이 아닐 경우 종료
 		String isLogin=(String)request.getSession().getAttribute("isLogin");
 		if(isLogin==null) {
-			return "Login/loginmsg";
+			return;
 		}
 		
 		//uuid(랜덤이름) 생성
 		UUID uuid=UUID.randomUUID();
-
-		photoupload = dto.getPhotoupload(); 
+		
+		String title=multiRequest.getParameter("title");
+		String content=multiRequest.getParameter("content");
+		photoupload = dto.getPhotoupload();
 
 		//이미지 업로드 안했을때
 		if(photoupload.get(0).getOriginalFilename().equals("")) {
@@ -150,9 +159,13 @@ public class AdvertiseController {
 		String id=principal.getName();
 		dto.setId(id);
 		
+		dto.setTitle(title);
+		dto.setContent(content);
+		
 		//insert
 		service.insertAdvertise(dto);
-		return "redirect:/advertise/detail?idx="+service.getMaxIdx();
+		//return "redirect:/advertise/detail?idx="+service.getMaxIdx();
+		//return "/advertise/list";
 	}
 	
 	@GetMapping("/detail")
@@ -211,25 +224,35 @@ public class AdvertiseController {
 		
 		mview.addObject("dto", dto);
 		mview.addObject("currentPage", currentPage);
+		//이미지
+		String []dbimg=dto.getPhoto().split(",");
+		mview.addObject("dbimg", dbimg);
+		
 		mview.setViewName("/advertise/updateForm");
 		return mview;
 	}
 	
 	@PostMapping("/auth/update")
-	public String update(@ModelAttribute AdvertiseDTO dto, HttpSession session, 
-				HttpServletRequest request, Principal principal,
+	public @ResponseBody void update(@ModelAttribute AdvertiseDTO dto, 
+				HttpSession session, 
+				HttpServletRequest request, 
+				Principal principal,
+				MultipartHttpServletRequest multiRequest,
 				@RequestParam List<MultipartFile> photoupload,
-				@RequestParam(defaultValue = "1") int currentPage) {
+				@RequestParam(defaultValue = "1") int currentPage) throws Exception {
+		
 		//로그인중이 아닐 경우 종료
 		String isLogin=(String)request.getSession().getAttribute("isLogin");
 		if(isLogin==null) {
-			return "Login/loginmsg";
+			return;
 		}
 				
 		//uuid 생성
 		UUID uuid=UUID.randomUUID();
 
 		photoupload = dto.getPhotoupload(); 
+		String title=multiRequest.getParameter("title");
+		String content=multiRequest.getParameter("contetn");
 
 		String path=session.getServletContext().getRealPath("/photo");
 		//이미지 업로드 안했을때
@@ -264,10 +287,12 @@ public class AdvertiseController {
 		String id=principal.getName();
 		dto.setId(id);
 		
+		dto.setTitle(title);
+		dto.setContent(content);
+		
 		//update
 		service.updateAdvertise(dto);
-		//return "redirect:detail?idx="+dto.getIdx()+"&currentPage="+currentPage;
-		return "redirect:/advertise/detail?idx="+dto.getIdx()+"&currentPage="+currentPage;
+		//return "redirect:/advertise/detail?idx="+dto.getIdx()+"&currentPage="+currentPage;
 	}
 	
 	@GetMapping("/auth/delete")
