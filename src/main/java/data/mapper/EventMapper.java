@@ -8,6 +8,10 @@ import data.dto.EventDTO;
 
 @Mapper
 public interface EventMapper {
-	public List<EventDTO> getList();
-	public String getTitle();
+	public int getTotal();
+	public List<EventDTO> getAllList();
+	public List<EventDTO> getPageList(int start, int perPage);
+	public EventDTO getData(String idx);
+	public void insertData(EventDTO dto);
+	public void updateReadCount(String idx);
 }

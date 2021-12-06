@@ -12,14 +12,22 @@ import data.mapper.EventMapper;
 public class EventService {
 	@Autowired
 	EventMapper mapper;
-	
-	public List<EventDTO> getList(){
-		List<EventDTO> list = mapper.getList();
-		
-		return list;
+	public int getTotal() {
+		return mapper.getTotal();
 	}
-	public String getTitle() {
-		String title = mapper.getTitle();
-		return title;
+	public List<EventDTO> getAllList(){
+		return mapper.getAllList();
+	}
+	public List<EventDTO> getPageList(int start, int perPage){
+		return mapper.getPageList(start, perPage);
+	}
+	public EventDTO getData(String idx) {
+		return mapper.getData(idx);
+	}
+	public void insertData(EventDTO dto) {
+		mapper.insertData(dto);
+	}
+	public void updateReadCount(String idx) {
+		mapper.updateReadCount(idx);
 	}
 }
