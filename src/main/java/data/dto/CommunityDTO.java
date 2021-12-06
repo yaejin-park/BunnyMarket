@@ -18,7 +18,15 @@ public class CommunityDTO {
 	private int goodcount;
 	private Timestamp writeday;
 	private ArrayList<MultipartFile> upload;
+	private int acount;
 	
+	
+	public int getAcount() {
+		return acount;
+	}
+	public void setAcount(int acount) {
+		this.acount = acount;
+	}
 	public String getIdx() {
 		return idx;
 	}

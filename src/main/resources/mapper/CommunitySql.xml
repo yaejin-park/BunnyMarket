@@ -33,4 +33,20 @@
 		</if>
 		where idx=#{idx}
 	</update>
+	<select id="getMemData" parameterType="String" resultType="mdto">
+		select * from member where idx=#{idx}
+	</select>
+	<select id="goodCheck" parameterType="String" resultType="int">
+		select count(*) from community where id=#{id} and idx=#{idx}
+	</select>
+	<update id="updateGoodCount" parameterType="String">
+		update community set goodcount = goodcount+1 where idx=#{idx}
+	</update>
+	<update id="updateGoodCancel" parameterType="String">
+		update community set goodcount = goodcount-1 where idx=#{idx}
+	</update>
+	<select id="getGoodCount" parameterType="String" resultType="int">
+		select goodcount from product where idx=#{idx}
+	</select>
+	
 </mapper>

@@ -25,5 +25,5 @@ public interface ComreplyMapper {
 	//dto 반환
 	public ComReplyDTO getReply(int idx);
 	//list
-	public List<ComReplyDTO> getReplyList(int idx);
+	public List<ComReplyDTO> getReplyList(int num);
 }

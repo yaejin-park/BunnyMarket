@@ -2,12 +2,13 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <link rel="stylesheet" type="text/css" href="/css/swiper.min.css">
 <link rel="stylesheet" type="text/css" href="/css/common.css">
 <link rel="stylesheet" type="text/css" href="/css/community_style.css">
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
-
-<div class="inner">
+<div>detail</div>
+<%-- <div class="inner">
 	<input type="hidden" name="currentPage" value="${currentPage}">
 	
 	<div class="infoAll">
@@ -70,18 +71,29 @@
 				</tr>
 				<tr>
 					<td class="tit-sm other" >
-						댓글 , 공감
+						<div class="reply-heart">
+							<!-- 공감수표시 -->
+								<div class="gdcount-icon">
+									<img src="../image/heart-icon.png">
+									<span class="txt">${a.goodcount}</span>
+								</div>
+							<!-- 댓글수표시 -->
+								<div class="reply-icon">
+									<img src="../image/comment-icon.png">
+									<span class="txt">${recount}</span>
+								</div>
+						</div>
 					</td>
 				</tr>
 				<tr>
-					<td colspan="2">
+					<td colspan="3">
 						<div class="loginokbtn">
 							<!-- 로그인 했을경우에만 -->
-							<c:if test="true">
+								<c:if test="${myId ==dto.id}">
 								<button type="button" class="btn-update deupdate"
 								onclick="location.href='updateform?idx=${dto.idx}&currentPage=${currentPage}'">수정</button>
 								<button type="button" id="deleteBtn" class="btn-delete dedelete" value="${dto.idx}">삭제</button>
-							</c:if>
+								</c:if>
 						</div>
 					</td>
 				</tr>
@@ -95,17 +107,17 @@
 	
 	<div class="detailbtn">
 	<!-- 로그인 안했을경우 -->
-	<c:if test="false">
+	<c:if test="${myId !=dto.id}">
 		<button type="button" class="btn-list delist"
 		onclick="location.href='list'">목록</button>
 	</c:if>
 	
 	<!-- 로그인 했을경우 -->
-	<c:if test="true">
-		<button type="button" class="btn-list delist"
-			onclick="location.href='list'">목록</button>
-		<button type="button" class="btn-add gdcount">공감♥</button>
-	</c:if>
+		<c:if test="${myId ==dto.id}">
+			<button type="button" class="btn-add gdcount" onclick="gdClick()">공감♥</button>
+			<button type="button" class="btn-list delist"
+				onclick="location.href='list'">목록</button>
+		</c:if>
 	</div>
 	
 	<!-- 댓글 -->
@@ -124,7 +136,7 @@
 			</div>
 			<div class="re-items">
 				<div class="re-addbtn">
-					<button type="submit" class="btn-add replyadd" id="re-addbtn">등록</button>
+					<button type="submit" class="btn-add btn-sm replyadd" id="re-addbtn">등록</button>
 				</div>
 			</div>
 		</div>
@@ -142,7 +154,7 @@
 		</c:if>
 		<c:if test="${recount>0}">
 			<c:forEach var="cdto" items="${relist}">
-				<%-- <div class="re-detail">
+				<div class="re-detail">
 			 		<!-- relevel만큼 공백 -->
 			 		<c:forEach var="sp" begin="1" end="${cdto.relevel}">
 			 			<div class="re-blank"></div>
@@ -151,7 +163,7 @@
 			 		<c:if test="${cdto.relevel>0}">
 			 			<div>ㄴ</div>
 					 </c:if> 
-				</div> --%>
+				</div>
 				<div class="re-div">
 					<div class="re-info">
 						<div class="writer-info">
@@ -188,7 +200,7 @@
 									required="required" id="re-textinput"></textarea>
 								</div>
 								<div class="re-items">
-									<button type="submit" class="btn-add re-add-btn">등록</button>
+									<button type="submit" class="btn-add btn-sm re-add-btn">등록</button>
 								</div>
 							</div>
 						</form>
@@ -208,9 +220,18 @@ $(document).on("click",".smallImg", function(e) {
 	$(".bigImage").attr("src",src);
 }); 
 
-//미리보기 이미지 호버시,
 $(document).ready(function() {
+	//로그인 되있을 경우
+	if(${isLogin == "Y"}){
+		//공감버튼 클릭시 글자색 변경
+		if(${goodCheck == 0}){
+			$(".gdcount").css("color","#fcfef9");
+		}else{
+			$(".gdcount").css("color","#98077e");
+		}
+	} 
 	
+	//미리보기 이미지 호버시,
 	$(".smImgDiv").mouseenter(function() {
 		var original = $(".bigImage").attr("src");
 		console.log("enter"+original);
@@ -239,15 +260,10 @@ $(document).ready(function() {
 			$('#text-plus').html("(100 / 100)입력");
 		}
 	});
-		
+	
 });
 
 
-//답글쓰기 토글
-$(document).on("click",".re-rebtn", function(e) {
-	$(this).parents(".re-div").siblings().find(".re-reply").hide();
-	$(this).parents(".re-div").find(".re-reply").show();
-});
 
 
 //게시글 삭제버튼 클릭시 확인
@@ -264,14 +280,45 @@ $("#deleteBtn").click(function(){
 });
 
 
-//댓글 삭제
+$(".gdClick").click(function(){
+	//로그인 안했을경우 
+	if(${isLogin != "Y"}){
+		alert("로그인 후 사용가능합니다.");
+		return;
+	}else{
+		//로그인 했을경우
+		//공감버튼 눌렀을때 공감수 +
+		$.ajax({
+			type : "post",
+			url : "update",
+			dataType : "json",
+			data : {"idx",idx},
+			success : function (data) {
+				$("#updateGoodcount").html(data);
+			}
+		});
+	} else{
+		$.ajax({
+			type : "post",
+			url : "updateGoodCancel",
+			dataType : "json",
+			data : {"idx",idx},
+			success :function (data){
+				$("updateGoodcount").html(data);
+			}
+		});
+	}
+});
+
+
+//원댓글 삭제
 $("span.adel").click(function(){
 	var idx=$(this).attr("idx");
 	//alert(num);
 	
 	var check = confirm("댓글을 삭제하시겠습니까?");
 	//alert(check);
-	if(check == true){
+	if(check ==true){
 	 $.ajax({
 		type: "get",
 		dataType: "text",
@@ -290,15 +337,11 @@ $("span.adel").click(function(){
 	}
 });
 
+//답글쓰기 토글
+$(document).on("click",".re-rebtn", function(e) {
+	$(this).parents(".re-div").siblings().find(".re-reply").hide();
+	$(this).parents(".re-div").find(".re-reply").show();
+});
 
 
-
-
-
-
-
-
-
-
-
-</script>
+</script> --%>

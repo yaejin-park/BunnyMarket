@@ -57,6 +57,36 @@
 	right:0;
 	color: #999;
 }
+.cummu-list li .reply-heart .gdcount-icon img{
+	width: 25px;
+	position:absolute;
+	top:-10px;
+	left:0;
+	color: #999;
+}
+.cummu-list li .reply-heart .gdcount-icon .gdcount{
+	font-size: 15px;
+	position:absolute;
+	top:-10px;
+	color: #999;
+	margin-left: 27px;
+}
+.cummu-list li .reply-heart .reply-icon img{
+	width: 25px;
+	position:absolute;
+	top:-10px;
+	left:0;
+	color: #999;
+	margin-left: 40px;
+}
+.cummu-list li .reply-heart .reply-icon .recount{
+	font-size: 15px;
+	position:absolute;
+	top:-10px;
+	color: #999;
+	margin-left: 70px;
+}
+
 
 /* community Detail */
 
@@ -172,30 +202,44 @@
 	vertical-align: middle;
 }
 
-.loginokbtn .deupdate{
+.infoAll .info .table tr td .loginokbtn .deupdate{
 	float:right;
+	margin-left:10px;
 }
 
-.loginokbtn .dedelete{
+.infoAll .info .table tr td .loginokbtn .dedelete{
 	float:right;
-	margin-right:10px;
 }
 
 .detailContent{
 	margin-top:60px;
 	height:200px;
 }
-
-.detailbtn > *{
-	margin-top:20px;
+.detailbtn .gdcount{
 	float:right;
+	margin-top:20px;
 }
-
+.detailbtn .delist{
+	float:right;
+	margin-top:20px;
+	margin-left:10px;
+}
+.infoAll .info table .other .reply-heart .gdcount-icon{
+	width:15px;
+}
+.infoAll .info table .other .reply-heart .reply-icon{
+	width:15px;
+}
 
 /* reply */
 .reform {
 	padding:100px 0px 10px 0px;
 }
+.reply .re-addbtn .replyadd{
+	float: right;
+	margin-top: 10px;
+}
+
 .re-list .re-div .re-info {
 	padding-top:20px;
 }

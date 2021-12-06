@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <link rel="stylesheet" type="text/css" href="/css/community_style.css">
 
 <div class="commu-wrap">
@@ -47,6 +48,19 @@
 										<fmt:formatDate value="${a.writeday}" pattern="yy.MM.dd"/>
 									</p>
 								</div>
+								
+								<div class="reply-heart">
+								<!-- 공감수표시 -->
+									<div class="gdcount-icon">
+										<img src="../image/heart-icon.png">
+										<span class="txt gdcount">${a.goodcount}</span>
+									</div>
+								<!-- 댓글수표시 -->
+									<div class="reply-icon">
+											<img src="../image/comment-icon.png">
+											<span class="txt recount">${a.acount}</span>
+									</div>
+								</div>
 							</a>
 						</li>
 					</c:forEach>
@@ -80,4 +94,6 @@
 	</div>
 </div>
 
-<script type="text/javascript" src="/js/community_script.js"></script>
+<script type="text/javascript" src="/js/community_script.js">
+
+</script>
