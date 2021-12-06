@@ -40,7 +40,7 @@
 		insert into event_reply (num, id, content, regroup, restep, relevel, writeday) values (#{num}, #{id}, #{content}, #{regroup}, #{restep}, #{relevel}, now())
 	</insert>
 	
-	<select id="getReplyList" resultType="eReDto">
-		select * from event_reply
+	<select id="getReplyList" parameterType="String" resultType="eReDto">
+		select * from event_reply where num=#{idx}
 	</select>
 </mapper>

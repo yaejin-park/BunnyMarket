@@ -17,5 +17,5 @@ public interface EventMapper {
 	public void insertData(EventDTO dto);
 	public void updateReadCount(String idx);
 	public void insertReplyData(EventReplyDTO dto);
-	public List<EventReplyDTO> getReplyList();
+	public List<EventReplyDTO> getReplyList(String idx);
 }

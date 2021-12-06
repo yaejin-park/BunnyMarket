@@ -37,7 +37,7 @@ public class EventService {
 	public void insertReplyData(EventReplyDTO dto) {
 		mapper.insertReplyData(dto);
 	}
-	public List<EventReplyDTO> getReplyList() {
-		return mapper.getReplyList();
+	public List<EventReplyDTO> getReplyList(String idx) {
+		return mapper.getReplyList(idx);
 	}
 }

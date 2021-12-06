@@ -99,7 +99,7 @@ public class EventController {
 		}
 		EventDTO dto = service.getData(idx);
 		String[] photoList = dto.getPhoto().split(",");
-		List<EventReplyDTO> relist = service.getReplyList();
+		List<EventReplyDTO> relist = service.getReplyList(idx);
 		int recount = relist.size();
 		
 		for(EventReplyDTO reDto:relist) {

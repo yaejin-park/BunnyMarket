@@ -93,6 +93,12 @@
 	font-size:14px;
 	color:#999;
 }
+.event-div .re-list-div {
+	margin-top:40px;
+}
+.event-div .re-list {
+	border-top:2px solid #ff7ab0;
+}
 .event-div .re-list li {
 	padding:20px 0;
 	border-bottom:1px solid #e5e5e5;
