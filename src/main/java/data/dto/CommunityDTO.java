@@ -14,19 +14,13 @@ public class CommunityDTO {
 	private String title;
 	private String content;
 	private String photo;
+	private String original_photo;
 	private int readcount;
 	private int goodcount;
 	private Timestamp writeday;
 	private ArrayList<MultipartFile> upload;
 	private int acount;
 	
-	
-	public int getAcount() {
-		return acount;
-	}
-	public void setAcount(int acount) {
-		this.acount = acount;
-	}
 	public String getIdx() {
 		return idx;
 	}
@@ -63,6 +57,12 @@ public class CommunityDTO {
 	public void setPhoto(String photo) {
 		this.photo = photo;
 	}
+	public String getOriginal_photo() {
+		return original_photo;
+	}
+	public void setOriginal_photo(String original_photo) {
+		this.original_photo = original_photo;
+	}
 	public int getReadcount() {
 		return readcount;
 	}
@@ -86,6 +86,12 @@ public class CommunityDTO {
 	}
 	public void setUpload(ArrayList<MultipartFile> upload) {
 		this.upload = upload;
+	}
+	public int getAcount() {
+		return acount;
+	}
+	public void setAcount(int acount) {
+		this.acount = acount;
 	}
 	
 }

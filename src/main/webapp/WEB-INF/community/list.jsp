@@ -8,9 +8,11 @@
 
 <div class="commu-wrap">
 	<div class="inner">
-		<div class="top-div btn-wrap">
-		 	<button type="button" class="btn-add" onclick="location.href='insertform'">글쓰기</button>
-		</div>
+		<sec:authorize access="isAuthenticated()">
+			<div class="top-div btn-wrap">
+		 		<button type="button" class="btn-add" onclick="location.href='./auth/insertform'">글쓰기</button>
+			</div>
+		</sec:authorize>
 		
 		<div class="commu-div">
 			<c:if test="${totalCount==0}">

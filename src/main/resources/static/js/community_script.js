@@ -75,7 +75,7 @@ $(function(){
 		$(this).parent(".preview-img").remove();
 	});
 	
-	$(".commu-div .event-add-btn").click(function(){
+	$(".commu-div .commu-add-btn").click(function(){
 		var title = $(".commu-div.write-form input[name='title']").val();
 		var content = $(".commu-div.write-form textarea[name='content']").val();
 		var formData = new FormData();
@@ -94,7 +94,7 @@ $(function(){
 		$.ajax({
 			type:"POST",
 			enctype: "multipart/form-data",
-			url:"/event/auth/insert",
+			url:"/community/auth/insert",
 			data:formData,
 			processData:false,
 			contentType:false,

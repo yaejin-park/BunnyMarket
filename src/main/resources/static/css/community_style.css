@@ -114,7 +114,7 @@
 
 .profileImg{
 	border-radius:100%;
-	border:2.3px solid #f7f6fc;
+	border:2px solid #f7f6fc;
 	width:70px;
 	border-bottom: none;
 }
@@ -127,7 +127,7 @@
 .bigImg{
 	padding-top:10px;
 	width:323px;
-	border:2.3px solid #f7f6fc;
+	border:2px solid #f7f6fc;
 	overflow:hidden;
 }
 .bigImg img {
@@ -144,7 +144,7 @@
 .smImg{
 	position:relative;
 	width:calc((323px -30px)/4);
-	border:2.3px solid #f7f6fc;
+	border:2px solid #f7f6fc;
 	overflow:hidden;
 }
 .smImg img {
@@ -229,11 +229,23 @@
 	margin-top:20px;
 	margin-left:10px;
 }
-.infoAll .info table .other .reply-heart .gdcount-icon{
-	width:15px;
+.infoAll .info table .other .reply-heart .gdcount-icon img{
+	width:20px;
 }
-.infoAll .info table .other .reply-heart .reply-icon{
-	width:15px;
+.infoAll .info table .other .reply-heart .gdcount-icon .gdcount{
+	font-size:20px;
+	color:#999;	
+	display: inline-block;
+	vertical-align: middle;
+}
+.infoAll .info table .other .reply-heart .reply-icon img{
+	width:20px;
+}
+.infoAll .info table .other .reply-heart .reply-icon .recount{
+	font-size:20px;
+	color:#999;
+	display: inline-block;
+	vertical-align: middle;
 }
 
 /* reply */

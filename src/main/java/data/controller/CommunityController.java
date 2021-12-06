@@ -98,54 +98,70 @@ public class CommunityController {
 		return mview;
 	}
 
-	@GetMapping("/insertform")
-	public String form()
+	@GetMapping("/auth/insertform")
+	public ModelAndView form(
+			Principal principal
+			)
 	{
-		return "/community/writeForm";
+		ModelAndView mview = new ModelAndView();
+		String userId = "no";
+		String local = "";
+		String[] localArr = {};
+		if(principal != null) {
+			userId = principal.getName();
+			local = mservice.getLocal(principal);
+			localArr = local.split(",");
+		}
+		mview.addObject("localCnt",localArr.length);
+		mview.addObject("localArr",localArr);
+		mview.setViewName("/community/writeForm");
+		return mview;
 	}
 
 	
-	@PostMapping("/insert")
-	   public String insert(@ModelAttribute CommunityDTO dto,
-	         @RequestParam ArrayList<MultipartFile> upload,
-	         HttpSession session)
+	@PostMapping("/auth/insert")
+	   public @ResponseBody void insert(
+				MultipartHttpServletRequest multiRequest,
+				HttpServletRequest request,
+				HttpSession session )throws Exception
 	   {
-	      //업로드할 폴더 지정
-	      String path=session.getServletContext().getRealPath("/photo");
-	      String fileadd="";
-	      System.out.println(path);
+	      List<MultipartFile> fileList = multiRequest.getFiles("uploadFile");
+	      String title = multiRequest.getParameter("title");
+	      String content = multiRequest.getParameter("content");
+	      
+	      String photoname = "";
+	      String originalPhotoName = "";
+	      
+	      if(fileList != null) {
+				String path = session.getServletContext().getRealPath("/photo");
 
-
-	      //업로드 안한경우
-	      ArrayList<String> fileArr = new ArrayList<String>();
-	      if(upload.get(0).getOriginalFilename().equals(""))
-	         dto.setPhoto("no");
-	      else {
-	         String photo="";
-	         for(MultipartFile f:upload) {
-
-	            UUID uuid = UUID.randomUUID();
-	            photo= uuid.toString() + "_" +f.getOriginalFilename();
-
-	            //실제로 업로드한다
-	            try {
-	               f.transferTo(new File(path+"\\"+photo));
-	            } catch (IllegalStateException | IOException e) {
-	               // TODO Auto-generated catch block
-	               e.printStackTrace();
-	            }
-
-	            //콤마 넣기
-	            fileadd+=photo+",";
-	         }
-	         //콤마 제거하기
-	         fileadd = fileadd.substring(0,fileadd.length()-1);
-	         dto.setPhoto(fileadd);
+				File dir = new File(path);
+				if(!dir.isDirectory()) {
+					dir.mkdirs();}
+		
+		if(!fileList.isEmpty()) {
+			for(int i=0; i<fileList.size(); i++) {
+				String random = UUID.randomUUID().toString();
+				String originalFileName = fileList.get(i).getOriginalFilename();
+				String saveFileName = random + "_" + originalFileName;
+				String savePath = path + "\\" + saveFileName;
+				fileList.get(i).transferTo(new File(savePath));		
+						
+				photoname += saveFileName + ",";
+				originalPhotoName += originalFileName + ","; 
+				}
+					
+				photoname = photoname.substring(0, photoname.length()-1);
+				originalPhotoName = originalPhotoName.substring(0, originalPhotoName.length()-1);
+				}
 	      }
-
+	      CommunityDTO dto = new CommunityDTO();
+	      dto.setTitle(title);
+	      dto.setContent(content);
+	      dto.setPhoto(photoname);
+	      dto.setOriginal_photo(originalPhotoName);
+	      
 	      service.insert(dto);
-	      return "redirect:list";
-	      //return "redirect:content?idx="+service.getMaxNum();
 	   }
 	
 	
@@ -254,62 +270,83 @@ public class CommunityController {
 	
 	@GetMapping("/updateform")
 	public ModelAndView updateform(
-			@RequestParam String idx,
-			@RequestParam String currentPage
+			 @RequestParam String idx,
+			 @RequestParam String currentPage,
+			 
+			Principal principal
 			) 
 	{
 		ModelAndView mview = new ModelAndView();
+		String userId = "no";
+		String local = "";
+		String[] localArr = {};
+		if(principal != null) {
+			userId = principal.getName();
+			local = mservice.getLocal(principal);
+			localArr = local.split(",");
+		}
+		
 		CommunityDTO dto = service.getData(idx);
 		
 		mview.addObject("dto",dto);
 		mview.addObject("currentPage",currentPage);
+		mview.addObject("localCnt", localArr.length);
+		mview.addObject("localArr", localArr);
 		mview.setViewName("/community/updateForm");
 		return mview;
 	}
 	
 	@PostMapping("/update")
-	public String update(
-			@ModelAttribute CommunityDTO dto,
-			@RequestParam ArrayList<MultipartFile> upload,
-			@RequestParam String currentPage,
-			HttpSession session
-			)
+	public @ResponseBody void update(
+			MultipartHttpServletRequest multiRequest,
+			HttpServletRequest request,
+			HttpSession session,
+			@RequestParam String idx,
+			@RequestParam String currentPage
+			)throws Exception
 	{
-		//업로드 폴더지정
-		String path=session.getServletContext().getRealPath("/photo");
-		String fileadd="";
+		 List<MultipartFile> fileList = multiRequest.getFiles("uploadFile");
+	      String title = multiRequest.getParameter("title");
+	      String content = multiRequest.getParameter("content");
+	      
+	      
+	      String photoname = "";
+	      String originalPhotoName = "";
+	      
+	      
+	      if(fileList != null) {
+				String path = session.getServletContext().getRealPath("/photo");
+
+				File dir = new File(path);
+				if(!dir.isDirectory()) {
+					dir.mkdirs();}
 		
-		//업로드 안한경우
-				ArrayList<String> fileArr = new ArrayList<String>();
-				if(upload.get(0).getOriginalFilename().equals(""))
-					dto.setPhoto("no");
-				else {
-					String photo="";
-					for(MultipartFile f:upload) {
-
-						UUID uuid = UUID.randomUUID();
-						photo= uuid.toString() + "_" +f.getOriginalFilename();
-
-						//실제로 업로드한다
-						try {
-							f.transferTo(new File(path+"\\"+photo));
-						} catch (IllegalStateException | IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-
-						//콤마 넣기
-						fileadd+=photo+",";
-					}
-					//콤마 제거하기
-					fileadd = fileadd.substring(0,fileadd.length()-1);
-					dto.setPhoto(fileadd);
+		if(!fileList.isEmpty()) {
+			for(int i=0; i<fileList.size(); i++) {
+				String random = UUID.randomUUID().toString();
+				String originalFileName = fileList.get(i).getOriginalFilename();
+				String saveFileName = random + "_" + originalFileName;
+				String savePath = path + "\\" + saveFileName;
+				fileList.get(i).transferTo(new File(savePath));		
+						
+				photoname += saveFileName + ",";
+				originalPhotoName += originalFileName + ","; 
 				}
+					
+				photoname = photoname.substring(0, photoname.length()-1);
+				originalPhotoName = originalPhotoName.substring(0, originalPhotoName.length()-1);
+				}
+	      }
+	      CommunityDTO dto = new CommunityDTO();
+	      dto.setIdx(idx);
+	      dto.setTitle(title);
+	      dto.setContent(content);
+	      dto.setPhoto(photoname);
+	      dto.setOriginal_photo(originalPhotoName);
 		
 		//수정
 		service.update(dto);
 		
-		return "redirect:detail?idx="+dto.getIdx()+"&currentPage="+currentPage;
 	}
 	
 	@ResponseBody

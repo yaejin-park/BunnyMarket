@@ -37,7 +37,7 @@
 				</div>
 			</div>
 			<div class="btn-wrap">
-				<button type="button" class="btn-add event-add-btn">글쓰기</button>
+				<button type="button" class="btn-add commu-add-btn">글쓰기</button>
 				<button type="button" class="btn-list"
 					onclick="location.href='list'">목록</button>
 			</div>

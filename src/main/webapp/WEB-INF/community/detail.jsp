@@ -3,10 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <link rel="stylesheet" type="text/css" href="/css/swiper.min.css">
 <link rel="stylesheet" type="text/css" href="/css/common.css">
 <link rel="stylesheet" type="text/css" href="/css/community_style.css">
-<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <div class="inner">
 	<input type="hidden" name="currentPage" value="${currentPage}">
 	
@@ -65,7 +65,7 @@
 				<tr>
 					<td class="proimg">
 						<img alt="profile" src="/image/profile-icon.png" class="profileImg" />
-						<span class="nick txt">닉네임</span>
+						<span class="nick txt">${nick}닉네임</span>
 					</td>
 				</tr>
 				<tr>
@@ -74,12 +74,12 @@
 							<!-- 공감수표시 -->
 								<div class="gdcount-icon">
 									<img src="../image/heart-icon.png">
-									<span class="txt">${a.goodcount}</span>
+									<span class="txt gdcount">${dto.goodcount}</span>
 								</div>
 							<!-- 댓글수표시 -->
 								<div class="reply-icon">
 									<img src="../image/comment-icon.png">
-									<span class="txt">${recount}</span>
+									<span class="txt recount">${recount}</span>
 								</div>
 						</div>
 					</td>
@@ -88,11 +88,11 @@
 					<td colspan="3">
 						<div class="loginokbtn">
 							<!-- 로그인 했을경우에만 -->
-								<c:if test="${myId == dto.id}">
+								<sec:authorize access="isAuthenticated()">
 								<button type="button" class="btn-update deupdate"
 								onclick="location.href='updateform?idx=${dto.idx}&currentPage=${currentPage}'">수정</button>
 								<button type="button" id="deleteBtn" class="btn-delete dedelete" value="${dto.idx}">삭제</button>
-								</c:if> 
+								</sec:authorize>
 						</div>
 					</td>
 				</tr>
@@ -106,17 +106,17 @@
 	
 	<div class="detailbtn">
 	<!-- 로그인 안했을경우 -->
-	 <c:if test="${myId !=dto.id}"> 
-		<button type="button" class="btn-list delist"
-		onclick="location.href='list'">목록</button>
-	 </c:if> 
+		<sec:authorize access="isAnonymous()">
+			<button type="button" class="btn-list delist"
+			onclick="location.href='list'">목록</button>
+	 	</sec:authorize> 
 	
 	<!-- 로그인 했을경우 -->
-		<c:if test="${myId ==dto.id}">
+		<sec:authorize access="isAuthenticated()">
 			<button type="button" class="btn-add gdcount" onclick="gdClick()">공감♥</button>
 			<button type="button" class="btn-list delist"
 				onclick="location.href='list'">목록</button>
-		</c:if> 
+		</sec:authorize>
 	</div>
 	
 	<!-- 댓글 -->
@@ -167,7 +167,7 @@
 					<div class="re-info">
 						<div class="writer-info">
 							<p class="profile-img"><img alt="" src="/image/profile-icon.png" class="re-profileimg"></p>
-						 	<span class="re-writer">${cdto.id} 닉네임</span>
+						 	<span class="re-writer">${nick}닉네임</span>
 						</div>
 						<div class="re-content">
 							<div class="txt">
@@ -280,7 +280,9 @@ $("#deleteBtn").click(function(){
 });
 
 
-$(".gdClick").click(function(){
+function gdClick(){
+	var idx = ${dto.idx};
+	console.log("공감버튼 클릭");
 	//로그인 안했을경우 
 	if(${isLogin != "Y"}){
 		alert("로그인 후 사용가능합니다.");
@@ -288,27 +290,30 @@ $(".gdClick").click(function(){
 	}else{
 		//로그인 했을경우
 		//공감버튼 눌렀을때 공감수 +
+		if($(goodCheck != 0)){
 		$.ajax({
 			type : "post",
-			url : "update",
-			dataType : "json",
-			data : {"idx",idx},
+			url : "updateGoodcount",
+			dataType : "text",
+			data : {"idx":idx},
 			success : function (data) {
 				$("#updateGoodcount").html(data);
 			}
 		});
-	} else{
+	} 
+	else{
 		$.ajax({
 			type : "post",
 			url : "updateGoodCancel",
-			dataType : "json",
-			data : {"idx",idx},
+			dataType : "text",
+			data : {"idx":idx},
 			success :function (data){
 				$("updateGoodcount").html(data);
-			}
-		});
+				}
+			});
+		}
 	}
-});
+}
 
 
 //원댓글 삭제
