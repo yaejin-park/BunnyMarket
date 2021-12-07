@@ -25,8 +25,8 @@
 	</select>
 	
 	<insert id="insertData" parameterType="pdto">
-		insert into product(title, uploadfile, price, content, writeday, category, sellstatus, id) 
-		values(#{title},#{uploadfile},#{price},#{content},now(),#{category},#{sellstatus}, #{id})
+		insert into product(title, uploadfile, price, content, writeday, category, sellstatus, id, local) 
+		values(#{title},#{uploadfile},#{price},#{content},now(),#{category},#{sellstatus}, #{id}, #{local})
 	</insert>
 	
 	<select id="getMaxIdx" resultType="int">
@@ -57,8 +57,9 @@
 		select count(*) from productChat where idx=#{idx}
 	</select>
 	
-	<update id="updateData">
-		update product set 
+	<update id="updateData" parameterType="String">
+		update product set title=#{title}, uploadfile=#{uploadfile}, price=#{price}, content =#{content}, category=#{category}, id=#{id}, local=#{local} 
+		where idx= #{idx}
 	</update>
 	
 	<delete id="deleteData" parameterType="String">

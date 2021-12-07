@@ -30,5 +30,16 @@
 		select idx from chat where product_idx = #{product_idx} and buyer_id= #{buyer_id}
 	</select>
 	
+	<update id="updateChatTime" parameterType="String">
+		update chat set last_time = now() where product_idx = #{product_idx} and buyer_id= #{buyer_id}
+	</update>
+	
+	<select id="getChatFile" parameterType="String" resultType="String"> 
+		select chat_file from chat where idx=#{chat_idx}
+	</select>
+	
+	<delete id="deleteChatList" parameterType="String">
+		delete from chat_list where chat_idx=#{chat_idx} and id=#{id}
+	</delete>
 	
 </mapper>

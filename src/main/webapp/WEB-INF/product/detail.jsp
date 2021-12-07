@@ -343,7 +343,7 @@ $(document).on("click","#chatBtn", function() {
 		var id = "${myId}";
 		var idx = "${dto.idx}";
 		
-		location.href ='../chat/room?idx='+idx+"&id="+id;
+		location.href ='../chat/auth/room?idx='+idx+"&id="+id;
 	}
 });
 
