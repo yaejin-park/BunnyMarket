@@ -227,7 +227,7 @@ public class FindMemberController {
 			mailForm += "<tr>";
 			mailForm += "<td></td>";
 			mailForm += "<td>";
-			mailForm += "<p style='font-size:16px;'>안녕하세요.고객님<br/>바니마켓 회원가입을 위한 인증번호를 안내해드립니다.<br/> 인증번호를 입력해주세요.</p>";
+			mailForm += "<p style='font-size:16px;'>안녕하세요.고객님<br/>바니마켓 비밀번호 찾기를 위한 인증번호를 안내해드립니다.<br/> 인증번호를 입력해주세요.</p>";
 			mailForm += "</td>";
 			mailForm += "<td></td>";
 			mailForm += "</tr>";

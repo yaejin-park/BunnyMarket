@@ -114,12 +114,8 @@
 					"content":content
 				},
 				success:function(){
-					console.log("성공");
 					$(this).parents(".re-div").find("textarea[name='re-content']").val("");
 					location.reload();
-				},
-				error:function(e){
-					console.log("에러"+e);
 				}
 			})
 		});
@@ -138,7 +134,7 @@
 	
 		//댓글 글자수 제한
 		$(document).ready(function() {
-			$(".re-textinput").keyup(function() {
+			$(".re-text-input").keyup(function() {
 				var inputlength=$(this).val().length;
 				var remain=+inputlength;
 				$(".text-plus").html(remain);
@@ -149,7 +145,7 @@
 				}
 			});
 			
-			$(".re-textinput").keyup(function() {
+			$(".re-text-input").keyup(function() {
 				var inputlength=$(this).val().length;
 				var remain=+inputlength;
 				$(".text-plus").html(remain);
