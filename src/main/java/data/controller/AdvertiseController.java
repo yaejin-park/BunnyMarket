@@ -45,17 +45,18 @@ public class AdvertiseController {
 			Principal principal) {
 		ModelAndView mview=new ModelAndView();
 		
-		//지역가져올라면...
-		String userId="no";
-		if(principal != null) {
-			userId=principal.getName();
-		}
-		
-		String local=memService.getLocal(principal);
-		String []localArr=local.split(",");
-		
-		mview.addObject("localCnt", localArr.length);
-		mview.addObject("localArr", localArr);
+		 //지역가져올라면...
+		 String userId="no";
+		 String local="";
+		 String []localArr = {};
+		 if(principal != null) {
+		    userId=principal.getName();
+		    local = memService.getLocal(principal);
+		    localArr=local.split(",");
+		 }
+		  
+		  mview.addObject("localCnt", localArr.length);
+		  mview.addObject("localArr", localArr);
 		
 		int totalCount=service.getTotalCount();
 		

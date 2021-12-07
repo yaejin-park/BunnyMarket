@@ -15,25 +15,22 @@
 		<div class="my-page">
 			<!-- 프로필 이미지 선택 -->
 			<div class="profile-update">
-				<label for="select-img">
-					<div class="profile-img">
-						<!-- 프로필 이미지 있을때 -->
-						<c:if test="true">
-							<img alt="프로필이미지" src="/image/profile-icon.png">
-						</c:if>
-						<!-- 프로필 이미지 없을때 -->
-						<c:if test="false">
-							<img alt="프로필이미지" src="/image/profile-icon.png">
-						</c:if>
-					</div>
-				</label>
-				<input type="file" id="select-img" name="profile-upload" class="profile-input">
+				<div class="profile-img">
+					<!-- 프로필 이미지 있을때 -->
+					<c:if test="true">
+						<img alt="프로필이미지" src="/image/profile-icon.png">
+					</c:if>
+					<!-- 프로필 이미지 없을때 -->
+					<c:if test="false">
+						<img alt="프로필이미지" src="/image/profile-icon.png">
+					</c:if>
+				</div>
 			</div>			
 			<div class="my-info">
 				<b>[닉네임or이름]회원님 안녕하세요.</b>
 			</div>
 			<div class="my-info-update">
-				<button type="button" class="btn-update">프로필변경</button>
+				<button type="button" class="btn-update" onclick="location.href='profile_updateform'">프로필변경</button>
 			</div>
 		</div>
 		<div class="my-sales">
