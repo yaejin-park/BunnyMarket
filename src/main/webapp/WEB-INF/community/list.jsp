@@ -3,13 +3,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <link rel="stylesheet" type="text/css" href="/css/community_style.css">
 
 <div class="commu-wrap">
 	<div class="inner">
-		<div class="top-div btn-wrap">
-		 	<button type="button" class="btn-add" onclick="location.href='insertform'">글쓰기</button>
-		</div>
+		<sec:authorize access="isAuthenticated()">
+			<div class="top-div btn-wrap">
+		 		<button type="button" class="btn-add" onclick="location.href='./auth/insertform'">글쓰기</button>
+			</div>
+		</sec:authorize>
 		
 		<div class="commu-div">
 			<c:if test="${totalCount==0}">
@@ -28,7 +31,7 @@
 						<li>
 							<a href="detail?idx=${a.idx}&currentPage=${currentPage}&key=list">
 								
-								<div class="image">
+								<div class="img-div">
 								<!-- 이미지 없을경우 -->
 									<c:if test="${a.photo=='no'}">
 										<img src="../image/co-noimg.jpg">
@@ -46,6 +49,23 @@
 									<p class="date">
 										<fmt:formatDate value="${a.writeday}" pattern="yy.MM.dd"/>
 									</p>
+								</div>
+								
+								<div class="reply-heart">
+								<!-- 공감수표시 -->
+									<div class="gdcount-icon">
+										<div class="gd-img">
+										<img src="../image/heart-icon.png">
+										</div>
+										<span class="txt gdcount">${a.goodcount}</span>
+									</div>
+								<!-- 댓글수표시 -->
+									<div class="reply-icon">
+										<div class="rec-img">
+										<img src="../image/comment-icon.png">
+										</div>
+										<span class="txt recount">${a.acount}</span>
+									</div>
 								</div>
 							</a>
 						</li>
@@ -80,4 +100,6 @@
 	</div>
 </div>
 
-<script type="text/javascript" src="/js/community_script.js"></script>
+<script type="text/javascript" src="/js/community_script.js">
+
+</script>

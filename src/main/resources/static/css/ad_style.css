@@ -9,6 +9,18 @@
 .info-sm div.read, .list-info-sm div.read{
 	background-image: url("/image/eye-icon.png");
 }
+.ad-list li .image {
+	position:relative;
+	top: 30px;
+	width:100%;
+	overflow:hidden;
+}
+.ad-list li .image img {
+	position:absolute;
+	top:50%;
+	left:50%;
+	transform:translate(-50%, -50%);
+}
 
 /* writeForm */
 .text-input{

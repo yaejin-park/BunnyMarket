@@ -87,7 +87,7 @@ $(function(){
 			contentType:false,
 			success:function(){
 				console.log("성공");
-				location.href="/advertise/detail?idx="+idx;
+				location.href = "/advertise/list";
 			},
 			error:function(e){
 				console.log("에러" + e);
@@ -99,7 +99,7 @@ $(function(){
 		var title = $(".ad-div.write-form input[name='title']").val();
 		var content = $(".ad-div.write-form textarea[name='content']").val();
 		var formData = new FormData();
-		if(title == '' || content == '' || fileCnt == 0){
+		if(title == '' || content == ''){
 			alert("필수 입력을 입력해주세요.");
 			return;
 		}
