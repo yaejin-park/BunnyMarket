@@ -19,14 +19,17 @@
 						</c:if>
 					</div>
 				</label>
-				<input type="file" id="select-img" name="profile-upload" class="profile-input">
-			</div>			
+				<input type="file" id="select-img" name="profile-upload" class="profile-input" multiple/>
+			</div>
 			<div class="my-info">
-				<input type="text" class="profile-name">
+				<input type="text" name="nick" class="profile-name" value="${nick}">
+			</div>
+			<div class="profile-msg">
+				<p>프로필 사진과 닉네임을 입력해주세요.</p>
 			</div>
 			<div class="my-info-update">
-				<button type="button" class="btn-update">변경하기</button>
-				<button type="button" class="btn-list" onclick="location.href='detail'">취소</button>
+				<button type="button" class="btn-update btn-sm profile-btn" onclick="location.href='profile_update'">변경하기</button>
+				<button type="button" class="btn-list btn-sm" onclick="location.href='/mypage/detail'">취소</button>
 			</div>
 		</div>
 	</div>

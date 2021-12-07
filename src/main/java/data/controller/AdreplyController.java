@@ -28,7 +28,7 @@ public class AdreplyController {
 	AdreplyService service;
 	
 	@Autowired
-	MemberService mservice;
+	MemberService memService;
 	
 	@GetMapping("/reply")
 	public ModelAndView detail(@RequestParam Map<String, String> map, 

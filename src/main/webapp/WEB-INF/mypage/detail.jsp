@@ -27,10 +27,10 @@
 				</div>
 			</div>			
 			<div class="my-info">
-				<b>[닉네임or이름]회원님 안녕하세요.</b>
+				<b>[${nick}]회원님 안녕하세요.</b>
 			</div>
 			<div class="my-info-update">
-				<button type="button" class="btn-update" onclick="location.href='profile_updateform'">프로필변경</button>
+				<button type="button" class="btn-update" onclick="location.href='./auth/profile_updateform'">프로필변경</button>
 			</div>
 		</div>
 		<div class="my-sales">

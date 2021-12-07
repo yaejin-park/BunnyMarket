@@ -195,8 +195,6 @@ public class AdvertiseController {
 			//로그인 아이디 가져오기
 			String id = principal.getName();
 			mview.addObject("myId", id);
-
-			//공감
 		}
 		
 		mview.addObject("dto", dto);

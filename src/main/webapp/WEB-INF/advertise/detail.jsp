@@ -90,7 +90,6 @@
 		<!-- 로그인 했을경우 -->
 		<c:if test="true">
 			<button type="button" class="btn-list delist" onclick="location.href='list'">목록</button>
-			<button type="button" class="btn-add gdcount">공감</button>
 			<button type="button" class="btn-update" onclick="location.href='./auth/updateform?idx=${dto.idx}&currentPage=${currentPage}'">수정</button>
 			<button type="button" id="deleteBtn" class="btn-delete" value="${dto.idx}">삭제</button>
 		</c:if>
