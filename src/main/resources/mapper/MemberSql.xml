@@ -66,6 +66,6 @@
 	</update>
 	
 	<delete id="deleteMember" parameterType="String">
-		delete from member where idx=#{idx}
+		delete from member where id=#{id}
 	</delete>
 </mapper>
