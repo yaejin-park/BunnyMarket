@@ -10,4 +10,9 @@ public class ReviewController {
 	public String insertForm() {
 		return "/review/insertForm";
 	}
+	
+	@GetMapping("/review/choose")
+	public String choose() {
+		return "/review/choose";
+	}
 }
