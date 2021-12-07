@@ -53,9 +53,14 @@ public class AdreplyController {
 	}
 	
 	@PostMapping("/reinsert")
-	public String insert(@ModelAttribute AdreplyDTO dto, HttpSession session, 
-			HttpServletRequest request, Principal principal,
-			@RequestParam(value = "currentPage", required = false) String currentPage) {
+	public String insert(
+			@ModelAttribute AdreplyDTO dto, 
+			HttpSession session, 
+			HttpServletRequest request, 
+			Principal principal,
+			@RequestParam(value = "currentPage", required = false) String currentPage
+			) 
+	{
 		// 로그인 안했을 경우, 종료
 		String isLogin = (String)request.getSession().getAttribute("isLogin");
 
