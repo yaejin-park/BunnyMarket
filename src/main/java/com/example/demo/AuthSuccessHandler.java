@@ -20,7 +20,11 @@ public class AuthSuccessHandler extends SimpleUrlAuthenticationSuccessHandler{
 		
 		request.getSession().setAttribute("isLogin", "Y");
 		
-		setDefaultTargetUrl(returnUrl);
+		if(returnUrl.equals("http://localhost:9002/find/pwform")) {
+			setDefaultTargetUrl("http://localhost:9002");
+		}else {
+			setDefaultTargetUrl(returnUrl);
+		}
 		
 		super.onAuthenticationSuccess(request, response, authentication);
 	}

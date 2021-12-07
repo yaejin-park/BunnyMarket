@@ -11,16 +11,25 @@
 		</div>
 	</div>
 	<div class="find-form-div">
-		<form action="checkid" method="post">
-			<div class="form-div">
-				<input type="text" name="user_name" id="user_name" placeholder="이름 입력" required="required"/>
-			</div>
-			<div class="form-div">
-				<input type="text" name="user_hp" id="user_hp" placeholder="휴대전화 번호를 -없이 입력" required="required"/>
-			</div>
-			<div class="btn-wrap">
-				<button type="submit" class="btn-add find-btn">찾기</button>
-			</div>
-		</form>
+		<div class="form-div">
+			<input type="text" name="user_name" id="user_name" placeholder="이름 입력" />
+		</div>
+		<div class="form-div">
+			<input type="text" name="user_hp" id="user_hp" placeholder="휴대전화 번호를 -포함해서 입력" />
+		</div>
+		<div class="btn-wrap">
+			<button type="button" class="btn-add find-id-btn">찾기</button>
+		</div>
 	</div>
 </div>
+<div class="popup-modal" id="findIdPop">
+	<div class="modal">
+		<div class="modal-title">아이디 결과</div>
+		<div class="modal-content">
+			 <p class="tit">아이디</p>
+			 <p class="result"></p>
+		</div>
+		<button type="button" class="modal-close">닫기</button>
+	</div>
+</div>
+<script type="text/javascript" src="/js/findMember_script.js"></script>

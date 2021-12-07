@@ -5,8 +5,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import data.dto.CommunityDTO;
+import data.dto.MemberDTO;
 import data.mapper.CommunityMapper;
 
 @Service
@@ -57,5 +59,27 @@ public class CommunityService {
 	public void update(CommunityDTO dto)
 	{
 		mapper.update(dto);
+	}
+	public MemberDTO getMemData(@RequestParam String idx)
+	{
+		return mapper.getMemData(idx);
+	}
+	public int goodCheck(String id, String idx) {
+		return mapper.goodCheck(id, idx);
+	}
+	public int getGoodCount(@RequestParam String idx) {
+		return mapper.getGoodCount(idx);
+	}
+	public void updateGoodcount(@RequestParam String idx) {
+		mapper.updateGoodcount(idx);
+	}
+	public void updateGoodCancel(@RequestParam String idx) {
+		mapper.updateGoodCancel(idx);
+	}
+	public void insertGood(String id, String idx){
+		mapper.insertGood(id,idx);
+	}
+	public void deleteGood(String id, String idx) {
+		mapper.deleteGood(id, idx);
 	}
 }

@@ -176,7 +176,7 @@ $(document).ready(function() {
 	if(${isLogin == "Y"}){
 		//좋아요 여부로 하트 버튼 변경
 		//좋아요 안했을 시,
-		if(${likeCheck==0}){
+		if(${==0}){
 			$("#dibsBtnImg").attr("src","/image/stopheart-icon.gif");
 		} else{
 			$("#dibsBtnImg").attr("src","/image/fullheart-icon.gif");

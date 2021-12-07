@@ -76,4 +76,22 @@ public class MemberService implements UserDetailsService {
 		
 		return currentUserType;
 	}
+	
+	public String getLocal(Principal principal) {
+		String currentUserId = principal.getName();
+		String currentUserLocal = mapper.getLocal(currentUserId);
+		
+		return currentUserLocal;
+	}
+	
+	public void updateLocal(HashMap<String, String> map) {
+		mapper.updateLocal(map);
+	}
+	
+	public String checkPw(HashMap<String, String> map) {
+		return mapper.checkPw(map);
+	}
+	public void updatePw(HashMap<String, String> map) {
+		mapper.updatePw(map);
+	}
 }

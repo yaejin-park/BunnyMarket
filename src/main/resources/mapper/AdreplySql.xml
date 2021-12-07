@@ -5,7 +5,7 @@
 		select count(*) from adreply
 	</select>
 	
-	<!-- idx max값이 null일 경우 0 -->
+	<!-- idx max값, null일 경우 0 -->
 	<select id="getMaxIdx" resultType="int">
 		select ifnull(max(idx),0) from adreply
 	</select>
@@ -15,11 +15,19 @@
 		update adreply set restep=restep+1 where regroup=#{regroup} and restep>#{restep}
 	</update>
 	
-	<!-- insert : 원글, 새글 모두 해당 -->
+	<!-- insert : 원댓, 새댓 모두 해당 -->
 	<insert id="insertReply" parameterType="ardto">
 		insert into adreply (num,id,content,writeday,regroup,restep,relevel) 
 		values (#{num},#{id},#{content},now(),#{regroup},#{restep},#{relevel})
 	</insert>
+	
+	<select id="getReplyList" parameterType="int" resultType="ardto">
+		select * from adreply where num=#{num} order by regroup desc, restep
+	</select>
+	
+	<select id="getReply" parameterType="int" resultType="ardto">
+		select * from adreply where idx=#{idx}
+	</select>
 	
 	<update id="updateReply" parameterType="ardto">
 		update adreply set content=#{content} where idx=#{idx}
@@ -28,12 +36,4 @@
 	<delete id="deleteReply" parameterType="int">
 		delete from adreply where idx=#{idx}
 	</delete>
-	
-	<select id="getReplyList" parameterType="int" resultType="ardto">
-		select * from adreply where num=#{num} order by idx asc
-	</select>
-	
-	<select id="getReply" parameterType="int" resultType="ardto">
-		select * from adreply where idx=#{idx}
-	</select>
 </mapper>

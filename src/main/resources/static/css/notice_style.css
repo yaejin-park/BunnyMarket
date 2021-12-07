@@ -1,18 +1,102 @@
 .wtable .content {
 	height: 500px;
+	margin-top: 10px;
+	
 }
 
-input[type=checkbox] {
-	zoom: 2;
+.wtable .title {
+	height: 40px;
+	margin-top: 5px;
+	margin-bottom: 10px;
+	border-top:none;
+	border-right:none;
+	border-left:none;
+	border-bottom: 2px solid black;
+	
+	
+}
+.filebox{
+	
+	float:right;
 }
 
-.b .content {
-	color: #e5e5e5;
+.file{
+	border-top-width: 0px;
+	border-right-width: 0px;
+	border-bottom-width: 0px;
+	border-left-width: 0px;
 }
 
-button{
+
+
+
+
+.utable .title{
+	height: 40px;	
+	margin-top: 5px;
+	margin-bottom: 10px;
+	border-top:none;
+	border-right:none;
+	border-left:none;
+	border-bottom: 2px solid black;
+}
+
+
+
+
+.utable .content{
+	height: 500px;
+	margin-top: 10px;
+}
+
+
+
+
+
+#ctable .content{
+	height: 500px;
+	
+	
+}
+
+.contenttxt{
+	vertical-align: baseline;
+	colspan: 3;
+	border-bottom:none
+}
+
+#ctable .test{
+	color:black;
+}
+
+
+#ctable .imgin{
+	
+border-top:none;
+border-bottom:none
+	
+ 
+}
+
+
+#ctable .img{
+	max-width: 200px;
+ 
+}
+
+
+div .btn-wrap{
+	margin-top:15px;
 	float:right;
 }
 
 
+.btn-wrap{
+	
+	margin-bottom: 10px;
+}
 
+ #bn{
+	margin-top: 30px;
+	
+}

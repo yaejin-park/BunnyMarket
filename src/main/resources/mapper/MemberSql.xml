@@ -29,15 +29,31 @@
 		select id from member where name=#{name} and hp=#{hp}
 	</select>
 	
-	<select id="currentUserName">
+	<select id="currentUserName" parameterType="String" resultType="String">
 		select name from member where id=#{id}
 	</select>
 	
-	<select id="currentUserNickName">
-		select nick from member where id=#{id}
+	<select id="currentUserNickName" parameterType="String" resultType="String">
+		select nickname from member where id=#{id}
 	</select>
 	
-	<select id="currentUserType">
+	<select id="currentUserType" parameterType="String" resultType="String">
 		select type from member where id=#{id}
 	</select>
+	
+	<select id="getLocal" parameterType="String" resultType="String">
+		select local from member where id=#{id}
+	</select>
+	
+	<update id="updateLocal" parameterType="HashMap">
+		update member set local=#{local} where id=#{id}
+	</update>
+	
+	<select id="checkPw" parameterType="HashMap" resultType="String">
+		select pw from member where id=#{id} and name=#{name} and email=#{email}
+	</select>
+	
+	<update id="updatePw" parameterType="HashMap">
+		update member set pw=#{pw} where id=#{id}
+	</update>
 </mapper>

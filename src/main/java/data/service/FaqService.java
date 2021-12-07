@@ -35,4 +35,13 @@ public class FaqService {
 		map.put("perpage", perpage);
 		return mapper.getListByCategory(map);
 	}
+	public void updateFaq(FaqDTO dto) {
+		mapper.updateFaq(dto);
+	}
+	public int getMaxNum() {
+		return mapper.getMaxNum();
+	}
+	public void deleteFaq(String num) {
+		mapper.deleteFaq(num);
+	}
 }

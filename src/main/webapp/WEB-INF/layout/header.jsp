@@ -12,7 +12,7 @@
 				<a href="${root}/join/main" class="join-btn">회원가입</a>
 			</sec:authorize>
 			<sec:authorize access="isAuthenticated()">
-				<a href="${root}/mypage" class="mypage-btn">마이페이지</a>
+				<a href="${root}/mypage/detail" class="mypage-btn">마이페이지</a>
 				<a href="${root}/logout" class="logout-btn">로그아웃</a>
 			</sec:authorize>
 		</div>
@@ -57,12 +57,22 @@
 				</ul>
 			</nav>
 			<div class="local-div">
-				<button type="button" class="local-btn">지역1</button>
-				<ul class="local-option">
-					<li>지역1</li>
-					<li>지역2</li>
-					<li>내 동네 설정하기</li>
-				</ul>
+				<sec:authorize access="isAnonymous()">
+					<button type="button" onclick="location.href='/local/auth/add'" class="local-btn">내 동네 설정</button>
+				</sec:authorize>
+				<sec:authorize access="isAuthenticated()">
+					<button type="button" class="local-btn">${localArr[0]}</button>
+					<ul class="local-option">
+						<c:forEach var="local" items="${localArr}">
+							<li>
+								<span>${local}</span>
+							</li>
+						</c:forEach>
+						<li>
+							<a href="/local/auth/add" class="set-btn">내 동네 설정하기</a>
+						</li>
+					</ul>
+				</sec:authorize>
 			</div>
 		</div>
 	</div>
