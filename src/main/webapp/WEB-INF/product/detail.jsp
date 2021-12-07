@@ -176,7 +176,7 @@ $(document).ready(function() {
 	if(${isLogin == "Y"}){
 		//좋아요 여부로 하트 버튼 변경
 		//좋아요 안했을 시,
-		if(${==0}){
+		if(${likeCheck==0}){
 			$("#dibsBtnImg").attr("src","/image/stopheart-icon.gif");
 		} else{
 			$("#dibsBtnImg").attr("src","/image/fullheart-icon.gif");
@@ -377,6 +377,7 @@ $(document).on("change", "#statusSelect", function() {
         	//판매상태에 따라 글씨색 바뀌기
 			if($("#statusSelect").val() == "finished"){
 				$("#statusSelect").css("color","#979593");
+				location.href = '../review/choose';
 			} else if($("#statusSelect").val() == "reserved"){
 				$("#statusSelect").css("color", "#ff7ab0");
 			} else if($("#statusSelect").val() == "selling"){
