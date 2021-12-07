@@ -59,7 +59,7 @@ h3{
 }
 .unregister-form .inner .unregi-message .unregi-msg2{
 	display:block;
-	margin-top: 10px;
+	margin-top:10px;
 	font-size:17px;
 }
 .unregister-form .inner .unregi-question .unregi-ques{
@@ -70,6 +70,7 @@ h3{
 }
 .unregister-form .inner .unregi-question .unregi-reason{
 	display:block;
+	text-align:center;
 	margin-top:10px;
 	width:400px;
 }

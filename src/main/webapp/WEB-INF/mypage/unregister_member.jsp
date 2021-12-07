@@ -21,13 +21,13 @@
 			[닉네임]님, 계정을 탈퇴하려는 이유가 궁금해요.
 			</span>
 			<select name='unregi-reason' class="unregi-reason">
-  				<option value='' selected> 선택해주세요</option>
- 				<option value='reason1'>너무 많이 이용해요</option>
- 				<option value='reason2'>사고싶은 물품이 없어요</option>
- 				<option value='reason3'>물건이 너무 안팔려요</option>
- 				<option value='reason4'>비매너 사용자를 만났어요</option>
- 				<option value='reason5'>새계정을 만들고 싶어요</option>
- 				<option value='reason6'>기타</option>
+  				<option value='' selected>----- 선택해주세요 -----</option>
+ 				<option value='reason1'>너무 많이 이용해요.</option>
+ 				<option value='reason2'>사고싶은 물품이 없어요.</option>
+ 				<option value='reason3'>물건이 너무 안팔려요.</option>
+ 				<option value='reason4'>비매너 사용자를 만났어요.</option>
+ 				<option value='reason5'>새계정을 만들고 싶어요.</option>
+ 				<option value='reason6'>[기타]</option>
 			</select>
 			<div class="btn">
 			<button type="button" id="go-unregi" class="btn-add">탈퇴하기</button>
