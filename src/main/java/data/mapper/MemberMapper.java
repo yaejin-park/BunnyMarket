@@ -20,4 +20,6 @@ public interface MemberMapper {
 	public void updateLocal(HashMap<String, String> map);
 	public String checkPw(HashMap<String, String> map);
 	public void updatePw(HashMap<String, String> map);
+	public void updateProfile(HashMap<String, String> map);
+	public void updateNickName(HashMap<String, String> map);
 }
