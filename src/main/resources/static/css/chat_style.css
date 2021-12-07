@@ -1,0 +1,226 @@
+*{
+	margin:0;
+	padding:0;
+}
+.container{
+	width: 60%;
+	margin: 0 auto;
+	padding: 25px
+}
+.container h1{
+	text-align: left;
+	padding: 5px 5px 5px 15px;
+	color: #FFBB00;
+	border-left: 3px solid #FFBB00;
+	margin-bottom: 20px;
+}
+.chating{
+	position: relative;
+	border : 2.3px solid #f7f6fc;
+	width: 100%;
+	height: 400px;
+	overflow: auto;
+	overflow-x : hidden;
+	display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding: 30px;
+    border-radius: 14px;
+}
+/* 스크롤바 */
+.chat-box::-webkit-scrollbar {
+  width: 10px;
+}
+.chat-box::-webkit-scrollbar-thumb {
+  background-color: #bdbcbc;
+  border-radius: 10px;
+} 
+
+.chating::-webkit-scrollbar {
+  width: 10px;
+}
+.chating::-webkit-scrollbar-thumb {
+  background-color: #bdbcbc;
+  border-radius: 10px;
+} 
+/* .chating::-webkit-scrollbar-track {
+  background-color: grey;
+  border-radius: 10px;
+  box-shadow: inset 0px 0px 5px white;
+}
+ */
+ /* 채팅 말풍선 */
+ .speech-bubble {
+ 	position: relative;	
+    background: #ff7ab0;
+    border-radius: 0.4em;
+    min-width: 30px;
+    max-width: 100%;
+    padding: 10px 17px;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 10px;
+}
+
+div.me .speech-bubble:after {
+	content: "";
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    margin-top: -16px;
+    border-width: 9px;
+    border-style: solid;
+    border-color: transparent transparent transparent #ff7ab0;
+}
+
+ .other-bubble {
+    background-color: #eaebee;
+    color: #666;
+}
+
+ .other-bubble:before{
+ 	content: "";
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    margin-top: -16px;
+    border-width: 9px;
+    border-style: solid;
+    border-color: transparent #eaebee transparent transparent
+ }
+
+
+div.me{
+	display: flex;
+    width: 100%;
+    justify-content: flex-end;
+}
+
+div.other{
+	display: flex;
+    width: 100%;
+    justify-content: flex-start;
+}
+
+div.me .time {
+    display: flex;
+    align-items: flex-end;
+    padding-bottom: 10px;
+    padding-right: 8px;
+    font-size: 12px;
+}
+
+div.other .time {
+    display: flex;
+    align-items: flex-end;
+    padding-bottom: 10px;
+    padding-left: 8px;
+    font-size: 12px;
+}
+
+.info{
+	display: flex;
+	font-size: 14pt;
+	flex-direction: column;
+}
+
+.info .wrap{
+	display: flex;
+	border-bottom: 2.3px solid #f7f6fc;
+	align-items: center;
+	min-height: 64px;
+    height: 85px;
+    padding: 13px;
+}
+
+.info .wrap:last-child{
+	border-bottom: 0px;
+}
+
+.info-text{
+    display: inline-block;
+    -webkit-box-align: center;
+    margin-left: 20px;
+    flex-direction: column;
+}
+
+.sm-tit{
+	color: #746a66;
+    font-size: 11pt;
+}
+
+.profile-img{
+	border-radius: 100%;
+	border: 2.3px solid #f7f6fc;
+	width: 60px;
+}
+
+.chatout-btn{
+	width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.product-img{
+	border: 2.3px solid #f7f6fc;
+	height:60px;
+	width: 60px;
+}
+
+.title{
+    white-space: nowrap;
+}
+
+.status-div{
+	width: 100%;
+}
+
+.status{
+	float: right;
+    font-weight: bold;
+    border-radius: 46px;
+    border: 1px solid rgb(48 ,136 ,217);
+    padding: 7px 15px;
+}
+
+.price.tit{
+	white-space: nowrap;
+}
+
+form.msgForm {
+    display: flex;
+    flex-direction: column;
+    height: 118px;
+    padding: 10px;
+    border-radius: 14px;
+    margin-top: 15px;
+    border: 2.3px solid #f7f6fc;
+}
+
+textarea.chat-box:focus {
+    outline: none;
+}
+
+form.msgForm textarea.chat-box{
+    border: none;
+    padding: 5px 8px;
+}
+form.msgForm .chat-btn-div{
+	display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+form.msgForm .chat-btn-div .btn-add{
+	min-width: 77px;
+    height: 41px;
+    padding: 5px;
+}
+
+.btn-wrap{
+    margin: 30px 10px;
+}
+
+div.info div.wrap.link{
+	cursor: pointer;
+}

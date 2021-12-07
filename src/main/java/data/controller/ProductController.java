@@ -116,15 +116,7 @@ public class ProductController {
 
 	@PostMapping("/auth/insert")
 	public String insertData(@ModelAttribute ProductDTO dto, HttpServletRequest request, HttpSession session, Principal principal) {
-		// 濡쒓렇�씤 �븞�뻽�쓣 寃쎌슦, 醫낅즺
-		String isLogin = (String)request.getSession().getAttribute("isLogin");
 
-		if (isLogin == null) {
-			return "login/loginmsg";
-		}
-
-		// 濡쒓렇�씤 �뻽�쓣 寃쎌슦,
-		//�뾽濡쒕뱶�맂 �뙆�씪 由ъ뒪�듃
 		List<MultipartFile> mf = dto.getUpload(); 
 		
 		// �뙆�씪 �뾽濡쒕뱶 �븞�뻽�쓣 寃쎌슦,
@@ -161,7 +153,7 @@ public class ProductController {
 		
 		service.insertData(dto);
 	  
-		return "redirect:detail?idx="+service.getMaxIdx();
+		return "redirect:../detail?idx="+service.getMaxIdx();
 	}
 	
 	@GetMapping("/detail")
@@ -229,11 +221,11 @@ public class ProductController {
 		return "/product/detail";
 	}
 	
-	@GetMapping("/delete")
-	public String deleteData(@RequestParam String idx) {
+	@GetMapping("/auth/delete")
+	public String deleteData(@RequestParam String idx, @RequestParam String currentPage) {
 		service.deleteData(idx);
 		
-		return "/product/list";
+		return "redirect:../list?currentPage="+currentPage;
 	}
 	
 	@ResponseBody

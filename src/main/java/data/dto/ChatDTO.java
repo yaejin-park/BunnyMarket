@@ -15,6 +15,11 @@ public class ChatDTO {
 	private Timestamp last_time;
 	private String state;
 	
+	//txt
+	private String sender;
+	private String time;
+	private String msg;
+	
 	public String getIdx() {
 		return idx;
 	}
@@ -56,5 +61,12 @@ public class ChatDTO {
 	}
 	public void setState(String state) {
 		this.state = state;
+	}
+	
+	public ChatDTO(String sender, String time, String msg) {
+		super();
+		this.sender = sender;
+		this.time = time;
+		this.msg = msg;
 	}
 }

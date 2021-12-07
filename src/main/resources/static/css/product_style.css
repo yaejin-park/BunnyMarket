@@ -277,14 +277,16 @@ tr.lineNeed .marginZero{
 /* list의 작은 아이콘 */
 .icon-sm{
 	background-repeat: no-repeat;
-    background-size: contain;
+    background-size: 20px;
+    background-position: center;
     padding-left: 25px;
     color: #746a66c7;
 }
 
 .list-icon-sm{
 	background-repeat: no-repeat;
-    background-size: contain;
+    background-size: 20px;
+    background-position: center;
     padding-left: 25px;
     color: #746a66c7;
 }

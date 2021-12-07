@@ -13,7 +13,7 @@
 				<div class="child imgupload">
 					<div class="uploadImg">
 						<label for="selectImg">
-							src="../image/write-upload-icon.JPG">
+							<img src="/image/write-upload-icon.JPG">
 						</label>
 						<input type="file" id="selectImg" name="upload" class="imginput" multiple="multiple" 
 						accept="image/*" onchange="loadFile(event)">
@@ -71,7 +71,7 @@
 			<div class="group">
 				<div class="btn-wrap">
 					<button type="submit" class="btn-list">수정하기</button>
-					<button type="button" class="btn-default">취소</button>
+					<button type="button" class="btn-default" onclick="history.back()">취소</button>
 				</div>
 			</div>
 		</form>
