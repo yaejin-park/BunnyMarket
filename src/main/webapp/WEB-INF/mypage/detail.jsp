@@ -5,9 +5,11 @@
 <div class="mydetail-form">
 	<div class="inner">
 		<div class="side-menu-div">
+			<a href="">팔로우</a>
 			<a href="">판매내역</a>
 			<a href="">관심목록</a>
 			<a href="">나의후기</a>
+			<a href="/mypage/updateform">회원수정</a>
 			<a href="">회원탈퇴</a>
 		</div>
 		<div class="my-page">
@@ -31,7 +33,7 @@
 				<b>[닉네임or이름]회원님 안녕하세요.</b>
 			</div>
 			<div class="my-info-update">
-				<button type="button" class="btn-update" onclick="location.href='updateform'">프로필변경</button>
+				<button type="button" class="btn-update">프로필변경</button>
 			</div>
 		</div>
 		<div class="my-sales">
