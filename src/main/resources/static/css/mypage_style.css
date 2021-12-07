@@ -1,84 +1,83 @@
-.sidemenu{
-	
-	border: solid 1px black;
-	float: left;
-	width:20%;
-    left: 0;
-    margin-top: 50px;
-	
+/* mypage-detail */
+.side-menu-div {
+	position:fixed;
+	top:300px;
+	right:calc(50% + 700px);
+	z-index:10;
 }
-
-
-.mypage{
-	
-	float:left;
-	width:80%;
-	
+.side-menu-div a {
+	display:block;
+	width:70px;
+	height:40px;
 }
-
-a{
+.my-page{
+	text-align:center;
+	margin-bottom:30px;
+}
+.my-page .profile-update{
+	margin-left:50%;
+}
+.side-menu a{
 	color: black; 
-	text-decoration: none;
+	text-decoration:none;
 }
-
-
-
-
-.profile{
-	
-	border: solid 1px black;
-}
-
-
-
-.img{
-	float:left;
-	border: solid 1px black;
-	width:30%;	
-}
-
-.name{
-	float:left;
-	border: solid 1px black;
-	width:70%;	
-	
-  
-}
-
-
-
-
 h3{
-	margin-bottom: 10px;
+	margin-bottom:10px;
 }
-
-#mytable{
-	
-	margin-top: 300px;
-	
+.mydetail-form .profile-input {
+	width:0;
+	height:0;
+	padding:0;
+	visibility:hidden;	
 }
-
-
-#center1{
-	
+.my-page .profile-img {
+	text-align:center;
+	top:20px;
+	left:20px;
 	width:150px;
-    margin:auto;
-    display:block;
-    margin-top: 15px;
-	
+	border-radius:50%;
+	border:2px solid #f7f6fc;
+	overflow:hidden;
+	margin-bottom:10px;
 }
-
-#center2{
-	
-	
-    margin:auto;
-    display:block;
-    margin-top: 15px;
-	
+.my-page .profile-img  img {
+	width:100%;
+}
+.my-page .my-info{
+	margin-bottom:10px;
 }
 
 
-.left{
+/* unregister */
+.unregister-form .inner .unregi-image img{
+	width:300px;
+}
+.unregister-form .inner .unregi-message .unregi-msg1{
+	font-size:20px;
+	font-weight:bold;
 	
-	clear:both;
+}
+.unregister-form .inner .unregi-message .unregi-msg2{
+	display:block;
+	margin-top:10px;
+	font-size:17px;
+}
+.unregister-form .inner .unregi-question .unregi-ques{
+	display:block;
+	margin-top:80px;
+	font-size:20px;
+	font-weight:bold;
+}
+.unregister-form .inner .unregi-question .unregi-reason{
+	display:block;
+	text-align:center;
+	margin-top:10px;
+	width:400px;
+}
+.unregister-form .inner .unregi-question .btn .btn-add{
+	margin-top:15px;
+}
+.unregister-form .inner .unregi-question .btn .btn-list{
+	margin-top:15px;
+	margin-left:10px;
 }

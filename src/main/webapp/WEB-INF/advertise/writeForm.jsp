@@ -15,7 +15,11 @@
 					</label>
 					<input type="file" id="chooseFile" name="photoupload" class="img-input" multiple="multiple"/>
 				</div>
-				<div class="preview-area"></div>
+				<div class="preview-area">
+					<c:forEach var="photo" items="${dto.photo}">
+						<img src="/photo/${photo}" alt="">
+					</c:forEach>
+				</div>
 			</div>
 		</div>
 		<div class="group">
@@ -35,7 +39,7 @@
 			</div>
 		</div>
 		<div class="btn-wrap">
-			<button type="button" class="btn-add ad-add-btn" name="idx" value="${dto.idx}">글쓰기</button>
+			<button type="button" class="btn-add ad-add-btn" value="${dto.idx}">글쓰기</button>
 			<button type="button" class="btn-list" onclick="location.href='/advertise/list'">취소하기</button>
 		</div>
 	</div>

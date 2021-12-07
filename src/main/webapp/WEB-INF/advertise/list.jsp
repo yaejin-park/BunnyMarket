@@ -35,11 +35,17 @@
 							<p class="tit">${addto.title}</p>
 							<p class="writer">${nick}</p>
 							<p class="date"><fmt:formatDate value="${addto.writeday}" pattern="yy.MM.dd"/></p>
-							<div class="etc">
-								<p class="good-count">공감 ${addto.goodcount}</p>
-								<p class="read-count">조회수 ${addto.readcount}</p>
-							</div>
 						</div>
+						<div class="info-sm">   
+					<div class="info-sm-div">
+						<a href="detail?idx=${dto.idx}&currentPage=${currentPage}&key=list#reply">
+							<div class="comment icon-sm">${recount}</div>
+						</a>
+						</div>
+						<div class="info-sm-div">
+							<div class="read icon-sm">${dto.readcount}</div>
+						</div>
+					</div>
 					</a>
 				</li>
 			</c:forEach>
