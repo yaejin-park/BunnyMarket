@@ -31,6 +31,12 @@ public class EventService {
 	public void insertData(EventDTO dto) {
 		mapper.insertData(dto);
 	}
+	public void deleteData(String idx) {
+		mapper.deleteData(idx);
+	}
+	public void updateData(EventDTO dto) {
+		mapper.updateData(dto);
+	}
 	public void updateReadCount(String idx) {
 		mapper.updateReadCount(idx);
 	}
@@ -42,5 +48,8 @@ public class EventService {
 	}
 	public String getMaxReply(String idx) {
 		return mapper.getMaxReply(idx);
+	}
+	public void deleteReply(String idx) {
+		mapper.deleteReply(idx);
 	}
 }

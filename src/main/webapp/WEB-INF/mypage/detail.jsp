@@ -10,7 +10,7 @@
 			<a href="">관심목록</a>
 			<a href="">나의후기</a>
 			<a href="/mypage/updateform">회원수정</a>
-			<a href="">회원탈퇴</a>
+			<a href="/mypage/unregister">회원탈퇴</a>
 		</div>
 		<div class="my-page">
 			<!-- 프로필 이미지 선택 -->
