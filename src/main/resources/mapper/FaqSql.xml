@@ -18,6 +18,25 @@
 		select * from where category =#{category}
 	</select>
 	<select id="getListByCategory" parameterType="HashMap" resultType="fdto">
-		select * from faq where category =#{category} order by idx desc limit #{start},#{perpage}
+		select
+			*
+		from
+			faq
+		<if test="category != null and category != 'all'">
+		where
+			category =#{category}
+		</if>
+		order by idx desc 
+		limit #{start},#{perpage}
 	</select>
+	<select id="getMaxNum" resultType="int">
+		select ifnull(max(idx),0) from faq
+	</select>
+	<update id="updateFaq" parameterType="fdto">
+		update faq set category=#{category},question=#{question},answer=#{answer}
+		where idx=#{idx}
+	</update>
+	<delete id="deleteFaq" parameterType="String">
+		delete from faq where idx = #{idx}
+	</delete>
 </mapper>
