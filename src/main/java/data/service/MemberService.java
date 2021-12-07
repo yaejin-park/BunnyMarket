@@ -91,7 +91,16 @@ public class MemberService implements UserDetailsService {
 	public String checkPw(HashMap<String, String> map) {
 		return mapper.checkPw(map);
 	}
+	
 	public void updatePw(HashMap<String, String> map) {
 		mapper.updatePw(map);
+	}
+	
+	public void updateProfile(HashMap<String, String> map) {
+		mapper.updateProfile(map);
+	}
+	
+	public void updateNickName(HashMap<String, String> map) {
+		mapper.updateNickName(map);
 	}
 }

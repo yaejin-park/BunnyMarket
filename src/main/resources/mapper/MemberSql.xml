@@ -56,4 +56,12 @@
 	<update id="updatePw" parameterType="HashMap">
 		update member set pw=#{pw} where id=#{id}
 	</update>
+	
+	<update id="updateProfile" parameterType="HashMap">
+		update member set profile=#{profile} where id=#{id}
+	</update>
+	
+	<update id="updateNickName" parameterType="HashMap">
+		update member set nickname=#{nickname} where id=#{id}
+	</update>
 </mapper>
