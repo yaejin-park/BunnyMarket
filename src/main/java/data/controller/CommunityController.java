@@ -54,12 +54,25 @@ public class CommunityController {
 
 	@GetMapping("/list")
 	public ModelAndView list(
-			@RequestParam(defaultValue = "1") int currentPage
+			@RequestParam(defaultValue = "1") int currentPage,
+			Principal principal
 			)
 	{
 		ModelAndView mview = new ModelAndView();
-
 		
+		//지역 가져오기
+		String userId = "no";
+		String local = "";
+		String[] localArr = {};
+		if(principal != null) {
+			userId = principal.getName();
+			local = mservice.getLocal(principal);
+			localArr = local.split(",");
+		}
+		mview.addObject("localCnt",localArr.length);
+		mview.addObject("localArr",localArr);
+
+		//페이징 처리하기
 		int totalCount = service.getTotalCount(); 
 		int perPage = 15; 
 		int totalPage;
@@ -75,17 +88,14 @@ public class CommunityController {
 		if(endPage>totalPage){ endPage = totalPage; }
 		start = (currentPage-1) * perPage; 
 		
-			
-		//페이징
 		List<CommunityDTO> list= service.getList(start, perPage);
 
 		for(CommunityDTO d:list) {
 			//댓글
 			List<ComReplyDTO> relist=reservice.getReplyList(Integer.parseInt(d.getIdx()));
 			d.setAcount(relist.size());
-			
-
 		}
+		
 		mview.addObject("commulist", list); 
 		mview.addObject("startPage",startPage);
 		mview.addObject("endPage",endPage);
@@ -104,6 +114,8 @@ public class CommunityController {
 			)
 	{
 		ModelAndView mview = new ModelAndView();
+		
+		//지역 가져오기
 		String userId = "no";
 		String local = "";
 		String[] localArr = {};
@@ -123,14 +135,23 @@ public class CommunityController {
 	   public @ResponseBody void insert(
 				MultipartHttpServletRequest multiRequest,
 				HttpServletRequest request,
-				HttpSession session )throws Exception
+				HttpSession session,
+				Principal principal
+				)throws Exception
 	   {
-	      List<MultipartFile> fileList = multiRequest.getFiles("uploadFile");
-	      String title = multiRequest.getParameter("title");
-	      String content = multiRequest.getParameter("content");
+		
+		//로그인중이 아닐 경우 종료
+		String isLogin=(String)request.getSession().getAttribute("isLogin");
+		if(isLogin==null) {
+			return;
+		}
+		
+	    List<MultipartFile> fileList = multiRequest.getFiles("uploadFile");
+	    String title = multiRequest.getParameter("title");
+	    String content = multiRequest.getParameter("content");
 	      
-	      String photoname = "";
-	      String originalPhotoName = "";
+	    String photoname = "";
+	    String originalPhotoName = "";
 	      
 	      if(fileList != null) {
 				String path = session.getServletContext().getRealPath("/photo");
@@ -141,6 +162,7 @@ public class CommunityController {
 		
 		if(!fileList.isEmpty()) {
 			for(int i=0; i<fileList.size(); i++) {
+				//uuid(랜덤이름) 생성
 				String random = UUID.randomUUID().toString();
 				String originalFileName = fileList.get(i).getOriginalFilename();
 				String saveFileName = random + "_" + originalFileName;
@@ -150,12 +172,17 @@ public class CommunityController {
 				photoname += saveFileName + ",";
 				originalPhotoName += originalFileName + ","; 
 				}
-					
+				
+				//마지막 사진 콤마제거
 				photoname = photoname.substring(0, photoname.length()-1);
 				originalPhotoName = originalPhotoName.substring(0, originalPhotoName.length()-1);
 				}
 	      }
+	      
+	      //아이디 얻어서 dto에 저장
+	      String id = principal.getName();
 	      CommunityDTO dto = new CommunityDTO();
+	      dto.setId(id);
 	      dto.setTitle(title);
 	      dto.setContent(content);
 	      dto.setPhoto(photoname);
@@ -183,8 +210,6 @@ public class CommunityController {
 		//멤버DTO 데이터 가져오기 
 		MemberDTO mdto =service.getMemData(idx);
 		 
-		
-		
 		//닉네임 가져오기
 		String nick = mservice.getNick(dto.getId());
 		
@@ -210,19 +235,28 @@ public class CommunityController {
 		//,로 사진나누기 (대표이미지)
 		String []photo = dto.getPhoto().split(",");
 		
+		//지역 가져오기
+		String userId = "no";
+		String local = "";
+		String[] localArr = {};
+		if(principal != null) {
+			userId = principal.getName();
+			local = mservice.getLocal(principal);
+			localArr = local.split(",");
+		}
+		mview.addObject("localCnt",localArr.length);
+		mview.addObject("localArr",localArr);
+		
 		mview.addObject("dto",dto);
 		mview.addObject("mdto",mdto);
 		mview.addObject("photo",photo);
 		mview.addObject("isLogin",isLogin);
 		mview.addObject("nick",nick);
 		
-		
 		//댓글
 		List<ComReplyDTO> relist=reservice.getReplyList(Integer.parseInt(idx));
 		mview.addObject("recount", relist.size());
 		mview.addObject("relist", relist);
-		
-		
 		
 		 //아래값은 답글일 경우만 넘어옴(num, currentPage도) 
 		String currentPage=map.get("currentPage"); 
@@ -238,7 +272,6 @@ public class CommunityController {
 		mview.addObject("restep",restep==null?"0":restep);
 		mview.addObject("relevel",relevel==null?"0":relevel);
 		 
-	
 		mview.setViewName("/community/detail");
 		
 		return mview;
@@ -277,6 +310,8 @@ public class CommunityController {
 			) 
 	{
 		ModelAndView mview = new ModelAndView();
+		
+		//지역 가져오기
 		String userId = "no";
 		String local = "";
 		String[] localArr = {};
@@ -302,24 +337,32 @@ public class CommunityController {
 			HttpServletRequest request,
 			HttpSession session,
 			@RequestParam String idx,
-			@RequestParam String currentPage
+			@RequestParam String currentPage,
+			Principal principal
 			)throws Exception
 	{
-		 List<MultipartFile> fileList = multiRequest.getFiles("uploadFile");
-	      String title = multiRequest.getParameter("title");
-	      String content = multiRequest.getParameter("content");
+		
+		//로그인중이 아닐 경우 종료
+		String isLogin=(String)request.getSession().getAttribute("isLogin");
+		if(isLogin==null) {
+			return;
+		}
+		 
+		List<MultipartFile> fileList = multiRequest.getFiles("uploadFile");
+	    String title = multiRequest.getParameter("title");
+	    String content = multiRequest.getParameter("content");
 	      
 	      
-	      String photoname = "";
-	      String originalPhotoName = "";
+	    String photoname = "";
+	    String originalPhotoName = "";
 	      
 	      
-	      if(fileList != null) {
-				String path = session.getServletContext().getRealPath("/photo");
+	    if(fileList != null) {
+	    	String path = session.getServletContext().getRealPath("/photo");
 
-				File dir = new File(path);
-				if(!dir.isDirectory()) {
-					dir.mkdirs();}
+			File dir = new File(path);
+			if(!dir.isDirectory()) {
+				dir.mkdirs();}
 		
 		if(!fileList.isEmpty()) {
 			for(int i=0; i<fileList.size(); i++) {
@@ -337,12 +380,15 @@ public class CommunityController {
 				originalPhotoName = originalPhotoName.substring(0, originalPhotoName.length()-1);
 				}
 	      }
-	      CommunityDTO dto = new CommunityDTO();
-	      dto.setIdx(idx);
-	      dto.setTitle(title);
-	      dto.setContent(content);
-	      dto.setPhoto(photoname);
-	      dto.setOriginal_photo(originalPhotoName);
+	    
+	    String id = principal.getName();
+	    CommunityDTO dto = new CommunityDTO();
+	    dto.setId(id);
+	    dto.setIdx(idx);
+	    dto.setTitle(title);
+	    dto.setContent(content);
+	    dto.setPhoto(photoname);
+	    dto.setOriginal_photo(originalPhotoName);
 		
 		//수정
 		service.update(dto);
