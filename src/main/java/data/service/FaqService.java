@@ -38,4 +38,10 @@ public class FaqService {
 	public void updateFaq(FaqDTO dto) {
 		mapper.updateFaq(dto);
 	}
+	public int getMaxNum() {
+		return mapper.getMaxNum();
+	}
+	public void deleteFaq(String num) {
+		mapper.deleteFaq(num);
+	}
 }

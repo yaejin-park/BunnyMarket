@@ -70,7 +70,7 @@ public class FaqController {
 	public Map<String, Object> listByCategory(
 			@RequestParam(defaultValue = "1") int currentPage, @RequestParam(defaultValue = "all") String category) {
 		Map<String, Object> result = new HashMap<String, Object>();
-		
+		System.out.println("currentPage="+currentPage);
 		int totalCount=service.getTotalCount();
 		int perPage=10;
 		int totalPage;
@@ -89,7 +89,7 @@ public class FaqController {
 		
 		start=(currentPage-1)*perPage;
 		List<FaqDTO> list = service.getListByCategory(category, start, perPage);
-		
+		System.out.println("size:"+list.size());
 		int no=totalCount-(currentPage-1)*perPage;
 		
 		result.put("list", list);
@@ -112,8 +112,13 @@ public class FaqController {
 	}
 	
 	@GetMapping("/updateform")
-	public String updateform() {
-		return "/faq/updateform";
+	public ModelAndView updateform(String idx, String currentPage) {
+		ModelAndView mview=new ModelAndView();
+		FaqDTO dto=service.getData(idx);
+		mview.addObject("dto", dto);
+		mview.addObject("currnetPage", currentPage);
+		mview.setViewName("/faq/updateform");
+		return mview;
 	}
 	
 	@PostMapping("/insert") 
@@ -127,5 +132,10 @@ public class FaqController {
 			String currentPage, HttpSession session) {
 		service.updateFaq(dto);
 		return "redirect:list?idx="+dto.getIdx()+"&currentPage="+currentPage;
+	}
+	@GetMapping("/faqdelete")
+	public void deleteFaq(String idx, String currentPage) {
+		service.deleteFaq(idx);
+		return;
 	}
 }
