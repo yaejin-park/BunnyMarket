@@ -116,14 +116,6 @@ public class ProductController {
 
 	@PostMapping("/auth/insert")
 	public String insertData(@ModelAttribute ProductDTO dto, HttpServletRequest request, HttpSession session, Principal principal) {
-		// 로그인 안했을 경우, 종료
-		String isLogin = (String)request.getSession().getAttribute("isLogin");
-
-		if (isLogin == null) {
-			return "login/loginmsg";
-		}
-
-		// 로그인 했을 경우,
 		//업로드된 파일 리스트
 		List<MultipartFile> mf = dto.getUpload(); 
 		
@@ -161,7 +153,7 @@ public class ProductController {
 		
 		service.insertData(dto);
 	  
-		return "redirect:detail?idx="+service.getMaxIdx();
+		return "redirect:../detail?idx="+service.getMaxIdx();
 	}
 	
 	@GetMapping("/detail")
@@ -229,11 +221,11 @@ public class ProductController {
 		return "/product/detail";
 	}
 	
-	@GetMapping("/delete")
-	public String deleteData(@RequestParam String idx) {
+	@GetMapping("/auth/delete")
+	public String deleteData(@RequestParam String idx, @RequestParam String currentPage) {
 		service.deleteData(idx);
 		
-		return "/product/list";
+		return "redirect:../list?currentPage="+currentPage;
 	}
 	
 	@ResponseBody

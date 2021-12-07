@@ -83,13 +83,13 @@
 			<td colspan="3" class="tit-sm">
 				<div class="info-sm">   
 					<div class="info-sm-div">
-						<div class="chat icon-sm">${dto.chatcount}</div>
+						<div class="chat icon-sm" id="chatcount">${dto.chatcount}</div>
 					</div>
 					<div class="info-sm-div">
-						<div class="dibs icon-sm">${dto.likecount}</div>
+						<div class="dibs icon-sm" id="likecount">${dto.likecount}</div>
 					</div>
 					<div class="info-sm-div">
-						<div class="read icon-sm">${dto.readcount}</div>
+						<div class="read icon-sm" id="readcount">${dto.readcount}</div>
 					</div>
 				</div>
 			</td>
@@ -107,7 +107,7 @@
 			<!-- 작성자면 -->
 			<c:if test="${myId == dto.id}">
 				<td colspan="2" class="detailBtn">
-					<button type="button" class="btn-update" onclick="location.href='updateForm?idx=${dto.idx}'">수정</button>
+					<button type="button" class="btn-update" onclick="location.href='/product/auth/updateForm?idx=${dto.idx}'">수정</button>
 					<button type="button" id="deleteBtn" class="btn-delete" value="${dto.idx}">삭제</button>
 				</td>
 			</c:if>
@@ -166,6 +166,7 @@
 	</div>
 </div>
 <input type="hidden" id="sellstatus" name="sellstatus" value="${dto.sellstatus}">
+<input type="hidden" id="currentPage" name="currentPage" value="${currentPage}">
 </div>
 
 <script type="text/javascript" src="/js/swiper.min.js"></script>
@@ -246,8 +247,11 @@ function dibsClicked(){
 		        dataType : "json",   
 		        data : {"idx":idx},
 		        success : function (data) {
+		        	console.log(data);
 					$("#likecount").html(data);
 		        	console.log("success+");
+				}, error: function (data) {
+					console.log(data);
 				}
 			});
 		} else{
@@ -258,8 +262,11 @@ function dibsClicked(){
 		        dataType : "json",   
 		        data : {"idx":idx},
 		        success : function (data) {
+		        	console.log(data);
 					$("#likecount").html(data);
 		        	console.log("success-");
+				}, error: function (data) {
+					console.log(data);
 				}
 			});
 		}
@@ -343,11 +350,12 @@ $(document).on("click","#chatBtn", function() {
 //삭제 버튼 alert
 $("#deleteBtn").click(function() {
 	var idx =  $(this).val();
+	var currentPage =  $("#currentPage").val();
 	
 	var n = confirm("정말 게시물을 삭제하시겠습니까?");
 	
 	if(n){
-		location.href="delete?idx="+idx;
+		location.href="/product/auth/delete?currentPage="+currentPage+"&idx="+idx;
 	} else{
 		return;			
 	}

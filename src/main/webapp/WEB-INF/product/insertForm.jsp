@@ -12,8 +12,8 @@
 				</div>
 				<div class="child imgupload">
 					<div class="uploadImg">
-						<label for="selectImg"> <img
-							src="/image/write-upload-icon.JPG">
+						<label for="selectImg">
+							<img src="/image/write-upload-icon.JPG">
 						</label> <input type="file" id="selectImg" name="upload"
 							class="imginput" multiple="multiple" accept="image/*"
 							onchange="loadFile(event)">
