@@ -54,6 +54,14 @@
 	border-radius:10px;
 	border:2px solid #ff7ab0;
 	font-weight:bold;
+	font-size:15pt;
+}
+.myprofile-form .profile-update{
+	margin-left:50%;
+	width:0px;
+}
+.myprofile-form .profile-img{
+	cursor:pointer;
 }
 .profile-msg{
 	margin-top:5px;

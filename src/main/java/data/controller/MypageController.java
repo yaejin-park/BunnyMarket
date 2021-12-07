@@ -1,18 +1,24 @@
 package data.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import data.dto.MemberDTO;
 import data.service.FollowService;
 import data.service.MemberService;
 import data.service.ProductService;
@@ -67,35 +73,50 @@ public class MypageController {
 			Principal principal) {
 		ModelAndView mview=new ModelAndView();
 		
-		//로그인 체크
-		String isLogin="N";
-		isLogin=(String)request.getSession().getAttribute("isLogin");
+		String userId = "no";
+		String userType = "no";
+		String userNickName = "no";
+		String local = "";
+		String[] localArr = {};
 		
-		//로그인 되어 있을 경우,
-		if(isLogin!=null) {
-			//로그인 아이디 가져오기
-			String id=principal.getName();
-			mview.addObject("myId", id);
-		}
-		
-		//닉네임 가져오기
-		String nick=memService.getNick(principal.getName());
-		
-		mview.addObject("isLogin", isLogin);
-		mview.addObject("nick", nick);
+		if(principal != null) {
+			userId = principal.getName();
+			userType = memService.currentUserType(principal);
+			userNickName = memService.currentUserNickName(principal);
+			local = memService.getLocal(principal);
+			localArr = local.split(",");
+		}		
+		mview.addObject("userType", userType);
+		mview.addObject("userNickName", userNickName);		
+		mview.addObject("localCnt", localArr.length);
+		mview.addObject("localArr", localArr);
 		
 		mview.setViewName("/mypage/profile_updateForm");
 		return mview;
 	}
 	
 	@PostMapping("/auth/profile_update")
-	public String pudate(@RequestParam HashMap<String, String> map,
-			Principal principal) {		
-		String nick=map.get("nick");
-		map.put("nick", nick);
+	public String pudate(
+			Principal principal) {
+		HashMap<String, String> map=new HashMap<String, String>();
 		
-		memService.updateNickName(map);
-		return "/mypage/detail";
+		String userId = "no";
+		String userType = "no";
+		String userNickName = "no";
+		String local = "";
+		String[] localArr = {};
+		
+		if(principal != null) {
+			userId = principal.getName();
+			userType = memService.currentUserType(principal);
+			userNickName = memService.currentUserNickName(principal);
+			local = memService.getLocal(principal);
+			localArr = local.split(",");
+		}		
+		map.put("userType", userType);
+		map.put("userNickName", userNickName);
+		
+		return "redirect:/mypage/detail";
 	}
 	
 	@GetMapping("/unregister")
