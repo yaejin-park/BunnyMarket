@@ -40,4 +40,7 @@ public class EventService {
 	public List<EventReplyDTO> getReplyList(String idx) {
 		return mapper.getReplyList(idx);
 	}
+	public String getMaxReply(String idx) {
+		return mapper.getMaxReply(idx);
+	}
 }

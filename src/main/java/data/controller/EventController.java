@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -114,6 +115,8 @@ public class EventController {
 		}
 		EventDTO dto = service.getData(idx);
 		String[] photoList = dto.getPhoto().split(",");
+		String maxReply = service.getMaxReply(idx);
+		
 		
 		List<EventReplyDTO> relist = service.getReplyList(idx);
 		int recount = relist.size();
@@ -127,6 +130,7 @@ public class EventController {
 		mview.addObject("userNickName", userNickName);
 		mview.addObject("relist", relist);
 		mview.addObject("recount", recount);
+		mview.addObject("maxReply", maxReply);
 		mview.addObject("localCnt", localArr.length);
 		mview.addObject("localArr", localArr);
 		
@@ -217,15 +221,18 @@ public class EventController {
 	
 	@PostMapping("/auth/reply/insert")
 	public @ResponseBody void replyInsert(
-		@RequestParam String num,
-		@RequestParam String content,
+		@ModelAttribute EventReplyDTO dto,
+		@RequestParam String checkStep,
 		Principal principal
 		) 
 	{
-		EventReplyDTO dto = new EventReplyDTO();
 		dto.setId(principal.getName());
-		dto.setNum(num);
-		dto.setContent(content);
+		if(checkStep == null) {
+			dto.setRegroup(dto.getRegroup() + 1);
+		}else {
+			dto.setRestep(dto.getRestep() + 1);
+			dto.setRelevel(dto.getRelevel() + 1);
+		}
 		service.insertReplyData(dto);
 	}
 	

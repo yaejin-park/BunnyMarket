@@ -18,4 +18,5 @@ public interface EventMapper {
 	public void updateReadCount(String idx);
 	public void insertReplyData(EventReplyDTO dto);
 	public List<EventReplyDTO> getReplyList(String idx);
+	public String getMaxReply(String idx);
 }

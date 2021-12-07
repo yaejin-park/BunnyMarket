@@ -24,6 +24,11 @@ public class MypageController {
 		return "/mypage/test_updateForm";
 	}
 	
+	@GetMapping("/profile_updateform")
+	public String pupdate() {
+		return "/mypage/profile_updateForm";
+	}
+	
 	@GetMapping("/unregister")
 	public String register() {
 		return "/mypage/unregister_member";
