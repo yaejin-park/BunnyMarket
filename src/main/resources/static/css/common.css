@@ -154,7 +154,8 @@ header .util {
 }
 header .util a {
     display:inline-block;
-    padding:10px;
+    padding:10px 0;
+    margin-left:15px;
 }
 header .util a:first-child {
 	position:relative;
@@ -164,7 +165,7 @@ header .util a:first-child:after {
     content:"";
     position:absolute;
     top:16px;
-    right:-2px;
+    right:-10px;
     display:block;
     width:1px;
     height:15px;
