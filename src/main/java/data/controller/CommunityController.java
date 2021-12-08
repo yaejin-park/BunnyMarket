@@ -72,30 +72,33 @@ public class CommunityController {
 		mview.addObject("localCnt",localArr.length);
 		mview.addObject("localArr",localArr);
 
-		//페이징 처리하기
 		int totalCount = service.getTotalCount(); 
+		//페이징 처리에 필요한 변수
 		int perPage = 15; 
 		int totalPage;
 		int start; 
 		int perBlock=5; 
 		int startPage; 
 		int endPage;
-
+		//총 페이지 갯수
 		totalPage = totalCount/perPage + (totalCount%perPage==0?0:1);
-
+		//각 블럭의 시작페이지
 		startPage = (currentPage-1)/perBlock * perBlock +1; 
+		//각 블럭의 마지막페이지
 		endPage = startPage + perBlock-1;
 		if(endPage>totalPage){ endPage = totalPage; }
+		//각 페이지에서 불러올 시작번호
 		start = (currentPage-1) * perPage; 
 		
 		List<CommunityDTO> list= service.getList(start, perPage);
 
 		for(CommunityDTO d:list) {
-			//댓글
+			//댓글 갯수가져오기
 			List<ComReplyDTO> relist=reservice.getReplyList(Integer.parseInt(d.getIdx()));
 			d.setAcount(relist.size());
 		}
 		
+		//출력에 필요한 변수들을 request에 저장
 		mview.addObject("commulist", list); 
 		mview.addObject("startPage",startPage);
 		mview.addObject("endPage",endPage);
