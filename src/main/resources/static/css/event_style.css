@@ -103,10 +103,20 @@
 	padding:20px 0;
 	border-bottom:1px solid #e5e5e5;
 }
+.event-div .re-list li.bg {
+	padding:20px 50px;
+	background:#f5f5f5;
+}
 .event-div .re-list .re-content .btn-wrap {
 	margin-top:10px;
 }
 .event-div .re-list .re-content .btn-wrap .reply-btn {
 	float:left;
 	font-size:14px;
+}
+.event-div .re-list .re-div {
+	display:none;
+	margin:20px 0 0 50px;
+	padding:20px;
+	border:1px solid #e5e5e5;
 }

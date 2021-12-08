@@ -32,6 +32,14 @@
 		insert into event (title, content, photo, original_photo, category, event_start, event_end, writeday) values (#{title}, #{content}, #{photo}, #{original_photo}, #{category}, #{event_start}, #{event_end}, now())
 	</insert>
 	
+	<delete id="deleteData" parameterType="String">
+		delete from event where idx=#{idx}
+	</delete>
+	
+	<update id="updateData" parameterType="edto">
+		update event set title=#{title}, content=#{content}, photo=#{photo}, original_photo=#{original_photo}, category=#{category}, event_start=#{event_start}, event_end=#{event_end} where idx=#{idx}
+	</update>
+	
 	<update id="updateReadCount" parameterType="String">
 		update event set readcount=readcount+1 where idx=#{idx}
 	</update>
@@ -41,6 +49,14 @@
 	</insert>
 	
 	<select id="getReplyList" parameterType="String" resultType="eReDto">
-		select * from event_reply where num=#{idx}
+		select * from event_reply where num=#{idx} order by regroup desc, restep asc
 	</select>
+	
+	<select id="getMaxReply" parameterType="String" resultType="String">
+		select MAX(regroup) from event_reply where num=#{idx}
+	</select>
+	
+	<delete id="deleteReply" parameterType="String">
+		delete from event_reply where idx=#{idx}
+	</delete>
 </mapper>

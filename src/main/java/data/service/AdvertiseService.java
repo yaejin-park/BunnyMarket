@@ -6,7 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import data.dto.AdreplyDTO;
 import data.dto.AdvertiseDTO;
+import data.dto.EventReplyDTO;
 import data.mapper.AdvertiseMapper;
 
 @Service
@@ -49,5 +51,19 @@ public class AdvertiseService {
 	//delete
 	public void deleteAdvertise(String idx) {
 		mapper.deleteAdvertise(idx);
+	}
+	
+	//reply
+	public void insertReplyData(AdreplyDTO dto) {
+		mapper.insertReplyData(dto);
+	}
+	public List<AdreplyDTO> getReplyList(String idx) {
+		return mapper.getReplyList(idx);
+	}
+	public String getMaxReply(String idx) {
+		return mapper.getMaxReply(idx);
+	}
+	public void deleteReply(int idx) {
+		mapper.deleteReply(idx);
 	}
 }

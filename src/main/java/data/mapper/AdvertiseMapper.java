@@ -5,7 +5,9 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import data.dto.AdreplyDTO;
 import data.dto.AdvertiseDTO;
+import data.dto.EventReplyDTO;
 
 @Mapper
 public interface AdvertiseMapper {
@@ -24,4 +26,10 @@ public interface AdvertiseMapper {
 	public void updateAdvertise(AdvertiseDTO dto);
 	//delete
 	public void deleteAdvertise(String idx);
+	
+	//reply
+	public void insertReplyData(AdreplyDTO dto);
+	public List<AdreplyDTO> getReplyList(String idx);
+	public String getMaxReply(String idx);
+	public void deleteReply(int idx);
 }

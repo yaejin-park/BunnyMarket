@@ -27,11 +27,13 @@ public class LocalController {
 	{
 		ModelAndView mview = new ModelAndView();
 		String userId = "no";
+		String local = "";
+		String[] localArr = {};
 		if(principal != null) {
 			userId = principal.getName();
+			local = memberService.getLocal(principal);
+			localArr = local.split(",");
 		}
-		String local = memberService.getLocal(principal);
-		String[] localArr = local.split(",");
 		
 		mview.addObject("localCnt", localArr.length);
 		mview.addObject("localArr", localArr);
