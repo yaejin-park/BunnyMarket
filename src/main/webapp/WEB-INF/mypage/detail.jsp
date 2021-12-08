@@ -11,8 +11,8 @@
 				<a href="./selllist" class="swiper-slide">판매내역</a>
 				<a href="" class="swiper-slide">관심목록</a>
 				<a href="./productlike/list" class="swiper-slide">나의후기</a>
-				<a href="./updateform" class="swiper-slide">회원수정</a>
-				<a href="./unregister" class="swiper-slide">회원탈퇴</a>
+				<a href="./member/updateform" class="swiper-slide">회원수정</a>
+				<a href="./member/deleteform" class="swiper-slide">회원탈퇴</a>
 			</div>
 		</div>
 		<div class="my-page">

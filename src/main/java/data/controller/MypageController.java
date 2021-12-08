@@ -29,6 +29,7 @@ import data.service.ProductService;
 public class MypageController {
 	@Autowired
 	MemberService memService;
+	
 	@Autowired
 	ProductService pservice;
 	
@@ -64,11 +65,6 @@ public class MypageController {
 		
 		mview.setViewName("/mypage/detail");
 		return mview;
-	}
-	
-	@GetMapping("/updateform")
-	public String update() {
-		return "/mypage/test_updateForm";
 	}
 	
 	@GetMapping("/profile_updateform")
@@ -122,8 +118,8 @@ public class MypageController {
 		return "redirect:/mypage/detail";
 	}
 	
-	@GetMapping("/unregister")
-	public ModelAndView deleteForm(
+	@GetMapping("/member/updateform")
+	public ModelAndView updateForm(
 		Principal principal
 		) 
 	{
@@ -139,11 +135,35 @@ public class MypageController {
 		
 		mview.addObject("localCnt", localArr.length);
 		mview.addObject("localArr", localArr);
-		mview.setViewName("/mypage/unregister_member");
+		mview.setViewName("/member/updateMemberForm");
 		return mview;
 	}
 	
-	@GetMapping("/deletemember")
+	@GetMapping("/member/deleteform")
+	public ModelAndView deleteForm(
+		Principal principal
+		) 
+	{
+		ModelAndView mview = new ModelAndView();
+		String userId = "no";
+		String userNickName = "";
+		String local="";
+		String[] localArr = {};
+		if(principal != null) {
+			userId = principal.getName();
+			userNickName = memService.currentUserNickName(principal);
+			local = memService.getLocal(principal);
+			localArr = local.split(",");
+		}
+		
+		mview.addObject("localCnt", localArr.length);
+		mview.addObject("localArr", localArr);
+		mview.addObject("userNickName", userNickName);
+		mview.setViewName("/mypage/deleteMemberForm");
+		return mview;
+	}
+	
+	@GetMapping("/member/deletemember")
 	public String deleteMember(
 		Principal principal,
 		HttpServletRequest request
