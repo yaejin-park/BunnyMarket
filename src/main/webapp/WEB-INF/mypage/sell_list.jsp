@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link rel="stylesheet" type="text/css" href="/css/mypage_style.css">
 
-<!-- <form:form commandName="productDto" method="get"  id="listForm" action="selllist"> -->
 <div class="sell-list">
 	<div class="inner">
 		<div class="sell-condition">
@@ -26,7 +25,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="pd" items="${list} varStatus="status">
+					<c:forEach var="pd" items="${list}" varStatus="status">
 						<tr>
 							<td><c:out value="${pd.uploadfile[0]}"/></td>
 							<td>
@@ -76,7 +75,6 @@
 		</c:if>
 	</div>
 </div>
-<!-- </form:form> -->
 
 <script type="text/javascript" src="/js/mypage_script.js">
 
