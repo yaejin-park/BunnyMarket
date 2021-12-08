@@ -223,43 +223,58 @@ public class AdvertiseController {
 	
 	@GetMapping("/auth/updateform")
 	public ModelAndView updateForm(@RequestParam String idx,
-				@RequestParam(defaultValue = "1") int currentPage) {
+				@RequestParam(defaultValue = "1") int currentPage,
+				Principal principal) {
 		ModelAndView mview=new ModelAndView();
+		
+		String userId = "no";
+		String local = "";
+		String[] localArr = {};
+		if(principal != null) {
+			userId = principal.getName();
+			local = memService.getLocal(principal);
+			localArr = local.split(",");
+		}
 		AdvertiseDTO dto=service.getData(idx);
 		
 		mview.addObject("dto", dto);
 		mview.addObject("currentPage", currentPage);
+		mview.addObject("localCnt", localArr.length);
+		mview.addObject("localArr", localArr);
 		//이미지
-		String []dbimg=dto.getPhoto().split(",");
-		mview.addObject("dbimg", dbimg);
+		String []photoList=dto.getPhoto().split(",");
+		mview.addObject("photoList", photoList);
 		
 		mview.setViewName("/advertise/updateForm");
 		return mview;
 	}
 	
 	@PostMapping("/auth/update")
-	public @ResponseBody void update(@ModelAttribute AdvertiseDTO dto, 
-				HttpSession session, 
-				HttpServletRequest request, 
-				Principal principal,
-				MultipartHttpServletRequest multiRequest,
-				@RequestParam List<MultipartFile> photoupload,
-				@RequestParam(defaultValue = "1") int currentPage) throws Exception {
-		
+	public @ResponseBody void update(@ModelAttribute AdvertiseDTO dto,
+			HttpSession session, 
+			HttpServletRequest request,
+			MultipartHttpServletRequest multiRequest,
+			Principal principal,
+			@RequestParam List<MultipartFile> photoupload) throws Exception {
+	
 		//로그인중이 아닐 경우 종료
 		String isLogin=(String)request.getSession().getAttribute("isLogin");
 		if(isLogin==null) {
 			return;
 		}
-				
-		//uuid 생성
-		UUID uuid=UUID.randomUUID();
+		
+		//uuid(랜덤이름) 생성
+		UUID uuid=UUID.randomUUID();		
 
-		photoupload = dto.getPhotoupload(); 
-		String title=multiRequest.getParameter("title");
-		String content=multiRequest.getParameter("contetn");
-
+		//이미지 업로드 폴더 지정
 		String path=session.getServletContext().getRealPath("/photo");
+		
+		String title=multiRequest.getParameter("title");
+		String content=multiRequest.getParameter("content");
+		photoupload = dto.getPhotoupload();
+		
+		String photoplus = multiRequest.getParameter("updatePhoto");
+		
 		//이미지 업로드 안했을때
 		if(photoupload.get(0).getOriginalFilename().equals("")) {
 			dto.setPhoto("no");
@@ -269,10 +284,8 @@ public class AdvertiseController {
 			File file=new File(path+"\\"+ufile);
 			file.delete();
 			
-			//이미지 업로드 폴더 지정
-			String photoplus="";
 			System.out.println(path);
-
+	
 			for(int i=0;i<photoupload.size();i++) {
 				String photo=uuid.toString()+"_"+photoupload.get(i).getOriginalFilename();
 				//실제 업로드
@@ -295,9 +308,10 @@ public class AdvertiseController {
 		dto.setTitle(title);
 		dto.setContent(content);
 		
-		//update
+		//insert
 		service.updateAdvertise(dto);
-		//return "redirect:/advertise/detail?idx="+dto.getIdx()+"&currentPage="+currentPage;
+		//return "redirect:/advertise/detail?idx="+service.getMaxIdx();
+		//return "/advertise/list";
 	}
 	
 	@GetMapping("/auth/delete")
@@ -326,7 +340,7 @@ public class AdvertiseController {
 			) 
 		{
 			dto.setId(principal.getName());
-			if(checkStep == null) {
+			if(checkStep.equals("no")) {
 				dto.setRegroup(dto.getRegroup() + 1);
 			}else {
 				dto.setRestep(dto.getRestep() + 1);
@@ -336,9 +350,8 @@ public class AdvertiseController {
 		}
 	
 	@GetMapping("/auth/reply/delete")
-	public @ResponseBody String delete(@RequestParam int idx) {
+	public @ResponseBody void delete(@RequestParam int idx) {
 		System.out.println(idx);
 		service.deleteReply(idx);
-		return "delete";
 	}
 }

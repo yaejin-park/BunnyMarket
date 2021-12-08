@@ -109,7 +109,7 @@
 	<!-- 댓글 -->
 	<div class="reply">
 		<input type="hidden" value="${dto.idx}" name="num">
-		<input type="hidden" value="${maxReply}" name="regroup">
+		<input type="hidden" value="${maxReply==null?0:maxReply}" name="regroup">
 		<div class="tit">
 			댓글 ${recount}
 		</div>
@@ -155,6 +155,11 @@
 		    <ul class="re-list">
 		    	<c:forEach var="ardto" items="${relist}">
 		    		<li class="${ardto.restep!=0?'bg':''}">
+		    			<input type="hidden" name="currentPage" value="${currentPage}">
+						<!-- ardto.num은 원글 저장 idx는 게시판 db에서 원글의 번호 -->
+						<input type="hidden" name="num" value="${ardto.num}">							
+						<!-- 원글번호 불러와서 저장하기(?) 위랑 아래 두개가 같이 있어야 하내 db에 저장되고 불러와짐 -->
+						<input type="hidden" name="idx" value="${ardto.idx}">
 	    				<input type="hidden" name="regroup" value="${ardto.regroup}">
 	    				<input type="hidden" name="restep" value="${ardto.restep}">
 	    				<input type="hidden" name="relevel" value="${ardto.relevel}">
@@ -172,7 +177,7 @@
 				            </span>
 					        <div class="btn-wrap">
 					        	<a href="javascript:" class="reply-btn">답글쓰기</a>
-			                	<a href="javascript:" class="btn-delete btn-sm re-delbtn" idx="${ardto.idx}">삭제</a>
+			                	<a href="javascript:" class="btn-delete btn-sm" idx="${ardto.idx}">삭제</a>
 					        </div>
 		    			</div>
 		    			<div class="re-div">
@@ -212,171 +217,4 @@
 </div>
 
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-<!-- Initialize Swiper -->
-<script type="text/javascript">
-$(document).ready(function() {
-	//로그인 되어 있을 경우,
-	if(${isLogin == "Y"}){
-		//좋아요 여부로 하트 버튼 변경
-		//좋아요 안했을 시,
-		if(${likeCheck==0}){
-			$("#dibsBtnImg").attr("src","/image/stopheart-icon.gif");
-		} else{
-			$("#dibsBtnImg").attr("src","/image/fullheart-icon.gif");
-		}
-	}
-});
-
-setTimeout(() => {
-	 var swiper = new Swiper(".mySwiper", {
-		    navigation: {
-		      nextEl: ".swiper-button-next",
-		      prevEl: ".swiper-button-prev",
-		    },
-		    pagination: {
-		      el: ".swiper-pagination",
-		    },
-		  });
-}, 20);
-
-//게시글 삭제
-$(function(){
-	//삭제 버튼 alert
-	$("#deleteBtn").click(function() {
-		var idx =  $(this).val();
-		var currentPage= $("input[name='current-page']").val();
-		
-		var n = confirm("정말 게시물을 삭제하시겠습니까?");
-		if(n){
-			location.href="auth/delete?idx="+idx+"&currentPage="+currentPage;
-		}else{
-			return;			
-		}
-	});
-	
-	$(".reply .re-div .btn-add").click(function(){
-		var num = $(this).parents(".reply").find("input[name='num']").val();
-		var content = $(this).parents(".re-div").find("textarea[name='re-content']").val();
-		var regroup = $(this).parents(".reply").find("input[name='regroup']").val();
-		
-		$.ajax({
-			type:"post",
-			url:"auth/reply/insert",
-			data:{
-				"num":num,
-				"content":content,
-				"regroup":regroup
-			},
-			success:function(){
-				$(this).parents(".re-div").find("textarea[name='re-content']").val("");
-				location.reload();
-			}
-		});
-	});
-	
-	$(".re-list .reply-btn").click(function(){
-		if(!$(this).hasClass("active")){
-			$(".re-list .reply-btn").removeClass("active");
-			$(".re-list .re-div").hide();
-			$(this).addClass("active");
-			$(this).parents("li").find(".re-div").show();
-		}else{
-			$(this).removeClass("active");
-			$(this).parents("li").find(".re-div").hide();
-		}
-	});
-	
-	$(".ad-div .re-list li.bg").each(function(){
-		var level = $(this).find("input[name='relevel']").val();
-		$(this).css("padding-left",(level*50) + "px");
-	})
-	
-	$(".re-list .re-div").find(".btn-add").click(function(){
-		var regroup = $(this).parents("li").find("input[name='regroup']").val();
-		var restep = $(this).parents("li").find("input[name='restep']").val();
-		var relevel = $(this).parents("li").find("input[name='relevel']").val();
-		var num = $(".ad-div").find(".reply input[name='num']").val();
-		var content = $(this).parents("li").find(".re-div textarea[name='re-content']").val();
-		var checkStep = "yes"; 
-		console.log(num);
-		$.ajax({
-			type:"post",
-			url:"auth/reply/insert",
-			data:{
-				"num":num,
-				"content":content,
-				"regroup":regroup,
-				"restep":restep,
-				"relevel":relevel,
-				"checkStep":checkStep
-			},
-			success:function(){
-				$(this).parents(".re-div").find("textarea[name='re-content']").val("");
-				location.reload();
-			}
-		});
-	});
-	
-
-	//댓글 글자수 제한
-	$(".re-textinput").keyup(function() {
-		var inputlength=$(this).val().length;
-		var remain=+inputlength;
-		$(".text-plus").html(remain);
-		if(remain>=90){
-			$(".text-plus").css('color','red');
-		}else{
-			$(".text-plus").css('color','black');
-		}
-		
-		if(remain>=101){
-			alert("100자를 초과했습니다.");
-		}else {
-			return;
-		}
-	});
-
-	//댓글삭제
-	$("a.re-delbtn").click(function() {
-			var idx=$(this).attr("idx");
-			console.log(idx);
-			if(confirm("댓글을 삭제하시겠습니까?")){
-				$ajax({
-					type:"get",
-					dataType:"html",
-					url:"./auth/reply/delete",
-					data:{"idx":idx},
-					success:function(){
-						alert("댓글을 삭제했습니다.");
-						location.reload();
-					}
-				});
-			}
-		});
-	
-	//대댓글 글자수 제한
-	$(".re-retextinput").keyup(function() {
-		var inputlength=$(this).val().length;
-		var remain=+inputlength;
-		$(".retext-plus").html(remain);
-		if(remain>=90){
-			$(".retext-plus").css('color','red');
-		}else{
-			$(".retext-plus").css('color','black');
-		}
-		
-		if(remain>=101){
-			alert("100자를 초과했습니다.");
-		}else {
-			return;
-		}
-	});
-	
-	//이미지 상세 보기
-	$(".img-detail-view").click(function() {
-		$(this).text("상세사진보기(열기)");
-		$(this).parents(".img-detail-div").siblings().find(".content-img").hide();
-		$(this).parents(".img-detail-div").find(".content-img").toggle();
-	});
-});	
-</script>
+<script type="text/javascript" src="/js/advertise_script.js"></script>
