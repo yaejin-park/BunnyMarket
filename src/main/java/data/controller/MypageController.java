@@ -35,7 +35,7 @@ public class MypageController {
 	}
 	
 	@GetMapping("/unregister")
-	public ModelAndView register(
+	public ModelAndView deleteForm(
 		Principal principal
 		) 
 	{
