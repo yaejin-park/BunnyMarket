@@ -47,14 +47,15 @@ public class ChatController {
 	MemberService mservice;
 
 	@GetMapping("/auth/room")
-	public ModelAndView chatList(@RequestParam String idx, @RequestParam String id, Principal principal, HttpSession session) throws IOException  {
+	public ModelAndView chatRoom(@RequestParam String idx, @RequestParam String id, Principal principal, HttpSession session) throws IOException  {
 		ModelAndView mview = new ModelAndView();
+		
 		//채팅 리스트 존재 여부(제품 idx & 로그인 아이디 통해 찾기)
 		ChatListDTO chdto = service.getAChatList(idx, id);
 
 		int roomNumber = 1;
 
-		//채팅리스트 존재하면,
+		//채팅방 존재하면,
 		if(chdto != null) {
 			System.out.println("채팅리스트 존재");
 			//파일 경로
@@ -65,7 +66,7 @@ public class ChatController {
 
 			String pathName = path + "/" + chat_file;
 
-			//DB에 저장된 chat.txt 파일을 읽어옴 
+			//DB에 저장된 chat.txt 파일을 읽어오기
 	        BufferedReader br = new BufferedReader(new FileReader(pathName));
 			
 	        ChatDTO chatmsg = new ChatDTO();
@@ -121,7 +122,17 @@ public class ChatController {
 		String thumb = photo[0];
 
 		String myId = principal.getName();
-		String nick = mservice.getNick(myId);
+		String nick = mservice.getNick(pservice.getData(idx).getId());
+		
+		//지역 설정
+		String local="";
+		String []localArr = {};
+		
+		local = mservice.getLocal(principal);
+		localArr=local.split(",");
+		  
+		mview.addObject("localCnt", localArr.length);
+		mview.addObject("localArr", localArr);
 
 		mview.addObject("dto", dto);
 		mview.addObject("roomNumber", roomNumber);
@@ -132,20 +143,125 @@ public class ChatController {
 
 		return mview;	
 	}
+	
+	@GetMapping("/auth/list")
+	public ModelAndView chatList(Principal principal, HttpSession session) throws IOException  {
+		ModelAndView mview = new ModelAndView();
+		
+		//로그인 아이디
+		String myId = principal.getName();
+		
+		//보일 채팅 리스트
+		List<ChatListDTO> chlist = service.getChatListJoin(myId);
+//		
+//		//채팅 리스트 존재 여부(제품 idx & 로그인 아이디 통해 찾기)
+//		ChatListDTO chdto = service.getAChatList(idx, myId);
+//		
+		int roomNumber = 1;
+
+//		//채팅방 존재하면,
+//		if(chdto != null) {
+//			System.out.println("채팅리스트 존재");
+//			//파일 경로
+//			String path = session.getServletContext().getRealPath("/chatFile");
+//			//chat테이블에서 chat_file 찾기
+//			String chat_idx = service.getChatIdx(idx, myId);
+//			String chat_file = service.getChatFile(chat_idx);
+//
+//			String pathName = path + "/" + chat_file;
+//
+//			//DB에 저장된 chat.txt 파일을 읽어오기
+//	        BufferedReader br = new BufferedReader(new FileReader(pathName));
+//			
+//	        ChatDTO chatmsg = new ChatDTO();
+//	        List<ChatDTO> chatHistory = new ArrayList<ChatDTO>();
+//	   
+//	        String chatLine;
+//	        int num = 1;
+//	        
+//	        while ((chatLine = br.readLine()) != null) {
+//	            //1개 메시지는 3줄(보낸사람,메시지내용,보낸시간)로 구성돼있음
+//	            int answer = num % 3;
+//	            if (answer == 1) {
+//	            	//보낸시간
+//	            	chatmsg.setTime(chatLine);
+//	            	num++;
+//	            } else if (answer == 2) {
+//	                //메시지내용
+//	            	chatmsg.setMsg(chatLine);
+//	            	num++;
+//	            } else {
+//	            	//보낸사람
+//	            	chatmsg.setSender(chatLine);
+//	                
+//	                //메시지 담긴 ChatRoom 객체 List에 저장
+//	                chatHistory.add(chatmsg);
+//	                //객체 초기화, 줄(row)인덱스 초기화
+//	                chatmsg = new ChatDTO();
+//	                num = 1;
+//	            }  
+//	        }
+//	        mview.addObject("chatHistory", chatHistory);
+//	        
+//			//채팅리스트테이블의 채팅 idx 보내기
+//			roomNumber= Integer.parseInt(chdto.getChat_idx());
+//		} else {
+//			System.out.println("채팅방 없음");
+//
+//			//채팅 테이블의 가장큰 idx+1 보내기
+//			//채팅이 아예 없으면
+//			if(service.getChatMaxIdx()==null) { 
+//				roomNumber = 1;
+//			} else {
+//				roomNumber = service.getChatMaxIdx()+1;
+//			}
+//	 		System.out.println(roomNumber+"!!!");
+//		}
+//
+//		//제품 정보(채팅방 상단)
+//		ProductDTO dto = pservice.getData(idx);
+//
+//		//사진 ,로 split(대표 이미지)
+//		String []photo = dto.getUploadfile().split(",");
+//		String thumb = photo[0];
+//
+//		
+		String nick = mservice.getNick(myId); //내 닉네임
+		
+		//지역 설정
+		String local="";
+		String []localArr = {};
+		
+		local = mservice.getLocal(principal);
+		localArr=local.split(",");
+		  
+		mview.addObject("localCnt", localArr.length);
+		mview.addObject("localArr", localArr);
+		//지역설정 끝
+		
+		mview.addObject("chlist", chlist);
+//		mview.addObject("dto", dto);
+//		mview.addObject("roomNumber", roomNumber);
+//		mview.addObject("photo", thumb);
+		mview.addObject("myId", myId);
+		mview.addObject("nick", nick);
+		mview.setViewName("/chat/list");
+
+		return mview;	
+	}
 
 
 	@ResponseBody
 	@PostMapping("/auth/firstSend")
 	public Map<String, String> firstSend(@RequestParam String idx, @RequestParam String seller, @RequestParam String roomNumber,
 			@RequestParam String msg,HttpSession session, Principal principal) throws IOException {
-
 		Map<String, String> map = new HashMap<String, String>();
 
+		//현재 로그인된 아이디
 		String id = principal.getName();
 
 		//채팅 테이블에서 채팅방 존재 여부(product_idx, buyer_id)
 		int checkChat = service.checkChatByIdx(idx, id);
-
 
 		//채팅방 존재X
 		if(checkChat==0) {
@@ -285,9 +401,26 @@ public class ChatController {
 
 
 	@GetMapping("/auth/deleteChat")
-	public ModelAndView deleteChatList(@RequestParam String chat_idx, @RequestParam String id, @RequestParam String idx) {
+	public ModelAndView deleteChatList(@RequestParam String chat_idx, @RequestParam String id, @RequestParam String idx, HttpSession session) {
 		ModelAndView mview = new ModelAndView();
-
+		
+		//채팅리스트에 chat_idx 갯수가 1개면 파일, 채팅 삭제
+		if(service.countList(chat_idx)==1) {
+			// 파일 삭제
+			//파일 저장 위치
+			String path = session.getServletContext().getRealPath("/chatFile");
+			String chat_file = service.getChatFile(chat_idx);
+			String pathName = path + "/" + chat_file;
+	        
+	        File file = new File(pathName);
+	       
+	        // 파일을 삭제합니다.
+	        file.delete(); 
+	     
+			//채팅방 삭제
+	        service.deleteChat(chat_idx);
+		}
+		
 		service.deleteChatList(chat_idx, id);
 		mview.setViewName("../../product/detail?idx="+idx);
 		return mview;

@@ -24,7 +24,7 @@
 				</div>
 			</div>
 
-			<div class="wrap link" onclick="location.href='../product/detail?idx=${dto.idx}'">
+			<div class="wrap link" onclick="location.href='../../product/detail?idx=${dto.idx}'">
 				<img alt="product-image" src="../../photo/${photo}" class="product-img">
 				<div class="info-text">
 					<div class="title-div">
@@ -66,8 +66,7 @@
 		</div>
 
 		<form:form modelAttribute="ChatDTO" name="msg-form" class="msgForm">
-			<input type="hidden" name="chat_idx" id="chat_idx"
-				value="${chat_idx}">
+			<input type="hidden" name="chat_idx" id="chat_idx" value="${chat_idx}">
 			<input type="hidden" name="sessionId" id="sessionId" value="${myId}">
 			<input type="hidden" name="userName" id="userName" value="${nick}">
 			<input type="hidden" name="roomNumber" id="roomNumber" value="${roomNumber}">
@@ -79,11 +78,11 @@
 				<button type="button" class="btn-add" onclick="first()" id="sendBtn">전송</button>
 			</div>
 		</form:form>
-
-		<div class="btn-wrap">
-			<button type="button" class="btn-default"
-				onclick="location.href='../../product/detail?idx=${dto.idx}'">뒤로가기</button>
-		</div>
+	</div>
+	
+	<div class="btn-wrap">
+		<button type="button" class="btn-default"
+			onclick="location.href='../../product/detail?idx=${dto.idx}'">뒤로가기</button>
 	</div>
 </div>
 <script type="text/javascript">
@@ -93,8 +92,7 @@ $(".chating").scrollTop($(".chating")[0].scrollHeight);
 var ws;
 
 function wsOpen() {
-	ws = new WebSocket("ws://" + location.host + "/chating/"
-			+ $("#roomNumber").val());
+	ws = new WebSocket("ws://" + location.host + "/chating/"+ $("#roomNumber").val());
 	wsEvt();
 }
 
@@ -110,7 +108,7 @@ function wsEvt() {
 		//채팅메세지가 존재하면,
 		if (msg != null && msg.trim() != '') {
 			var d = JSON.parse(msg);
-			if (d.type == "getId") {
+			if (d.type == "sessionOpen") {
 				var si = d.sessionId != null ? d.sessionId : "";
 				if (si != '') {
 					$("#sessionId").val(si);
@@ -133,7 +131,7 @@ function wsEvt() {
 		}
 	}
 
-	//엔터눌러도 보내지게
+/* 	//엔터눌러도 보내지게
 	document.addEventListener("keypress", function(e) {
 		if (e.keyCode == 13) {
 			if ($("#sendBtn").attr("onClick") == "first()") {
@@ -141,8 +139,9 @@ function wsEvt() {
 			} else {
 				send();
 			}
+			$("#chatting").val("");
 		}
-	});
+	}); */
 }
 
 //소켓 열기
@@ -156,7 +155,10 @@ function first() {
 	var idx = $("#idx").val();
 	var seller = $("#seller").val();
 	var roomNumber = $("#roomNumber").val();
+	//var msg = $("#chatting").val();
+	//var msg = $("#chatting").val().replace(/(\n|\r\n)/g, '<br>');
 	var msg = $("#chatting").val();
+	msg = msg.replaceAll(/(\n|\r\n)/g,'<br>');
 
 	//방 만들기
 	$.ajax({
@@ -191,13 +193,16 @@ function first() {
 //메세지 전송 버튼 눌렀을 때,
 function send() {
 	console.log("send");
+	
+	var msg = $("#chatting").val();
+	msg = msg.replaceAll(/(\n|\r\n)/g,'<br>');
 
 	var data = {
 		chat_idx : $("#chat_idx").val(),
 		product_idx : $("#idx").val(),
 		sender : $("#sessionId").val(),
 		seller_id : $("#seller").val(),
-		msg : $("#chatting").val()
+		msg : msg
 	}
 
 	//send 저장
@@ -218,7 +223,7 @@ function send() {
 		roomNumber : $("#roomNumber").val(),
 		sessionId : $("#sessionId").val(),
 		userName : $("#userName").val(),
-		msg : $("#chatting").val()
+		msg : msg
 	}
 	ws.send(JSON.stringify(option))
 
@@ -240,10 +245,7 @@ $("#chatOutBtn").click(function() {
 	var result = confirm("정말 채팅방을 나가시겠습니까?\n나간 채팅방의 데이터는 복구되지 않습니다");
 	if (result) {
 		//채팅방 delete
-		location.href = "deleteChat?chat_idx="
-				+ $('#chat_idx').val() + "&id="
-				+ $('#sessionId').val() + "&idx="
-				+ $('#idx').val();
+		location.href = "deleteChat?chat_idx="+$('#chat_idx').val() + "&id=" + $('#sessionId').val() + "&idx=" + $('#idx').val();
 		console.log("delete");
 	} else {
 		return;

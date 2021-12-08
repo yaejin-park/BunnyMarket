@@ -42,4 +42,24 @@
 		delete from chat_list where chat_idx=#{chat_idx} and id=#{id}
 	</delete>
 	
+	<delete id="deleteChat" parameterType="String">
+		delete from chat where idx=#{idx}
+	</delete>
+	
+	<select id="countList" parameterType="String" resultType="int">
+		select count(*) from chat_list where chat_idx=#{chat_idx}
+	</select>
+	
+	<select id="getChatList" parameterType="String" resultType="cldto">
+		select * from chat_list where id = #{id}
+	</select>
+	
+	<select id="getChatListJoin" parameterType="String" resultType="cldto">
+		SELECT m.profile as profile, m.nickname as nickname, c.chat_file as chat_file, p.uploadfile as upload_file
+		FROM chat_list AS cl 
+		INNER JOIN chat AS c ON cl.chat_idx = c.idx 
+		INNER JOIN member AS m ON m.id = cl.id
+		INNER JOIN product AS p ON c.product_idx = p.idx
+		WHERE cl.id = #{id}
+	</select> 
 </mapper>

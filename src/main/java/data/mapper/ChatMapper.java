@@ -19,4 +19,8 @@ public interface ChatMapper {
 	public void updateChatTime(String product_idx, String buyer_id);
 	public String getChatFile(String chat_idx);
 	public void deleteChatList(String chat_idx, String id);
+	public void deleteChat(String chat_idx);
+	public int countList(String chat_idx);
+	public List<ChatListDTO> getChatList(String id);
+	public List<ChatListDTO> getChatListJoin(String id);
 }

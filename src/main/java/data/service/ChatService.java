@@ -55,4 +55,20 @@ public class ChatService {
 		mapper.deleteChatList(chat_idx, id);
 	}
 	
+	public void deleteChat(@RequestParam String chat_idx) {
+		mapper.deleteChat(chat_idx);
+	}
+	
+	public int countList(@RequestParam String chat_idx) {
+		return mapper.countList(chat_idx);
+	}
+	
+	public List<ChatListDTO> getChatList(@RequestParam String id){
+		return mapper.getChatList(id);
+	}
+	
+	public List<ChatListDTO> getChatListJoin(@RequestParam String id){
+		return mapper.getChatListJoin(id);
+	}
+	
 }
