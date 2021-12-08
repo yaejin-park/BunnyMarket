@@ -72,4 +72,9 @@
 	<update id="updateStatus" parameterType="HashMap">
 		update product set sellstatus = #{status} where idx=#{idx}
 	</update>
+	
+	<select id="sellList" parameterType="pdto" resultType="pdto">
+      select * from product where sellstatus = #{status} and id = #{id} order by idx asc
+   </select>
+	
 </mapper>
