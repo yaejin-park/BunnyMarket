@@ -1,21 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <link rel="stylesheet" type="text/css" href="/css/join_style.css">
-<div class="join-div">
+<div class="join-div update-member">
 	<div class="inner">
 		<div class="write-form">
-			<form action="insert" method="post" name="join-form" onsubmit="return joinFormCheck(this)">
+			<form action="updateMember" method="post" name="update-form" onsubmit="return updateFormCheck(this)">
 				<div class="group">
 					<div class="child tit">
 						아이디
 						<span class="must">*</span>
 					</div>
 					<div class="child">
-						<div class="has-btn-type form-div">
-							<input type="text" name="id" placeholder="ID 입력" required="required">
-							<button type="button" class="id-check btn-list">중복확인</button>
+						<div class="form-div">
+							<input type="text" name="id" placeholder="ID 입력" value="${dto.id}" disabled="disabled">
 						</div>
-						<p class="info-txt">* 영문자,숫자, _만 입력가능, 최소 3자 이상 입력하세요.</p>
 					</div>
 				</div>
 				<div class="group">
@@ -25,21 +24,7 @@
 					</div>
 					<div class="child">
 						<div class="form-div">
-							<input type="password" name="pw" placeholder="PASSWORD 입력" required="required">
-							<p class="pw-msg"></p>
-						</div>
-						<p class="info-txt">* 영문+숫자+특수문자를 포함, 8자리~20자리 이내 공백없이 입력하세요.</p>
-					</div>
-				</div>
-				<div class="group">
-					<div class="child tit">
-						비밀번호확인
-						<span class="must">*</span>
-					</div>
-					<div class="child">
-						<div class="form-div">
-							<input type="password" name="pw2" placeholder="PASSWORD 입력" required="required">
-							<p class="pw-check-msg"></p>
+							<button type="button" class="btn-list" onclick="popOpen('#pwCheckPop')">변경</button>
 						</div>
 					</div>
 				</div>
@@ -50,7 +35,7 @@
 					</div>
 					<div class="child">
 						<div class="form-div">
-							<input type="text" name="name" placeholder="이름 입력" required="required">
+							<input type="text" name="name" placeholder="이름 입력" value="${dto.name}" disabled="disabled">
 						</div>
 						<div class="info-txt">
 							<p>* 공백없이 한글만 입력 가능</p>
@@ -64,7 +49,7 @@
 					</div>
 					<div class="child">
 						<div class="has-btn-type form-div">
-							<input type="text" name="nickname" placeholder="닉네임 입력" required="required">
+							<input type="text" name="nickname" placeholder="닉네임 입력" required="required" value="${dto.nickname}">
 							<button type="button" class="nick-check btn-list">중복확인</button>
 						</div>
 						<div class="info-txt">
@@ -79,12 +64,12 @@
 					</div>
 					<div class="child">
 						<div class="email-div form-div">
-							<input type="text" name="email1" placeholder="E-mail 입력"  required="required">
+							<input type="text" name="email1" placeholder="E-mail 입력"  required="required" value="${fn:split(dto.email,'@')[0]}">
 							<span>@</span>
-							<input type="text" name="email2" class="etc-input" placeholder="ex) email.com" required="required">
+							<input type="text" name="email2" class="etc-input" placeholder="ex) email.com" required="required" value="${fn:split(dto.email,'@')[1]}">
 							<select class="domain">
 								<option>선택</option>
-								<option value="">직접입력</option>
+								<option value="" value="">직접입력</option>
 								<option value="naver.com">naver</option>
 								<option value="gmail.com">google</option>
 								<option value="nate.com">nate</option>
@@ -110,13 +95,13 @@
 						<div class="hp-div">
 							<select name="hp1">
 								<option>선택</option>
-								<option>010</option>
-								<option>011</option>
+								<option ${fn:split(dto.hp,'-')[0]=='010'?'selected':''}>010</option>
+								<option ${fn:split(dto.hp,'-')[0]=='011'?'selected':''}>011</option>
 							</select>
 							<span>-</span>
-							<input type="text" name="hp2" placeholder="1234" maxlength="4">
+							<input type="text" name="hp2" placeholder="1234" maxlength="4" value="${fn:split(dto.hp,'-')[1]}">
 							<span>-</span>
-							<input type="text" name="hp3" placeholder="1234" maxlength="4" >
+							<input type="text" name="hp3" placeholder="1234" maxlength="4" value="${fn:split(dto.hp,'-')[2]}">
 						</div>
 					</div>
 				</div>
@@ -127,16 +112,16 @@
 					</div>
 					<div class="child">
 						<div class="addr-div">
-							<input type="hidden" name="addrLocal">
+							<input type="hidden" name="addrLocal" value="${fn:split(dto.local,',')[0]}">
 							<div class="has-btn-type form-div">
-								<input type="text" name="zonecode" readonly="readonly">
+								<input type="text" name="zonecode" readonly="readonly" value="${dto.zonecode}">
 								<button type="button" class="addr-search-btn btn-list" onclick="findAddr()">우편번호 검색</button>
 							</div>
 							<div class="form-div">
-								<input type="text" name="addr1" required="required">
+								<input type="text" name="addr1" required="required" value="${fn:split(dto.addr,',')[0]}">
 							</div>
 							<div class="form-div">
-								<input type="text" name="addr2">
+								<input type="text" name="addr2" value="${fn:split(dto.addr,',')[1]}">
 							</div>
 						</div>
 					</div>
@@ -185,19 +170,37 @@
 	</div>
 </div>
 
-<div class="popup-modal" id="idCheckPop">
+<div class="popup-modal" id="pwCheckPop">
 	<div class="modal">
-		<div class="modal-title">아이디 중복확인</div>
+		<div class="modal-title">비밀번호 확인</div>
 		<div class="modal-content">
 			<div class="write-form">
-				<p class="info-txt">아이디는 영문자,숫자, _만 입력가능, 최소 3자 이상 입력하세요.</p>
+				<p class="info-txt">비밀번호 변경을 위한 비밀번호 확인입니다. 비밀번호를 입력해주세요.</p>
 				<div class="has-btn-type form-div">
-					<input type="text" name="id" placeholder="ID 입력">
-					<button type="button" class="id-check btn-list btn-sm">중복확인</button>
+					<input type="password" name="password" placeholder="비밀번호 입력">
 				</div>
-				<div class="result-div">
-					<p class="result-msg"></p>
-					<button type="button" class="use-btn btn-add">사용하기</button>
+				<div class="btn-wrap">
+					<button type="button" class="pw-check-btn btn-add">비밀번호 확인</button>
+				</div>
+			</div>
+		</div>
+		<button type="button" class="modal-close">닫기</button>
+	</div>
+</div>
+
+<div class="popup-modal" id="pwChangePop">
+	<div class="modal">
+		<div class="modal-title">비밀번호 변경</div>
+		<div class="modal-content">
+			<div class="write-form">
+				<p class="info-txt">* 영문+숫자+특수문자를 포함, 8자리~20자리 이내 공백없이 입력하세요.</p>
+				<div class="form-div">
+					<input type="password" name="pw" placeholder="PASSWORD 입력" required="required">
+					<input type="password" name="pw2" placeholder="PASSWORD 입력" required="required">
+					<p class="pw-check-msg"></p>
+				</div>
+				<div class="btn-wrap">
+					<button type="button" class="use-btn btn-add">변경하기</button>
 				</div>
 			</div>
 		</div>
@@ -225,5 +228,5 @@
 	</div>
 </div>
 
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript" src="/js/join_script.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>

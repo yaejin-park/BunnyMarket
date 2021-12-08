@@ -22,5 +22,8 @@ public interface MemberMapper {
 	public void updatePw(HashMap<String, String> map);
 	public void updateProfile(HashMap<String, String> map);
 	public void updateNickName(HashMap<String, String> map);
+	public void updateMember(MemberDTO dto);
 	public void deleteMember(String id);
+	public String checkLocal(HashMap<String, String> map);
+	public String getIdTakeNick(String nickname);
 }
