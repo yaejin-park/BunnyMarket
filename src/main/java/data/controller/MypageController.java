@@ -19,6 +19,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import data.dto.FollowDTO;
+import data.dto.MemberDTO;
 import data.dto.ProductDTO;
 
 import data.service.FollowService;
@@ -37,7 +39,7 @@ public class MypageController {
 	ProductService pdService;
 	
 	@Autowired
-	FollowService pfService;
+	FollowService followService;
 	
 	@GetMapping("/detail")
 	public ModelAndView detail(
@@ -72,7 +74,7 @@ public class MypageController {
 		return "/mypage/test_updateForm";
 	}
 	
-	@GetMapping("/profile_updateform")
+	@GetMapping("/profileupdateform")
 	public ModelAndView pupdateform(HttpServletRequest request,
 			Principal principal) {
 		ModelAndView mview=new ModelAndView();
@@ -155,65 +157,40 @@ public class MypageController {
 		return "redirect:/logout";
 	}
 	
-	@PostMapping("/auth/sell_list")
-	public @ResponseBody ModelAndView sell_list
-		(
-		@RequestParam(defaultValue = "1") int currentPage,
-		@RequestParam (defaultValue = "전체") String category,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		Model model,
-		Principal principal) throws Exception
-	{
-		ModelAndView mview = new ModelAndView();
-		
-		//지역 가져오기
-		String userId = "no";
-		String local = "";
-		String[] localArr = {};
-		if(principal != null) {
-			userId = principal.getName();
-			local = memService.getLocal(principal);
-			localArr = local.split(",");
-		}
-		mview.addObject("localCnt",localArr.length);
-		mview.addObject("localArr",localArr);
-		
-		int totalCount = pservice.getTotalCount(category); 
-		//페이징 처리에 필요한 변수
-		int perPage = 15; 
-		int totalPage;
-		int start; 
-		int perBlock=5; 
-		int startPage; 
-		int endPage;
-		//총 페이지 갯수
-		totalPage = totalCount/perPage + (totalCount%perPage==0?0:1);
-		//각 블럭의 시작페이지
-		startPage = (currentPage-1)/perBlock * perBlock +1; 
-		//각 블럭 마지막페이지
-		endPage = startPage + perBlock-1;
-		if(endPage>totalPage){ endPage = totalPage; }
-		//각 페이지에서 불러올 시작번호
-		start = (currentPage-1) * perPage; 
-		
-		List<ProductDTO> list = pservice.getList(startPage, perPage, category, local);
-		
-		
-		//request에서 getParameter로 kind 값을 불러오기
-		String kind = request.getParameter("kind");
-		
-		//출력에 필요한 변수들을 request에 저장
-		mview.addObject("list",list);
-		mview.addObject("kind",kind);
-		mview.addObject("startPage",startPage);
-		mview.addObject("endPage",endPage);
-		mview.addObject("totalPage",totalPage);
-		mview.addObject("currentPage",currentPage);
-		mview.addObject("totalCount",list.size());
-		
-		mview.setViewName("/mypage/sell_list");
-		return mview;
+	@GetMapping("/selllist")
+	public String selllist() {
+		return "/mypage/sell_list";
 	}
 	
+	@GetMapping("/followlist")
+	public String follow(@RequestParam(value="idx", required=false) String idx,
+				HttpServletRequest request,
+				Model model,
+				Principal principal) {		
+		//로그인 체크
+		String isLogin="N";
+		isLogin=(String)request.getSession().getAttribute("isLogin");
+		
+		//로그인 되어 있을 경우,
+		if(isLogin!=null) {
+			//로그인 아이디 가져오기
+			String id=principal.getName();
+			model.addAttribute("myId", id);
+		}
+		
+		//닉네임 가져오기
+		String nick=memService.getNick(principal.getName());		
+		model.addAttribute("isLogin", isLogin);
+		model.addAttribute("nick", nick);
+		
+		List<FollowDTO> follow=followService.getFollowList(idx);
+		int fcount=follow.size();
+		
+		model.addAttribute("isLogin", isLogin);
+		model.addAttribute("idx", idx);
+		model.addAttribute("follow", follow);
+		model.addAttribute("fcount", fcount);
+		
+		return "/mypage/follow_list";
+	}
 }

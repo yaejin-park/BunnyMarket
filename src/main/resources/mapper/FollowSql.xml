@@ -13,4 +13,8 @@
 	<delete id="deleteFollow" parameterType="fldto">
 		delete from follow  where followee=#{followee} and follower=#{follower}
 	</delete>
+	
+	<select id="getFollowList" parameterType="String" resultType="fldto">
+		select followee from follow where follower=#{follower}
+	</select>
 </mapper>

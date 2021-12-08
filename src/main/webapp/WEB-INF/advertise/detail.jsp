@@ -83,12 +83,12 @@
 	<!-- 로그인/비로그인시 나타나는 버튼들 -->
 	<div class="detailbtn">
 		<!-- 로그인 안했을경우 -->
-		<c:if test="${sessionScope.isLogin != 'Y'}">
+		<c:if test="${userId != dto.id}">
 			<button type="button" class="btn-list delist" onclick="location.href='list'">목록</button>
 		</c:if>
 		
 		<!-- 로그인 했을경우 -->
-		<c:if test="true">
+		<c:if test="${userId == dto.id}">
 			<button type="button" class="btn-list delist" onclick="location.href='list'">목록</button>
 			<button type="button" class="btn-update" onclick="location.href='./auth/updateform?idx=${dto.idx}&currentPage=${currentPage}'">수정</button>
 			<button type="button" id="deleteBtn" class="btn-delete" value="${dto.idx}">삭제</button>
@@ -155,11 +155,6 @@
 		    <ul class="re-list">
 		    	<c:forEach var="ardto" items="${relist}">
 		    		<li class="${ardto.restep!=0?'bg':''}">
-		    			<input type="hidden" name="currentPage" value="${currentPage}">
-						<!-- ardto.num은 원글 저장 idx는 게시판 db에서 원글의 번호 -->
-						<input type="hidden" name="num" value="${ardto.num}">							
-						<!-- 원글번호 불러와서 저장하기(?) 위랑 아래 두개가 같이 있어야 하내 db에 저장되고 불러와짐 -->
-						<input type="hidden" name="idx" value="${ardto.idx}">
 	    				<input type="hidden" name="regroup" value="${ardto.regroup}">
 	    				<input type="hidden" name="restep" value="${ardto.restep}">
 	    				<input type="hidden" name="relevel" value="${ardto.relevel}">
@@ -177,7 +172,9 @@
 				            </span>
 					        <div class="btn-wrap">
 					        	<a href="javascript:" class="reply-btn">답글쓰기</a>
-			                	<a href="javascript:" class="btn-delete btn-sm" idx="${ardto.idx}">삭제</a>
+					        	<c:if test="${userId==ardto.id}">
+					        		<a href="javascript:" class="btn-delete btn-sm" idx="${ardto.idx}">삭제</a>
+					        	</c:if>
 					        </div>
 		    			</div>
 		    			<div class="re-div">

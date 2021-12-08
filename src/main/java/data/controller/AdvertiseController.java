@@ -178,6 +178,10 @@ public class AdvertiseController {
 		String local = "";
 		String[] localArr = {};
 		
+		//로그인 여부
+		String isLogin = "N";
+		isLogin = (String)request.getSession().getAttribute("isLogin");
+		
 		if(principal != null) {
 			userId = principal.getName();
 			userType = memService.currentUserType(principal);
@@ -213,9 +217,11 @@ public class AdvertiseController {
 		mview.addObject("relist", relist);		
 		mview.addObject("userType", userType);
 		mview.addObject("userNickName", userNickName);
+		mview.addObject("userId", userId);
 		mview.addObject("maxReply", maxReply);
 		mview.addObject("localCnt", localArr.length);
 		mview.addObject("localArr", localArr);
+		mview.addObject("isLogin", isLogin);
 		
 		mview.setViewName("/advertise/detail");
 		return mview;

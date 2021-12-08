@@ -30,7 +30,7 @@
 			</div>
 			<div class="my-info-update">
 				<button type="submit" class="btn-update profile-btn">변경하기</button>
-				<button type="button" class="btn-list" onclick="location.href='/mypage/detail'">취소</button>
+				<button type="button" class="btn-list" onclick="location.href='detail'">취소</button>
 			</div>
 		</div>
 	</div>
