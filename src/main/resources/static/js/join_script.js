@@ -204,6 +204,74 @@ $(function(){
 		nickCheck = true;
 	});
 	
+	
+	$("#pwCheckPop .pw-check-btn").click(function(){
+		var pw = $("#pwCheckPop").find("input[name='password']").val();
+		
+		console.log(pw)
+		$.ajax({
+			type:"post",
+			url:"/join/pwCheck",
+			data:{"pw":pw},
+			dataType:"json",
+			success:function(data){
+				if(data.result == 0){
+					alert("비밀번호가 틀립니다.");
+					$("#pwCheckPop").find("input[name='password']").val("").focus();
+					return;
+				}else{
+					popClose("#pwCheckPop");
+					popOpen("#pwChangePop");
+				}
+			}
+		});
+	});
+	
+	$("#pwChangePop input[name='pw']").change(function() {
+		var pw = $(this).val();
+		var num = pw.search(/[0-9]/g);
+		var eng = pw.search(/[a-z]/g);
+		var spe = pw.search(/[`~!@@#$%^&*|\\\'\";:\/?]/gi);
+
+		if(pw.length < 8 || pw.length > 20){
+			alert("8자리~20자리 이내로 입력해주세요.");
+		}else if(pw.search(/\s/) != -1){
+			alert("비밀번호는 공백없이 입력해주세요.");
+		}else if(num < 0 || eng < 0 || spe < 0 ){
+			alert("영문+숫자+특수문자를 포함하여 입력해주세요.");
+		}else {
+			alert("안전한 비밀번호입니다.");
+		}
+	});
+	
+	$("#pwChangePop input[name='pw'], #pwChangePop input[name='pw2']").change(function() {
+		var pw1 = $("#pwChangePop input[name='pw']").val();
+		var pw2 = $("#pwChangePop input[name='pw2']").val();
+		if(pw2.length > 0){
+			if(pw1 != pw2){
+				alert.text("비밀번호 불일치합니다. 다시 확인해주세요.");
+				pw2.val("").focus();
+			}else{
+				alert("비밀번호 일치합니다.");
+				pwCheck = true;
+			}
+		}
+	});
+	
+	$("#pwChangePop .use-btn").click(function(){
+		var pw = $("#pwChangePop input[name='pw']").val();
+		
+		$.ajax({
+			type:"post",
+			url:"/mypage/auth/changepw",
+			data:{"pw":pw},
+			success:function(){
+				alert("비밀번호 변경이 완료되었습니다.");
+				popClose("#pwChangePop");
+			}
+		})
+	});
+	
 });
 
 function findAddr(){
@@ -229,6 +297,22 @@ function findAddr(){
 
 function joinFormCheck(f){
 	if(!idCheck && !pwCheck && !nickCheck && !emailCheck){
+		alert("중복확인 및 이메일 인증해주세요.");
+		return false;
+	}else{
+		return true;
+	}
+	
+	if(!termCheck){
+		alert("약관동의해주세요.");
+		return false;
+	}else{
+		return true;
+	}
+}
+
+function updateFormCheck(f){
+	if(!pwCheck && !nickCheck && !emailCheck){
 		alert("중복확인 및 이메일 인증해주세요.");
 		return false;
 	}else{

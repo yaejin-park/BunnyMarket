@@ -9,7 +9,7 @@
 <div class="sub-body">
 	<div class="inner">
 		<div class="title-area">
-			<h2>${menuTitle[0]=="intro"?"소개":menuTitle[0]=="product"?"동네거래":menuTitle[0]=="advertise"?"동네소식":menuTitle[0]=="community"?"동네생활":menuTitle[0]=="event"?"동네행사":menuTitle[0]=="local"?"내동네 설정하기":menuTitle[0]=="notice"?"공지사항":menuTitle[0]=="faq"?"자주 묻는 질문":menuTitle[0]=="event"?"동네행사":menuTitle[0]=="login"?"로그인":menuTitle[0]=="join"?"회원가입":menuTitle[0]=="term"?"약관":""}</h2>
+			<h2>${menuTitle[0]=="intro"?"소개":menuTitle[0]=="product"?"동네거래":menuTitle[0]=="advertise"?"동네소식":menuTitle[0]=="community"?"동네생활":menuTitle[0]=="event"?"동네행사":menuTitle[0]=="local"?"내동네 설정하기":menuTitle[0]=="notice"?"공지사항":menuTitle[0]=="faq"?"자주 묻는 질문":menuTitle[0]=="mypage"?"마이페이지":menuTitle[0]=="event"?"동네행사":menuTitle[0]=="login"?"로그인":menuTitle[0]=="join"?"회원가입":menuTitle[0]=="term"?"약관":""}</h2>
 		</div>
 		
 		<div class="search-area">

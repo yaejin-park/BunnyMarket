@@ -175,17 +175,30 @@ $(function(){
 		});
 	});
 	
-	$(document).on("click", ".local-map-div .user-local-list li .delete-btn", function(){
-		if($(".local-map-div .user-local-list li:not(.plus-type)").length > 1){
-			$(this).parent("li").remove();
-			$(".local-map-div .search-div input").val("").focus();
-			$(".local-map-div .search-list li").removeClass("active");
-			if($(".local-map-div .user-local-list li:not(.plus-type)").length < 2){
-				$(".local-map-div .user-local-list").append("<li class='plus-type'><a href='javascript:' class='plus-btn'></a></li>");
+	$(document).on("click", ".local-map-div .user-local-list li .delete-btn", function(e){
+		var text = $(this).prev("span").text();
+		$.ajax({
+			type:"get",
+			url:"./getlocal",
+			data:{"local":text},
+			dataType:"json",
+			success:function(data){
+				if(data.cnt>0){
+					alert("기본 주소는 삭제할 수 없습니다.");
+				}else{		
+					if($(".local-map-div .user-local-list li:not(.plus-type)").length > 1){
+						$(e.target).parent("li").remove();
+						$(".local-map-div .search-div input").val("").focus();
+						$(".local-map-div .search-list li").removeClass("active");
+						if($(".local-map-div .user-local-list li:not(.plus-type)").length < 2){
+							$(".local-map-div .user-local-list").append("<li class='plus-type'><a href='javascript:' class='plus-btn'></a></li>");
+						}
+					}else{
+						alert("동네가 1개만 선택된 상태에서는 삭제를 할 수 없어요.");
+					}
+				}
 			}
-		}else{
-			alert("동네가 1개만 선택된 상태에서는 삭제를 할 수 없어요.");
-		}
+		});	
 	});
 	
 	$(document).on("click", "header .local-option li:not(.set-btn)", function(){
