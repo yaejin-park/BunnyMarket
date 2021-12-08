@@ -1,6 +1,7 @@
 package data.controller;
 
 import java.security.Principal;
+
 import java.util.List;
 import java.util.HashMap;
 
@@ -24,7 +25,7 @@ import data.service.MemberService;
 import data.service.ProductService;
 
 @Controller
-@RequestMapping("/mypage")
+@RequestMapping("/mypage/auth")
 public class MypageController {
 	@Autowired
 	MemberService memService;
@@ -70,7 +71,7 @@ public class MypageController {
 		return "/mypage/test_updateForm";
 	}
 	
-	@GetMapping("/auth/profile_updateform")
+	@GetMapping("/profile_updateform")
 	public ModelAndView pupdateform(HttpServletRequest request,
 			Principal principal) {
 		ModelAndView mview=new ModelAndView();
@@ -97,7 +98,7 @@ public class MypageController {
 		return mview;
 	}
 	
-	@PostMapping("/auth/profile_update")
+	@PostMapping("/profile_update")
 	public String pudate(
 			Principal principal) {
 		HashMap<String, String> map=new HashMap<String, String>();
