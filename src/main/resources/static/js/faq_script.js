@@ -18,16 +18,15 @@ $(function () {
 		return name;
 	}
 
-	var renderList = function() {
+	var renderList = function(currentPage) {
 		var category=$("#faq-category").val();
 		$.ajax({
 			type:"get",
 			dataType:"json",
 			url:"/faq/list_by_category",
 			data:{
-				"category":category
-				//,
-				//"currentPage": currentPage  
+				"category":category,
+				"currentPage": currentPage  
 			},
 			success:function(data){
 				var totalCount = data.totalCount;
@@ -36,15 +35,17 @@ $(function () {
 				var list = data.list;
 				var category = data.category;
 				var currentPage = data.currentPage;
+				var totalPage = data.totalPage;
 				
 				$("#faq-list-tbody").empty();
+				$("#pagination").empty();
+				
 				
 				if (list !== null && list.length > 0) {
 					for (var i = 0; i < list.length; i++) {
 						var a = list[i];
 						var html = '';
 						html += '<tr>';
-						html += '	<td>'+a.idx+'</td>';
 						html += '	<td>'+getCategoryName(a.category)+'</td>';
 						html += '	<td>'+a.question+'</td>';
 						html += '	<td>';
@@ -93,6 +94,31 @@ $(function () {
 						}
 					});
 					
+					var ph = '';
+					ph += '<ul class="pagination">';
+					if (startPage > 1) {
+						ph += '<li><a href="#" class="pagination-link" data-page="'+startPage-1+'">이전</a></li>';
+					}
+					
+					for (var pp = startPage; pp <= endPage; pp++) {
+						if (currentPage == pp) {
+							ph += '<li class="active"><a href="#" class="pagination-link" data-page="'+pp+'">'+pp+'</a></li>';
+						} else {
+							ph += '<li><a href="#" class="pagination-link" data-page="'+pp+'">'+pp+'</a></li>';
+						}
+					}
+					
+					if (endPage < totalPage) {
+						ph += '<li><a href="#" class="pagination-link" data-page="'+endPage+1+'">다음</a></li>';
+					}
+					ph += '</ul>';
+					
+					$("#pagination").append(ph);
+					
+					$(".pagination-link").click(function() {
+						var page = $(this).data('page');
+						renderList(page);
+					});
 				}
 
 			}
@@ -103,9 +129,9 @@ $(function () {
 
 	
 	$("#faq-category").on('change', function() {
-		renderList();
+		renderList(1);
 	});
 	
-	renderList();
+	renderList(1);
 	
 });

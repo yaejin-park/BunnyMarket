@@ -29,7 +29,7 @@ public class FaqController {
 	
 	@GetMapping("/list")
 	public ModelAndView list(
-			@RequestParam(defaultValue = "1") int currentPage) {
+			@RequestParam(defaultValue = "1") int currentPage,Principal principal) {
 		ModelAndView mview = new ModelAndView();
 		
 		int totalCount=service.getTotalCount();
@@ -46,6 +46,16 @@ public class FaqController {
 		
 		if(endPage>totalPage) {
 			endPage=totalPage;
+			
+		 //지역가져올라면...
+	      String userId="no";
+	      String local="";
+	      String []localArr = {};
+	      if(principal != null) {
+	         userId=principal.getName();
+	         local = memService.getLocal(principal);
+	         localArr=local.split(",");
+
 		}
 		
 		start=(currentPage-1)*perPage;
@@ -62,6 +72,9 @@ public class FaqController {
 		
 		mview.addObject("totalCount", totalCount);
 		mview.setViewName("/faq/list");
+		
+		mview.addObject("localCnt", localArr.length);
+	    mview.addObject("localArr", localArr);
 		return mview;
 	}
 	

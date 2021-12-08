@@ -5,6 +5,9 @@
 <div class="faq-div">
 	<div class="inner">
 		<form class="faq-form-div">
+			<div class="btn-wrap">
+				<button type="submit" class="btn-add" onclick="location.href='insertform'">글쓰기</button>
+			</div>
 			<select id="faq-category">
 				<option value="all">전체</option>
 				<option value="sale">구매/판매</option> 
@@ -14,7 +17,6 @@
 			<table class="table">
 				<thead>
 					<tr>
-						<th class="num">no</th>
 						<th class="category">카테고리</th>
 						<th class="question">질문</th>
 						<th class="bin"></th>
@@ -23,10 +25,9 @@
 				<tbody id="faq-list-tbody">
 				</tbody>
 			</table>
+			<div id="pagination" style="width: 800px; text-align: center;">
+			</div>
 		</form>
-		<div class="btn-wrap">
-			<button type="submit" class="btn-add" onclick="location.href='insertform'">글쓰기</button>
-		</div>
 	</div>
 </div>
 <script type="text/javascript" src="/js/faq_script.js"></script>

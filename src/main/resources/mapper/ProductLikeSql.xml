@@ -13,4 +13,6 @@
 	<delete id="deletePlike" parameterType="pldto">
 		delete from product_like  where id=#{id} and product=#{product}
 	</delete>
+	
+	
 </mapper>

@@ -1,8 +1,13 @@
 package data.service;
 
+import java.util.HashMap;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import data.dto.ProductDTO;
 import data.mapper.ProductLikeMapper;
 
 @Service
@@ -14,11 +19,6 @@ public class ProductLikeService {
 		return mapper.plikeCheck(id, product);
 	}
 	
-	public void insertPlike(String id, String product) {
-		mapper.insertPlike(id, product);
-	}
 	
-	public void deletePlike(String id, String product) {
-		mapper.deletePlike(id, product);
 	}
 }
