@@ -21,7 +21,7 @@
 			[닉네임]님, 계정을 탈퇴하려는 이유가 궁금해요.
 			</span>
 			<select name='unregi-reason' class="unregi-reason">
-  				<option value='' selected>----- 선택해주세요 -----</option>
+  				<option value='' selected="selected">----- 선택해주세요 -----</option>
  				<option value='reason1'>너무 많이 이용해요.</option>
  				<option value='reason2'>사고싶은 물품이 없어요.</option>
  				<option value='reason3'>물건이 너무 안팔려요.</option>
@@ -37,3 +37,4 @@
 		</div>
 	</div>
 </div>
+<script type="text/javascript" src="/js/mypage_script.js"></script>

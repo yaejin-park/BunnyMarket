@@ -16,4 +16,7 @@ public interface ChatMapper {
 	public List<ChatDTO> getAllList();
 	public Integer getChatMaxIdx();
 	public String getChatIdx(String product_idx, String buyer_id);
+	public void updateChatTime(String product_idx, String buyer_id);
+	public String getChatFile(String chat_idx);
+	public void deleteChatList(String chat_idx, String id);
 }

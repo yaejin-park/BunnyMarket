@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link rel="stylesheet" type="text/css" href="/css/mypage_style.css">
 <div class="myprofile-form">
+<form action="/auth/profile_update" method="post" enctype="multipart/form-data">
 	<div class="inner">
 		<div class="my-page">
 			<!-- 프로필 이미지 선택 -->
@@ -19,16 +20,20 @@
 						</c:if>
 					</div>
 				</label>
-				<input type="file" id="select-img" name="profile-upload" class="profile-input">
-			</div>			
+				<input type="file" id="select-img" name="profile-upload" class="profile-input" multiple/>
+			</div>
 			<div class="my-info">
-				<input type="text" class="profile-name">
+				<input type="text" name="nick" class="profile-name" value="${userNickName}">
+			</div>
+			<div class="profile-msg">
+				<p>프로필 사진과 닉네임을 입력해주세요.</p>
 			</div>
 			<div class="my-info-update">
-				<button type="button" class="btn-update">변경하기</button>
-				<button type="button" class="btn-list" onclick="location.href='detail'">취소</button>
+				<button type="submit" class="btn-update profile-btn">변경하기</button>
+				<button type="button" class="btn-list" onclick="location.href='/mypage/detail'">취소</button>
 			</div>
 		</div>
 	</div>
+</form>
 </div>
 <script type="text/javascript" src="/js/mypage_script.js"></script>

@@ -133,6 +133,7 @@ public class EventController {
 		mview.addObject("maxReply", maxReply);
 		mview.addObject("localCnt", localArr.length);
 		mview.addObject("localArr", localArr);
+		mview.addObject("currentPage", currentPage);
 		
 		mview.setViewName("/event/detail");
 		
@@ -161,7 +162,7 @@ public class EventController {
 	}
 	
 	@PostMapping("/auth/insert")
-	public @ResponseBody void fileUpload(
+	public @ResponseBody void insertData(
 		MultipartHttpServletRequest multiRequest,
 		HttpServletRequest request,
 		HttpSession session
@@ -180,12 +181,12 @@ public class EventController {
 		System.out.println("filename=>" + fileList.get(0).getOriginalFilename());*/
 		String photoname = "";
 		String originalPhotoName = "";
-		
 		//System.out.println("file갯수=>" + fileList.size());
 		if(fileList != null) {
 			String path = session.getServletContext().getRealPath("/photo");
-
+			
 			System.out.println(path);
+
 			File dir = new File(path);
 			if(!dir.isDirectory()) {
 				dir.mkdirs();
@@ -219,6 +220,99 @@ public class EventController {
 		service.insertData(dto);
 	}
 	
+	@GetMapping("/auth/updateform")
+	public ModelAndView updateForm(
+		@RequestParam String idx,
+		Principal principal
+		) 
+	{
+		ModelAndView mview = new ModelAndView();
+		String userId = "no";
+		String local = "";
+		String[] localArr = {};
+		if(principal != null) {
+			userId = principal.getName();
+			local = memberService.getLocal(principal);
+			localArr = local.split(",");
+		}
+		EventDTO dto = service.getData(idx);
+		String[] photoList = dto.getPhoto().split(",");
+
+		mview.addObject("localCnt", localArr.length);
+		mview.addObject("localArr", localArr);
+		mview.addObject("dto", dto);
+		mview.addObject("photoList", photoList);
+		mview.setViewName("/event/updateForm");
+		return mview;
+	}
+	
+	@PostMapping("/auth/update")
+	public @ResponseBody void updateData(
+		@RequestParam String idx,
+		MultipartHttpServletRequest multiRequest,
+		HttpServletRequest request,
+		HttpSession session
+		) throws Exception
+	{
+		String path = session.getServletContext().getRealPath("/photo");
+		
+		List<MultipartFile> fileList = multiRequest.getFiles("uploadFile");
+		String title = multiRequest.getParameter("title");
+		String content = multiRequest.getParameter("content");
+		String category = multiRequest.getParameter("category");
+		Timestamp eventStart = Timestamp.valueOf(multiRequest.getParameter("eventStart"));
+		Timestamp eventEnd = Timestamp.valueOf(multiRequest.getParameter("eventEnd"));
+		
+		
+		String photoname = multiRequest.getParameter("updatePhoto");
+		String originalPhotoName = multiRequest.getParameter("updateOrigin");
+		
+		if(fileList != null) {
+			File dir = new File(path);
+			if(!dir.isDirectory()) {
+				dir.mkdirs();
+			}
+			
+			if(!fileList.isEmpty()) {
+				for(int i=0; i<fileList.size(); i++) {
+					String random = UUID.randomUUID().toString();
+					String originalFileName = fileList.get(i).getOriginalFilename();
+					String saveFileName = "Test" + random + "_" + originalFileName;
+					String savePath = path + "\\" + saveFileName;
+					fileList.get(i).transferTo(new File(savePath));		
+					
+					photoname += saveFileName + ",";
+					originalPhotoName += originalFileName + ","; 
+				}
+				
+				photoname = photoname.substring(0, photoname.length()-1);
+				originalPhotoName = originalPhotoName.substring(0, originalPhotoName.length()-1);
+			}
+		}
+
+		EventDTO dto = service.getData(idx);
+		dto.setTitle(title);
+		dto.setContent(content);
+		dto.setPhoto(photoname);
+		dto.setCategory(category);
+		dto.setEvent_start(eventStart);
+		dto.setEvent_end(eventEnd);
+		dto.setOriginal_photo(originalPhotoName);
+		
+		service.updateData(dto);
+	}
+	
+	@GetMapping("/auth/delete")
+	public String deleteData(
+		@RequestParam String idx,
+		@RequestParam String currentPage
+		) 
+	{
+		service.deleteData(idx);
+		
+		return "redirect:../list?currentPage=" + currentPage;
+	}
+	
 	@PostMapping("/auth/reply/insert")
 	public @ResponseBody void replyInsert(
 		@ModelAttribute EventReplyDTO dto,
@@ -227,7 +321,7 @@ public class EventController {
 		) 
 	{
 		dto.setId(principal.getName());
-		if(checkStep == null) {
+		if(checkStep.equals("no")) {
 			dto.setRegroup(dto.getRegroup() + 1);
 		}else {
 			dto.setRestep(dto.getRestep() + 1);
@@ -236,4 +330,11 @@ public class EventController {
 		service.insertReplyData(dto);
 	}
 	
+	@GetMapping("/auth/reply/delete")
+	public @ResponseBody void replyDelete(
+		@RequestParam String idx
+		) 
+	{
+		service.deleteReply(idx);
+	}
 }

@@ -24,7 +24,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import data.dto.AdreplyDTO;
 import data.dto.AdvertiseDTO;
-import data.service.AdreplyService;
 import data.service.AdvertiseService;
 import data.service.MemberService;
 
@@ -33,9 +32,6 @@ import data.service.MemberService;
 public class AdvertiseController {
 	@Autowired
 	AdvertiseService service;
-	
-	@Autowired
-	AdreplyService reService;
 	
 	@Autowired
 	MemberService memService;
@@ -176,41 +172,50 @@ public class AdvertiseController {
 				HttpServletRequest request, Principal principal) {
 		ModelAndView mview=new ModelAndView();
 		
+		String userId = "no";
+		String userType = "no";
+		String userNickName = "no";
+		String local = "";
+		String[] localArr = {};
+		
+		if(principal != null) {
+			userId = principal.getName();
+			userType = memService.currentUserType(principal);
+			userNickName = memService.currentUserNickName(principal);
+			local = memService.getLocal(principal);
+			localArr = local.split(",");
+		}
+		
 		//조회수 증가
 		if(key!=null) {
 			service.updateReadCount(idx);
 		}
-		
 		AdvertiseDTO dto=service.getData(idx);
-		
-		//닉네임 가져오기
-		String nick = memService.getNick(dto.getId());
-		
-		//로그인 체크
-		String isLogin="N";
-		isLogin=(String)request.getSession().getAttribute("isLogin");
-		
-		//로그인 되어 있을 경우,
-		if(isLogin!=null) {
-			//로그인 아이디 가져오기
-			String id = principal.getName();
-			mview.addObject("myId", id);
-
-			//공감
-		}
-		
-		mview.addObject("dto", dto);
-		mview.addObject("currentPage", currentPage);
-		mview.addObject("isLogin", isLogin);
-		mview.addObject("nick", nick);
 		//이미지
 		String []dbimg=dto.getPhoto().split(",");
-		mview.addObject("dbimg", dbimg);
+		String maxReply = service.getMaxReply(idx);
+		
+		//게시글 닉네임 불러오기
+		String nick=memService.getNick(dto.getId());
 		
 		//댓글관련
-		List<AdreplyDTO> relist=reService.getReplyList(Integer.parseInt(idx));
-		mview.addObject("recount", relist.size());
-		mview.addObject("relist", relist);
+		List<AdreplyDTO> relist=service.getReplyList(idx);
+		int recount=relist.size();
+		
+		for(AdreplyDTO reDto:relist) {
+			reDto.setNickname(memService.getNick(reDto.getId()));
+		}
+		mview.addObject("dto", dto);
+		mview.addObject("currentPage", currentPage);
+		mview.addObject("dbimg", dbimg);
+		mview.addObject("nick", nick);
+		mview.addObject("recount", recount);
+		mview.addObject("relist", relist);		
+		mview.addObject("userType", userType);
+		mview.addObject("userNickName", userNickName);
+		mview.addObject("maxReply", maxReply);
+		mview.addObject("localCnt", localArr.length);
+		mview.addObject("localArr", localArr);
 		
 		mview.setViewName("/advertise/detail");
 		return mview;
@@ -310,5 +315,30 @@ public class AdvertiseController {
 		
 		service.deleteAdvertise(idx);
 		return "redirect:/advertise/list?currentPage="+currentPage;
+	}
+	
+	//reply insert
+	@PostMapping("/auth/reply/insert")
+	public @ResponseBody void replyInsert(
+			@ModelAttribute AdreplyDTO dto,
+			@RequestParam String checkStep,
+			Principal principal
+			) 
+		{
+			dto.setId(principal.getName());
+			if(checkStep == null) {
+				dto.setRegroup(dto.getRegroup() + 1);
+			}else {
+				dto.setRestep(dto.getRestep() + 1);
+				dto.setRelevel(dto.getRelevel() + 1);
+			}
+			service.insertReplyData(dto);
+		}
+	
+	@GetMapping("/auth/reply/delete")
+	public @ResponseBody String delete(@RequestParam int idx) {
+		System.out.println(idx);
+		service.deleteReply(idx);
+		return "delete";
 	}
 }

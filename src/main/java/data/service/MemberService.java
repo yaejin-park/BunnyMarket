@@ -103,4 +103,8 @@ public class MemberService implements UserDetailsService {
 	public void updateNickName(HashMap<String, String> map) {
 		mapper.updateNickName(map);
 	}
+	
+	public void deleteMember(String id) {
+		mapper.deleteMember(id);
+	}	
 }

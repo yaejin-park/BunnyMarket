@@ -8,7 +8,8 @@
 			<a href="">판매내역</a>
 			<a href="">관심목록</a>
 			<a href="">나의후기</a>
-			<a href="">회원탈퇴</a>
+			<a href="/mypage/updateform">회원수정</a>
+			<a href="/mypage/unregister">회원탈퇴</a>
 		</div>
 		<div class="my-page">
 			<!-- 프로필 이미지 선택 -->
@@ -25,10 +26,10 @@
 				</div>
 			</div>			
 			<div class="my-info">
-				<b>[닉네임or이름]회원님 안녕하세요.</b>
+				<b>[${nick}]회원님 안녕하세요.</b>
 			</div>
 			<div class="my-info-update">
-				<button type="button" class="btn-update" onclick="location.href='updateform'">프로필변경</button>
+				<button type="button" class="btn-update" onclick="location.href='./auth/profileupdateform'">프로필변경</button>
 			</div>
 		</div>
 		<div class="my-sales">

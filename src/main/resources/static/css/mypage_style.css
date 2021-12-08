@@ -21,6 +21,9 @@
 .my-sales h3{
 	margin-bottom:10px;
 }
+.my-page .profile-update{
+	margin-left:50%;
+}
 .myprofile-form .profile-input {
 	width:0;
 	height:0;
@@ -44,6 +47,28 @@
 	margin-bottom:10px;
 }
 
+/* profile updateFrom */
+.myprofile-form .my-info input{
+	text-align:center;
+	width:300px;
+	border-radius:10px;
+	border:2px solid #ff7ab0;
+	font-weight:bold;
+	font-size:15pt;
+}
+.myprofile-form .profile-update{
+	margin-left:50%;
+	width:0px;
+}
+.myprofile-form .profile-img{
+	cursor:pointer;
+}
+.profile-msg{
+	margin-top:5px;
+	margin-bottom:50px;
+	font-size:12pt;
+	color:#ddd;
+}
 
 /* unregister */
 .unregister-form .inner .unregi-image img{
