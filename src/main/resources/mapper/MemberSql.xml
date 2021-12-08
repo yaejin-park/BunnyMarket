@@ -64,4 +64,8 @@
 	<update id="updateNickName" parameterType="HashMap">
 		update member set nickname=#{nickname} where id=#{id}
 	</update>
+	
+	<delete id="deleteMember" parameterType="String">
+		delete from member where id=#{id}
+	</delete>
 </mapper>

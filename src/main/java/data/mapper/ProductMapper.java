@@ -13,6 +13,7 @@ public interface ProductMapper {
 	public List<ProductDTO> getList(HashMap<String, Object> map);
 	public ProductDTO getData(String idx);
 	public void insertData(ProductDTO dto);
+	public void updateData(ProductDTO dto);
 	public int getMaxIdx();
 	public void updateReadcount(String idx);
 	public void updateLikecount(String idx);
