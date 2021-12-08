@@ -16,6 +16,14 @@ public class AdreplyDTO {
 	private int restep;
 	private int relevel;
 	
+	private String nickname;
+	
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
 	public int getIdx() {
 		return idx;
 	}
