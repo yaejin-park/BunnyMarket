@@ -1,0 +1,40 @@
+.review {
+	width: 500px;
+	height: 90px;
+	border: #ff7ab0 solid 3px;
+}
+
+.img {
+	width: 10%;
+}
+
+.name {
+	width: 30%;
+}
+
+.go {
+	width: 5%;
+}
+
+.small {
+	display: block !important;
+	color: #bebebe;
+}
+
+.arrow {
+	position: relative;
+	display: inline-block;
+	vertical-align: middle;
+	color: #ff7ab0;
+	box-sizing: border-box;
+	-webkit-transform: rotate(45deg);
+	transform: rotate(45deg);
+	width: 0;
+	height: 0;
+	border: 7px solid transparent;
+	border-top: 7px solid;
+	border-right: 7px solid;
+	margin: 15px;
+	transform: rotate(45deg);
+	cursor: pointer;
+}
