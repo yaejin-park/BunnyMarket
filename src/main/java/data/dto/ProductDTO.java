@@ -13,6 +13,7 @@ public class ProductDTO {
 	private String price;
 	private String content;
 	private String category;
+	private String local;
 	private String id;
 	private Timestamp writeday;
 	private int chatcount;
@@ -52,6 +53,12 @@ public class ProductDTO {
 	}
 	public void setCategory(String category) {
 		this.category = category;
+	}
+	public String getLocal() {
+		return local;
+	}
+	public void setLocal(String local) {
+		this.local = local;
 	}
 	public String getId() {
 		return id;

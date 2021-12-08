@@ -21,8 +21,7 @@ public class SocketHandler extends TextWebSocketHandler {
 	// 메시지 타입에따라 handleBinaryMessage또는 handleTextMessage가 실행
 	//HashMap<String, WebSocketSession> sessionMap = new HashMap<>(); //웹소켓 세션을 담아둘 맵
 	List<HashMap<String, Object>> rls = new ArrayList<>(); //웹소켓 세션을 담아둘 리스트 ---roomListSessions
-	
-	//
+
 	
 	/*
 	 * @Autowired
@@ -73,14 +72,19 @@ public class SocketHandler extends TextWebSocketHandler {
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		super.afterConnectionEstablished(session);
+		
 		boolean flag = false;
+		//채팅방 url
 		String url = session.getUri().toString();
-		System.out.println(url);
+		//System.out.println(url);
 		String roomNumber = url.split("/chating/")[1];
-		System.out.println("roomNumber"+roomNumber);
-		//방의 사이즈를 조사한다.
+		//System.out.println("roomNumber : "+roomNumber);
+		
+		//세션의 채팅방의 갯수
 		int idx = rls.size(); 
-		if(rls.size() > 0) { //방이 존재하면
+		//채팅방이 존재하면
+		if(rls.size() > 0) { 
+			//일치하는 채팅방 찾기
 			for(int i=0; i<rls.size(); i++) {
 				String rN = (String) rls.get(i).get("roomNumber");
 				if(rN.equals(roomNumber)) {
