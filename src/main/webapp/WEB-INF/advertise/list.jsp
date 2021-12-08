@@ -6,7 +6,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <link rel="stylesheet" type="text/css" href="/css/ad_style.css">
 <div class="inner">
-	<div class="btn-wrap">
+	<div class="add-btn-wrap">
 		<button type="button" class="btn-add"
 			onclick="location.href='./auth/insertform'">글쓰기</button>
 	</div>
@@ -18,39 +18,29 @@
 			<p>등록된 데이터가 없습니다.</p>
 		</div>		
 	</c:if>
-	<ul class="event-list ad-list">
-		<c:if test="${totalCount>0}">
+	<c:if test="${totalCount>0}">
+		<ul class="event-list ad-list">
 			<c:forEach var="addto" items="${list}">
 				<li>
 					<a href="detail?idx=${addto.idx}&currentPage=${currentPage}&key=list">
+						<span></span>
 						<div class="img-div">
-							<c:if test="${addto.photo=='no'}">
-								<img alt="noimg" src="/image/list-noimg.gif">
-							</c:if>
-							<c:if test="${addto.photo!='no'}">
-								<img alt="thumnail" src="../photo/${fn:split(addto.photo,',')[0]}">
-							</c:if>
+							<img alt="thumnail" src="../photo/${fn:split(addto.photo,',')[0]}">
 						</div>
 						<div class="txt-div">
-							<p class="tit">${addto.title}</p>
-							<p class="writer">${nick}</p>
-							<p class="date"><fmt:formatDate value="${addto.writeday}" pattern="yy.MM.dd"/></p>
+							<p class="list-tit">${addto.title}</p>
+							<p class="date">
+								<fmt:formatDate value="${addto.writeday}" pattern="yy.MM.dd"/>
+							</p>
+							<div class="ect">
+								<p class="read-count">조회수${addto.readcount}</p>
+							</div>
 						</div>
-						<div class="info-sm">   
-					<div class="info-sm-div">
-						<a href="detail?idx=${dto.idx}&currentPage=${currentPage}&key=list#reply">
-							<div class="comment icon-sm">${recount}</div>
-						</a>
-						</div>
-						<div class="info-sm-div">
-							<div class="read icon-sm">${dto.readcount}</div>
-						</div>
-					</div>
 					</a>
 				</li>
 			</c:forEach>
-		</c:if>
-	</ul>		
+		</ul>
+	</c:if>	
 	<c:if test="${totalCount>0}">
 		<div class="paging">	
 			<!-- 이전 -->

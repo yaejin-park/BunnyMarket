@@ -16,7 +16,6 @@ public class AdreplyDTO {
 	private int restep;
 	private int relevel;
 	
-
 	private String nickname;
 	
 	public String getNickname() {

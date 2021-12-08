@@ -95,7 +95,7 @@
 		</c:if>
 	</div>
 	<div class="img-detail-div">
-		<a href="javascript:" class="img-detail-view">사진상세보기</a>
+		<a href="javascript:" class="img-detail-view">상세사진보기(접기)</a>
 		<div class="content-img">
 		<c:forEach var="photo" items="${dto.photo}">
 			<img src="/photo/${photo}" alt="">
@@ -344,7 +344,7 @@ $(function(){
 				$ajax({
 					type:"get",
 					dataType:"html",
-					url:".auth/reply/delete",
+					url:"./auth/reply/delete",
 					data:{"idx":idx},
 					success:function(){
 						alert("댓글을 삭제했습니다.");
@@ -374,6 +374,7 @@ $(function(){
 	
 	//이미지 상세 보기
 	$(".img-detail-view").click(function() {
+		$(this).text("상세사진보기(열기)");
 		$(this).parents(".img-detail-div").siblings().find(".content-img").hide();
 		$(this).parents(".img-detail-div").find(".content-img").toggle();
 	});
