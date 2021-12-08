@@ -25,7 +25,6 @@
     flex-direction: column;
     align-items: flex-end;
     padding: 30px;
-    border-radius: 14px;
 }
 /* 스크롤바 */
 .chat-box::-webkit-scrollbar {
@@ -162,7 +161,6 @@ div.other .time {
 }
 
 .product-img{
-	border: 2.3px solid #f7f6fc;
 	height:60px;
 	width: 60px;
 }
@@ -171,16 +169,13 @@ div.other .time {
     white-space: nowrap;
 }
 
-.status-div{
-	width: 100%;
+.title-div{
+	display: flex;
 }
 
 .status{
-	float: right;
     font-weight: bold;
-    border-radius: 46px;
-    border: 1px solid rgb(48 ,136 ,217);
-    padding: 7px 15px;
+    margin-right: 10px;
 }
 
 .price.tit{

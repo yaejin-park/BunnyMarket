@@ -6,19 +6,19 @@
 	<div class="inner">
 		<form action="insert" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="sellstatus" value="판매중">
+			<input type="hidden" name="local" id="local" value="">
 			<div class="group">
 				<div class="child tit">
 					이미지 <span class="must">*</span>
 				</div>
-				<div class="child imgupload">
-					<div class="uploadImg">
-						<label for="selectImg">
-							<img src="/image/write-upload-icon.JPG">
-						</label> <input type="file" id="selectImg" name="upload"
-							class="imginput" multiple="multiple" accept="image/*"
-							onchange="loadFile(event)">
+				<div class="child img-upload">
+					<div class="form-group upload-img">
+						<label for="chooseFile"> <img
+							src="/image/write-upload-icon.JPG" alt="이미지 등록">
+						</label> <input type="file" id="chooseFile" name="upload"
+							class="img-input" multiple="multiple" />
 					</div>
-					<div class="previewarea"></div>
+					<div class="preview-area"></div>
 				</div>
 			</div>
 			<div class="group">
@@ -47,7 +47,7 @@
 					</select>
 				</div>
 			</div>
-			
+
 			<div class="group">
 				<div class="child tit">
 					금액<span class="must">*</span>
@@ -78,3 +78,8 @@
 		</form>
 	</div>
 </div>
+<script type="text/javascript" src="/js/event_script.js"></script>
+<script>
+//지역설정
+$("#local").val($(".local-btn").text());
+</script>

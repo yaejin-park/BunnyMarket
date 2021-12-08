@@ -42,6 +42,10 @@ public class ProductService {
 		mapper.insertData(dto);
 	}
 	
+	public void updateData(@ModelAttribute ProductDTO dto) {
+		mapper.updateData(dto);
+	}
+	
 	public int getMaxIdx() {
 		return mapper.getMaxIdx();
 	}

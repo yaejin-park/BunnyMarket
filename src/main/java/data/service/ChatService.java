@@ -43,4 +43,16 @@ public class ChatService {
 		return mapper.getChatIdx(product_idx, buyer_id);
 	}
 	
+	public void updateChatTime(@RequestParam String product_idx, @RequestParam String buyer_id) {
+		mapper.updateChatTime(product_idx, buyer_id);
+	}
+	
+	public String getChatFile(String chat_idx) {
+		return mapper.getChatFile(chat_idx);
+	}
+	
+	public void deleteChatList(@RequestParam String chat_idx, @RequestParam String id) {
+		mapper.deleteChatList(chat_idx, id);
+	}
+	
 }
