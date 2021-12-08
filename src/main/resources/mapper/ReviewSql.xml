@@ -1,8 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="data.mapper.ReviewMapper">
-	<select id="getTime" resultType="chdto">
-		select last_time from chat where seller_id=#{id}
-	</select>
+	
+ 
 
+
+	<select id="getList" parameterType="String" resultType="chdto">
+		SELECT m.profile, m.nickname, c.last_time FROM chat AS c INNER JOIN member AS m ON c.buyer_id = m.id where c.product_idx = #{idx}
+	</select>
+	
+	
+	<insert id="ReviewInsert" parameterType="rdto">
+		insert into review (seller,buyer,content,star,writeday) values (#{seller},#{buyer},#{content},#{star},now())	
+	</insert>
+	
+
+
+	
+	
+	
+	
+	
+	
 </mapper>

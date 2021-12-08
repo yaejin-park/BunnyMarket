@@ -377,7 +377,7 @@ $(document).on("change", "#statusSelect", function() {
         	//판매상태에 따라 글씨색 바뀌기
 			if($("#statusSelect").val() == "finished"){
 				$("#statusSelect").css("color","#979593");
-				location.href = '../review/choose';
+				location.href = '../review/choose?idx='+idx;
 			} else if($("#statusSelect").val() == "reserved"){
 				$("#statusSelect").css("color", "#ff7ab0");
 			} else if($("#statusSelect").val() == "selling"){

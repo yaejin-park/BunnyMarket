@@ -7,13 +7,19 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import data.dto.ChatDTO;
+import data.dto.ProductDTO;
+import data.dto.ReviewDTO;
 import data.service.MemberService;
 import data.service.ReviewService;
 
 @Controller
+@RequestMapping("/review")
 public class ReviewController {
 	
 	
@@ -25,33 +31,56 @@ public class ReviewController {
 	@Autowired
 	MemberService Mservice;
 	
-	@GetMapping("/review/insertForm")
-	public String insertForm() {
-		return "/review/insertForm";
-	}
-	
-	@GetMapping("/review/choose")
-	public ModelAndView choose(Principal principal) {
+	@GetMapping("/insertForm")
+	public ModelAndView insertForm(String nickname,Principal principal) {
 		ModelAndView mview = new ModelAndView();
 		
-		//아이디 얻어오기
-		String id=principal.getName();
-		System.out.println(id);
-		//닉네임 얻어오기
-		String nickname=Mservice.getNick(id);
+		String seller=principal.getName();
+		System.out.println(seller);
 		System.out.println(nickname);
-		List<String> time=Rservice.getTime(id);
-		System.out.println(time);
 		
+		mview.addObject("seller", seller);
 		mview.addObject("nickname", nickname);
-		mview.addObject("time", time);
-		mview.setViewName("/review/choose");
+		mview.setViewName("/review/insertForm");
+		
 		return mview;
 		
 		
 		
 		
 	}
+	
+	@GetMapping("/choose")
+	public ModelAndView choose(Principal principal,@ModelAttribute ProductDTO pdto,String idx) {
+		ModelAndView mview = new ModelAndView();
+		
+	
+		List<ChatDTO> list=Rservice.getList(idx);
+		
+		mview.addObject("idx", idx);
+		mview.addObject("list", list);
+		mview.setViewName("/review/choose");
+		
+		
+		return mview;
+		
+	}
+	
+	@PostMapping("/insert")
+	public ModelAndView insert(@ModelAttribute ReviewDTO rdto,String nickname)
+	{	
+		ModelAndView mview = new ModelAndView();
+		
+		
+	
+		Rservice.ReviewInsert(rdto);
+		
+		
+		mview.setViewName("/product/list");
+		return mview; 
+	}
+	
+	
 	
 	
 }
