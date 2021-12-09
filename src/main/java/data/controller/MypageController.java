@@ -169,7 +169,6 @@ public class MypageController {
 	
 	@PostMapping("/member/update")
 	public String updateMember(
-		@RequestParam String type,
 		@RequestParam String email1,
 		@RequestParam String email2,
 		@RequestParam String hp1,
@@ -179,18 +178,31 @@ public class MypageController {
 		@RequestParam String zonecode,
 		@RequestParam String addr1,
 		@RequestParam String addr2,
-		MemberDTO dto
+		MemberDTO dto,
+		Principal principal
 		) 
 	{	
-		dto.setType(type);
-		dto.setPw(encoder.encode(dto.getPw()));
-		dto.setEmail(email1 + "@" + email2);
+		System.out.println("addrLocal=>" + addrLocal);
+		String[] localArr = memService.getLocal(principal).split(",");
+		String local = "";
+		
+		localArr[0] = addrLocal;
+		
+		for(String i:localArr) {
+			local+=i+",";
+		}
+				
+		local = local.substring(0, local.length()-1);
+		
+		
+		dto.setEmail(email1 + "@" + email2); 
 		dto.setHp(hp1 + "-" + hp2 + "-" + hp3);
-		dto.setLocal(addrLocal);
+		dto.setLocal(local); 
 		dto.setAddr(addr1 + "," + addr2);
-		dto.setZonecode(zonecode);
+		dto.setZonecode(zonecode); 
 		memService.updateMember(dto);
-		return "redirect:complete";
+		
+		return "redirect:../detail";
 	}
 	
 	@GetMapping("/member/deleteform")
