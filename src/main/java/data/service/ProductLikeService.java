@@ -19,6 +19,24 @@ public class ProductLikeService {
 		return mapper.plikeCheck(id, product);
 	}
 	
+	public void insertPlike(String id, String product) {
+		mapper.insertPlike(id, product);
+	}
 	
+	public void deletePlike(String id, String product) {
+		mapper.deletePlike(id, product);
+	}
+	
+	public int getTotalCount(String user_id) {
+		return mapper.getTotalCount(user_id);
+	}
+	
+	public List<ProductDTO> getList(int start, int perpage, String user_id) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("start", start);
+		map.put("perpage", perpage);
+		map.put("id", user_id);
+		
+		return mapper.getList(map);
 	}
 }

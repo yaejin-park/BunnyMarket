@@ -4,7 +4,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <link rel="stylesheet" type="text/css" href="/css/product_style.css">
-<c:set var="catAll">디지털기기,의류,뷰티,인테리어,스포츠,문화생활,기타</c:set>
 
 <div class="inner">
 	<c:if test="${list.size()==0}">
@@ -53,22 +52,4 @@
 		</c:forEach>
 	</c:if>
 	</div>
-	<!-- 페이징 -->
-	<div>
-		<div class="paging">
-			<a href="javascript:" class="prev"><span>이전</span></a>
-			
-			<a href="javascript:" class="active">1</a>
-			<a href="javascript:">2</a>
-			<a href="javascript:">3</a>
-			<a href="javascript:">4</a>
-			<a href="javascript:">5</a>
-			<a href="javascript:" class="next"><span>다음</span></a>
-		</div>
-		</div>
-	</div>
 </div>
-
-<script>
-
-</script>

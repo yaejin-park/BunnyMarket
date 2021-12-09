@@ -95,27 +95,26 @@ $(function () {
 					});
 					
 					var ph = '';
-					ph += '<ul class="pagination">';
+					ph += '<span class="paging">';
 					if (startPage > 1) {
-						ph += '<li><a href="#" class="pagination-link" data-page="'+startPage-1+'">이전</a></li>';
+						ph += '<a href="#" class="prev" data-page="'+startPage-1+'"><span>이전</span></a>';
 					}
 					
 					for (var pp = startPage; pp <= endPage; pp++) {
 						if (currentPage == pp) {
-							ph += '<li class="active"><a href="#" class="pagination-link" data-page="'+pp+'">'+pp+'</a></li>';
+							ph += '<a href="#" class="active" data-page="'+pp+'">'+pp+'</a>';
 						} else {
-							ph += '<li><a href="#" class="pagination-link" data-page="'+pp+'">'+pp+'</a></li>';
+							ph += '<a href="#" data-page="'+pp+'">'+pp+'</a>';
 						}
 					}
 					
 					if (endPage < totalPage) {
-						ph += '<li><a href="#" class="pagination-link" data-page="'+endPage+1+'">다음</a></li>';
+						ph += '<a href="#" class="next" data-page="'+endPage+1+'"><span>다음</span></a>';
 					}
-					ph += '</ul>';
-					
+					ph += '</span>';
 					$("#pagination").append(ph);
 					
-					$(".pagination-link").click(function() {
+					$(".active").click(function() {
 						var page = $(this).data('page');
 						renderList(page);
 					});

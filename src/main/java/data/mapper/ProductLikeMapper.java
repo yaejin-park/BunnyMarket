@@ -11,4 +11,7 @@ import data.dto.ProductDTO;
 public interface ProductLikeMapper {
 	public int plikeCheck(String id, String product);
 	public void insertPlike(String id, String product);
+	public void deletePlike(String id, String product);
+	public int getTotalCount(String id);
+	public List<ProductDTO> getList(HashMap<String, Object> map);
 }
