@@ -255,3 +255,15 @@
 	font-weight:bold;
 	color:#ff7ab0;
 }
+#pwCheckPop .info-txt {
+	margin-bottom:20px;
+}
+#pwCheckPop .btn-wrap, #pwChangePop .btn-wrap {
+	margin-top:20px;
+}
+#pwChangePop .form-div input {
+	margin-top:10px;
+}
+#pwChangePop .btn-wrap {
+	margin-top:20px;
+}

@@ -10,6 +10,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,6 +33,10 @@ import data.service.ProductService;
 public class MypageController {
 	@Autowired
 	MemberService memService;
+	
+	@Autowired
+	private BCryptPasswordEncoder encoder;
+	
 	@Autowired
 	ProductService pservice;
 	
@@ -44,7 +49,9 @@ public class MypageController {
 	@GetMapping("/detail")
 	public ModelAndView detail(
 			HttpServletRequest request,
-			Principal principal) {
+			Principal principal
+		) 
+	{
 		ModelAndView mview=new ModelAndView();
 		
 		//로그인 체크
@@ -75,8 +82,11 @@ public class MypageController {
 	}
 	
 	@GetMapping("/profileupdateform")
-	public ModelAndView pupdateform(HttpServletRequest request,
-			Principal principal) {
+	public ModelAndView pupdateform(
+			HttpServletRequest request,
+			Principal principal
+		) 
+	{
 		ModelAndView mview=new ModelAndView();
 		
 		String userId = "no";
@@ -103,7 +113,9 @@ public class MypageController {
 	
 	@PostMapping("/profile_update")
 	public String pudate(
-			Principal principal) {
+			Principal principal
+		) 
+	{
 		HashMap<String, String> map=new HashMap<String, String>();
 		
 		String userId = "no";
@@ -125,8 +137,22 @@ public class MypageController {
 		return "redirect:/mypage/detail";
 	}
 	
-	@GetMapping("/unregister")
-	public ModelAndView deleteForm(
+	@PostMapping("/changepw")
+	public @ResponseBody void changePw(
+		@RequestParam String pw,
+		Principal principal
+		) 
+	{
+		String changePw = encoder.encode(pw);
+		String userId = principal.getName();
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("pw", changePw);
+		map.put("id", userId);
+		memService.updatePw(map);
+	} 
+	
+	@GetMapping("/member/updateform")
+	public ModelAndView updateForm(
 		Principal principal
 		) 
 	{
@@ -139,14 +165,78 @@ public class MypageController {
 			local = memService.getLocal(principal);
 			localArr = local.split(",");
 		}
+		MemberDTO dto = memService.getMemberId(userId);
 		
 		mview.addObject("localCnt", localArr.length);
 		mview.addObject("localArr", localArr);
-		mview.setViewName("/mypage/unregister_member");
+		mview.addObject("dto", dto);
+		mview.setViewName("/mypage/updateMemberForm");
 		return mview;
 	}
 	
-	@GetMapping("/deletemember")
+	@PostMapping("/member/update")
+	public String updateMember(
+		@RequestParam String email1,
+		@RequestParam String email2,
+		@RequestParam String hp1,
+		@RequestParam String hp2,
+		@RequestParam String hp3,
+		@RequestParam String addrLocal,
+		@RequestParam String zonecode,
+		@RequestParam String addr1,
+		@RequestParam String addr2,
+		MemberDTO dto,
+		Principal principal
+		) 
+	{	
+		System.out.println("addrLocal=>" + addrLocal);
+		String[] localArr = memService.getLocal(principal).split(",");
+		String local = "";
+		
+		localArr[0] = addrLocal;
+		
+		for(String i:localArr) {
+			local+=i+",";
+		}
+				
+		local = local.substring(0, local.length()-1);
+		
+		
+		dto.setEmail(email1 + "@" + email2); 
+		dto.setHp(hp1 + "-" + hp2 + "-" + hp3);
+		dto.setLocal(local); 
+		dto.setAddr(addr1 + "," + addr2);
+		dto.setZonecode(zonecode); 
+		memService.updateMember(dto);
+		
+		return "redirect:../detail";
+	}
+	
+	@GetMapping("/member/deleteform")
+	public ModelAndView deleteForm(
+		Principal principal
+		) 
+	{
+		ModelAndView mview = new ModelAndView();
+		String userId = "no";
+		String userNickName = "";
+		String local="";
+		String[] localArr = {};
+		if(principal != null) {
+			userId = principal.getName();
+			userNickName = memService.currentUserNickName(principal);
+			local = memService.getLocal(principal);
+			localArr = local.split(",");
+		}
+		
+		mview.addObject("localCnt", localArr.length);
+		mview.addObject("localArr", localArr);
+		mview.addObject("userNickName", userNickName);
+		mview.setViewName("/mypage/deleteMemberForm");
+		return mview;
+	}
+	
+	@GetMapping("/member/deletemember")
 	public String deleteMember(
 		Principal principal,
 		HttpServletRequest request
@@ -158,8 +248,63 @@ public class MypageController {
 	}
 	
 	@GetMapping("/selllist")
-	public String selllist() {
-		return "/mypage/sell_list";
+	public @ResponseBody ModelAndView sell_list(
+		@RequestParam(defaultValue = "1") int currentPage,
+		@RequestParam (defaultValue = "전체") String category,
+		HttpServletRequest request,
+		HttpServletResponse response,
+		Model model,
+		Principal principal) throws Exception
+	{
+		ModelAndView mview = new ModelAndView();
+		
+		//지역 가져오기
+		String userId = "no";
+		String local = "";
+		String[] localArr = {};
+		if(principal != null) {
+			userId = principal.getName();
+			local = memService.getLocal(principal);
+			localArr = local.split(",");
+		}
+		mview.addObject("localCnt",localArr.length);
+		mview.addObject("localArr",localArr);
+		
+		int totalCount = pservice.getTotalCount(category); 
+		//페이징 처리에 필요한 변수
+		int perPage = 15; 
+		int totalPage;
+		int start; 
+		int perBlock=5; 
+		int startPage; 
+		int endPage;
+		//총 페이지 갯수
+		totalPage = totalCount/perPage + (totalCount%perPage==0?0:1);
+		//각 블럭의 시작페이지
+		startPage = (currentPage-1)/perBlock * perBlock +1; 
+		//각 블럭 마지막페이지
+		endPage = startPage + perBlock-1;
+		if(endPage>totalPage){ endPage = totalPage; }
+		//각 페이지에서 불러올 시작번호
+		start = (currentPage-1) * perPage; 
+		
+		List<ProductDTO> list = pservice.getList(startPage, perPage, category, local);
+		
+		
+		//request에서 getParameter로 kind 값을 불러오기
+		String kind = request.getParameter("kind");
+		
+		//출력에 필요한 변수들을 request에 저장
+		mview.addObject("list",list);
+		mview.addObject("kind",kind);
+		mview.addObject("startPage",startPage);
+		mview.addObject("endPage",endPage);
+		mview.addObject("totalPage",totalPage);
+		mview.addObject("currentPage",currentPage);
+		mview.addObject("totalCount",list.size());
+		
+		mview.setViewName("/mypage/sell_list");
+		return mview;
 	}
 	
 	@GetMapping("/followlist")
