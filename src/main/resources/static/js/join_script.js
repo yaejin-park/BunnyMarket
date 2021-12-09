@@ -78,7 +78,7 @@ $(function(){
 			mail = mail1+"@"+mail2;
 			$.ajax({
 				type:'post',
-				url:'./CheckMail',
+				url:'/join/CheckMail',
 				data:{
 					mail:mail
 				},
@@ -181,7 +181,7 @@ $(function(){
 			
 			$.ajax({
 				method:"get",
-				url:"nickCheck",
+				url:"/join/nickCheck",
 				data:{"nick":nick},
 				dataType:"json",
 				success:function(data){
@@ -312,13 +312,6 @@ function joinFormCheck(f){
 }
 
 function updateFormCheck(f){
-	if(!pwCheck && !nickCheck && !emailCheck){
-		alert("중복확인 및 이메일 인증해주세요.");
-		return false;
-	}else{
-		return true;
-	}
-	
 	if(!termCheck){
 		alert("약관동의해주세요.");
 		return false;
