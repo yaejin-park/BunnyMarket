@@ -104,7 +104,19 @@ public class MemberService implements UserDetailsService {
 		mapper.updateNickName(map);
 	}
 	
+	public void updateMember(MemberDTO dto) {
+		mapper.updateMember(dto);
+	}
+	
 	public void deleteMember(String id) {
 		mapper.deleteMember(id);
-	}	
+	}
+	
+	public String checkLocal(HashMap<String, String> map) {
+		return mapper.checkLocal(map);
+	}
+	
+	public String getIdTakeNick(String nickname) {
+		return mapper.getIdTakeNick(nickname);
+	}
 }
