@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -24,6 +25,7 @@ import data.dto.ProductDTO;
 
 import data.service.FollowService;
 import data.service.MemberService;
+import data.service.ProductLikeService;
 import data.service.ProductService;
 
 @Controller
@@ -43,6 +45,9 @@ public class MypageController {
 	
 	@Autowired
 	FollowService pfService;
+	
+	@Autowired
+	ProductLikeService plservice;
 	
 	@GetMapping("/detail")
 	public ModelAndView detail(
@@ -287,5 +292,51 @@ public class MypageController {
 		mview.setViewName("/mypage/sell_list");
 		return mview;
 	}
+	@GetMapping("/productlike/list")
+	public ModelAndView productLikeList(
+			@RequestParam (defaultValue = "1") int currentPage, HttpSession session) { 
+	ModelAndView mview = new ModelAndView();
+	String id = (String)session.getAttribute("myid");
+	int totalCount = plservice.getTotalCount(id);
 	
+	//페이징 처리에 필요한 변수 선언
+	int perPage = 20;
+	int totalPage;
+	int start;
+	int perBlock = 5;
+	int startPage;
+	int endPage;
+	
+	//총 페이지 갯수 구하기
+	totalPage = totalCount/perPage+(totalCount%perPage==0?0:1);
+	//각 블럭의 시작 페이지
+	startPage = (currentPage-1)/perBlock*perBlock +1;
+	//각 블럭의 마지막 페이지
+	endPage = startPage + perBlock -1;
+	
+	if(endPage > totalPage) {
+		endPage = totalPage;
+	}
+	
+	//각 페이지에서 불러올 시작번호
+	start = (currentPage-1)*perPage;
+	
+	List<ProductDTO> list = plservice.getList(start, perPage, id);
+	
+	//각 페이지에 출력할 시작번호
+	int no = totalCount-(currentPage-1)*perPage;
+	
+	//출력에 필요한 변수들을 request에 저장
+	mview.addObject("list",list);
+	mview.addObject("startPage", startPage);
+	mview.addObject("endPage", endPage);
+	mview.addObject("totalPage", totalPage);
+	mview.addObject("no", no);
+	mview.addObject("currentPage", currentPage);
+	mview.addObject("totalCount", totalCount);
+	
+	mview.setViewName("/productlike/list");
+		  
+	return mview; 
+	}
 }
