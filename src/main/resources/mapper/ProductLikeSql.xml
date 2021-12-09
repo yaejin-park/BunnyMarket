@@ -13,4 +13,22 @@
 	<delete id="deletePlike" parameterType="pldto">
 		delete from product_like  where id=#{id} and product=#{product}
 	</delete>
+	
+	<select id="getTotalCount" parameterType="String" resultType="int">
+		select count(*) from product_like where id=#{id}
+	</select>
+	
+	<select id="getList" resultType="pdto" parameterType="HashMap">
+		select
+			p.idx, p.title, p.uploadfile, p.price, p.content, p.writeday, p.category, p.chatcount, p.likecount, p.readcount, p.id, p.sellstatus
+		from 
+			product_like as pl
+			inner join product as p
+				on pl.product = p.idx 
+		where
+			pl.id=#{id}
+		order by
+			idx asc 
+		limit #{start},#{perpage}
+	</select>
 </mapper>
