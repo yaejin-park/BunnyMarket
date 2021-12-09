@@ -111,7 +111,7 @@ public class MypageController {
 		return mview;
 	}
 	
-	@PostMapping("/profile_update")
+	@PostMapping("/profileupdate")
 	public String pudate(
 			Principal principal
 		) 
