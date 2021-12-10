@@ -8,7 +8,7 @@
 		<div class="swiper side-menu-div">
 			<div class="swiper-wrapper">
 				<a href="" class="swiper-slide">팔로우</a>
-				<a href="./selllist" class="swiper-slide">판매내역</a>
+				<a href="./sellList" class="swiper-slide">판매내역</a>
 				<a href="" class="swiper-slide">관심목록</a>
 				<a href="./productlike/list" class="swiper-slide">나의후기</a>
 				<a href="./member/updateform" class="swiper-slide">회원수정</a>

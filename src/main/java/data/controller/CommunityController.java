@@ -141,6 +141,7 @@ public class CommunityController {
 	   {
 		
 	    List<MultipartFile> fileList = multiRequest.getFiles("uploadFile");
+	    
 	    String title = multiRequest.getParameter("title");
 	    String content = multiRequest.getParameter("content");
 	      
@@ -175,6 +176,10 @@ public class CommunityController {
 	      
 	      //아이디 얻어서 dto에 저장
 	      CommunityDTO dto = new CommunityDTO();
+	    //아이디 얻어서 dto에 저장
+	      String id=principal.getName();
+	      
+	      dto.setId(id);
 	      dto.setTitle(title);
 	      dto.setContent(content);
 	      dto.setPhoto(photoname);

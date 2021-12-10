@@ -3,6 +3,7 @@ package data.controller;
 import java.security.Principal;
 
 import java.util.List;
+import java.util.Map;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,12 +20,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import data.dto.FaqDTO;
 import data.dto.MemberDTO;
 import data.dto.ProductDTO;
 
 import data.service.FollowService;
 import data.service.MemberService;
 import data.service.ProductService;
+
 
 @Controller
 @RequestMapping("/mypage/auth")
@@ -37,9 +40,6 @@ public class MypageController {
 	
 	@Autowired
 	ProductService pservice;
-	
-	@Autowired
-	ProductService pdService;
 	
 	@Autowired
 	FollowService pfService;
@@ -221,16 +221,15 @@ public class MypageController {
 	public String deleteMember(
 		Principal principal,
 		HttpServletRequest request
-		) 
+		)
 	{
 		memService.deleteMember(principal.getName());
 		request.getSession().removeAttribute("isLogin");
 		return "redirect:/logout";
 	}
 	
-
-	@PostMapping("/auth/sell_list")
-	public @ResponseBody ModelAndView sell_list(
+	@GetMapping("/sellList")
+	public @ResponseBody ModelAndView sellList(
 		@RequestParam(defaultValue = "1") int currentPage,
 		@RequestParam (defaultValue = "전체") String category,
 		HttpServletRequest request,
@@ -240,9 +239,88 @@ public class MypageController {
 	{
 		ModelAndView mview = new ModelAndView();
 		
+		//지역 가져오기
+		String userId = "no";
+		String local = "";
+		String[] localArr = {};
+		if(principal != null) {
+			userId = principal.getName();
+			local = memService.getLocal(principal);
+			localArr = local.split(",");
+		}
+		mview.addObject("localCnt",localArr.length);
+		mview.addObject("localArr",localArr);
 		
-		mview.setViewName("/mypage/sell_list");
+		int totalCount = pservice.getTotalCount(category); 
+		//페이징 처리에 필요한 변수
+		int perPage = 15; 
+		int totalPage;
+		int start; 
+		int perBlock=5; 
+		int startPage; 
+		int endPage;
+		//총 페이지 갯수
+		totalPage = totalCount/perPage + (totalCount%perPage==0?0:1);
+		//각 블럭의 시작페이지
+		startPage = (currentPage-1)/perBlock * perBlock +1; 
+		//각 블럭의 마지막페이지
+		endPage = startPage + perBlock-1;
+		if(endPage>totalPage){ endPage = totalPage; }
+		//각 페이지에서 불러올 시작번호
+		start = (currentPage-1) * perPage;
+		
+		List<ProductDTO> list = pservice.sellList(start, perPage);
+		
+		//출력에 필요한 변수들을 request에 저장
+		mview.addObject("list",list);
+		mview.addObject("startPage",startPage);
+		mview.addObject("endPage",endPage);
+		mview.addObject("totalPage",totalPage);
+		mview.addObject("currentPage",currentPage);
+		
+		mview.setViewName("/mypage/sellList");
 		return mview;
+	}
+	
+	@GetMapping("/getListByStatus")
+	@ResponseBody
+	public Map<String, Object> getListByStatus(
+			@RequestParam(defaultValue = "1") int currentPage, 
+			@RequestParam(defaultValue = "전체") String sellstatus,
+			@RequestParam String uploadfile) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		//System.out.println("currentPage="+currentPage);
+		int totalCount=pservice.getTotalCount(sellstatus);
+		int perPage=10;
+		int totalPage;
+		int start;
+		int perBlock=5;
+		int startPage;
+		int endPage;
+		
+		totalPage=totalCount/perPage+(totalCount%perPage == 0?0:1);
+		startPage=(currentPage-1)/perBlock*perBlock+1;
+		endPage=startPage+perBlock-1;
+		
+		if(endPage>totalPage) {
+			endPage=totalPage;
+		}
+		
+		start=(currentPage-1)*perPage;
+		
+		List<ProductDTO> list = pservice.getListByStatus(sellstatus, startPage, perPage, uploadfile);
+		System.out.println("size:"+list.size());
+		System.out.println("status"+sellstatus);
+		
+		result.put("list", list);
+		result.put("sellstatus", sellstatus);
+		result.put("startPage", startPage);
+		result.put("endPage", endPage);
+		result.put("totalPage", totalPage);
+		result.put("currentPage", currentPage);
+		result.put("totalCount", totalCount);
+
+		return result;
 	}
 	
 }

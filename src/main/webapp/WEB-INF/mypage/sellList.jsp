@@ -1,53 +1,34 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <link rel="stylesheet" type="text/css" href="/css/mypage_style.css">
 
 <div class="sell-list">
 	<div class="inner">
-		<div class="sell-condition">
-			<input type="button" id="button" name="button"
-			value="판매중" class="btn-list selling">
-			<input type="button" id="button" name="button"
-			value="예약중" class="btn-list reserving">
-			<input type="button" id="button" name="button"
-			value="판매완료" class="btn-list soldout">
+		<div class="sell-list-condition">
+			<select id="sell-condi">
+				<option value="전체">전체</option>
+				<option value="판매중">판매중</option>
+				<option value="예약중">예약중</option>
+				<option value="판매완료">판매완료</option>
+			</select>
 		</div>
+		
 		<div class="myselling-list">
-			<!-- 등록된 상품이 있을경우 -->
-			<c:if test="${totalCount>0}">
 			<table class="table">
 				<thead>
 					<tr>
-						<th>카테고리</th>
 						<th>상품이미지</th>
-						<th>상품 정보</th>
+						<th>상품정보</th>
 					</tr>
 				</thead>
-				<tbody>
-					<c:forEach var="pd" items="${list}" varStatus="status">
-						<tr>
-							<td><c:out value="${pd.uploadfile[0]}"/></td>
-							<td>
-							<c:out value="${pd.category}"/>
-							<c:out value="${pd.title}"/>
-							<c:out value="${pd.price}"/>
-							</td>
-						</tr>
-					</c:forEach>
+				<tbody class="sell-list-tbody" id="sell-list-tbody">
 				</tbody>
 			</table>
-			</c:if>
-			
-			<!-- 등록된 판매상품이 없으면 -->
-			<c:if test="${recount==0}">
-				<div class="nodata">
-					<p class="icon">
-						<img alt="" src="/image/nodata-icon.png">
-					</p>
-					<p>등록된 상품이 없습니다.</p>
-				</div>
-			</c:if>
+		
 		</div>
 		
 		<!-- 페이징 넣기 -->
@@ -77,5 +58,99 @@
 </div>
 
 <script type="text/javascript" src="/js/mypage_script.js">
-
 </script>
+
+<script type="text/javascript">
+$(function () {
+	 	var getstatus = function(value) {
+		var status = '';
+		switch (value) {
+		case '판매중' : 
+			status = '판매중';
+			break;
+		case '예약중' : 
+			status = '예약중';
+			break;
+		case 'soldout' : 
+			status = '판매완료';
+			break;
+		default:
+			name = '전체';  
+		break;
+		}
+		return status;
+	} 
+	 
+	 
+	 //출력하는 사용자 함수
+		var sellList = function() { 
+		  var statusval = $("#sell-condi").val(); 
+		  console.log(statusval);
+		 $.ajax({
+				type: "get",
+				dataType: "json",
+				url: "getListByStatus",
+				data: {"statusval":statusval},
+				success:function(data){
+						var totalCount = data.totalCount;
+						var startPage = data.startPage;
+						var endPage = data.endPage;
+						var list = data.list;
+						var category = data.category;
+						var currentPage = data.currentPage;
+						
+						//alert("hi"+statusval);
+						$("#sell-list-tbody").empty();
+						
+						
+						if(list !== null && list.length > 0){
+							for (var i = 0; i < list.length; i++){
+								var a = list[i];
+								var s="";
+								s += "<c:forEach var='slist' items='${list}'>";
+								s += "<tr>";
+								s += "<td>";
+								s += "<div class='simage'>";
+								s += "<img alt='thumnail' src='../photo/${fn:split(slist.uploadfile,"+"','"+")[0]}'>";
+								s += "</div>";
+								s += "</td>";
+								s += "<td><div class='scategory'>"+a.category+"</div></td>";
+								s += "<td><div class='stitle'>"+a.title+"</div></td>";
+								s += "<td><div class='sprice'>"+a.price+"</div></td>";
+								s += "</tr>";
+								s += "</c:forEach>";
+								$("#sell-list-tbody").append(s);
+							}
+						}
+					}, error: function (e) {
+						console.log("에러",e);
+					}
+				});
+			 }
+	 
+	 
+	 $("#sell-condi").on("click",function(){
+		 sellList();
+	  });
+	 
+	 sellList();
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
