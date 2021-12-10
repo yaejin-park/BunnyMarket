@@ -9,9 +9,9 @@ import data.dto.EventReplyDTO;
 
 @Mapper
 public interface EventMapper {
-	public int getTotal(String category);
+	public int getTotal(String category, String status);
 	public List<EventDTO> getAllList();
-	public List<EventDTO> getPageList(int start, int perPage, String category);
+	public List<EventDTO> getPageList(int start, int perPage, String category, String status);
 	public EventDTO getData(String idx);
 	public List<String> getCategory();
 	public void insertData(EventDTO dto);
@@ -19,6 +19,7 @@ public interface EventMapper {
 	public void updateData(EventDTO dto);
 	public void updateReadCount(String idx);
 	public void insertReplyData(EventReplyDTO dto);
+	public void updateReplyStep(int restep, int regroup);
 	public List<EventReplyDTO> getReplyList(String idx);
 	public String getMaxReply(String idx);
 	public void deleteReply(String idx);
