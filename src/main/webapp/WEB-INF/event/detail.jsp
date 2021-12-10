@@ -26,7 +26,7 @@
 			</div>
 		</div>
 		<div class="btn-wrap">
-			<a href="javascript:" class="btn-list">목록</a>
+			<a href="list?currentPage=${currentPage}&status=${status}" class="btn-list">목록</a>
 			<c:if test="${userType == 'admin'}">
 				<a href="./auth/updateform?idx=${dto.idx}" class="btn-update">수정</a>
 				<a href="javascript:" class="btn-delete" idx="${dto.idx}">삭제</a>

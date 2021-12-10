@@ -10,12 +10,10 @@ public class AdreplyDTO {
 	private int num;
 	private String id;
 	private String content;
-	private Timestamp writeday;
-	
+	private Timestamp writeday;	
 	private int regroup;
 	private int restep;
-	private int relevel;
-	
+	private int relevel;	
 	private String nickname;
 	
 	public String getNickname() {

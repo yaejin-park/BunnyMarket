@@ -33,7 +33,7 @@
 	padding:0;
 	visibility:hidden;	
 }
-.my-page .my-profile-img, .my-page .profile-img {
+.my-page .my-profile-img, .my-page .profile-img, .preview-img {
 	position:relative;
 	width:150px;
 	height:150px;
@@ -42,7 +42,7 @@
 	overflow:hidden;
 	margin:0 auto 10px;
 }
-.my-page .profile-img  img {
+.my-page .profile-img  img, .preview-img img{
 	position:absolute;
 	top:50%;
 	left:50%;
