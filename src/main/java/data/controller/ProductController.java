@@ -21,11 +21,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import data.dto.ChatDTO;
 import data.dto.ProductDTO;
+import data.dto.ReviewDTO;
 import data.service.FollowService;
 import data.service.MemberService;
 import data.service.ProductLikeService;
 import data.service.ProductService;
+import data.service.ReviewService;
 
 @Controller
 @RequestMapping("/product")
@@ -41,6 +44,11 @@ public class ProductController {
 
 	@Autowired
 	MemberService mservice;
+	
+	@Autowired 
+	ReviewService rservice;
+	
+
 
 	@ResponseBody
 	@GetMapping("/list")
@@ -200,7 +208,7 @@ public class ProductController {
 	}
 	
 	@PostMapping("/auth/update")
-	public String updateData(@ModelAttribute ProductDTO dto, HttpServletRequest request, HttpSession session, Principal principal) {
+	public String updateData(@ModelAttribute ProductDTO dto, HttpServletRequest request, HttpSession session, Principal principal,String idx) {
 		//업로드된 파일 리스트
 		List<MultipartFile> mf = dto.getUpload(); 
 		
@@ -251,7 +259,7 @@ public class ProductController {
 	public String content(@RequestParam String idx,
 			@RequestParam (defaultValue = "1") int currentPage, 
 			@RequestParam (required = false) String key,
-			Model model, HttpServletRequest request, Principal principal) {
+			Model model, HttpServletRequest request, Principal principal,@ModelAttribute ProductDTO pdto,ReviewDTO rdto) {
 		//由ъ뒪�듃�뿉�꽌 �뵒�뀒�씪�럹�씠吏�媛�硫� 議고쉶�닔 �삱�씪媛�寃�
 		if(key!=null) {
 			service.updateReadcount(idx);
@@ -317,7 +325,18 @@ public class ProductController {
 				}
 			}
 		}
-
+		//팝업창 관련
+		
+		//팝업창 choose
+		List<ChatDTO> poplist=rservice.getList(idx);
+		model.addAttribute("poplist", poplist);
+		model.addAttribute("idx", idx);
+		
+		//팝업창 insert
+		
+		String seller=principal.getName();
+		model.addAttribute("seller", seller);
+		
 		model.addAttribute("dto", dto);
 		model.addAttribute("list", list);
 		model.addAttribute("isLogin", isLogin);
@@ -378,4 +397,19 @@ public class ProductController {
 		}
 		service.updateStatus(idx, status);
 	}
+	
+	
+	
+
+
+	
+	@PostMapping("/popinsert")
+	public String insert(@ModelAttribute ReviewDTO rdto)
+	{	
+		rservice.ReviewInsert(rdto);
+		
+		return "/product/list";
+	}
+	
+
 }

@@ -6,7 +6,7 @@
 
 
 	<select id="getList" parameterType="String" resultType="chdto">
-		SELECT m.profile, m.nickname, c.last_time FROM chat AS c INNER JOIN member AS m ON c.buyer_id = m.id where c.product_idx = #{idx}
+		SELECT m.profile, m.nickname, c.last_time, c.buyer_id FROM chat AS c INNER JOIN member AS m ON c.buyer_id = m.id where c.product_idx = #{idx}
 	</select>
 	
 	
