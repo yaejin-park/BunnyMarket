@@ -907,10 +907,28 @@ footer .etc-txt .copyright {
 }
 .quick-div a {
 	display:block;
-	width:70px;
-	height:70px;
-	border:1px solid #ccc;
+	width:50px;
+	height:50px;
+	margin-top:10px;
+	border:1px solid #ff7ab0;
 	border-radius:50%;
+	background-color:#ff7ab0;
+	background-repeat:no-repeat;
+	background-position:center;
+	text-indent:-999px;
+	overflow:hidden;
+}
+.quick-div a.quick-talk {
+	margin-top:0;
+	background-image:url("/image/talk-icon.png");
+	background-size:25px;
+}
+.quick-div a.quick-add{
+	background-image:url("/image/plus-icon-w.png");
+	background-size:18px;
+}
+.quick-div a.top-btn {
+	background:#fff url("/image/top-icon-p.png") no-repeat center/ 40px;
 }
 .popup-modal {
 	display:none;
