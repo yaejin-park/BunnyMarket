@@ -31,11 +31,7 @@
 	</delete>
 	
 	<update id="updateAdvertise" parameterType="addto">
-		update advertise set title=#{title},content=#{content}
-		<if test="photo!=null">
-			,photo=#{photo}
-		</if>
-		where idx=#{idx}
+		update advertise set title=#{title},content=#{content},photo=#{photo} where idx=#{idx}
 	</update>
 	
 	<insert id="insertReplyData" parameterType="ardto">

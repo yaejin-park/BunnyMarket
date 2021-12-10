@@ -1,5 +1,16 @@
 $(function(){
-
+	setTimeout(() => {
+	 var swiper = new Swiper(".mySwiper", {
+		    navigation: {
+		      nextEl: ".swiper-button-next",
+		      prevEl: ".swiper-button-prev",
+		    },
+		    pagination: {
+		      el: ".swiper-pagination",
+		    },
+		  });
+	}, 20);
+	
 	var fileListArr = new Array();
 	var keyNum = 0;
 	var fileCnt = 0;
@@ -95,16 +106,43 @@ $(function(){
 		});
 	});
 	
-	$(".ad-div .ad-mod-btn").click(function(){
+	//글 수정
+	$(".ad-div .ad-update-btn").click(function(){
+		var idx = $(".ad-div.write-form.update input[name='idx']").val();
 		var title = $(".ad-div.write-form input[name='title']").val();
 		var content = $(".ad-div.write-form textarea[name='content']").val();
+		var photo = $(".ad-div input[name='photo']").val().split(",");
+		var deletePhoto = deleteFile.split(",");
+		console.log("되냐")
 		var formData = new FormData();
-		if(title == '' || content == ''){
+		if(title == '' || content == '' || fileCnt == 0){
 			alert("필수 입력을 입력해주세요.");
 			return;
 		}
+		formData.append("idx", idx);
 		formData.append("title", title);
 		formData.append("content", content);
+		formData.append("deleteFile",deleteFile);
+		
+		var updatePhoto = "";
+		var updateOrigin = "";
+		for(var i=0; i<deletePhoto.length; i++){
+			for(var j=0; j<photo.length; j++){
+				if(deletePhoto[i]==photo[j]){
+					photo.splice(j,1);
+					console.log(deletePhoto[i] +"삭제" + photo[j])
+				}
+			}
+		}
+		
+		for(var i=0; i<photo.length; i++){
+			updatePhoto += photo[i] + ",";
+			var photoSplit = photo[i].split("_")[1];
+			updateOrigin += photoSplit + ","; 
+		}
+		
+		formData.append("updatePhoto", updatePhoto.substring(0,updatePhoto.length));
+		formData.append("updateOrigin", updateOrigin.substring(0,updatePhoto.length));
 		
 		for(var i=0; i<fileListArr.length; i++){
 			console.log(fileListArr[i]);
@@ -120,11 +158,134 @@ $(function(){
 			contentType:false,
 			success:function(){
 				console.log("성공");
-				location.href="/advertise/detail?idx="+idx;
+				location.href="/advertise/list";
 			},
 			error:function(e){
 				console.log("에러" + e);
 			}
 		});
+	});
+	
+	//글 삭제
+	$(".detailbtn .btn-delete").click(function() {
+		var idx =  $(this).attr("idx");
+		var currentPage= $(".ad-detail-div input[name='current-page']").val();
+		
+		var n = confirm("정말 게시물을 삭제하시겠습니까?");
+		if(n){
+			location.href="./auth/delete?idx="+idx+"&currentPage="+currentPage;
+		} else{
+			return;			
+		}
+	});
+	
+	$(".ad-div .reply .re-div .btn-add").click(function(){
+		var num = $(this).parents(".reply").find("input[name='num']").val();
+		var content = $(this).parents(".re-div").find("textarea[name='re-content']").val();
+		var regroup = $(this).parents(".reply").find("input[name='regroup']").val();
+		var checkStep ="no";
+		console.log("num : "+num, "content : "+content, "regroup : "+regroup)
+		
+		$.ajax({
+			type:"post",
+			url:"auth/reply/insert",
+			data:{
+				"num":num,
+				"content":content,
+				"regroup":regroup,
+				"checkStep":checkStep
+			},
+			success:function(){
+				$(this).parents(".re-div").find("textarea[name='re-content']").val("");
+				location.reload();
+			}
+		});
+	});
+	
+	$(".ad-div .re-list .reply-btn").click(function(){
+		if(!$(this).hasClass("active")){
+			$(".re-list .reply-btn").removeClass("active");
+			$(".re-list .re-div").hide();
+			$(this).addClass("active");
+			$(this).parents("li").find(".re-div").show();
+		}else{
+			$(this).removeClass("active");
+			$(this).parents("li").find(".re-div").hide();
+		}
+	});
+	
+	$(".ad-div .re-list li.bg").each(function(){
+		var level = $(this).find("input[name='relevel']").val();
+		$(this).css("padding-left",(level*50) + "px");
+	})
+	
+	//대댓글
+	$(".ad-div .re-list .re-div").find(".btn-add").click(function(){
+		var regroup = $(this).parents("li").find("input[name='regroup']").val();
+		var restep = $(this).parents("li").find("input[name='restep']").val();
+		var relevel = $(this).parents("li").find("input[name='relevel']").val();
+		var num = $(".ad-div").find(".reply input[name='num']").val();
+		var content = $(this).parents("li").find(".re-div textarea[name='re-content']").val();
+		var checkStep = "yes"; 
+		console.log(num);
+		$.ajax({
+			type:"post",
+			url:"auth/reply/insert",
+			data:{
+				"num":num,
+				"content":content,
+				"regroup":regroup,
+				"restep":restep,
+				"relevel":relevel,
+				"checkStep":checkStep
+			},
+			success:function(){
+				$(this).parents(".re-div").find("textarea[name='re-content']").val("");
+				location.reload();
+			}
+		});
+	});
+	
+	//댓글 글자수 제한
+	$(".ad-div .re-content textarea").keyup(function() {
+		var inputlength=$(this).val().length;
+		var remain=+inputlength;
+		$(".text-plus").html(remain);
+		if(remain>=90){
+			$(".event-div .text-plus").css('color','red');
+		}else{
+			$(".event-div .text-plus").css('color','black');
+		}
+		
+		if(remain>=101){
+			alert("100자를 초과했습니다.");
+			$(this).val($(this).val().substring(0, 100));
+            $(".event-div .text-plus").html("100");
+		}
+	});
+	
+	//댓글 삭제
+	$(".ad-div .re-list .btn-delete").click(function() {
+		var idx=$(this).attr("idx");
+		console.log(idx);
+		if(confirm("댓글을 삭제하시겠습니까?")){
+			$.ajax({
+				type:"get",
+				dataType:"html",
+				url:"auth/reply/delete",
+				data:{"idx":idx},
+				success:function(){
+					alert("댓글을 삭제했습니다.");
+					location.reload();
+				}
+			});
+		}
+	});
+	
+	//이미지 상세 보기
+	$(".img-detail-view").click(function() {
+		$(this).text("상세사진보기(열기)");
+		$(this).parents(".img-detail-div").siblings().find(".content-img").hide();
+		$(this).parents(".img-detail-div").find(".content-img").toggle();
 	});
 })
