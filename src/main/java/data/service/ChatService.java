@@ -71,7 +71,7 @@ public class ChatService {
 		return mapper.getChatListJoin(id);
 	}
 	
-	public void updateChatState(@RequestParam String idx, @RequestParam String state) {
-		mapper.updateChatState(idx, state);
+	public void updateChatState(@RequestParam String product_idx, @RequestParam String state) {
+		mapper.updateChatState(product_idx, state);
 	}
 }

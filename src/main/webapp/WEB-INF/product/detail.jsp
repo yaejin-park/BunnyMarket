@@ -235,9 +235,7 @@
 		</form>
 			<button type="button" class="modal-close">닫기</button>
 		</div>
-	
-		
-	
+		<input type="hidden" id="isLogin" value="${isLogin}">
 	</div>
 	
 
@@ -309,7 +307,7 @@ function dibsClicked(){
 	console.log("dibs");
 	//로그인 여부
 	//로그인 안했을 경우
-	if(${isLogin != "Y"}){
+	if($("#isLogin").val() !="Y"){
 		alert("로그인 이후, 사용가능합니다");
 		return;
 	}  else{ //로그인 했을 경우
@@ -352,7 +350,7 @@ function dibsClicked(){
 $(document).on("click","#follow", function() {
 	//로그인 여부
 	//로그인 안했을 경우
-	if(${isLogin!="Y"}){
+	if($("#isLogin").val() != "Y"){
 		alert("로그인 이후, 이용가능한 서비스입니다.");
 		return;
 	}  else{
@@ -410,7 +408,7 @@ $(document).on("click","#follow", function() {
 $(document).on("click","#chatBtn", function() {
 	//로그인 여부
 	//로그인 안했을 경우
-	if(${isLogin!="Y"}){
+	if($("#isLogin").val() != "Y"){
 		alert("로그인 이후, 이용가능한 서비스입니다.");
 		return;
 	}  else{
@@ -475,8 +473,6 @@ $(document).on("change", "#statusSelect", function() {
         }
 	}); 
 });
-
-려ㅜㅊ셔
 
 </script>
 

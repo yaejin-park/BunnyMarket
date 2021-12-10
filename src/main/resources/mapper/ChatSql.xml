@@ -68,7 +68,7 @@
 		order by c.last_time desc
 	</select> 
 	
-	<update id="updateChatStatus" parameterType="String">
-		update chat set state = #{state} where idx=#{idx}
+	<update id="updateChatState" parameterType="String">
+		update chat set state = #{state} where product_idx=#{product_idx}
 	</update>
 </mapper>

@@ -23,5 +23,5 @@ public interface ChatMapper {
 	public int countList(String chat_idx);
 	public List<ChatListDTO> getChatList(String id);
 	public List<ChatListDTO> getChatListJoin(String id);
-	public void updateChatState(String idx, String state);
+	public void updateChatState(String product_idx, String state);
 }

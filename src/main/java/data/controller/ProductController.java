@@ -3,7 +3,10 @@ package data.controller;
 import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
+import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import data.dto.ChatDTO;
@@ -161,46 +165,69 @@ public class ProductController {
 		
 		return mview;
 	}
-
+	
+	@ResponseBody
 	@PostMapping("/auth/insert")
-	public String insertData(@ModelAttribute ProductDTO dto, HttpServletRequest request, HttpSession session, Principal principal) {
-
-		List<MultipartFile> mf = dto.getUpload(); 
-		// 파일 업로드 안했을 경우,
-		if (mf.get(0).getOriginalFilename().equals("")) {
-			return "history.back()";
-			// �뙆�씪 �뾽濡쒕뱶 �뻽�쓣 寃쎌슦,
-		} else{
-			// ���옣�븷 �뤃�뜑 吏��젙
+	public HashMap<String, Integer> insertData(HttpServletRequest request, Principal principal,
+			MultipartHttpServletRequest multiRequest, HttpSession session) throws Exception 
+	{
+		//System.out.println("fileList =>" + multiRequest.getFile("uploadFile"));
+		List<MultipartFile> fileList = multiRequest.getFiles("uploadFile");
+		String title = multiRequest.getParameter("title");
+		String content = multiRequest.getParameter("content");
+		String price = multiRequest.getParameter("price");
+		String category = multiRequest.getParameter("category");
+		String sellstatus = multiRequest.getParameter("sellstatus");
+		String local = multiRequest.getParameter("local");
+		
+		String photoname = "";
+		
+		if(fileList != null) {
 			String path = session.getServletContext().getRealPath("/photo");
-			String fileplus="";
+			
+			System.out.println(path);
 
-			for(int i=0; i<mf.size(); i++) {
-				// uuid �깮�꽦
-				UUID uuid = UUID.randomUUID();
-				// uuid �솢�슜�빐 �뙆�씪�씠由� 吏��젙 
-				String uploadfile = uuid.toString() + "_" + mf.get(i).getOriginalFilename();
-				// �떎�젣 �뾽濡쒕뱶
-				try {
-					mf.get(i).transferTo(new File(path + "\\" + uploadfile));
-				} catch (IllegalStateException | IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				fileplus += uploadfile+",";
+			File dir = new File(path);
+			if(!dir.isDirectory()) {
+				dir.mkdirs();
 			}
-			//留덉�留� 而대쭏 �젣嫄�
-			fileplus = fileplus.substring(0,fileplus.length()-1);
-
-			dto.setUploadfile(fileplus);
+			
+			if(!fileList.isEmpty()) {
+				for(int i=0; i<fileList.size(); i++) {
+					String random = UUID.randomUUID().toString();
+					String originalFileName = fileList.get(i).getOriginalFilename();
+					String saveFileName = random + "_" + originalFileName;
+					String savePath = path + "\\" + saveFileName;
+					fileList.get(i).transferTo(new File(savePath));		
+					
+					photoname += saveFileName + ",";
+				}
+				
+				photoname = photoname.substring(0, photoname.length()-1);
+			}
 		}
-		//�꽭�뀡�뿉�꽌 �븘�씠�뵒 �뼸�뼱�꽌 dto�뿉 ���옣
+		
+		ProductDTO dto =  new ProductDTO();
+		
+		dto.setTitle(title);
+		dto.setContent(content);
+		dto.setPrice(price);
+		dto.setCategory(category);
+		dto.setUploadfile(photoname);
+		dto.setSellstatus(sellstatus);
+		dto.setLocal(local);
+		
+		//로그인된 아이디
 		String id = principal.getName();
 		dto.setId(id);
 		
 		service.insertData(dto);
-
-		return "redirect:../detail?idx="+service.getMaxIdx();
+		
+		HashMap<String , Integer> map = new HashMap<String, Integer>();
+		
+		map.put("idx", service.getMaxIdx());
+		
+		return map;
 	}
 	
 	@PostMapping("/auth/update")
@@ -307,9 +334,9 @@ public class ProductController {
 			if(id.equals(dto.getId())) {
 				//�뙋留ㅼ긽�깭
 				String sellstatus = dto.getSellstatus();
-				if(sellstatus.equals("�뙋留ㅼ쨷")) {
+				if(sellstatus.equals("판매중")) {
 					dto.setSellstatus("selling");
-				} else if(sellstatus.equals("�삁�빟以�")) {
+				} else if(sellstatus.equals("예약중")) {
 					dto.setSellstatus("reserved");
 				} else {
 					dto.setSellstatus("finished");
@@ -343,6 +370,7 @@ public class ProductController {
 		service.deleteData(idx);
 		
 		String state ="삭제됨";
+		
 		//채팅 테이블 state 바꾸기
 		cservice.updateChatState(idx, state);
 
@@ -358,9 +386,7 @@ public class ProductController {
 		//product_like�쓽 �뜲�씠�꽣 異붽�
 		plservice.insertPlike(id,idx);
 
-
 		//like 수 리턴
-
 		return service.getLikeCount(idx);
 	}
 
@@ -384,11 +410,11 @@ public class ProductController {
 	@PostMapping("/updateStatus")
 	public void updateStatus(@RequestParam String idx, @RequestParam String status) {
 		if(status.equals("selling")) {
-			status = "�뙋留ㅼ쨷";
+			status = "판매중";
 		} else if(status.equals("reserved")) {
-			status = "�삁�빟以�";
+			status = "예약중";
 		} else if(status.equals("finished")) {
-			status = "�뙋留ㅼ셿猷�";
+			status = "판매완료";
 		}
 		service.updateStatus(idx, status);
 	}

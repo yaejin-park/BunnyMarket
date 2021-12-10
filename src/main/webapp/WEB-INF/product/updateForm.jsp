@@ -14,10 +14,10 @@
 				</div>
 				<div class="child img-upload">
 					<div class="form-group upload-img">
-						<label for="chooseFile"> <img
-							src="/image/write-upload-icon.JPG" alt="이미지 등록">
-						</label> <input type="file" id="chooseFile" name="upload"
-							class="img-input" multiple="multiple" />
+						<label for="chooseFile"> 
+							<img src="/image/write-upload-icon.JPG" alt="이미지 등록">
+						</label>
+						<input type="file" id="chooseFile" name="photo-upload" class="img-input" multiple="multiple"/>
 					</div>
 					<div class="preview-area"></div>
 				</div>
