@@ -116,7 +116,12 @@
 		<div class="re-div">
 			<p class="re-info writer">
 				<span class="profile">
-					<img alt="" src="/image/profile-icon.png">
+					<c:if test="${profile =='no'}">
+							<img alt="프로필이미지" src="/image/profile-icon.png">
+					</c:if>
+					<c:if test="${profile !='no'}">
+						<img alt="프로필이미지" src="/photo/${profile}">
+					</c:if>
 				</span>
 				<c:if test="${userNickName=='no'}">
 					<a href="/login/main"><span>로그인해주세요.</span></a>

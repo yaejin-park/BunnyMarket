@@ -1,13 +1,17 @@
 package data.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.security.Principal;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import data.dto.FollowDTO;
 import data.dto.MemberDTO;
@@ -66,19 +71,15 @@ public class MypageController {
 		}
 		
 		//닉네임 가져오기
-		String nick=memService.getNick(principal.getName());		
+		String nick=memService.getNick(principal.getName());
+		String profile = memService.getMemberId(principal.getName()).getProfile();
+		
 		mview.addObject("isLogin", isLogin);
 		mview.addObject("nick", nick);
-		
-		//프로필 이미지
+		mview.addObject("profile", profile);
 		
 		mview.setViewName("/mypage/detail");
 		return mview;
-	}
-	
-	@GetMapping("/updateform")
-	public String update() {
-		return "/mypage/test_updateForm";
 	}
 	
 	@GetMapping("/profileupdateform")
@@ -90,22 +91,22 @@ public class MypageController {
 		ModelAndView mview=new ModelAndView();
 		
 		String userId = "no";
-		String userType = "no";
 		String userNickName = "no";
 		String local = "";
 		String[] localArr = {};
+		String profile = memService.getMemberId(principal.getName()).getProfile();
 		
 		if(principal != null) {
 			userId = principal.getName();
-			userType = memService.currentUserType(principal);
 			userNickName = memService.currentUserNickName(principal);
 			local = memService.getLocal(principal);
 			localArr = local.split(",");
 		}		
-		mview.addObject("userType", userType);
+		mview.addObject("userId", userId);
 		mview.addObject("userNickName", userNickName);		
 		mview.addObject("localCnt", localArr.length);
 		mview.addObject("localArr", localArr);
+		mview.addObject("profile", profile);
 		
 		mview.setViewName("/mypage/profile_updateForm");
 		return mview;
@@ -113,28 +114,54 @@ public class MypageController {
 	
 	@PostMapping("/profileupdate")
 	public String pudate(
+			@RequestParam String nickname,
+			MultipartFile profile,
+			HttpSession session,
 			Principal principal
 		) 
 	{
-		HashMap<String, String> map=new HashMap<String, String>();
-		
 		String userId = "no";
-		String userType = "no";
-		String userNickName = "no";
 		String local = "";
 		String[] localArr = {};
 		
 		if(principal != null) {
 			userId = principal.getName();
-			userType = memService.currentUserType(principal);
-			userNickName = memService.currentUserNickName(principal);
 			local = memService.getLocal(principal);
 			localArr = local.split(",");
-		}		
-		map.put("userType", userType);
-		map.put("userNickName", userNickName);
+		}
 		
-		return "redirect:/mypage/detail";
+		UUID uuid = UUID.randomUUID();
+		
+		String path = session.getServletContext().getRealPath("/photo");
+		System.out.println(path);
+		
+		String photo = "no";
+		if(profile != null) {
+			photo = uuid.toString() + "_" + profile.getOriginalFilename();
+			
+			try {
+				profile.transferTo(new File(path + "\\" + photo));
+			} catch (IllegalStateException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		//이전 사진 삭제
+		String ufile=memService.getMemberId(principal.getName()).getProfile();
+		File file=new File(path+"\\"+ufile);
+		file.delete();
+		
+		HashMap<String, String> profileMap = new HashMap<String, String>();
+		profileMap.put("profile", photo);
+		profileMap.put("id", userId);
+		memService.updateProfile(profileMap);
+		
+		HashMap<String, String> map=new HashMap<String, String>();
+		map.put("nickname",nickname);
+		map.put("id", userId);
+		memService.updateNickName(map);
+		
+		return "redirect:/mypage/auth/detail";
 	}
 	
 	@PostMapping("/changepw")
@@ -319,14 +346,13 @@ public class MypageController {
 		//로그인 되어 있을 경우,
 		if(isLogin!=null) {
 			//로그인 아이디 가져오기
-			String id=principal.getName();
+			String id=principal.getName();			
+			//닉네임 가져오기
+			String nick=memService.getNick(principal.getName());
 			model.addAttribute("myId", id);
-		}
-		
-		//닉네임 가져오기
-		String nick=memService.getNick(principal.getName());		
+			model.addAttribute("nick", nick);
+		}		
 		model.addAttribute("isLogin", isLogin);
-		model.addAttribute("nick", nick);
 		
 		List<FollowDTO> follow=followService.getFollowList(idx);
 		int fcount=follow.size();

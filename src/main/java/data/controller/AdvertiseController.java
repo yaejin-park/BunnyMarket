@@ -201,6 +201,7 @@ public class AdvertiseController {
 		
 		//게시글 닉네임 불러오기
 		String nick=memService.getNick(dto.getId());
+		String profile = memService.getMemberId(principal.getName()).getProfile();
 		
 		//댓글관련
 		List<AdreplyDTO> relist=service.getReplyList(idx);
@@ -222,6 +223,7 @@ public class AdvertiseController {
 		mview.addObject("localCnt", localArr.length);
 		mview.addObject("localArr", localArr);
 		mview.addObject("isLogin", isLogin);
+		mview.addObject("profile", profile);
 		
 		mview.setViewName("/advertise/detail");
 		return mview;
