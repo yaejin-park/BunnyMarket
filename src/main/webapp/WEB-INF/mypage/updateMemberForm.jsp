@@ -5,7 +5,7 @@
 <div class="join-div update-member">
 	<div class="inner">
 		<div class="write-form">
-			<form action="updateMember" method="post" name="update-form" onsubmit="return updateFormCheck(this)">
+			<form action="update" method="post" name="update-form" onsubmit="return updateFormCheck(this)">
 				<div class="group">
 					<div class="child tit">
 						아이디
@@ -13,7 +13,7 @@
 					</div>
 					<div class="child">
 						<div class="form-div">
-							<input type="text" name="id" placeholder="ID 입력" value="${dto.id}" disabled="disabled">
+							<input type="text" name="id" placeholder="ID 입력" value="${dto.id}" readonly="readonly">
 						</div>
 					</div>
 				</div>
@@ -35,7 +35,7 @@
 					</div>
 					<div class="child">
 						<div class="form-div">
-							<input type="text" name="name" placeholder="이름 입력" value="${dto.name}" disabled="disabled">
+							<input type="text" name="name" placeholder="이름 입력" value="${dto.name}" readonly="readonly">
 						</div>
 						<div class="info-txt">
 							<p>* 공백없이 한글만 입력 가능</p>

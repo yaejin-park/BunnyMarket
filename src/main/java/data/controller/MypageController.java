@@ -1,13 +1,22 @@
 package data.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.security.Principal;
 
+<<<<<<< HEAD
 import java.util.List;
 import java.util.Map;
+=======
+import javax.servlet.http.HttpServletRequest;
+>>>>>>> 437fb2bce39a307a9b6543edc03b002baaf28c5b
 import java.util.HashMap;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.UUID;
+
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -16,16 +25,22 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.multipart.MultipartFile;
 
+<<<<<<< HEAD
 import data.dto.FaqDTO;
+=======
+import data.dto.FollowDTO;
+>>>>>>> 437fb2bce39a307a9b6543edc03b002baaf28c5b
 import data.dto.MemberDTO;
 import data.dto.ProductDTO;
 
 import data.service.FollowService;
 import data.service.MemberService;
+import data.service.ProductLikeService;
 import data.service.ProductService;
 
 
@@ -42,7 +57,10 @@ public class MypageController {
 	ProductService pservice;
 	
 	@Autowired
-	FollowService pfService;
+	FollowService followService;
+	
+	@Autowired
+	ProductLikeService plservice;
 	
 	@GetMapping("/detail")
 	public ModelAndView detail(
@@ -64,17 +82,18 @@ public class MypageController {
 		}
 		
 		//닉네임 가져오기
-		String nick=memService.getNick(principal.getName());		
+		String nick=memService.getNick(principal.getName());
+		String profile = memService.getMemberId(principal.getName()).getProfile();
+		
 		mview.addObject("isLogin", isLogin);
 		mview.addObject("nick", nick);
-		
-		//프로필 이미지
+		mview.addObject("profile", profile);
 		
 		mview.setViewName("/mypage/detail");
 		return mview;
 	}
 	
-	@GetMapping("/profile_updateform")
+	@GetMapping("/profileupdateform")
 	public ModelAndView pupdateform(
 			HttpServletRequest request,
 			Principal principal
@@ -83,51 +102,77 @@ public class MypageController {
 		ModelAndView mview=new ModelAndView();
 		
 		String userId = "no";
-		String userType = "no";
 		String userNickName = "no";
 		String local = "";
 		String[] localArr = {};
+		String profile = memService.getMemberId(principal.getName()).getProfile();
 		
 		if(principal != null) {
 			userId = principal.getName();
-			userType = memService.currentUserType(principal);
 			userNickName = memService.currentUserNickName(principal);
 			local = memService.getLocal(principal);
 			localArr = local.split(",");
 		}		
-		mview.addObject("userType", userType);
+		mview.addObject("userId", userId);
 		mview.addObject("userNickName", userNickName);		
 		mview.addObject("localCnt", localArr.length);
 		mview.addObject("localArr", localArr);
+		mview.addObject("profile", profile);
 		
 		mview.setViewName("/mypage/profile_updateForm");
 		return mview;
 	}
 	
-	@PostMapping("/profile_update")
+	@PostMapping("/profileupdate")
 	public String pudate(
+			@RequestParam String nickname,
+			MultipartFile profile,
+			HttpSession session,
 			Principal principal
 		) 
 	{
-		HashMap<String, String> map=new HashMap<String, String>();
-		
 		String userId = "no";
-		String userType = "no";
-		String userNickName = "no";
 		String local = "";
 		String[] localArr = {};
 		
 		if(principal != null) {
 			userId = principal.getName();
-			userType = memService.currentUserType(principal);
-			userNickName = memService.currentUserNickName(principal);
 			local = memService.getLocal(principal);
 			localArr = local.split(",");
-		}		
-		map.put("userType", userType);
-		map.put("userNickName", userNickName);
+		}
 		
-		return "redirect:/mypage/detail";
+		UUID uuid = UUID.randomUUID();
+		
+		String path = session.getServletContext().getRealPath("/photo");
+		System.out.println(path);
+		
+		String photo = "no";
+		if(profile != null) {
+			photo = uuid.toString() + "_" + profile.getOriginalFilename();
+			
+			try {
+				profile.transferTo(new File(path + "\\" + photo));
+			} catch (IllegalStateException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		//이전 사진 삭제
+		String ufile=memService.getMemberId(principal.getName()).getProfile();
+		File file=new File(path+"\\"+ufile);
+		file.delete();
+		
+		HashMap<String, String> profileMap = new HashMap<String, String>();
+		profileMap.put("profile", photo);
+		profileMap.put("id", userId);
+		memService.updateProfile(profileMap);
+		
+		HashMap<String, String> map=new HashMap<String, String>();
+		map.put("nickname",nickname);
+		map.put("id", userId);
+		memService.updateNickName(map);
+		
+		return "redirect:/mypage/auth/detail";
 	}
 	
 	@PostMapping("/changepw")
@@ -169,7 +214,6 @@ public class MypageController {
 	
 	@PostMapping("/member/update")
 	public String updateMember(
-		@RequestParam String type,
 		@RequestParam String email1,
 		@RequestParam String email2,
 		@RequestParam String hp1,
@@ -179,18 +223,31 @@ public class MypageController {
 		@RequestParam String zonecode,
 		@RequestParam String addr1,
 		@RequestParam String addr2,
-		MemberDTO dto
+		MemberDTO dto,
+		Principal principal
 		) 
 	{	
-		dto.setType(type);
-		dto.setPw(encoder.encode(dto.getPw()));
-		dto.setEmail(email1 + "@" + email2);
+		System.out.println("addrLocal=>" + addrLocal);
+		String[] localArr = memService.getLocal(principal).split(",");
+		String local = "";
+		
+		localArr[0] = addrLocal;
+		
+		for(String i:localArr) {
+			local+=i+",";
+		}
+				
+		local = local.substring(0, local.length()-1);
+		
+		
+		dto.setEmail(email1 + "@" + email2); 
 		dto.setHp(hp1 + "-" + hp2 + "-" + hp3);
-		dto.setLocal(addrLocal);
+		dto.setLocal(local); 
 		dto.setAddr(addr1 + "," + addr2);
-		dto.setZonecode(zonecode);
+		dto.setZonecode(zonecode); 
 		memService.updateMember(dto);
-		return "redirect:complete";
+		
+		return "redirect:../detail";
 	}
 	
 	@GetMapping("/member/deleteform")
@@ -228,6 +285,7 @@ public class MypageController {
 		return "redirect:/logout";
 	}
 	
+
 	@GetMapping("/sellList")
 	public @ResponseBody ModelAndView sellList(
 		@RequestParam(defaultValue = "1") int currentPage,
@@ -281,7 +339,55 @@ public class MypageController {
 		mview.setViewName("/mypage/sellList");
 		return mview;
 	}
+	@GetMapping("/productlike/list")
+	public ModelAndView productLikeList(
+			@RequestParam (defaultValue = "1") int currentPage, HttpSession session) { 
+		ModelAndView mview = new ModelAndView();
+		String id = (String)session.getAttribute("myid");
+		int totalCount = plservice.getTotalCount(id);
 	
+		//페이징 처리에 필요한 변수 선언
+		int perPage = 20;
+		int totalPage;
+		int start;
+		int perBlock = 5;
+		int startPage;
+		int endPage;
+		
+		//총 페이지 갯수 구하기
+		totalPage = totalCount/perPage+(totalCount%perPage==0?0:1);
+		//각 블럭의 시작 페이지
+		startPage = (currentPage-1)/perBlock*perBlock +1;
+		//각 블럭의 마지막 페이지
+		endPage = startPage + perBlock -1;
+		
+		if(endPage > totalPage) {
+			endPage = totalPage;
+		}
+		
+		//각 페이지에서 불러올 시작번호
+		start = (currentPage-1)*perPage;
+		
+		List<ProductDTO> list = plservice.getList(start, perPage, id);
+		
+		//각 페이지에 출력할 시작번호
+		int no = totalCount-(currentPage-1)*perPage;
+		
+		//출력에 필요한 변수들을 request에 저장
+		mview.addObject("list",list);
+		mview.addObject("startPage", startPage);
+		mview.addObject("endPage", endPage);
+		mview.addObject("totalPage", totalPage);
+		mview.addObject("no", no);
+		mview.addObject("currentPage", currentPage);
+		mview.addObject("totalCount", totalCount);
+		
+		mview.setViewName("/productlike/list");
+			  
+		return mview; 
+	}
+	
+
 	@GetMapping("/getListByStatus")
 	@ResponseBody
 	public Map<String, Object> getListByStatus(
@@ -323,4 +429,34 @@ public class MypageController {
 		return result;
 	}
 	
+	@GetMapping("/followlist")
+	public String follow(@RequestParam(value="idx", required=false) String idx,
+				HttpServletRequest request,
+				Model model,
+				Principal principal) {		
+		//로그인 체크
+		String isLogin="N";
+		isLogin=(String)request.getSession().getAttribute("isLogin");
+		
+		//로그인 되어 있을 경우,
+		if(isLogin!=null) {
+			//로그인 아이디 가져오기
+			String id=principal.getName();			
+			//닉네임 가져오기
+			String nick=memService.getNick(principal.getName());
+			model.addAttribute("myId", id);
+			model.addAttribute("nick", nick);
+		}		
+		model.addAttribute("isLogin", isLogin);
+		
+		List<FollowDTO> follow=followService.getFollowList(idx);
+		int fcount=follow.size();
+		
+		model.addAttribute("isLogin", isLogin);
+		model.addAttribute("idx", idx);
+		model.addAttribute("follow", follow);
+		model.addAttribute("fcount", fcount);
+		
+		return "/mypage/follow_list";
+	}	
 }

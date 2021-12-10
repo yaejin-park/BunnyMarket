@@ -14,7 +14,7 @@
 		<if test="category!='전체'">
 			where category=#{category}
 		</if>
-		<!-- <if test="keyword!=null">
+	<!-- <if test="keyword!=null">
 			and title like CONCAT('%',#{keyword},'%') 
 		</if> -->
 		order by idx desc limit #{start},#{perpage}

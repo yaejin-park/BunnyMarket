@@ -44,6 +44,30 @@ $(function(){
 		}
 	});
 	
+	//profileImg preview
+	$(".profile-update #select-img").on("change", function(e){
+		var file = $(this)[0].files;
+		console.log(file[0].type);
+		console.log(file[0].type.match("image/*"))
 	
-	
+		if(!file[0].type.match("image.*")){
+			alert("확장자는 이미지 확장자만 가능합니다.");
+			return false;
+		}
+		var reader = new FileReader();
+		reader.onload = function(e){
+			$(".profile-update .profile-img img").attr("src", e.target.result);
+		}
+		reader.readAsDataURL(file[0]);
+		
+		reader.onloadend = function(e){
+			if($(".profile-update .profile-img").width() > $(".profile-update .profile-img").find("img").height()){
+				$(".profile-update .profile-img").find("img").width("auto");
+				$(".profile-update .profile-img").find("img").height("100%");
+			}else{
+				$(".profile-update .profile-img").find("img").width("100%");
+				$(".profile-update .profile-img").find("img").height("auto");
+			}
+		}
+	});
 });
