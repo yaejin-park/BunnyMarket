@@ -39,14 +39,12 @@
 }
 .cummu-list li .text-div .tit{
 	margin-top:45px;
-	width:250px;
 	white-space:nowrap;
 	overflow:hidden;
 	text-overflow:ellipsis;
 }
 .cummu-list li .text-div .txt{
 	margin-top:10px;
-	width:270px;
 	white-space:nowrap;
 	overflow:hidden;
 	text-overflow:ellipsis;
@@ -180,7 +178,6 @@
 }
 
 .detailtit{
-	display:block;
 	font-size:25pt;
 	font-weight:bold;
 	padding:8px 0px 8px 0px;
@@ -189,7 +186,6 @@
 .other{
 	padding:5px 0px 5px 0px;
 }
-
 
 .infoAll .info .table tr:last-child {
 	border-bottom:none;

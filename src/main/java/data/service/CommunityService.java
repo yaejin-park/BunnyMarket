@@ -72,17 +72,11 @@ public class CommunityService {
 	public int getGoodCount(@RequestParam String idx) {
 		return mapper.getGoodCount(idx);
 	}
-	public void updateGoodcount(@RequestParam String idx) {
-		mapper.updateGoodcount(idx);
+	public void updateGoodCount(@RequestParam String idx) {
+		mapper.updateGoodCount(idx);
 	}
 	public void updateGoodCancel(@RequestParam String idx) {
 		mapper.updateGoodCancel(idx);
-	}
-	public void insertGood(String userId, String idx){
-		mapper.insertGood(userId,idx);
-	}
-	public void deleteGood(String userId, String idx) {
-		mapper.deleteGood(userId, idx);
 	}
 	public void insertReplyData(ComReplyDTO dto) {
 		mapper.insertReplyData(dto);

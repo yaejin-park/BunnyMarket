@@ -23,10 +23,8 @@ public interface CommunityMapper {
 	public MemberDTO getMemData(String idx);
 	public int goodCheck(String userId,String idx);
 	public int getGoodCount(String idx);
-	public void updateGoodcount(String idx);
+	public void updateGoodCount(String idx);
 	public void updateGoodCancel(String idx);
-	public void insertGood(String userId, String idx);
-	public void deleteGood(String userId, String idx);
 	public void insertReplyData(ComReplyDTO dto);
 	public void updateReplyStep(int restep, int regroup);
 	public List<ComReplyDTO> getReplyList(String idx);
