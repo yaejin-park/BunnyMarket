@@ -77,6 +77,7 @@
 	<select id="sellList" parameterType="HashMap" resultType="pdto">
       select * from product order by idx desc limit #{start},#{perpage}
    </select>
+
    <select id="getListByStatus" parameterType="HashMap" resultType="pdto">
 		select
 			*

@@ -1,18 +1,24 @@
- package data.controller;
+package data.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-
 @Controller
-@RequestMapping("/intro")
-public class IntroController {
+@RequestMapping("/test")
+public class TestController {
+	
+	
 	
 	@GetMapping("/main")
-	public String intro()
-	{
-		return "/intro/main";
+	public String use() {
+		return "/test/test";
 	}
+	
+	
+
+	
+	
+	
 
 }

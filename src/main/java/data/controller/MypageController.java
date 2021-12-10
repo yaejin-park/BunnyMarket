@@ -21,6 +21,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -426,32 +427,30 @@ public class MypageController {
 	}
 	
 	@GetMapping("/followlist")
-	public String follow(@RequestParam(value="idx", required=false) String idx,
-				HttpServletRequest request,
-				Model model,
-				Principal principal) {		
-		//로그인 체크
-		String isLogin="N";
-		isLogin=(String)request.getSession().getAttribute("isLogin");
+	public String follow(@PathVariable int idx,
+			Model model,
+			HttpSession session,
+			Principal principal) {
 		
-		//로그인 되어 있을 경우,
-		if(isLogin!=null) {
-			//로그인 아이디 가져오기
-			String id=principal.getName();			
-			//닉네임 가져오기
-			String nick=memService.getNick(principal.getName());
-			model.addAttribute("myId", id);
-			model.addAttribute("nick", nick);
-		}		
-		model.addAttribute("isLogin", isLogin);
+		String userId = "no";
+		String local = "";
+		String[] localArr = {};
 		
-		List<FollowDTO> follow=followService.getFollowList(idx);
-		int fcount=follow.size();
+		if(principal != null) {
+			userId = principal.getName();
+			local = memService.getLocal(principal);
+			localArr = local.split(",");
+		}
+		FollowDTO fdto=new FollowDTO();
+		int followCheck=followService.followCheck(fdto.getFollowee(), fdto.getFollower());
+		List<FollowDTO> followerList=followService.selectFolloweeList(idx);
+		List<FollowDTO> followeeList=followService.selectFollowerList(idx);
 		
-		model.addAttribute("isLogin", isLogin);
-		model.addAttribute("idx", idx);
-		model.addAttribute("follow", follow);
-		model.addAttribute("fcount", fcount);
+		model.addAttribute("id", userId);
+		model.addAttribute("followCheck", followCheck);
+		model.addAttribute("follow", followCheck);
+		model.addAttribute("followCheck", followCheck);
+		
 		
 		return "/mypage/follow_list";
 	}	

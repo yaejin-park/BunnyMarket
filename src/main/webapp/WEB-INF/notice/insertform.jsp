@@ -12,11 +12,10 @@
 					required="required" placeholder="제목을 입력하세요" name="title"
 					class="title">
 					<div class="filebox">
-						
-						
-						<input multiple="multiple" type="file" name="upload"class="file">
-					</div>
-				</th>
+
+
+						<input multiple="multiple" type="file" name="upload" class="file">
+					</div></th>
 			</tr>
 
 

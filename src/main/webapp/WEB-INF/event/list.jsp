@@ -8,9 +8,8 @@
 <div class="event-div">
 	<div class="tab-btn">
 		<div class="inner">
-			<a href="javascript:" class="active">진행중인 이벤트</a>
-			<a href="javascript:">종료된 이벤트</a>
-			<a href="javascript:">당첨자 발표</a>
+			<a href="list?currentPage=1&status=process" class="${status == 'process'?'active':''}">진행중인 이벤트</a>
+			<a href="list?currentPage=1&status=complete" class="${status == 'complete'?'active':''}">종료된 이벤트</a>
 		</div>
 	</div>
 	<div class="category-div">

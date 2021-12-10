@@ -13,41 +13,42 @@
 
 	<div class="inner" id="form">
 
-	
+
 		<table class="utable">
 
 			<thead>
 				<tr>
-					<th><label>제목</label> <input type="text" name="title" required="required"
-						value="${dto.title}" class="title">
-							<div class="filebox">
-						<input type="file" id="ex_file" name="upload" class="file" multiple="multiple">
-				
-					
-					
-					</div>
-					</th>
+					<th><label>제목</label> <input type="text" name="title"
+						required="required" value="${dto.title}" class="title">
+						<div class="filebox">
+							<input type="file" id="ex_file" name="upload" class="file"
+								multiple="multiple">
+
+
+
+						</div></th>
 				</tr>
 			</thead>
 
 
 			<tbody>
 				<tr>
-					<td><label>내용</label> <textarea required="required" name="content"
-					 class="content">${dto.content}</textarea></td>
-					
-					
+					<td><label>내용</label> <textarea required="required"
+							name="content" class="content">${dto.content}</textarea></td>
+
+
 				</tr>
 			</tbody>
 
 
 		</table>
 	</div>
-		<div class="btn-wrap">
-			<button type="button" onclick="history.back()"
-				class="btn-default" id="back">이전</button>
-			<button type="submit" class="btn-add"onclick="location.href='content?idx=${dto.idx}&currnetPage=${currentPage}&key=list'">저장</button>
-		</div>
+	<div class="btn-wrap">
+		<button type="button" onclick="history.back()" class="btn-default"
+			id="back">이전</button>
+		<button type="submit" class="btn-add"
+			onclick="location.href='content?idx=${dto.idx}&currnetPage=${currentPage}&key=list'">저장</button>
+	</div>
 </form>
 
 <script type="text/javascript" src="/js/notice_script.js"></script>
