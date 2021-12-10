@@ -21,11 +21,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import data.dto.ChatDTO;
 import data.dto.ProductDTO;
+import data.service.ChatService;
+import data.dto.ReviewDTO;
 import data.service.FollowService;
 import data.service.MemberService;
 import data.service.ProductLikeService;
 import data.service.ProductService;
+import data.service.ReviewService;
 
 @Controller
 @RequestMapping("/product")
@@ -41,6 +45,12 @@ public class ProductController {
 
 	@Autowired
 	MemberService mservice;
+	
+	@Autowired
+	ChatService cservice;
+	
+	@Autowired 
+	ReviewService rservice;
 
 	@ResponseBody
 	@GetMapping("/list")
@@ -142,7 +152,6 @@ public class ProductController {
 		ModelAndView mview = new ModelAndView();
 		
 		//지역가져오기
-		String userId=principal.getName();
 		String local=mservice.getLocal(principal);
 		String []localArr = local.split(",");
 
@@ -155,24 +164,23 @@ public class ProductController {
 
 	@PostMapping("/auth/insert")
 	public String insertData(@ModelAttribute ProductDTO dto, HttpServletRequest request, HttpSession session, Principal principal) {
-		//업로드된 파일 리스트
-		List<MultipartFile> mf = dto.getUpload(); 
 
+		List<MultipartFile> mf = dto.getUpload(); 
 		// 파일 업로드 안했을 경우,
 		if (mf.get(0).getOriginalFilename().equals("")) {
 			return "history.back()";
-			// 파일 업로드 했을 경우,
+			// �뙆�씪 �뾽濡쒕뱶 �뻽�쓣 寃쎌슦,
 		} else{
-			// 저장할 폴더 지정
+			// ���옣�븷 �뤃�뜑 吏��젙
 			String path = session.getServletContext().getRealPath("/photo");
 			String fileplus="";
 
 			for(int i=0; i<mf.size(); i++) {
-				// uuid 생성
+				// uuid �깮�꽦
 				UUID uuid = UUID.randomUUID();
-				// uuid 활용해 파일이름 지정 
+				// uuid �솢�슜�빐 �뙆�씪�씠由� 吏��젙 
 				String uploadfile = uuid.toString() + "_" + mf.get(i).getOriginalFilename();
-				// 실제 업로드
+				// �떎�젣 �뾽濡쒕뱶
 				try {
 					mf.get(i).transferTo(new File(path + "\\" + uploadfile));
 				} catch (IllegalStateException | IOException e) {
@@ -181,27 +189,22 @@ public class ProductController {
 				}
 				fileplus += uploadfile+",";
 			}
-			//마지막 컴마 제거
+			//留덉�留� 而대쭏 �젣嫄�
 			fileplus = fileplus.substring(0,fileplus.length()-1);
 
 			dto.setUploadfile(fileplus);
 		}
-		//세션에서 아이디 얻어서 dto에 저장
+		//�꽭�뀡�뿉�꽌 �븘�씠�뵒 �뼸�뼱�꽌 dto�뿉 ���옣
 		String id = principal.getName();
 		dto.setId(id);
 		
-		//지역가져오기
-		String userId=principal.getName();
-		String local=mservice.getLocal(principal);
-		String []localArr = local.split(",");
-
 		service.insertData(dto);
 
 		return "redirect:../detail?idx="+service.getMaxIdx();
 	}
 	
 	@PostMapping("/auth/update")
-	public String updateData(@ModelAttribute ProductDTO dto, HttpServletRequest request, HttpSession session, Principal principal) {
+	public String updateData(@ModelAttribute ProductDTO dto, HttpServletRequest request, HttpSession session, Principal principal,String idx) {
 		//업로드된 파일 리스트
 		List<MultipartFile> mf = dto.getUpload(); 
 		
@@ -238,11 +241,6 @@ public class ProductController {
 		String id = principal.getName();
 		dto.setId(id);
 		
-		//지역가져오기
-		String userId=principal.getName();
-		String local=mservice.getLocal(principal);
-		String []localArr = local.split(",");
-		
 		service.updateData(dto);
 		
 		return "redirect:../detail?idx="+dto.getIdx();
@@ -252,16 +250,18 @@ public class ProductController {
 	public String content(@RequestParam String idx,
 			@RequestParam (defaultValue = "1") int currentPage, 
 			@RequestParam (required = false) String key,
-			Model model, HttpServletRequest request, Principal principal) {
-		//리스트에서 디테일페이지가면 조회수 올라가게
+			Model model, HttpServletRequest request, Principal principal,@ModelAttribute ProductDTO pdto,ReviewDTO rdto) {
+		//由ъ뒪�듃�뿉�꽌 �뵒�뀒�씪�럹�씠吏�媛�硫� 議고쉶�닔 �삱�씪媛�寃�
 		if(key!=null) {
 			service.updateReadcount(idx);
 		}
 
+
 		//해당 idx의 데이터 가져오기
 		ProductDTO dto = service.getData(idx);
-		//사진 ,로 split(대표 이미지)
+		//�궗吏� ,濡� split(���몴 �씠誘몄�)
 		String []photo = dto.getUploadfile().split(",");
+
 
 		//닉네임 가져오기
 		String nick = mservice.getNick(dto.getId());
@@ -275,8 +275,9 @@ public class ProductController {
 		isLogin = (String)request.getSession().getAttribute("isLogin");
 
 		//로그인 되어 있을 경우,
+
 		if(isLogin!=null) {
-			//로그인 아이디 가져오기
+			//濡쒓렇�씤 �븘�씠�뵒 媛��졇�삤湲�
 			String id = principal.getName();
 			model.addAttribute("myId", id);
 
@@ -288,6 +289,7 @@ public class ProductController {
 			local = mservice.getLocal(principal);
 			localArr=local.split(",");
 			
+
 			model.addAttribute("localCnt", localArr.length);
 			model.addAttribute("localArr", localArr);
 
@@ -297,23 +299,35 @@ public class ProductController {
 			model.addAttribute("likeCheck", likeCheck);
 
 			//팔로우 여부
+
 			int followCheck = flservice.followCheck(dto.getId(), id);
 			System.out.println("follow?"+followCheck);
 			model.addAttribute("followCheck", followCheck);
 
 			if(id.equals(dto.getId())) {
-				//판매상태
+				//�뙋留ㅼ긽�깭
 				String sellstatus = dto.getSellstatus();
-				if(sellstatus.equals("판매중")) {
+				if(sellstatus.equals("�뙋留ㅼ쨷")) {
 					dto.setSellstatus("selling");
-				} else if(sellstatus.equals("예약중")) {
+				} else if(sellstatus.equals("�삁�빟以�")) {
 					dto.setSellstatus("reserved");
 				} else {
 					dto.setSellstatus("finished");
 				}
 			}
 		}
-
+		//팝업창 관련
+		
+		//팝업창 choose
+		List<ChatDTO> poplist=rservice.getList(idx);
+		model.addAttribute("poplist", poplist);
+		model.addAttribute("idx", idx);
+		
+		//팝업창 insert
+		
+		String seller=principal.getName();
+		model.addAttribute("seller", seller);
+		
 		model.addAttribute("dto", dto);
 		model.addAttribute("list", list);
 		model.addAttribute("isLogin", isLogin);
@@ -327,6 +341,10 @@ public class ProductController {
 	@GetMapping("/auth/delete")
 	public String deleteData(@RequestParam String idx, @RequestParam String currentPage) {
 		service.deleteData(idx);
+		
+		String state ="삭제됨";
+		//채팅 테이블 state 바꾸기
+		cservice.updateChatState(idx, state);
 
 		return "redirect:../list?currentPage="+currentPage;
 	}
@@ -335,12 +353,14 @@ public class ProductController {
 	@PostMapping("/updateLikecount")
 	public int updateLikecount(@RequestParam String idx, Principal principal) {
 		String id = principal.getName();
-		//product의 likecount+1
+		//product�쓽 likecount+1
 		service.updateLikecount(idx);
-		//product_like의 데이터 추가
+		//product_like�쓽 �뜲�씠�꽣 異붽�
 		plservice.insertPlike(id,idx);
 
+
 		//like 수 리턴
+
 		return service.getLikeCount(idx);
 	}
 
@@ -348,13 +368,15 @@ public class ProductController {
 	@PostMapping("/updateLikeMinuscount")
 	public int updateLikeMinuscount(@RequestParam String idx, Principal principal) {
 		String id = principal.getName();
-		//product의 likecount-1
+		//product�쓽 likecount-1
 		service.updateLikeMinuscount(idx);
+
 
 		//product_like의 데이터 삭제
 		plservice.deletePlike(id,idx);
 
 		//like 수 리턴
+
 		return service.getLikeCount(idx);
 	}
 
@@ -362,12 +384,27 @@ public class ProductController {
 	@PostMapping("/updateStatus")
 	public void updateStatus(@RequestParam String idx, @RequestParam String status) {
 		if(status.equals("selling")) {
-			status = "판매중";
+			status = "�뙋留ㅼ쨷";
 		} else if(status.equals("reserved")) {
-			status = "예약중";
+			status = "�삁�빟以�";
 		} else if(status.equals("finished")) {
-			status = "판매완료";
+			status = "�뙋留ㅼ셿猷�";
 		}
 		service.updateStatus(idx, status);
 	}
+	
+	
+	
+
+
+	
+	@PostMapping("/popinsert")
+	public String insert(@ModelAttribute ReviewDTO rdto)
+	{	
+		rservice.ReviewInsert(rdto);
+		
+		return "/product/list";
+	}
+	
+
 }

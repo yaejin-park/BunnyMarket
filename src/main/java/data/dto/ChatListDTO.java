@@ -9,6 +9,12 @@ public class ChatListDTO {
     private String id;
     private String  product_idx;
     
+    //채팅 리스트 조인
+    private String profile;
+    private String nickname;
+    private String upload_file;
+    private String last_msg;
+    
 	public String getIdx() {
 		return idx;
 	}
@@ -33,4 +39,31 @@ public class ChatListDTO {
 	public void setProduct_idx(String product_idx) {
 		this.product_idx = product_idx;
 	}
+	
+	//채팅 리스트 조인
+	public String getProfile() {
+		return profile;
+	}
+	public void setProfile(String profile) {
+		this.profile = profile;
+	}
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+	public String getUpload_file() {
+		return upload_file;
+	}
+	public void setUpload_file(String upload_file) {
+		this.upload_file = upload_file;
+	}
+	public String getLast_msg() {
+		return last_msg;
+	}
+	public void setLast_msg(String last_msg) {
+		this.last_msg = last_msg;
+	}
 }
+	

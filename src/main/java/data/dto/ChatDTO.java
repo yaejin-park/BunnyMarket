@@ -14,7 +14,32 @@ public class ChatDTO {
 	private String chat_file;
 	private Timestamp last_time;
 	private String state;
+	private MemberDTO mdto;
+	private String nickname;
+	private String profile;
 	
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+	public String getProfile() {
+		return profile;
+	}
+	public void setProfile(String profile) {
+		this.profile = profile;
+	}
+
+	
+	
+	public MemberDTO getMdto() {
+		return mdto;
+	}
+	public void setMdto(MemberDTO mdto) {
+		this.mdto = mdto;
+	}
+
 	//txt
 	private String sender;
 	private String time;

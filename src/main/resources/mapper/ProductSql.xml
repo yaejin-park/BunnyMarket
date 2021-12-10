@@ -77,5 +77,4 @@
 	<select id="sellList" parameterType="pdto" resultType="pdto">
       select * from product where sellstatus = #{status} and id = #{id} order by idx asc
    </select>
-	
 </mapper>
