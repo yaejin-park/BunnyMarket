@@ -21,8 +21,12 @@
 		select nickname from member where id=#{id}
 	</select>
 	
+	<select id="getIdTakeNick" parameterType="String" resultType="String">
+		select id from member where nickname=#{nickname}
+	</select>
+	
 	<select id="getMemberId" parameterType="String" resultType="mdto">
-		select idx,id,pw from member where id=#{id}
+		select * from member where id=#{id}
 	</select>
 	
 	<select id="getIdFindMember" parameterType="HashMap" resultType="String">
@@ -56,4 +60,24 @@
 	<update id="updatePw" parameterType="HashMap">
 		update member set pw=#{pw} where id=#{id}
 	</update>
+	
+	<update id="updateProfile" parameterType="HashMap">
+		update member set profile=#{profile} where id=#{id}
+	</update>
+	
+	<update id="updateNickName" parameterType="HashMap">
+		update member set nickname=#{nickname} where id=#{id}
+	</update>
+	
+	<update id="updateMember" parameterType="mdto">
+		update member set nickname=#{nickname}, email=#{email}, addr=#{addr}, hp=#{hp}, local=#{local}, zonecode=#{zonecode} where id=#{id}
+	</update>
+	
+	<delete id="deleteMember" parameterType="String">
+		delete from member where id=#{id}
+	</delete>
+	
+	<select id="checkLocal" parameterType="HashMap" resultType="String">
+		select count(*) from member where id=#{id} and local like CONCAT('%',#{local},'%')
+	</select>
 </mapper>

@@ -91,7 +91,32 @@ public class MemberService implements UserDetailsService {
 	public String checkPw(HashMap<String, String> map) {
 		return mapper.checkPw(map);
 	}
+	
 	public void updatePw(HashMap<String, String> map) {
 		mapper.updatePw(map);
+	}
+	
+	public void updateProfile(HashMap<String, String> map) {
+		mapper.updateProfile(map);
+	}
+	
+	public void updateNickName(HashMap<String, String> map) {
+		mapper.updateNickName(map);
+	}
+	
+	public void updateMember(MemberDTO dto) {
+		mapper.updateMember(dto);
+	}
+	
+	public void deleteMember(String id) {
+		mapper.deleteMember(id);
+	}
+	
+	public String checkLocal(HashMap<String, String> map) {
+		return mapper.checkLocal(map);
+	}
+	
+	public String getIdTakeNick(String nickname) {
+		return mapper.getIdTakeNick(nickname);
 	}
 }

@@ -34,3 +34,6 @@
 .faq-div .faq-form-div {
 	margin-top:40px;
 }
+.faq-div .answer {
+	font-weight:bolder;
+}

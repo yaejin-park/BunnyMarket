@@ -1,0 +1,55 @@
+.phone {
+	background-color: #FFF0F5;
+}
+
+.logo {
+	width: 150px;
+	height: 90px;
+	background: url(../image/logo2.png) no-repeat center/100%;
+	text-indent: -999px;
+	overflow: hidden;
+}
+
+@media all and (max-width:1300px) {
+	.intro .picture {
+		width: 50%;
+	}
+	.intro .ment {
+		width: 50%;
+	}
+	.logo {
+		width: 150px;
+		height: 90px;
+	}
+	img{
+	 	width:200px;
+	
+	}
+
+}
+
+@media all and (max-width:768px) {
+	.intro .picture {
+		width: 50%;
+	}
+	.intro .ment {
+		width: 50%;
+	}
+	body {
+		font-size: 11px;
+	}
+	.logo {
+		width: 100px;
+		height: 40px;
+	}
+	img{
+		width:100px;
+	
+	}
+
+}
+
+
+#jump{
+	margin-left: 50px;
+}

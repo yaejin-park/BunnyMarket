@@ -15,7 +15,11 @@ public interface EventMapper {
 	public EventDTO getData(String idx);
 	public List<String> getCategory();
 	public void insertData(EventDTO dto);
+	public void deleteData(String idx);
+	public void updateData(EventDTO dto);
 	public void updateReadCount(String idx);
 	public void insertReplyData(EventReplyDTO dto);
 	public List<EventReplyDTO> getReplyList(String idx);
+	public String getMaxReply(String idx);
+	public void deleteReply(String idx);
 }

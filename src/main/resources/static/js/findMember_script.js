@@ -84,7 +84,6 @@ $(function(){
 			return;	
 		}
 		
-		
 		$.ajax({
 			type:"post",
 			url:"./findpw",
@@ -95,7 +94,7 @@ $(function(){
 			},
 			dataType:"json",
 			success:function(data){
-				console.log("data.result =>" + data.result);
+				// console.log("data.result =>" + data.result);
 				popOpen("#findPwPop");
 				if(data.result == "yes"){
 					$("#findPwPop").find(".result").html("<span>"+ data.key +"</span>");

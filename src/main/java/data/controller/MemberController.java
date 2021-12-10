@@ -1,6 +1,7 @@
 package data.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -182,6 +183,23 @@ public class MemberController {
 	@GetMapping("/complete")
 	public String completeJoin() {
 		return "/join/complete";
+	}
+	
+	@PostMapping("/pwCheck")
+	public @ResponseBody HashMap<String, Integer> getPwCheck(
+		@RequestParam String pw,
+		Principal principal
+		)
+	{
+		String originPw = service.getPw(principal.getName());
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		if(encoder.matches(pw, originPw)) {
+			map.put("result", 1);
+		}else {
+			map.put("result", 0);
+		}
+		
+		return map;
 	}
 	
 	@GetMapping("/idCheck")

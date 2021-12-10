@@ -57,8 +57,10 @@ input, select {
 	background:#fff; 
 	border:1px solid #e5e5e5; 
 }
-
-
+input:disabled, input[readonly ='readonly'] {
+	color:#666;
+	background:#f5f5f5;
+}
 input::placeholder {
 	color:#999;
 }
@@ -154,7 +156,8 @@ header .util {
 }
 header .util a {
     display:inline-block;
-    padding:10px;
+    padding:10px 0;
+    margin-left:15px;
 }
 header .util a:first-child {
 	position:relative;
@@ -164,7 +167,7 @@ header .util a:first-child:after {
     content:"";
     position:absolute;
     top:16px;
-    right:-2px;
+    right:-10px;
     display:block;
     width:1px;
     height:15px;
@@ -904,10 +907,28 @@ footer .etc-txt .copyright {
 }
 .quick-div a {
 	display:block;
-	width:70px;
-	height:70px;
-	border:1px solid #ccc;
+	width:50px;
+	height:50px;
+	margin-top:10px;
+	border:1px solid #ff7ab0;
 	border-radius:50%;
+	background-color:#ff7ab0;
+	background-repeat:no-repeat;
+	background-position:center;
+	text-indent:-999px;
+	overflow:hidden;
+}
+.quick-div a.quick-talk {
+	margin-top:0;
+	background-image:url("/image/talk-icon.png");
+	background-size:25px;
+}
+.quick-div a.quick-add{
+	background-image:url("/image/plus-icon-w.png");
+	background-size:18px;
+}
+.quick-div a.top-btn {
+	background:#fff url("/image/top-icon-p.png") no-repeat center/ 40px;
 }
 .popup-modal {
 	display:none;

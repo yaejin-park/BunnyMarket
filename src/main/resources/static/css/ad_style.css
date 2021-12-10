@@ -2,8 +2,8 @@
 .ad-list li{
 	border:1px solid #ddd;
 }
-.btn-wrap{
-	margin-bottom:40px;
+.add-btn-wrap{
+	margin-bottom:30px;
 	text-align:right;
 }
 .info-sm div.read, .list-info-sm div.read{
@@ -20,6 +20,19 @@
 	top:50%;
 	left:50%;
 	transform:translate(-50%, -50%);
+}
+.txt-div {
+    margin-left:20px;
+}
+.list-tit{
+	font-size:25pt;
+	font-weight:bold;
+}
+.ect {
+    text-align: right;
+    font-size: 11pt;
+    color: #999;
+    margin-right:20px;
 }
 
 /* writeForm */
@@ -46,6 +59,8 @@
 .content-detail-div{
 	border:1px solid #ddd;
 	margin-top:20xp;
+	margin-bottom:20px;
+	border-radius:5px;
 	height:250px;
 	width:100%;
 }
@@ -58,6 +73,7 @@
 	border:1px solid #ddd;
 	margin-bottom:20px;
 	margin-top:10px;
+	border-radius:5px;
 }
 .content-img img{
 	margin:20px;
@@ -70,9 +86,93 @@
 .img-detail-view{
 	color:#999;
 }
-
+.bigImg{
+	border:0px;
+}
+.info .ad-tit{
+	font-size:25pt;
+	font-weight:bold;
+	color:#333;
+}
 /* detail-reply */
-.re-wrap{
+.ad-div .reply .tit {
+	margin-bottom:20px;
+}
+.ad-div .reply .re-div {
+	padding:10px;
+	border:1px solid #e5e5e5;
+	border-radius:5px;
+}
+.ad-div .re-info.writer span {
+	display:inline-block;
+	font-size:16px;
+	font-weight:bold;
+	vertical-align:middle;
+}
+.ad-div .re-info.writer .profile {
+	top:20px;
+	left:20px;
+	width:50px;
+	border-radius:50%;
+	border:1px solid #f7f6fc;
+	overflow:hidden;
+}
+.ad-div .re-info.writer .profile img {
+	width:100%;
+}
+.ad-div .re-content {
+	margin:10px 0;
+}
+.ad-div .re-content textarea {
+	height:100px;
+	border:none;
+}
+.ad-div .re-div .re-util {
+	position:relative;
+	padding-top:10px;
+	border-top:1px solid #e5e5e5;
+}
+.ad-div .re-div .re-util .text-count {
+	position:absolute;
+	bottom:10px;
+	left:10px;
+	font-size:14px;
+	color:#999;
+}
+.ad-div .re-list-div {
+	margin-top:40px;
+}
+.ad-div .re-list {
+	border-top:2px solid #ff7ab0;
+}
+.ad-div .re-list li {
+	padding:20px 0;
+	border-bottom:1px solid #e5e5e5;
+}
+.ad-div .re-list li.bg {
+	padding:20px 50px;
+	background:#f5f5f5;
+}
+.ad-div .re-list .re-content .btn-wrap {
+	margin-top:10px;
+}
+.ad-div .re-list .re-content .btn-wrap .reply-btn {
+	float:left;
+	font-size:14px;
+}
+.ad-div .re-list .re-div {
+	display:none;
+	margin:20px 0 0 50px;
+	padding:20px;
+	border:1px solid #e5e5e5;
+}
+
+.re-day {
+	margin-right:20px;
+	font-size:13px;
+	color:#999;
+}
+/* .re-wrap{
 	width:100%;
 	float:left;
 }
@@ -112,20 +212,10 @@ tr.counts{
 .re-list .re-detail {
 	clear:both;
 }
-.re-detail .re-util .re-day {
-	margin-right:20px;
-	font-size:13px;
-	color:#999;
-}
 .re-detail .re-util > a {
 	margin-left:10px;
 	font-size:13px;
 	color:#999;
-}
-.info .ad-tit{
-	font-size:25pt;
-	font-weight:bold;
-	color:#333;
 }
 .reply{
 	margin-top:20px;
@@ -191,5 +281,5 @@ tr.counts{
 }
 .reform{
 	margin-top:50px;
-}
+} */
 

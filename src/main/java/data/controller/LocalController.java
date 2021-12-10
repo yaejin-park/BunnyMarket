@@ -27,11 +27,13 @@ public class LocalController {
 	{
 		ModelAndView mview = new ModelAndView();
 		String userId = "no";
+		String local = "";
+		String[] localArr = {};
 		if(principal != null) {
 			userId = principal.getName();
+			local = memberService.getLocal(principal);
+			localArr = local.split(",");
 		}
-		String local = memberService.getLocal(principal);
-		String[] localArr = local.split(",");
 		
 		mview.addObject("localCnt", localArr.length);
 		mview.addObject("localArr", localArr);
@@ -52,5 +54,24 @@ public class LocalController {
 		
 		System.out.println(local);
 		memberService.updateLocal(map);
+	}
+	
+	@GetMapping("/auth/getlocal")
+	public @ResponseBody HashMap<String, String> getLocal(
+		@RequestParam String local,
+		Principal principal
+		)
+	{
+		HashMap<String, String> map = new HashMap<String, String>();
+		System.out.println("local=>"+local);
+		map.put("local", local);
+		map.put("id", principal.getName());
+		String cnt = memberService.checkLocal(map);
+		
+		System.out.println("cnt=>"+cnt);
+		
+		HashMap<String, String> resultMap = new HashMap<String, String>();
+		resultMap.put("cnt", cnt);
+		return resultMap;
 	}
 }

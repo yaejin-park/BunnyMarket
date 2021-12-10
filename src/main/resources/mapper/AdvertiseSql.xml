@@ -4,25 +4,32 @@
 	<select id="getTotalCount" resultType="int">
 		select count(*) from advertise
 	</select>
+	
 	<select id="getData" parameterType="String" resultType="addto">
 		select * from advertise where idx=#{idx}
 	</select>
+	
 	<select id="getMaxIdx" resultType="int">
 		select ifnull(max(idx),0) from advertise
 	</select>
+	
 	<select id="updateReadCount" parameterType="String">
 		update advertise set readcount=readcount+1 where idx=#{idx}
 	</select>
+	
 	<select id="getList" parameterType="HashMap" resultType="addto">
 		select * from advertise order by idx desc limit #{start},#{perpage}
 	</select>
+	
 	<insert id="insertAdvertise" parameterType="addto">
 		insert into advertise (id,title,content,photo,writeday)
 			values (#{id},#{title},#{content},#{photo},now());
 	</insert>
+	
 	<delete id="deleteAdvertise" parameterType="String">
 		delete from advertise where idx=#{idx}
 	</delete>
+	
 	<update id="updateAdvertise" parameterType="addto">
 		update advertise set title=#{title},content=#{content}
 		<if test="photo!=null">
@@ -30,4 +37,21 @@
 		</if>
 		where idx=#{idx}
 	</update>
+	
+	<insert id="insertReplyData" parameterType="ardto">
+		insert into adreply (num,id,content,writeday,regroup,restep,relevel) 
+		values (#{num},#{id},#{content},now(),#{regroup},#{restep},#{relevel})
+	</insert>
+	
+	<select id="getReplyList" parameterType="String" resultType="ardto">
+		select * from adreply where num=#{idx} order by regroup desc, restep asc
+	</select>
+	
+	<select id="getMaxReply" parameterType="String" resultType="String">
+		select MAX(regroup) from adreply where num=#{idx}
+	</select>
+	
+	<delete id="deleteReply" parameterType="int">
+		delete from adreply where idx=#{idx}
+	</delete>
 </mapper>
