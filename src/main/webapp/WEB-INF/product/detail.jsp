@@ -204,6 +204,7 @@ $(document).ready(function() {
 			}
 		}
 	}
+
 });
 
 //미리보기 이미지 클릭시,
@@ -340,10 +341,18 @@ $(document).on("click","#chatBtn", function() {
 		return;
 	}  else{
 		//로그인 했을 경우
-		var id = "${myId}";
+		//판매완료 상태일때
+		if($(".sellstatus span").text()=="판매완료"){
+			alert("판매완료된 제품입니다.\n채팅이 불가합니다.");
+			return;
+		} else if($(".sellstatus span").text()=="예약중"){
+			alert("예약 중인 제품입니다.\n채팅이 불가합니다.");
+			return;
+		}
+		
 		var idx = "${dto.idx}";
 		
-		location.href ='../chat/auth/room?idx='+idx+"&id="+id;
+		location.href ='../chat/auth/room?idx='+idx;
 	}
 });
 

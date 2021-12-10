@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import data.dto.ProductDTO;
+import data.service.ChatService;
 import data.service.FollowService;
 import data.service.MemberService;
 import data.service.ProductLikeService;
@@ -41,6 +42,9 @@ public class ProductController {
 
 	@Autowired
 	MemberService mservice;
+	
+	@Autowired
+	ChatService cservice;
 
 	@ResponseBody
 	@GetMapping("/list")
@@ -142,7 +146,6 @@ public class ProductController {
 		ModelAndView mview = new ModelAndView();
 		
 		//지역가져오기
-		String userId=principal.getName();
 		String local=mservice.getLocal(principal);
 		String []localArr = local.split(",");
 
@@ -190,11 +193,6 @@ public class ProductController {
 		String id = principal.getName();
 		dto.setId(id);
 		
-		//지역가져오기
-		String userId=principal.getName();
-		String local=mservice.getLocal(principal);
-		String []localArr = local.split(",");
-
 		service.insertData(dto);
 
 		return "redirect:../detail?idx="+service.getMaxIdx();
@@ -237,11 +235,6 @@ public class ProductController {
 		//세션에서 아이디 얻어서 dto에 저장
 		String id = principal.getName();
 		dto.setId(id);
-		
-		//지역가져오기
-		String userId=principal.getName();
-		String local=mservice.getLocal(principal);
-		String []localArr = local.split(",");
 		
 		service.updateData(dto);
 		
@@ -327,6 +320,10 @@ public class ProductController {
 	@GetMapping("/auth/delete")
 	public String deleteData(@RequestParam String idx, @RequestParam String currentPage) {
 		service.deleteData(idx);
+		
+		String state ="삭제됨";
+		//채팅 테이블 state 바꾸기
+		cservice.updateChatState(idx, state);
 
 		return "redirect:../list?currentPage="+currentPage;
 	}

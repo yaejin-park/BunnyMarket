@@ -12,8 +12,8 @@ public class ChatListDTO {
     //채팅 리스트 조인
     private String profile;
     private String nickname;
-    private String chat_file;
     private String upload_file;
+    private String last_msg;
     
 	public String getIdx() {
 		return idx;
@@ -53,16 +53,17 @@ public class ChatListDTO {
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
 	}
-	public String getChat_file() {
-		return chat_file;
-	}
-	public void setChat_file(String chat_file) {
-		this.chat_file = chat_file;
-	}
 	public String getUpload_file() {
 		return upload_file;
 	}
 	public void setUpload_file(String upload_file) {
 		this.upload_file = upload_file;
 	}
+	public String getLast_msg() {
+		return last_msg;
+	}
+	public void setLast_msg(String last_msg) {
+		this.last_msg = last_msg;
+	}
 }
+	

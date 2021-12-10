@@ -69,8 +69,4 @@
 	<select id="getRelateList" parameterType="String" resultType="pdto">
 		select * from product where category=#{category} and idx!=#{idx} order by idx desc limit 4
 	</select>
-	
-	<update id="updateStatus" parameterType="HashMap">
-		update product set sellstatus = #{status} where idx=#{idx}
-	</update>
 </mapper>

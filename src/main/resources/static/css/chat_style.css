@@ -291,3 +291,20 @@ div.info div.wrap.link{
 	padding: 200px;
 	border-top: 0px;
 }
+
+.btn-wrap.back{
+	display: flex;
+    width: 60%;
+    padding-right: 25px;
+    margin: 0 auto;
+    justify-content: flex-end;
+}
+
+.nodata .icon-room{
+	border: 0px;
+}
+
+.nodata{
+	padding-top: 113px;
+	border-top: 0px; 
+}

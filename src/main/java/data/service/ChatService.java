@@ -27,8 +27,8 @@ public class ChatService {
 		mapper.insertChatList(chat_idx, id, idx);
 	}
 	
-	public void insertChat(@RequestParam String product_idx, @RequestParam String buyer_id, @RequestParam String seller_id, @RequestParam String chat_file) {
-		mapper.insertChat(product_idx, buyer_id, seller_id, chat_file);
+	public void insertChat(@RequestParam String product_idx, @RequestParam String buyer_id, @RequestParam String seller_id, @RequestParam String chat_file, @RequestParam String last_msg) {
+		mapper.insertChat(product_idx, buyer_id, seller_id, chat_file, last_msg);
 	}
 	
 	public List<ChatDTO> getAllList() {
@@ -39,12 +39,12 @@ public class ChatService {
 		return mapper.getChatMaxIdx();
 	}
 	
-	public String getChatIdx(@RequestParam String product_idx, @RequestParam String buyer_id) {
-		return mapper.getChatIdx(product_idx, buyer_id);
+	public String getChatIdx(@RequestParam String product_idx, @RequestParam String id) {
+		return mapper.getChatIdx(product_idx, id);
 	}
 	
-	public void updateChatTime(@RequestParam String product_idx, @RequestParam String buyer_id) {
-		mapper.updateChatTime(product_idx, buyer_id);
+	public void updateChatTimeMsg(@RequestParam String product_idx, @RequestParam String id, @RequestParam String last_msg) {
+		mapper.updateChatTimeMsg(product_idx, id, last_msg);
 	}
 	
 	public String getChatFile(String chat_idx) {
@@ -71,4 +71,7 @@ public class ChatService {
 		return mapper.getChatListJoin(id);
 	}
 	
+	public void updateChatState(@RequestParam String idx, @RequestParam String state) {
+		mapper.updateChatState(idx, state);
+	}
 }

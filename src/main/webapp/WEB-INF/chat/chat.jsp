@@ -25,10 +25,17 @@
 			</div>
 
 			<div class="wrap link" onclick="location.href='../../product/detail?idx=${dto.idx}'">
-				<img alt="product-image" src="../../photo/${photo}" class="product-img">
+				<div class="thumbNail">
+					<img alt="product_thumbnail" src="/photo/${photo}" class="thumbImg" />
+				</div>
 				<div class="info-text">
 					<div class="title-div">
-						<div class="status" id="status">${dto.sellstatus}</div>
+						<%-- <c:if test="${dto.state == 'no'}"> --%>
+							<div class="status" id="status">${dto.sellstatus}</div>
+						<%-- </c:if>
+						<c:if test="${dto.state != 'no'}">
+							<div class="status" id="status">삭제됨</div>
+						</c:if> --%>
 						<div class="title">${dto.title}</div>
 					</div>
 					<div class="price tit">
@@ -39,8 +46,10 @@
 		</div>
 
 		<div id="chating" class="chating">
+			<!-- 채팅 히스토리 -->
 			<c:forEach var="chat" items="${chatHistory}">
-				<c:if test="${chat.sender == myId}">
+				<!-- 내가 보낸 메세지 -->
+				<c:if test="${chat.sender == id}">
 					<div class='me'>
 						<div class='time'>
 							<fmt:parseDate var="dateString" value="${chat.time}" pattern="yyyy-MM-dd HH:mm:ss" />
@@ -51,7 +60,9 @@
 						</div>
 					</div>
 				</c:if>
-				<c:if test="${chat.sender != myId}">
+				
+				<!-- 상대방이 보낸 메세지 -->
+				<c:if test="${chat.sender != id}">
 					<div class='other'>
 						<div class='speech-bubble other-bubble'>
 							<p>${chat.msg }</p>
@@ -67,7 +78,7 @@
 
 		<form:form modelAttribute="ChatDTO" name="msg-form" class="msgForm">
 			<input type="hidden" name="chat_idx" id="chat_idx" value="${chat_idx}">
-			<input type="hidden" name="sessionId" id="sessionId" value="${myId}">
+			<input type="hidden" name="sessionId" id="sessionId" value="${id}">
 			<input type="hidden" name="userName" id="userName" value="${nick}">
 			<input type="hidden" name="roomNumber" id="roomNumber" value="${roomNumber}">
 			<input type="hidden" name="idx" id="idx" value="${dto.idx}">
@@ -80,7 +91,7 @@
 		</form:form>
 	</div>
 	
-	<div class="btn-wrap">
+	<div class="btn-wrap back">
 		<button type="button" class="btn-default"
 			onclick="location.href='../../product/detail?idx=${dto.idx}'">뒤로가기</button>
 	</div>
@@ -115,9 +126,13 @@ function wsEvt() {
 				}
 			} else if (d.type == "message") {
 				if (d.sessionId == $("#sessionId").val()) {
-					$("#chating").append(
-					"<div class='me'><div class='time'><fmt:formatDate value="${now }" type="time" pattern=" hh:mm"/></div>"
-					+"<div class='speech-bubble'><p>"+ d.msg + "</p></div></div>");
+					var s = "<div class='me'>";
+					s += "<div class='time'>";
+					s += "<fmt:formatDate value="${now}" type="time" pattern=" hh:mm"/>";
+					s += "</div>";
+					s += "<div class='speech-bubble'><p>"+ d.msg + "</p></div></div>";
+					
+					$("#chating").append(s);
 				} else {
 					$("#chating").append(
 					"<div class='other'><div class='speech-bubble other-bubble'><p>"+ d.msg
@@ -155,8 +170,6 @@ function first() {
 	var idx = $("#idx").val();
 	var seller = $("#seller").val();
 	var roomNumber = $("#roomNumber").val();
-	//var msg = $("#chatting").val();
-	//var msg = $("#chatting").val().replace(/(\n|\r\n)/g, '<br>');
 	var msg = $("#chatting").val();
 	msg = msg.replaceAll(/(\n|\r\n)/g,'<br>');
 
@@ -246,7 +259,7 @@ $("#chatOutBtn").click(function() {
 	if (result) {
 		//채팅방 delete
 		location.href = "deleteChat?chat_idx="+$('#chat_idx').val() + "&id=" + $('#sessionId').val() + "&idx=" + $('#idx').val();
-		console.log("delete");
+		//console.log("delete");
 	} else {
 		return;
 	}
