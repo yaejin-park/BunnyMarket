@@ -67,6 +67,10 @@
 		insert into comreply (num, id, content, regroup, restep, relevel, writeday) values (#{num}, #{id}, #{content}, #{regroup}, #{restep}, #{relevel}, now())
 	</insert>
 	
+	<update id="updateReplyStep" parameterType="HashMap">
+		update comreply set restep=restep+1 where regroup=#{regroup} and restep>#{restep}
+	</update>
+	
 	<select id="getReplyList" parameterType="String" resultType="redto">
 		select * from comreply where num=#{idx} order by regroup desc, restep asc
 	</select>

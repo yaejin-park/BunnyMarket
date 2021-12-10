@@ -52,7 +52,7 @@
 			<table class="table">
 				<tr>
 					<td colspan="2">
-						<fmt:formatDate value="${dto.writeday}" pattern="yy.MM.dd"/>
+						<fmt:formatDate value="${dto.writeday}" pattern="yyyy.MM.dd"/>
 					</td>
 					<td>
 						<a class="txt readcount">조회수 : ${dto.readcount}</a>
@@ -88,11 +88,18 @@
 				<tr>
 					<td colspan="3">
 						<div class="loginokbtn">
-							<!-- 로그인 했을경우에만 -->
+							<!-- 로그인 했을경우 공감 / 로그인&내가쓴글에만 수정,삭제버튼 보이기 -->
+								
+									<button type="button" id="dibs" class="goodbtn" onclick="dibsClicked()">
+										<img src="/image/stopheart-icon.gif" alt="dibsButton" id="dibsBtnImg">
+									</button>
+									
 								<sec:authorize access="isAuthenticated()">
-								<button type="button" class="btn-update deupdate"
-								onclick="location.href='/community/auth/updateform?idx=${dto.idx}&currentPage=${currentPage}'">수정</button>
-								<button type="button" id="deleteBtn" class="btn-delete dedelete" value="${dto.idx}">삭제</button>
+									<c:if test="${userId == dto.id}">
+										<button type="button" class="btn-update deupdate"
+										onclick="location.href='/community/auth/updateform?idx=${dto.idx}&currentPage=${currentPage}'">수정</button>
+										<button type="button" id="deleteBtn" class="btn-delete dedelete" value="${dto.idx}">삭제</button>
+									</c:if>
 								</sec:authorize>
 						</div>
 					</td>
@@ -106,18 +113,8 @@
 	</div>
 	
 	<div class="detailbtn">
-	<!-- 로그인 안했을경우 -->
-		<sec:authorize access="isAnonymous()">
 			<button type="button" class="btn-list delist"
 			onclick="location.href='list'">목록</button>
-	 	</sec:authorize> 
-	
-	<!-- 로그인 했을경우 -->
-		<sec:authorize access="isAuthenticated()">
-			<button type="button" class="btn-add gdcount" onclick="gdClick()">공감♥</button>
-			<button type="button" class="btn-list delist"
-				onclick="location.href='list'">목록</button>
-		</sec:authorize>
 	</div>
 	
 	<!-- 댓글 -->
@@ -130,12 +127,7 @@
 		<div class="re-div">
 			<p class="re-info writer">
 				<span class="profile">
-					<c:if test="${profile =='no'}">
-						<img alt="프로필이미지" src="/image/profile-icon.png">
-					</c:if>
-					<c:if test="${profile !='no'}">
-						<img alt="프로필이미지" src="/photo/${profile}">
-					</c:if>
+					<img alt="" src="/image/profile-icon.png">
 				</span>
 				<c:if test="${userNickName=='no'}">
 					<a href="/login/main"><span>로그인해주세요.</span></a>

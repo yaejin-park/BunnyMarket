@@ -87,6 +87,9 @@ public class CommunityService {
 	public void insertReplyData(ComReplyDTO dto) {
 		mapper.insertReplyData(dto);
 	}
+	public void updateReplyStep(int restep,int regroup) {
+		mapper.updateReplyStep(restep, regroup);
+	}
 	public List<ComReplyDTO> getReplyList(String idx) {
 		return mapper.getReplyList(idx);
 	}

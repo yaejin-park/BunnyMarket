@@ -28,6 +28,7 @@ public interface CommunityMapper {
 	public void insertGood(String userId, String idx);
 	public void deleteGood(String userId, String idx);
 	public void insertReplyData(ComReplyDTO dto);
+	public void updateReplyStep(int restep, int regroup);
 	public List<ComReplyDTO> getReplyList(String idx);
 	public String getMaxReply(String idx);
 	public void deleteReply(String idx);

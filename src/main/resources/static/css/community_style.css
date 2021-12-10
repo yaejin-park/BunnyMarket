@@ -211,7 +211,13 @@
 .infoAll .info .table tr td .nick.txt{
 	line-height:70px;
 }
-
+.infoAll .info .table tr td .loginokbtn{
+	padding-top: 10px;
+}
+.infoAll .info .table tr td .loginokbtn .goodbtn img{
+	width:50px;
+	margin-top: -30px;
+}
 .infoAll .info .table tr td .loginokbtn .deupdate{
 	float:right;
 	margin-left:10px;
@@ -224,10 +230,6 @@
 .detailContent{
 	margin-top:60px;
 	height:200px;
-}
-.detailbtn .gdcount{
-	float:right;
-	margin-top:20px;
 }
 .detailbtn .delist{
 	float:right;

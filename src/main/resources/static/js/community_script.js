@@ -283,6 +283,43 @@ $(function(){
 			});
 		}
 		
+	$(document).on("click","dibsClicked()",function() {
+	
+	if($("#dibsBtnImg").attr("src")=="/image/stopheart-icon.gif"){
+			$("#dibsBtnImg").attr("src","/image/movingheart-icon.gif");
+			$.ajax({
+				type : "post",  
+		        url : "updateLikecount",       
+		        dataType : "json",   
+		        data : {"idx":idx},
+		        success : function (data) {
+		        	console.log(data);
+					$("#likecount").html(data);
+		        	console.log("success+");
+				}, error: function (data) {
+					console.log(data);
+				}
+			});
+		} else{
+			$("#dibsBtnImg").attr("src","/image/stopheart-icon.gif");
+			$.ajax({
+				type : "post",  
+		        url : "updateLikeMinuscount",       
+		        dataType : "json",   
+		        data : {"idx":idx},
+		        success : function (data) {
+		        	console.log(data);
+					$("#likecount").html(data);
+		        	console.log("success-");
+				}, error: function (data) {
+					console.log(data);
+				}
+			});
+		}
+		
+	});
+	
+	
 	
 	
 });

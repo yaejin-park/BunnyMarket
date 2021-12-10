@@ -223,13 +223,14 @@ public class CommunityController {
 		//커뮤니티DTO 데이터 가져오기 
 		CommunityDTO dto = service.getData(idx);
 		
-		//,로 사진나누기 (대표이미지)
+		//게시글 닉네임,이미지 불러오기
+		String nick = mservice.getNick(dto.getId());
+		//String profile = mservice.getMemberId(principal.getName()).getProfile();
+		
+		//,로 DB사진나누기 (대표이미지)
 		String [] photo = dto.getPhoto().split(",");
 		
-		String nick = mservice.getNick(dto.getId());
-		String profile = mservice.getMemberId(principal.getName()).getProfile();
-		
-		//댓글
+		//댓글관련
 		String maxReply = service.getMaxReply(idx);
 		
 		List<ComReplyDTO> relist = service.getReplyList(idx);
@@ -251,7 +252,7 @@ public class CommunityController {
 		mview.addObject("localCnt", localArr.length);
 		mview.addObject("localArr", localArr);
 		mview.addObject("currentPage", currentPage);
-		mview.addObject("profile", profile);
+		//mview.addObject("profile", profile);
 		
 		mview.setViewName("/community/detail");
 		
@@ -400,13 +401,25 @@ public class CommunityController {
 			Principal principal
 			)
 	{
+		System.out.println("checkStep =>"+ checkStep);
+		int regroup = dto.getRegroup();
+		int restep = dto.getRestep();
+		int relevel = dto.getRelevel();
+		
 		dto.setId(principal.getName());
 		if(checkStep.equals("no")) {
-			dto.setRegroup(dto.getRegroup() + 1);
+			regroup = regroup + 1;
+			restep = 0;
+			relevel = 0;
 		}else {
-			dto.setRestep(dto.getRestep() + 1);
-			dto.setRelevel(dto.getRelevel() + 1);
+			service.updateReplyStep(restep,regroup);
+			
+			restep++;
+			relevel++;
 		}
+		dto.setRegroup(regroup);
+		dto.setRestep(restep);
+		dto.setRelevel(relevel);
 		service.insertReplyData(dto);
 	}
 	
