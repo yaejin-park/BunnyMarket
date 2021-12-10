@@ -90,4 +90,8 @@ public class ProductService {
 		
 		mapper.updateStatus(map);
 	}
+	
+	public List<ProductDTO> getMainList() {
+		return mapper.getMainList();
+	}
 }

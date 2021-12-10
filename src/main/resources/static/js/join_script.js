@@ -33,18 +33,22 @@ $(function(){
 		var checkSize = $(".join-div .acco-btn").find("input[type='checkbox']:checked").length;
 		
 		if(accoSize == checkSize){
+			$(".join-div .all-check").addClass("on");
 			$(".join-div .all-check").find("input[type='checkbox']").prop("checked", true);
 			termCheck = true;
 		}else{
+			$(".join-div .all-check").removeClass("on");
 			$(".join-div .all-check").find("input[type='checkbox']").prop("checked", false);
 		}
 	});
 	
 	$(".join-div .all-check").click(function(){
-		if(!$(this).find("input[type='checkbox']").prop("checked")){
+		if(!$(this).hasClass("on")){
+			$(this).addClass("on");
 			$(".join-div .term-area").find("input[type='checkbox']").prop("checked", true);
 			termCheck = true;
 		}else{
+			$(this).removeClass("on");
 			$(".join-div .term-area").find("input[type='checkbox']").prop("checked", false);
 		}
 	});

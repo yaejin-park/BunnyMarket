@@ -77,4 +77,9 @@
 	<select id="sellList" parameterType="pdto" resultType="pdto">
       select * from product where sellstatus = #{status} and id = #{id} order by idx asc
    </select>
+   
+   
+	<select id="getMainList" resultType="pdto">
+		select * from product order by idx desc limit 0,12
+	</select>
 </mapper>

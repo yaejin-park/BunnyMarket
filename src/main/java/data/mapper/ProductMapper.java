@@ -24,4 +24,5 @@ public interface ProductMapper {
 	public void deleteData(String idx);
 	public List<ProductDTO> getRelateList(String category, String idx);
 	public void updateStatus(HashMap<String, String> map);
+	public List<ProductDTO> getMainList();
 }

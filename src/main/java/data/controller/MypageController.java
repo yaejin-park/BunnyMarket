@@ -60,25 +60,23 @@ public class MypageController {
 		) 
 	{
 		ModelAndView mview=new ModelAndView();
-		
-		//로그인 체크
-		String isLogin="N";
-		isLogin=(String)request.getSession().getAttribute("isLogin");
-		
-		//로그인 되어 있을 경우,
-		if(isLogin!=null) {
-			//로그인 아이디 가져오기
-			String id=principal.getName();
-			mview.addObject("myId", id);
+		String id = "no";
+		String local = "";
+		String[] localArr = {};
+		if(principal != null) {
+			id = principal.getName();
+			local = memService.getLocal(principal);
+			localArr = local.split(",");
 		}
 		
-		//닉네임 가져오기
 		String nick=memService.getNick(principal.getName());
 		String profile = memService.getMemberId(principal.getName()).getProfile();
 		
-		mview.addObject("isLogin", isLogin);
 		mview.addObject("nick", nick);
 		mview.addObject("profile", profile);
+		mview.addObject("myId", id);
+		mview.addObject("localCnt", localArr.length);
+		mview.addObject("localArr", localArr);
 		
 		mview.setViewName("/mypage/detail");
 		return mview;
