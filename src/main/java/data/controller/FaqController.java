@@ -62,6 +62,7 @@ public class FaqController {
 		
 		mview.addObject("totalCount", totalCount);
 		mview.setViewName("/faq/list");
+		
 		return mview;
 	}
 	
