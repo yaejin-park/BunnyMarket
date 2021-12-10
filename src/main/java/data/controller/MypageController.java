@@ -4,19 +4,17 @@ import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
 
-<<<<<<< HEAD
+
 import java.util.List;
 import java.util.Map;
-=======
 import javax.servlet.http.HttpServletRequest;
->>>>>>> 437fb2bce39a307a9b6543edc03b002baaf28c5b
-import java.util.HashMap;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -30,11 +28,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-<<<<<<< HEAD
+
 import data.dto.FaqDTO;
-=======
 import data.dto.FollowDTO;
->>>>>>> 437fb2bce39a307a9b6543edc03b002baaf28c5b
 import data.dto.MemberDTO;
 import data.dto.ProductDTO;
 

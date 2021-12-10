@@ -66,7 +66,7 @@
 				<tr>
 					<td class="proimg">
 						<img alt="profile" src="/image/profile-icon.png" class="profileImg" />
-						<span class="nick txt">${userNickName}</span>
+						<span class="nick txt">${nick}</span>
 					</td>
 				</tr>
 				<tr>
@@ -91,7 +91,7 @@
 							<!-- 로그인 했을경우에만 -->
 								<sec:authorize access="isAuthenticated()">
 								<button type="button" class="btn-update deupdate"
-								onclick="location.href='updateform?idx=${dto.idx}&currentPage=${currentPage}'">수정</button>
+								onclick="location.href='/community/auth/updateform?idx=${dto.idx}&currentPage=${currentPage}'">수정</button>
 								<button type="button" id="deleteBtn" class="btn-delete dedelete" value="${dto.idx}">삭제</button>
 								</sec:authorize>
 						</div>
@@ -127,11 +127,15 @@
 		<div class="tit">
 			댓글 ${recount}
 		</div>
-	<!-- 댓글 작성 -->
 		<div class="re-div">
 			<p class="re-info writer">
 				<span class="profile">
-					<img alt="" src="/image/profile-icon.png">
+					<c:if test="${profile =='no'}">
+						<img alt="프로필이미지" src="/image/profile-icon.png">
+					</c:if>
+					<c:if test="${profile !='no'}">
+						<img alt="프로필이미지" src="/photo/${profile}">
+					</c:if>
 				</span>
 				<c:if test="${userNickName=='no'}">
 					<a href="/login/main"><span>로그인해주세요.</span></a>
@@ -184,7 +188,9 @@
 		                	<p class="txt">${replyDto.content}</p>
 					        <div class="btn-wrap">
 					        	<a href="javascript:" class="reply-btn">답글쓰기</a>
+					        	<c:if test="${userId==replyDto.id}">
 			                	<a href="javascript:" class="btn-delete btn-sm" idx="${replyDto.idx}">삭제</a>
+					        	</c:if>
 					        </div>
 		    			</div>
 		    			<div class="re-div">
@@ -208,7 +214,7 @@
 									
 								<div class="re-util">
 									<div class="btn-wrap">
-										<button type="button" class="btn-add btn-sm">등록</button>
+										<button type="submit" class="btn-add btn-sm">등록</button>
 									</div>
 									<div class="text-count">
 										<span class="text-plus">0</span><span>/100</span>

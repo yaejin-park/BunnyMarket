@@ -208,8 +208,8 @@
 	padding: 5px 0px 5px 0px;
 }
 
-.infoAll .info .table tr td .nick .txt{
-	vertical-align: middle;
+.infoAll .info .table tr td .nick.txt{
+	line-height:70px;
 }
 
 .infoAll .info .table tr td .loginokbtn .deupdate{
@@ -241,6 +241,16 @@
 	font-size:20px;
 	color:#999;	
 	display: inline-block;
+	vertical-align: middle;
+}
+.infoAll .info table .other .reply-heart > div {
+	display:inline-block;
+	margin-right:10px;
+}
+.infoAll .info table .other .reply-heart > div:last-child {
+	margin-right:0;
+}
+.infoAll .info table .other .reply-heart > div img {
 	vertical-align: middle;
 }
 .infoAll .info table .other .reply-heart .reply-icon img{
@@ -316,6 +326,11 @@
 }
 .community-div .re-list .re-content .btn-wrap {
 	margin-top:10px;
+}
+.community-div .re-list .re-content .btn-wrap:after {
+	content:"";
+	display:block;
+	clear:both;
 }
 .community-div .re-list .re-content .btn-wrap .reply-btn {
 	float:left;

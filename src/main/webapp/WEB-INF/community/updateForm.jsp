@@ -41,7 +41,7 @@
 			<div class="btn-wrap">
 				<button type="button" class="btn-add event-update-btn">수정</button>
 				<button type="button" class="btn-list"
-					onclick="location.href='list'">목록</button>
+					onclick="location.href='/community/detail?idx='+${dto.idx}+'&currentPage='+${currentPage}+'&key=list'">취소</button>
 			</div>
 		</form>
 	</div>

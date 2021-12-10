@@ -196,7 +196,6 @@ public class CommunityController {
 			@RequestParam(defaultValue = "1") int currentPage,
 			@RequestParam(required = false) String key,
 			@RequestParam Map<String, String> map,
-			HttpServletRequest request,
 			Principal principal
 			)
 	{
@@ -215,23 +214,21 @@ public class CommunityController {
 			userNickName = mservice.currentUserNickName(principal);
 			local = mservice.getLocal(principal);
 			localArr = local.split(",");
-			
+		}
+		//리스트에서 들어올 경우 조회수 증가하기
+		if(key!=null) {
+			service.updateReadCount(idx);
 		}
 		
 		//커뮤니티DTO 데이터 가져오기 
 		CommunityDTO dto = service.getData(idx);
 		
-		//멤버DTO 데이터 가져오기 
-		MemberDTO mdto =service.getMemData(idx);
-		
-		//리스트에서 들어올 경우 조회수 증가하기
-		if(key!=null)
-			service.updateReadCount(idx);
-		
 		//,로 사진나누기 (대표이미지)
 		String [] photo = dto.getPhoto().split(",");
 		
 		String nick = mservice.getNick(dto.getId());
+		String profile = mservice.getMemberId(principal.getName()).getProfile();
+		
 		//댓글
 		String maxReply = service.getMaxReply(idx);
 		
@@ -243,9 +240,9 @@ public class CommunityController {
 		}
 		
 		mview.addObject("dto",dto);
-		mview.addObject("mdto",mdto);
 		mview.addObject("photo",photo);
 		mview.addObject("nick",nick);
+		mview.addObject("userId", userId);
 		mview.addObject("userType", userType);
 		mview.addObject("userNickName", userNickName);
 		mview.addObject("relist", relist);
@@ -254,6 +251,7 @@ public class CommunityController {
 		mview.addObject("localCnt", localArr.length);
 		mview.addObject("localArr", localArr);
 		mview.addObject("currentPage", currentPage);
+		mview.addObject("profile", profile);
 		
 		mview.setViewName("/community/detail");
 		

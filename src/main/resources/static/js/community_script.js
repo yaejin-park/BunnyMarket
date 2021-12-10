@@ -167,6 +167,7 @@ $(function(){
 		});
 	});
 	
+	//게시글삭제
 	$(".community-detail-div .dedelete").click(function() {
 		var idx =  $(this).attr("idx");
 		var currentPage= $(".community-detail-div input[name='current-page']").val();
@@ -179,6 +180,7 @@ $(function(){
 		}
 	});
 	
+	//댓글 등록
 	$(".community-div .reply .re-div .btn-add").click(function(){
 		var num = $(this).parents(".reply").find("input[name='num']").val();
 		var content = $(this).parents(".re-div").find("textarea[name='re-content']").val();
@@ -219,11 +221,12 @@ $(function(){
 		$(this).css("padding-left",(level*50) + "px");
 	})
 	
+	//대댓글
 	$(".community-div .re-list .re-div").find(".btn-add").click(function(){
 		var regroup = $(this).parents("li").find("input[name='regroup']").val();
 		var restep = $(this).parents("li").find("input[name='restep']").val();
 		var relevel = $(this).parents("li").find("input[name='relevel']").val();
-		var num = $(".event-div").find(".reply input[name='num']").val();
+		var num = $(".community-div").find(".reply input[name='num']").val();
 		var content = $(this).parents("li").find(".re-div textarea[name='re-content']").val();
 		var checkStep = "yes"; 
 		console.log(num);
@@ -245,6 +248,7 @@ $(function(){
 		});
 	});
 
+	//댓글 글자수 제한
 	$(".community-div .re-content textarea").keyup(function() {
 		var inputlength=$(this).val().length;
 		var remain=+inputlength;
@@ -278,6 +282,9 @@ $(function(){
 				}
 			});
 		}
+		
+	
+	
 });
 	
 	
