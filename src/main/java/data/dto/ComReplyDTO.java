@@ -15,6 +15,7 @@ public class ComReplyDTO {
 	private int regroup;
 	private int restep;
 	private int relevel;
+	private String nickname;
 	
 	public int getIdx() {
 		return idx;
@@ -63,6 +64,12 @@ public class ComReplyDTO {
 	}
 	public void setRelevel(int relevel) {
 		this.relevel = relevel;
+	}
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 	
 	

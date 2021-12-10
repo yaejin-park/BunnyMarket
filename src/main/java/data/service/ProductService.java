@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import data.dto.FaqDTO;
 import data.dto.ProductDTO;
 import data.mapper.ProductMapper;
 
@@ -89,5 +90,22 @@ public class ProductService {
 		map.put("status", status);
 		
 		mapper.updateStatus(map);
+	}
+	
+	public List<ProductDTO> sellList(int start, int perpage) {
+		HashMap<String, Integer> map=new HashMap<String, Integer>();
+		map.put("start", start);
+		map.put("perpage", perpage);
+		
+		return mapper.sellList(map);
+	}
+	
+	public List<ProductDTO> getListByStatus(String sellstatus, int start, int perpage,String uploadfile) {
+		HashMap<String, Object> map=new HashMap<String, Object>();
+		map.put("sellstatus", sellstatus);
+		map.put("start", start);
+		map.put("perpage", perpage);
+		map.put("uploadfile", uploadfile);
+		return mapper.getListByStatus(map);
 	}
 }

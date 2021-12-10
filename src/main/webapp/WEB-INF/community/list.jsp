@@ -55,14 +55,14 @@
 								<!-- 공감수표시 -->
 									<div class="gdcount-icon">
 										<div class="gd-img">
-										<img src="../image/heart-icon.png">
+										<img src="/image/heart-icon.png">
 										</div>
 										<span class="txt gdcount">${a.goodcount}</span>
 									</div>
 								<!-- 댓글수표시 -->
 									<div class="reply-icon">
 										<div class="rec-img">
-										<img src="../image/comment-icon.png">
+										<img src="/image/comment-icon.png">
 										</div>
 										<span class="txt recount">${a.acount}</span>
 									</div>

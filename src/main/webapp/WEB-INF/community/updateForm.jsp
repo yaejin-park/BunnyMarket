@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <link rel="stylesheet" type="text/css" href="/css/community_style.css">
-<div class="write-form commu-div">
+<div class="write-form commu-div update">
 	<div class="inner">
 		<form action="update" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="idx" value="${dto.idx}">
@@ -39,9 +39,9 @@
 				</div>
 			</div>
 			<div class="btn-wrap">
-				<button type="button" class="btn-add event-add-btn">수정</button>
+				<button type="button" class="btn-add event-update-btn">수정</button>
 				<button type="button" class="btn-list"
-					onclick="location.href='list'">목록</button>
+					onclick="location.href='/community/detail?idx='+${dto.idx}+'&currentPage='+${currentPage}+'&key=list'">취소</button>
 			</div>
 		</form>
 	</div>

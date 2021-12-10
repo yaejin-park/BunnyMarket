@@ -4,14 +4,17 @@ import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
 
+import java.util.List;
+import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -26,6 +29,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+
+import data.dto.FaqDTO;
 import data.dto.FollowDTO;
 import data.dto.MemberDTO;
 import data.dto.ProductDTO;
@@ -34,6 +39,7 @@ import data.service.FollowService;
 import data.service.MemberService;
 import data.service.ProductLikeService;
 import data.service.ProductService;
+
 
 @Controller
 @RequestMapping("/mypage/auth")
@@ -269,15 +275,16 @@ public class MypageController {
 	public String deleteMember(
 		Principal principal,
 		HttpServletRequest request
-		) 
+		)
 	{
 		memService.deleteMember(principal.getName());
 		request.getSession().removeAttribute("isLogin");
 		return "redirect:/logout";
 	}
 	
-	@GetMapping("/selllist")
-	public @ResponseBody ModelAndView sell_list(
+
+	@GetMapping("/sellList")
+	public @ResponseBody ModelAndView sellList(
 		@RequestParam(defaultValue = "1") int currentPage,
 		@RequestParam (defaultValue = "전체") String category,
 		HttpServletRequest request,
@@ -311,28 +318,22 @@ public class MypageController {
 		totalPage = totalCount/perPage + (totalCount%perPage==0?0:1);
 		//각 블럭의 시작페이지
 		startPage = (currentPage-1)/perBlock * perBlock +1; 
-		//각 블럭 마지막페이지
+		//각 블럭의 마지막페이지
 		endPage = startPage + perBlock-1;
 		if(endPage>totalPage){ endPage = totalPage; }
 		//각 페이지에서 불러올 시작번호
-		start = (currentPage-1) * perPage; 
+		start = (currentPage-1) * perPage;
 		
-		List<ProductDTO> list = pservice.getList(startPage, perPage, category, local);
-		
-		
-		//request에서 getParameter로 kind 값을 불러오기
-		String kind = request.getParameter("kind");
+		List<ProductDTO> list = pservice.sellList(start, perPage);
 		
 		//출력에 필요한 변수들을 request에 저장
 		mview.addObject("list",list);
-		mview.addObject("kind",kind);
 		mview.addObject("startPage",startPage);
 		mview.addObject("endPage",endPage);
 		mview.addObject("totalPage",totalPage);
 		mview.addObject("currentPage",currentPage);
-		mview.addObject("totalCount",list.size());
 		
-		mview.setViewName("/mypage/sell_list");
+		mview.setViewName("/mypage/sellList");
 		return mview;
 	}
 	@GetMapping("/productlike/list")
@@ -381,6 +382,48 @@ public class MypageController {
 		mview.setViewName("/productlike/list");
 			  
 		return mview; 
+	}
+	
+
+	@GetMapping("/getListByStatus")
+	@ResponseBody
+	public Map<String, Object> getListByStatus(
+			@RequestParam(defaultValue = "1") int currentPage, 
+			@RequestParam(defaultValue = "전체") String sellstatus,
+			@RequestParam String uploadfile) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		//System.out.println("currentPage="+currentPage);
+		int totalCount=pservice.getTotalCount(sellstatus);
+		int perPage=10;
+		int totalPage;
+		int start;
+		int perBlock=5;
+		int startPage;
+		int endPage;
+		
+		totalPage=totalCount/perPage+(totalCount%perPage == 0?0:1);
+		startPage=(currentPage-1)/perBlock*perBlock+1;
+		endPage=startPage+perBlock-1;
+		
+		if(endPage>totalPage) {
+			endPage=totalPage;
+		}
+		
+		start=(currentPage-1)*perPage;
+		
+		List<ProductDTO> list = pservice.getListByStatus(sellstatus, startPage, perPage, uploadfile);
+		System.out.println("size:"+list.size());
+		System.out.println("status"+sellstatus);
+		
+		result.put("list", list);
+		result.put("sellstatus", sellstatus);
+		result.put("startPage", startPage);
+		result.put("endPage", endPage);
+		result.put("totalPage", totalPage);
+		result.put("currentPage", currentPage);
+		result.put("totalCount", totalCount);
+
+		return result;
 	}
 	
 	@GetMapping("/followlist")

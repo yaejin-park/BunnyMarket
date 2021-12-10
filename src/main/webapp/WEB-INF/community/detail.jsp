@@ -7,8 +7,9 @@
 <link rel="stylesheet" type="text/css" href="/css/swiper.min.css">
 <link rel="stylesheet" type="text/css" href="/css/common.css">
 <link rel="stylesheet" type="text/css" href="/css/community_style.css">
-<div class="inner">
-	<input type="hidden" name="currentPage" value="${currentPage}">
+<div class="community-div inner">
+	<div class="community-detail-div">
+	<input type="hidden" name="current-page" value="${currentPage}">
 	
 	<div class="infoAll">
 		<div class="img group">
@@ -51,7 +52,7 @@
 			<table class="table">
 				<tr>
 					<td colspan="2">
-						<fmt:formatDate value="${dto.writeday}" pattern="yy.MM.dd"/>
+						<fmt:formatDate value="${dto.writeday}" pattern="yyyy.MM.dd"/>
 					</td>
 					<td>
 						<a class="txt readcount">조회수 : ${dto.readcount}</a>
@@ -65,7 +66,7 @@
 				<tr>
 					<td class="proimg">
 						<img alt="profile" src="/image/profile-icon.png" class="profileImg" />
-						<span class="nick txt">${nick}닉네임</span>
+						<span class="nick txt">${nick}</span>
 					</td>
 				</tr>
 				<tr>
@@ -87,11 +88,18 @@
 				<tr>
 					<td colspan="3">
 						<div class="loginokbtn">
-							<!-- 로그인 했을경우에만 -->
+							<!-- 로그인 했을경우 공감 / 로그인&내가쓴글에만 수정,삭제버튼 보이기 -->
+								
+									<button type="button" id="dibs" class="goodbtn" onclick="dibsClicked()">
+										<img src="/image/stopheart-icon.gif" alt="dibsButton" id="dibsBtnImg">
+									</button>
+									
 								<sec:authorize access="isAuthenticated()">
-								<button type="button" class="btn-update deupdate"
-								onclick="location.href='updateform?idx=${dto.idx}&currentPage=${currentPage}'">수정</button>
-								<button type="button" id="deleteBtn" class="btn-delete dedelete" value="${dto.idx}">삭제</button>
+									<c:if test="${userId == dto.id}">
+										<button type="button" class="btn-update deupdate"
+										onclick="location.href='/community/auth/updateform?idx=${dto.idx}&currentPage=${currentPage}'">수정</button>
+										<button type="button" id="deleteBtn" class="btn-delete dedelete" value="${dto.idx}">삭제</button>
+									</c:if>
 								</sec:authorize>
 						</div>
 					</td>
@@ -105,44 +113,48 @@
 	</div>
 	
 	<div class="detailbtn">
-	<!-- 로그인 안했을경우 -->
-		<sec:authorize access="isAnonymous()">
 			<button type="button" class="btn-list delist"
 			onclick="location.href='list'">목록</button>
-	 	</sec:authorize> 
-	
-	<!-- 로그인 했을경우 -->
-		<sec:authorize access="isAuthenticated()">
-			<button type="button" class="btn-add gdcount" onclick="gdClick()">공감♥</button>
-			<button type="button" class="btn-list delist"
-				onclick="location.href='list'">목록</button>
-		</sec:authorize>
 	</div>
 	
 	<!-- 댓글 -->
-	<div class="reform txt">
-		<b>댓글수 : ${recount}</b>
+	<div class="reply">
+		<input type="hidden" value="${dto.idx}" name="num">
+		<input type="hidden" value="${maxReply==null?0:maxReply}" name="regroup">
+		<div class="tit">
+			댓글 ${recount}
+		</div>
+		<div class="re-div">
+			<p class="re-info writer">
+				<span class="profile">
+					<img alt="" src="/image/profile-icon.png">
+				</span>
+				<c:if test="${userNickName=='no'}">
+					<a href="/login/main"><span>로그인해주세요.</span></a>
+				</c:if>
+				<c:if test="${userNickName!='no'}">
+					<span>${userNickName}</span>
+				</c:if>
+			</p>
+			<c:if test="${userNickName!='no'}">
+				<div class="re-content">
+					<textarea name="re-content" placeholder="댓글을 입력해주세요."></textarea>
+				</div>
+					
+				<div class="re-util">
+					<div class="btn-wrap">
+						<button type="button" class="btn-add btn-sm">등록</button>
+					</div>
+					<div class="text-count">
+						<span class="text-plus">0</span><span>/100</span>
+					</div>
+				</div>
+			</c:if>
+		</div>
 	</div>
 	
-	<!-- 댓글작성 -->
-	<form action="reinsert" method="post">
-		<input type="hidden" value="${currnetPage}" name="currentPage">
-		<input type="hidden" value="${dto.idx}" name="num">
-		<div class="reply">
-			<div class="re-addcontent">
-				<textarea name="content" class="re-textinput" placeholder=" 댓글을 입력해주세요."
-				required="required" id="re-textinput"></textarea>
-			</div>
-			<div class="re-items">
-				<div class="re-addbtn">
-					<button type="submit" class="btn-add btn-sm replyadd" id="re-addbtn">등록</button>
-				</div>
-			</div>
-		</div>
-	</form>
-	
 	<!-- 댓글목록 -->
-	<div class="re-list">
+	<div class="re-list-div">
 		<c:if test="${recount==0}">
 			<div class="nodata">
 				<p class="icon">
@@ -152,201 +164,63 @@
 			</div>
 		</c:if>
 		<c:if test="${recount>0}">
-			<c:forEach var="cdto" items="${relist}">
-				<div class="re-detail">
-			 		<!-- relevel만큼 공백 -->
-			 		<c:forEach var="sp" begin="1" end="${cdto.relevel}">
-			 			<div class="re-blank"></div>
-					 </c:forEach>
-					 <!-- 답글인 경우에만 re 이미지출력 -->
-			 		<c:if test="${cdto.relevel>0}">
-			 			<div>ㄴ</div>
-					 </c:if> 
-				</div>
-				<div class="re-div">
-					<div class="re-info">
-						<div class="writer-info">
-							<p class="profile-img"><img alt="" src="/image/profile-icon.png" class="re-profileimg"></p>
-						 	<span class="re-writer">${nick}닉네임</span>
-						</div>
-						<div class="re-content">
-							<div class="txt">
-								${cdto.content}
-								<span class="adel" idx="${cdto.idx}"></span>
-							</div>
-								
-							<div class="re-util">
-							 	<span class="re-day">
-							 		<fmt:formatDate value="${cdto.writeday}" pattern="yy.MM.dd HH:mm"/>
-							 	</span>
-							 	<div class="re-rebtn">
-									<a href="javascript:" class="wr-reply">답글쓰기</a>
-								</div>
-							</div>
-						</div>
-					</div>
-					
-					<div class="re-reply">
-						<form action="reinsert" method="post">
-							<input type="hidden" value="${currnetPage}" name="currentPage">
+			<ul class="re-list">
+				<c:forEach var="replyDto" items="${relist}">
+					<li class="${replyDto.restep!=0?'bg':''}">
+	    				<input type="hidden" name="regroup" value="${replyDto.regroup}">
+	    				<input type="hidden" name="restep" value="${replyDto.restep}">
+	    				<input type="hidden" name="relevel" value="${replyDto.relevel}">
+	    				<p class="re-info writer">
+	    					<span class="profile">
+	    						<img alt="" src="/image/profile-icon.png">
+	    					</span>
+	    					<span>${replyDto.nickname}</span>
+	    				</p>
+		    			<div class="re-content">
+		                	<p class="txt">${replyDto.content}</p>
+					        <div class="btn-wrap">
+					        	<a href="javascript:" class="reply-btn">답글쓰기</a>
+					        	<c:if test="${userId==replyDto.id}">
+			                	<a href="javascript:" class="btn-delete btn-sm" idx="${replyDto.idx}">삭제</a>
+					        	</c:if>
+					        </div>
+		    			</div>
+		    			<div class="re-div">
 							<input type="hidden" value="${dto.idx}" name="num">
-							<input type="hidden" name="regroup" value="${regroup}">
-							<input type="hidden" name="relevel" value="${relevel}">
-							<input type="hidden" name="restep" value="${restep}">
-							<div class="reply">
-								<div class="re-addcontent">
-									<textarea name="content" class="re-text-input" placeholder=" 댓글을 입력해주세요."
-									required="required" id="re-textinput"></textarea>
+							<input type="hidden" value="${maxReply}" name="regroup">
+							<p class="re-info writer">
+								<span class="profile">
+									<img alt="" src="/image/profile-icon.png">
+								</span>
+								<c:if test="${userNickName=='no'}">
+									<a href="/login/main"><span>로그인해주세요.</span></a>
+								</c:if>
+								<c:if test="${userNickName!='no'}">
+									<span>${userNickName}</span>
+								</c:if>
+							</p>
+							<c:if test="${userNickName!='no'}">
+								<div class="re-content">
+									<textarea name="re-content" placeholder="댓글을 입력해주세요."></textarea>
 								</div>
-								<div class="re-items">
-									<button type="submit" class="btn-add btn-sm re-add-btn">등록</button>
+									
+								<div class="re-util">
+									<div class="btn-wrap">
+										<button type="submit" class="btn-add btn-sm">등록</button>
+									</div>
+									<div class="text-count">
+										<span class="text-plus">0</span><span>/100</span>
+									</div>
 								</div>
-							</div>
-						</form>
-					</div>	
-				</div>
-			</c:forEach>
+							</c:if>
+						</div>
+		    		</li>
+				</c:forEach>
+			</ul>
 		</c:if>
+	</div>
 	</div>
 </div>
 
+<script type="text/javascript" src="/js/community_script.js"></script>
 <script type="text/javascript" src="/js/swiper.min.js"></script>
-<script>
-
-//미리보기 이미지 클릭
-$(document).on("click",".smallImg", function(e) {
-	var src = $(this).attr("src");
-	$(".bigImage").attr("src",src);
-}); 
-
-$(document).ready(function() {
-	//로그인 되있을 경우
-	let loginCheck = '${isLogin}';
-	 if($(loginCheck == "Y")){
-		//공감버튼 클릭시 글자색 변경
-		if($(goodCheck == 0)){
-			$(".gdcount").css("color","#fcfef9");
-		}else{
-			$(".gdcount").css("color","#98077e");
-		}
-	}  
-	
-	//미리보기 이미지 호버시,
-	$(".smImgDiv").mouseenter(function() {
-		var original = $(".bigImage").attr("src");
-		console.log("enter"+original);
-		$(".smallImg").hover(function() {
-			var src = $(this).attr("src");
-			$(".bigImage").attr("src",src);
-		});
-	}), function() {
-		console.log("out");
-		var src = $(this).attr("src");
-		$(".bigImage").attr("src",original);
-	} 
-	
-	//댓글 글자수제한
-	$('#re-textinput').on('keyup',function(){
-		$('#text-plus').html("("+$(this).val().length+" / 100)입력");
-		
-		if($(this).val().length >90 && $(this).val().length <=100) {
-			$('#text-plus').css("color","red");
-		}else{
-			$('#text-plus').css("color","black");
-		}
-		
-		if($(this).val().length > 100) {
-			$(this).val($(this).val().substring(0, 100));
-			$('#text-plus').html("(100 / 100)입력");
-		}
-	});
-	
-});
-
-
-
-
-//게시글 삭제버튼 클릭시 확인
-$("#deleteBtn").click(function(){
-	var idx = $(this).val();
-	var currentPage = $("input[name='currentPage']").val();
-	var check = confirm("해당 글을 삭제하시겠습니까?");
-	if(check){
-		location.href="delete?idx="+idx+"&currentPage="+currentPage;
-			 }
-	else{
-		return;
-		}
-});
-
-
-function gdClick(){
-	var idx = ${dto.idx};
-	console.log("공감버튼 클릭");
-	//로그인 안했을경우 
-	if(${isLogin != "Y"}){
-		alert("로그인 후 사용가능합니다.");
-		return;
-	}else{
-		//로그인 했을경우
-		//공감버튼 눌렀을때 공감수 +
-		if($(goodCheck != 0)){
-		$.ajax({
-			type : "post",
-			url : "updateGoodcount",
-			dataType : "text",
-			data : {"idx":idx},
-			success : function (data) {
-				$("#updateGoodcount").html(data);
-			}
-		});
-	} 
-	else{
-		$.ajax({
-			type : "post",
-			url : "updateGoodCancel",
-			dataType : "text",
-			data : {"idx":idx},
-			success :function (data){
-				$("updateGoodcount").html(data);
-				}
-			});
-		}
-	}
-}
-
-
-//원댓글 삭제
-$("span.adel").click(function(){
-	var idx=$(this).attr("idx");
-	//alert(num);
-	
-	var check = confirm("댓글을 삭제하시겠습니까?");
-	//alert(check);
-	if(check ==true){
-	 $.ajax({
-		type: "get",
-		dataType: "text",
-		url: "redelete",
-		data: {"idx":idx},
-		success: function(data){
-			alert("삭제완료");
-			location.reload();
-		},error: function(e){
-			console.log("에러",e);
-		}
-	}); 
-	}else{
-		alert("취소 되었습니다.");
-		return;
-	}
-});
-
-//답글쓰기 토글
-$(document).on("click",".re-rebtn", function(e) {
-	$(this).parents(".re-div").siblings().find(".re-reply").hide();
-	$(this).parents(".re-div").find(".re-reply").show();
-});
-
-
-</script> 
