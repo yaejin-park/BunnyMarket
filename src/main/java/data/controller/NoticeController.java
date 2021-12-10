@@ -41,7 +41,9 @@ public class NoticeController {
 	NoticeMapper Nmapper;
 
 	@GetMapping("/list")
-	public ModelAndView list(@RequestParam(defaultValue = "1") int currentPage
+	public ModelAndView list(
+			@RequestParam(defaultValue = "1") int currentPage,
+			Principal principal
 	)
 
 	{
@@ -49,33 +51,39 @@ public class NoticeController {
 
 		int totalCount = Nservice.NgetTotalCount();
 
-		int perPage = 5; // 한 페이지에 보여질 글의 갯수
-		int totalPage; // 총 페이지 수
-		int start; // 각 페이지에서 불러올 db시작번호
-		int perBlock = 5; // 몇개의 몇페이지씩 표현할 것인가
-		int startPage; // 각 블럭에 표시할 시작페이지
-		int endPage; // 각 블럭에 표시할 마지막 페이지
+		int perPage = 5; 
+		int totalPage; 
+		int start; 
+		int perBlock = 5; 
+		int startPage; 
+		int endPage; 
 
-		// 총 페이지 갯수 구하기
+		
 		totalPage = totalCount / perPage + (totalCount % perPage == 0 ? 0 : 1);
-		// 각 블럭의 시작페이지
+		
 		startPage = (currentPage - 1) / perBlock * perBlock + 1;
 		endPage = startPage + perBlock - 1;
 		if (endPage > totalPage)
 			endPage = totalPage;
-		// 각 페이지에서 불러올 시작번호
+		
 		start = (currentPage - 1) * perPage;
-		// 각 페이지에서 필요한 게시글 가져오기
+		
 		List<NoticeDTO> list = Nservice.NgetList(start, perPage);
 
-		int no = totalCount - (currentPage - 1) * perPage;
+		int num = totalCount - (currentPage - 1) * perPage;
 		
-	
+
+		String admin="no";
+		if(principal != null) {
+			admin=Mservice.currentUserType(principal);
+		}
+		
+		mview.addObject("admin", admin);
 		mview.addObject("list", list);
 		mview.addObject("startPage", startPage);
 		mview.addObject("endPage", endPage);
 		mview.addObject("totalPage", totalPage);
-		mview.addObject("no", no);
+		mview.addObject("num", num);
 		mview.addObject("currentPage", currentPage);
 		mview.addObject("totalCount", totalCount);
 		mview.setViewName("/notice/list");
@@ -215,7 +223,8 @@ public class NoticeController {
 
 	@GetMapping("/content")
 	public ModelAndView content(@RequestParam String idx, @RequestParam(defaultValue = "1") int currentPage,
-			@RequestParam(required = false) String key)
+			@RequestParam(required = false) String key,
+			Principal principal)
 
 	{
 		ModelAndView mview = new ModelAndView();
@@ -239,18 +248,31 @@ public class NoticeController {
 		String next=Nservice.next(idx);
 		String beforetitle=Nservice.beforetitle(idx);
 		String nexttitle=Nservice.nexttitle(idx);
-	
+		
+		
+		String admin="no";
+		if(principal != null) {
+			admin=Mservice.currentUserType(principal);
+		}
+		
+		mview.addObject("admin", admin);
 		mview.addObject("beforetitle", beforetitle);
 		mview.addObject("nexttitle", nexttitle);
 		mview.addObject("before", before);
 		mview.addObject("next", next);
 		mview.addObject("dto", dto);
 		mview.addObject("currentPage", currentPage);
+		
 		mview.setViewName("/notice/content");
 		return mview;
 		
 		
 	
+	}
+	
+	@GetMapping("/test")
+	public String test() {
+		return "/notice/test";
 	}
 	
 	

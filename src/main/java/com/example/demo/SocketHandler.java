@@ -9,11 +9,14 @@ import java.util.List;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
+
+import data.service.ChatService;
 
 @Component
 public class SocketHandler extends TextWebSocketHandler {
@@ -21,16 +24,9 @@ public class SocketHandler extends TextWebSocketHandler {
 	// 메시지 타입에따라 handleBinaryMessage또는 handleTextMessage가 실행
 	//HashMap<String, WebSocketSession> sessionMap = new HashMap<>(); //웹소켓 세션을 담아둘 맵
 	List<HashMap<String, Object>> rls = new ArrayList<>(); //웹소켓 세션을 담아둘 리스트 ---roomListSessions
-
 	
-	/*
-	 * @Autowired
-	 * ChatService service;
-	 * 
-	 * //리스트 가져오기(채팅방 정보)
-	 * List<ChatDTO> list = service.getAllList();
-	 */
-	
+	@Autowired
+	ChatService service;
 	
 	//메시지 발송
 	@Override
@@ -72,21 +68,23 @@ public class SocketHandler extends TextWebSocketHandler {
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		super.afterConnectionEstablished(session);
-		
+		System.out.println("소켓 연결1!!");
 		boolean flag = false;
+		
 		//채팅방 url
 		String url = session.getUri().toString();
-		//System.out.println(url);
+		System.out.println("채팅방 ulr : "+url);
 		String roomNumber = url.split("/chating/")[1];
-		//System.out.println("roomNumber : "+roomNumber);
 		
 		//세션의 채팅방의 갯수
 		int idx = rls.size(); 
+		
 		//채팅방이 존재하면
 		if(rls.size() > 0) { 
 			//일치하는 채팅방 찾기
 			for(int i=0; i<rls.size(); i++) {
 				String rN = (String) rls.get(i).get("roomNumber");
+				//일치하면
 				if(rN.equals(roomNumber)) {
 					flag = true;
 					idx = i;
@@ -105,10 +103,14 @@ public class SocketHandler extends TextWebSocketHandler {
 			rls.add(map);
 		}
 		
+		//아이디
+		String sessionId = session.getPrincipal().getName();
+		System.out.println("세션 아이디:"+sessionId);
+		
 		//세션등록이 끝나면 발급받은 세션ID값의 메시지를 발송한다.
 		JSONObject obj = new JSONObject();
-		obj.put("type", "getId");
-		obj.put("sessionId", session.getId());
+		obj.put("type", "sessionOpen");
+		obj.put("sessionId", sessionId);
 		session.sendMessage(new TextMessage(obj.toJSONString()));
 	}
 
