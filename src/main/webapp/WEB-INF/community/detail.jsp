@@ -10,6 +10,8 @@
 <div class="community-div inner">
 	<div class="community-detail-div">
 	<input type="hidden" name="current-page" value="${currentPage}">
+	<input type="hidden" id="isLogin" value="${isLogin}">
+	<input type="hidden" name="cIdx" value="${dto.idx}">
 	
 	<div class="infoAll">
 		<div class="img group">
@@ -51,10 +53,10 @@
 		<div class="info">
 			<table class="table">
 				<tr>
-					<td colspan="2">
+					<td>
 						<fmt:formatDate value="${dto.writeday}" pattern="yyyy.MM.dd"/>
 					</td>
-					<td>
+					<td align="right">
 						<a class="txt readcount">조회수 : ${dto.readcount}</a>
 					</td>
 				</tr>
@@ -64,13 +66,18 @@
 					</td>
 				</tr>
 				<tr>
-					<td class="proimg">
-						<img alt="profile" src="/image/profile-icon.png" class="profileImg" />
+					<td colspan="2" class="proimg">
+						<c:if test="${profile == 'no'}">
+							<img alt="profile" src="/image/profile-icon.png" class="profileImg" />
+						</c:if>
+						<c:if test="${profile != 'no'}">
+							<img alt="profile" src="/photo/${profile}" class="profileImg" />
+						</c:if>
 						<span class="nick txt">${nick}</span>
 					</td>
 				</tr>
 				<tr>
-					<td class="tit-sm other" >
+					<td colspan="2" class="tit-sm other" >
 						<div class="reply-heart">
 							<!-- 공감수표시 -->
 								<div class="gdcount-icon">
@@ -86,13 +93,12 @@
 					</td>
 				</tr>
 				<tr>
-					<td colspan="3">
+					<td colspan="2">
 						<div class="loginokbtn">
 							<!-- 로그인 했을경우 공감 / 로그인&내가쓴글에만 수정,삭제버튼 보이기 -->
-								
-									<button type="button" id="dibs" class="goodbtn" onclick="dibsClicked()">
-										<img src="/image/stopheart-icon.gif" alt="dibsButton" id="dibsBtnImg">
-									</button>
+								<button type="button" id="dibs" class="goodbtn" onclick="dibsClicked()">
+									<img src="/image/stopheart-icon.gif" alt="dibsButton" id="dibsBtnImg">
+								</button>
 									
 								<sec:authorize access="isAuthenticated()">
 									<c:if test="${userId == dto.id}">
@@ -222,5 +228,5 @@
 	</div>
 </div>
 
-<script type="text/javascript" src="/js/community_script.js"></script>
 <script type="text/javascript" src="/js/swiper.min.js"></script>
+<script type="text/javascript" src="/js/community_script.js"></script>

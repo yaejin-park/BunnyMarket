@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -196,6 +197,8 @@ public class CommunityController {
 			@RequestParam(defaultValue = "1") int currentPage,
 			@RequestParam(required = false) String key,
 			@RequestParam Map<String, String> map,
+			HttpServletRequest request,
+			Model model,
 			Principal principal
 			)
 	{
@@ -215,17 +218,27 @@ public class CommunityController {
 			local = mservice.getLocal(principal);
 			localArr = local.split(",");
 		}
+		
+		//로그인 여부
+		String isLogin = "N";
+		isLogin = (String)request.getSession().getAttribute("isLogin");
+
+		//로그인 되어 있을 경우,
+		if(isLogin!=null) {
+			String id = principal.getName();
+			model.addAttribute("myId", id);
+		}
 		//리스트에서 들어올 경우 조회수 증가하기
 		if(key!=null) {
 			service.updateReadCount(idx);
+			
 		}
-		
 		//커뮤니티DTO 데이터 가져오기 
 		CommunityDTO dto = service.getData(idx);
 		
 		//게시글 닉네임,이미지 불러오기
 		String nick = mservice.getNick(dto.getId());
-		//String profile = mservice.getMemberId(principal.getName()).getProfile();
+		String profile = mservice.getMemberId(principal.getName()).getProfile();
 		
 		//,로 DB사진나누기 (대표이미지)
 		String [] photo = dto.getPhoto().split(",");
@@ -252,7 +265,10 @@ public class CommunityController {
 		mview.addObject("localCnt", localArr.length);
 		mview.addObject("localArr", localArr);
 		mview.addObject("currentPage", currentPage);
-		//mview.addObject("profile", profile);
+		mview.addObject("isLogin", isLogin);
+		mview.addObject("profile", profile);
+		
+		System.out.println("isLogin=>" + isLogin);
 		
 		mview.setViewName("/community/detail");
 		
@@ -370,28 +386,37 @@ public class CommunityController {
 		service.update(dto);
 	}
 	
-	@ResponseBody
+	
 	@PostMapping("/updateGoodcount")
-	public int updateGoodcount(@RequestParam String idx, Principal principal) {
-		String userId = principal.getName();
+	public @ResponseBody HashMap<String, Integer> updateGoodCount(
+			@RequestParam String idx, 
+			Principal principal
+			) 
+	{
 		//goodcount +1 하기 
-		service.updateGoodcount(idx);
-		//데이터 추가
-		service.insertGood(userId, idx);
+		service.updateGoodCount(idx);
+		Integer goodCnt = service.getGoodCount(idx);
+		HashMap<String, Integer> resultMap = new HashMap<String, Integer>();
+		resultMap.put("goodCnt", goodCnt);
 		
-		return service.getGoodCount(idx);
+		return resultMap;
 	}
 	
-	@ResponseBody
+	
 	@PostMapping("/updateGoodCancel")
-	public int updateGoodCancel(@RequestParam String idx, Principal principal) {
-		String userId = principal.getName();
+	public @ResponseBody HashMap<String, Integer> updateGoodCancel(
+			@RequestParam String idx, 
+			Principal principal
+			) 
+	{
 		//goodcount -1하기
 		service.updateGoodCancel(idx);
-		//데이터 삭제
-		service.deleteGood(userId, idx);
 		
-		return service.getGoodCount(idx);
+		Integer goodCnt = service.getGoodCount(idx);
+		HashMap<String, Integer> resultMap = new HashMap<String, Integer>();
+		resultMap.put("goodCnt", goodCnt);
+		
+		return resultMap;
 	}
 	
 	@PostMapping("/auth/reply/insert")

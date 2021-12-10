@@ -108,7 +108,7 @@ $(function(){
 		});
 	});
 	
-		$(".commu-div .event-update-btn").click(function(){
+	$(".commu-div .event-update-btn").click(function(){
 		var idx = $(".commu-div.write-form.update input[name='idx']").val();
 		var title = $(".commu-div.write-form input[name='title']").val();
 		var content = $(".commu-div.write-form textarea[name='content']").val();
@@ -219,7 +219,7 @@ $(function(){
 	$(".community-div .re-list li.bg").each(function(){
 		var level = $(this).find("input[name='relevel']").val();
 		$(this).css("padding-left",(level*50) + "px");
-	})
+	});
 	
 	//대댓글
 	$(".community-div .re-list .re-div").find(".btn-add").click(function(){
@@ -253,6 +253,7 @@ $(function(){
 		var inputlength=$(this).val().length;
 		var remain=+inputlength;
 		$(".text-plus").html(remain);
+		
 		if(remain>=90){
 			$(".event-div .text-plus").css('color','red');
 		}else{
@@ -266,7 +267,7 @@ $(function(){
 		}
 	});
 	
-		//댓글삭제
+	//댓글삭제
 	$(".community-div .re-list .btn-delete").click(function() {
 		var idx=$(this).attr("idx");
 		console.log(idx);
@@ -282,50 +283,47 @@ $(function(){
 				}
 			});
 		}
-		
-	$(document).on("click","dibsClicked()",function() {
+	});
+});
 	
-	if($("#dibsBtnImg").attr("src")=="/image/stopheart-icon.gif"){
+function dibsClicked(){
+	var idx = $(".community-div input[name='cIdx']").val();
+	console.log("idx =>" + idx);
+	if($("#isLogin").val() !="Y"){
+		alert("로그인 이후, 사용가능합니다");
+		return;
+	}else { 
+		if($("#dibsBtnImg").attr("src")=="/image/stopheart-icon.gif"){
 			$("#dibsBtnImg").attr("src","/image/movingheart-icon.gif");
 			$.ajax({
 				type : "post",  
-		        url : "updateLikecount",       
-		        dataType : "json",   
+		        url : "updateGoodcount",      
 		        data : {"idx":idx},
+				dataType:"json",
 		        success : function (data) {
-		        	console.log(data);
-					$("#likecount").html(data);
-		        	console.log("success+");
+					console.log("성공");
+		        	console.log("data.goodCnt ==>" + data.goodCnt);
+					$(".gdcount").html(data.goodCnt);
 				}, error: function (data) {
-					console.log(data);
+					console.log("에러");
 				}
 			});
 		} else{
 			$("#dibsBtnImg").attr("src","/image/stopheart-icon.gif");
 			$.ajax({
 				type : "post",  
-		        url : "updateLikeMinuscount",       
-		        dataType : "json",   
+		        url : "updateGoodCancel",  
 		        data : {"idx":idx},
+				dataType:"json",
 		        success : function (data) {
-		        	console.log(data);
-					$("#likecount").html(data);
+		        	console.log("좋아요취소 성공");
+		        	console.log("data.goodCnt ==>" + data.goodCnt);
+					$(".gdcount").html(data.goodCnt);
 		        	console.log("success-");
 				}, error: function (data) {
-					console.log(data);
+					console.log("좋아요 취소 에러");
 				}
 			});
 		}
-		
-	});
-	
-	
-	
-	
-});
-	
-	
-	
-	
-	
-})
+	}
+}

@@ -60,7 +60,7 @@
 	</update>
 	
 	<select id="getGoodCount" parameterType="String" resultType="int">
-		select goodcount from product where idx=#{idx}
+		select goodcount from community where idx=#{idx}
 	</select>
 	
 	<insert id="insertReplyData" parameterType="redto">
