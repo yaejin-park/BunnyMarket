@@ -66,13 +66,15 @@
 					</td>
 				</tr>
 				<tr>
-					<td colspan="2" class="proimg">
-						<c:if test="${profile == 'no'}">
-							<img alt="profile" src="/image/profile-icon.png" class="profileImg" />
-						</c:if>
-						<c:if test="${profile != 'no'}">
-							<img alt="profile" src="/photo/${profile}" class="profileImg" />
-						</c:if>
+					<td colspan="2">
+						<p class="pro-img">
+							<c:if test="${profile == 'no'}">
+								<img alt="profile" src="/image/profile-icon.png" class="profileImg" />
+							</c:if>
+							<c:if test="${profile != 'no'}">
+								<img alt="profile" src="/photo/${profile}" class="profileImg" />
+							</c:if>
+						</p>
 						<span class="nick txt">${nick}</span>
 					</td>
 				</tr>
@@ -94,7 +96,7 @@
 				</tr>
 				<tr>
 					<td colspan="2">
-						<div class="loginokbtn">
+						<div class="btn-wrap">
 							<!-- 로그인 했을경우 공감 / 로그인&내가쓴글에만 수정,삭제버튼 보이기 -->
 								<button type="button" id="dibs" class="goodbtn" onclick="dibsClicked()">
 									<img src="/image/stopheart-icon.gif" alt="dibsButton" id="dibsBtnImg">
@@ -133,7 +135,12 @@
 		<div class="re-div">
 			<p class="re-info writer">
 				<span class="profile">
-					<img alt="" src="/image/profile-icon.png">
+					<c:if test="${userProfile =='no'}">
+						<img alt="" src="/image/profile-icon.png">
+					</c:if>
+					<c:if test="${userProfile !='no'}">
+						<img alt="" src="/photo/${userProfile}">
+					</c:if>
 				</span>
 				<c:if test="${userNickName=='no'}">
 					<a href="/login/main"><span>로그인해주세요.</span></a>
@@ -178,7 +185,12 @@
 	    				<input type="hidden" name="relevel" value="${replyDto.relevel}">
 	    				<p class="re-info writer">
 	    					<span class="profile">
-	    						<img alt="" src="/image/profile-icon.png">
+	    						<c:if test="${replyDto.profile == 'no'}">
+	    							<img alt="" src="/image/profile-icon.png">
+	    						</c:if>
+	    						<c:if test="${replyDto.profile != 'no'}">
+	    							<img alt="" src="/photo/${replyDto.profile}">
+	    						</c:if>
 	    					</span>
 	    					<span>${replyDto.nickname}</span>
 	    				</p>
@@ -196,7 +208,12 @@
 							<input type="hidden" value="${maxReply}" name="regroup">
 							<p class="re-info writer">
 								<span class="profile">
-									<img alt="" src="/image/profile-icon.png">
+									<c:if test="${userProfile =='no'}">
+										<img alt="" src="/image/profile-icon.png">
+									</c:if>
+									<c:if test="${userProfile !='no'}">
+										<img alt="" src="/photo/${userProfile}">
+									</c:if>
 								</span>
 								<c:if test="${userNickName=='no'}">
 									<a href="/login/main"><span>로그인해주세요.</span></a>

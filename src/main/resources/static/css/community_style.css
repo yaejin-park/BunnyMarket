@@ -103,26 +103,6 @@
 	margin-top:40px;
 }
 
-.group{
-	margin-top:20px;
-}
-
-.group:after{
-	content:""; display:block; clear:both;
-}
-
-.child{
-	float:left;
-}
-
-
-.profileImg{
-	border-radius:100%;
-	border:2px solid #f7f6fc;
-	width:70px;
-	border-bottom: none;
-}
-
 .detail-swiper {
 	position:relative;
 	overflow:hidden;
@@ -205,27 +185,49 @@
 }
 
 .infoAll .info .table tr td .nick.txt{
+	display:inline-block;
 	line-height:70px;
 }
 .infoAll .info .table tr td .loginokbtn{
 	padding-top: 10px;
 }
-.infoAll .info .table tr td .loginokbtn .goodbtn img{
+.infoAll .info .table tr td .btn-wrap:after {
+	content:"";
+	display:block;
+	clear:both;
+}
+.infoAll .info .table tr td .btn-wrap .goodbtn {
+	float:left;
+}
+.infoAll .info .table tr td .btn-wrap .goodbtn img{
 	width:50px;
 	margin-top: -30px;
 }
-.infoAll .info .table tr td .loginokbtn .deupdate{
-	float:right;
+.infoAll .info .table tr td .btn-wrap .deupdate{
 	margin-left:10px;
 }
 
-.infoAll .info .table tr td .loginokbtn .dedelete{
-	float:right;
+.infoAll .info .table .pro-img {
+	position:relative;
+	display:inline-block;
+	width:70px;
+	height:70px;
+	margin-right:10px;
+	border-radius:100%;
+	border:2px solid #f7f6fc;
+	overflow:hidden;
+	vertical-align:top;
 }
-
+.infoAll .info .table .pro-img .profileImg{
+	position:absolute;
+	top:50%;
+	left:50%;
+	transform:translate(-50%, -50%);
+	width:100%;
+}
 .detailContent{
 	margin-top:60px;
-	height:200px;
+	min-height:200px;
 }
 .detailbtn .delist{
 	float:right;
@@ -279,6 +281,7 @@
 	vertical-align:middle;
 }
 .community-div .re-info.writer .profile {
+	position:relative;
 	width:40px;
 	height:40px;
 	margin-right:10px;
@@ -287,7 +290,11 @@
 	overflow:hidden;
 }
 .community-div .re-info.writer .profile img {
+	position:absolute;
+	top:50%;
+	left:50%;
 	width:100%;
+	transform:translate(-50%, -50%);
 }
 .community-div .re-content {
 	margin:10px 0;

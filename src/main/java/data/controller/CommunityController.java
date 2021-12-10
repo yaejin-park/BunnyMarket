@@ -209,12 +209,14 @@ public class CommunityController {
 		String userNickName = "no";
 		String local = "";
 		String[] localArr = {};
+		String userProfile = "no";
 		
 		//아이디,닉네임,위치 가져오기
 		if(principal != null) {
 			userId = principal.getName();
 			userType = mservice.currentUserType(principal);
 			userNickName = mservice.currentUserNickName(principal);
+			userProfile = mservice.getMemberId(userId).getProfile();
 			local = mservice.getLocal(principal);
 			localArr = local.split(",");
 		}
@@ -238,7 +240,7 @@ public class CommunityController {
 		
 		//게시글 닉네임,이미지 불러오기
 		String nick = mservice.getNick(dto.getId());
-		String profile = mservice.getMemberId(principal.getName()).getProfile();
+		String profile = mservice.getMemberId(dto.getId()).getProfile(); //  게시글 쓴 애 프로필
 		
 		//,로 DB사진나누기 (대표이미지)
 		String [] photo = dto.getPhoto().split(",");
@@ -251,6 +253,7 @@ public class CommunityController {
 		
 		for(ComReplyDTO cdto:relist) {
 			cdto.setNickname(mservice.getNick(cdto.getId()));
+			cdto.setProfile(mservice.getMemberId(cdto.getId()).getProfile());
 		}
 		
 		mview.addObject("dto",dto);
@@ -259,6 +262,7 @@ public class CommunityController {
 		mview.addObject("userId", userId);
 		mview.addObject("userType", userType);
 		mview.addObject("userNickName", userNickName);
+		mview.addObject("userProfile", userProfile); // 현재 로그인된 애 프로필 (댓글쓸때)
 		mview.addObject("relist", relist);
 		mview.addObject("recount", recount);
 		mview.addObject("maxReply", maxReply);
