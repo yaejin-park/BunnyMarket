@@ -108,4 +108,8 @@ public class ProductService {
 		map.put("uploadfile", uploadfile);
 		return mapper.getListByStatus(map);
 	}
+	
+	public List<ProductDTO> getMainList() {
+		return mapper.getMainList();
+	}
 }

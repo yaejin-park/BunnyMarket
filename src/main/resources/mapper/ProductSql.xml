@@ -90,5 +90,8 @@
 		order by idx desc 
 		limit #{start},#{perpage}
 	</select>
-	
+   
+	<select id="getMainList" resultType="pdto">
+		select * from product order by idx desc limit 0,12
+	</select>
 </mapper>

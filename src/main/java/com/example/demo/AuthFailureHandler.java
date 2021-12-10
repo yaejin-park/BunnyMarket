@@ -30,7 +30,9 @@ public class AuthFailureHandler extends SimpleUrlAuthenticationFailureHandler{
 			msg = "LockedException account";
 		}
 		
-		setDefaultFailureUrl("/login?error=true&exception=" + msg);
+
+		//setDefaultFailureUrl("/login?error=true&exception=" + msg);
+		setDefaultFailureUrl("/login/main?error=true");
 		
 		super.onAuthenticationFailure(request, response, exception);
 	}

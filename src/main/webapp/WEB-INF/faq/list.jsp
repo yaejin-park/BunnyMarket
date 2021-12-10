@@ -25,8 +25,7 @@
 				<tbody id="faq-list-tbody">
 				</tbody>
 			</table>
-			<div id="pagination" style="width: 800px; text-align: center;">
-			</div>
+			<div id="pagination" style="width: 800px; text-align: center;"></div>
 		</form>
 	</div>
 </div>

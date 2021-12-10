@@ -27,5 +27,5 @@ public interface ProductMapper {
 	public void updateStatus(HashMap<String, String> map);
 	public List<ProductDTO> sellList(HashMap<String, Integer> map);
 	public List<ProductDTO> getListByStatus(HashMap<String, Object>map);
-
+	public List<ProductDTO> getMainList();
 }

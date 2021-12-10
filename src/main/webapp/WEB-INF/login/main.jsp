@@ -38,6 +38,11 @@
 		</form>
 	</div>
 </div>
+<c:if test="${error!=null}">
+	<script type="text/javascript">
+		alert("회원정보가 일치하지 않습니다.");
+	</script>
+</c:if>
 <script type="text/javascript" src="http://apis.google.com/js/platform.js" async defer></script>
 <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.js"></script>
 <script type="text/javascript" src="/js/login_script.js"></script>
