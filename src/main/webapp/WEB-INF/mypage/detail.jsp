@@ -27,7 +27,7 @@
 				</div>
 			</div>			
 			<div class="my-info">
-				<b>[${nick}]회원님 안녕하세요.</b>
+				<b>${nick}</b> 회원님 안녕하세요.
 			</div>
 			<div class="my-info-update">
 				<button type="button" class="btn-update" onclick="location.href='profileupdateform'">프로필변경</button>

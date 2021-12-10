@@ -50,7 +50,12 @@
 				</tr>
 				<tr>
 					<td rowspan="2" class="profile">
-						<img alt="profile" src="/image/profile-icon.png" class="profileImg">	
+						<c:if test="${profile =='no'}">
+							<img alt="프로필이미지" src="/image/profile-icon.png" class="profileImg">
+						</c:if>
+						<c:if test="${profile !='no'}">
+							<img alt="프로필이미지" src="/photo/${profile}" class="profileImg">
+						</c:if>
 					</td>
 					<td class="nick tit verticalBottom">
 						${nick}
