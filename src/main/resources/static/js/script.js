@@ -41,7 +41,26 @@ $(function(){
 		})
 	});
    
-	$(window).on("load",function(){
+	if($(".detail-swiper").length > 0){
+		var detailSwiper = new Swiper(".detail-swiper", {
+		    navigation: {
+		      nextEl: ".detail-swiper .swiper-button-next",
+		      prevEl: ".detail-swiper .swiper-button-prev",
+		    },
+		    pagination: {
+		      el: ".detail-swiper .swiper-pagination",
+		    },
+			observer:true,
+			observerParents:true,
+			updateOnImageReady:true
+		});
+	}
+	
+	$(window).resize(function(){
+		if(!$(".menu").hasClass("gnb-on")){
+			gsap.to(".gnb", 0, {right:-$(".gnb").outerWidth(true) - 100});
+		}
+		
 		//상세페이지 롤링
 		if($(".detail-swiper").length > 0){
 			// 상세 페이지 - 큰 이미지 롤링
@@ -66,19 +85,6 @@ $(function(){
 					$(this).find("img").height("auto");
 				}
 			});
-			
-			var detailSwiper = new Swiper(".detail-swiper", {
-			    navigation: {
-			      nextEl: ".detail-swiper .swiper-button-next",
-			      prevEl: ".detail-swiper .swiper-button-prev",
-			    },
-			    pagination: {
-			      el: ".detail-swiper .swiper-pagination",
-			    },
-				observer:true,
-				observerParents:true,
-				updateOnImageReady:true
-			});
 		}
 		if($(".thumbnailDiv").length > 0) {
 			//리스트 이미지 정사각형
@@ -93,12 +99,6 @@ $(function(){
 					$(this).find("img").height("auto");
 				}
 			});
-		}
-	});
-	
-	$(window).resize(function(){
-		if(!$(".menu").hasClass("gnb-on")){
-			gsap.to(".gnb", 0, {right:-$(".gnb").outerWidth(true) - 100});
 		}
 	}).resize();
 });
