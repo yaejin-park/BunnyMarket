@@ -63,10 +63,12 @@ public class CommunityController {
 		String userId = "no";
 		String local = "";
 		String[] localArr = {};
+		String currentLocal = "";
 		if(principal != null) {
 			userId = principal.getName();
 			local = mservice.getLocal(principal);
 			localArr = local.split(",");
+			currentLocal = mservice.currentLocal(userId);
 		}
 		mview.addObject("localCnt",localArr.length);
 		mview.addObject("localArr",localArr);
@@ -104,6 +106,7 @@ public class CommunityController {
 		mview.addObject("totalPage",totalPage);
 		mview.addObject("currentPage",currentPage);
 		mview.addObject("totalCount",list.size());
+		mview.addObject("currentLocal",currentLocal);
 
 		mview.setViewName("/community/list");
 		return mview;
@@ -120,13 +123,16 @@ public class CommunityController {
 		String userId = "no";
 		String local = "";
 		String[] localArr = {};
+		String currentLocal = "";
 		if(principal != null) {
 			userId = principal.getName();
 			local = mservice.getLocal(principal);
 			localArr = local.split(",");
+			currentLocal = mservice.currentLocal(userId);
 		}
 		mview.addObject("localCnt",localArr.length);
 		mview.addObject("localArr",localArr);
+		mview.addObject("currentLocal",currentLocal);
 		mview.setViewName("/community/writeForm");
 		return mview;
 	}
@@ -209,6 +215,7 @@ public class CommunityController {
 		String userNickName = "no";
 		String local = "";
 		String[] localArr = {};
+		String currentLocal = "";
 		String userProfile = "no";
 		
 		//아이디,닉네임,위치 가져오기
@@ -219,6 +226,7 @@ public class CommunityController {
 			userProfile = mservice.getMemberId(userId).getProfile();
 			local = mservice.getLocal(principal);
 			localArr = local.split(",");
+			currentLocal = mservice.currentLocal(userId);
 		}
 		
 		//로그인 여부
@@ -268,6 +276,7 @@ public class CommunityController {
 		mview.addObject("maxReply", maxReply);
 		mview.addObject("localCnt", localArr.length);
 		mview.addObject("localArr", localArr);
+		mview.addObject("currentLocal",currentLocal);
 		mview.addObject("currentPage", currentPage);
 		mview.addObject("isLogin", isLogin);
 		mview.addObject("profile", profile);
@@ -279,24 +288,13 @@ public class CommunityController {
 		return mview;
 	}
 	
-	@GetMapping("/delete")
+	@GetMapping("/auth/delete")
 	public String delete(
 			@RequestParam String idx,
-			@RequestParam String currentPage,
-			HttpSession session,
-			CommunityDTO dto
+			@RequestParam String currentPage
 			)
 	{
-		//글삭제시 저장된 이미지도 삭제
-	      String path=session.getServletContext().getRealPath("/photo");
-	      //업로드된 이미지명
-	      String uploadimg=service.getData(dto.getIdx()).getPhoto();
-	      //File 객체 생성
-	      File file=new File(path+"\\"+uploadimg);
-	      //이미지 삭제
-	      file.delete();
-	      
-	     service.delete(idx);
+	    service.delete(idx);
 		return "redirect:../list?currentPage="+currentPage;
 	}
 	
@@ -313,10 +311,12 @@ public class CommunityController {
 		String userId = "no";
 		String local = "";
 		String[] localArr = {};
+		String currentLocal = "";
 		if(principal != null) {
 			userId = principal.getName();
 			local = mservice.getLocal(principal);
 			localArr = local.split(",");
+			currentLocal = mservice.currentLocal(userId);
 		}
 		
 		CommunityDTO dto = service.getData(idx);
@@ -326,6 +326,7 @@ public class CommunityController {
 		mview.addObject("currentPage",currentPage);
 		mview.addObject("localCnt", localArr.length);
 		mview.addObject("localArr", localArr);
+		mview.addObject("currentLocal",currentLocal);
 		mview.addObject("photoList",photoList);
 		mview.setViewName("/community/updateForm");
 		return mview;

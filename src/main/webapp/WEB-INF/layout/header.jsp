@@ -61,7 +61,7 @@
 					<button type="button" onclick="location.href='/local/auth/add'" class="local-btn">내 동네 설정</button>
 				</sec:authorize>
 				<sec:authorize access="isAuthenticated()">
-					<button type="button" class="local-btn">${localArr[0]}</button>
+					<button type="button" class="local-btn">${currentLocal}</button>
 					<ul class="local-option">
 						<c:forEach var="local" items="${localArr}">
 							<li>

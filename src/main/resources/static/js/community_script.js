@@ -1,19 +1,19 @@
 $(function(){
-	
-	$(".smImgDiv").mouseenter(function() {
-		var original = $(".bigImage").attr("src");
-		console.log("enter"+original);
-		$(".smallImg").hover(function() {
-			var src = $(this).attr("src");
-			$(".bigImage").attr("src",src);
-		});
-	}), function() {
-		console.log("out");
-		var src = $(this).attr("src");
-		$(".bigImage").attr("src",original);
-	}
+	setTimeout(() => {
+	 var swiper = new Swiper(".mySwiper", {
+		    navigation: {
+		      nextEl: ".swiper-button-next",
+		      prevEl: ".swiper-button-prev",
+		    },
+		    pagination: {
+		      el: ".swiper-pagination",
+		    },
+		  });
+	}, 20);
 
 	$(window).on("load", function(){
+		$(".img-detail-div").find(".content-img").hide();
+		
         $(".cummu-list li").each(function(){
 			$(this).find(".img-div").height($(this).find(".img-div").width());
             if($(this).children("img").width() > $(this).children("img").height()){
@@ -58,7 +58,6 @@ $(function(){
 			}
 			reader.readAsDataURL(files[i]);
 			
-			//list에 대표이미지 사이즈 맞추기
 			reader.onloadend = function(e){
 				$(".preview-img").each(function(){
 					$(this).height($(this).width());
@@ -300,12 +299,20 @@ $(function(){
 				success:function(){
 					alert("댓글을 삭제했습니다.");
 					location.reload();
-				}
+					}
 			});
 		}
 	});
-});
 	
+	//이미지 상세 보기
+		$(".img-detail-view").click(function() {
+			$(this).parents(".img-detail-div").siblings().find(".content-img").hide();
+			$(this).parents(".img-detail-div").find(".content-img").toggle();
+		});
+	
+});
+
+
 function dibsClicked(){
 	var idx = $(".community-div input[name='cIdx']").val();
 	console.log("idx =>" + idx);

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import data.dto.MemberDTO;
 import data.service.MemberService;
@@ -176,13 +177,33 @@ public class MemberController {
 		dto.setLocal(addrLocal);
 		dto.setAddr(addr1 + "," + addr2);
 		dto.setZonecode(zonecode);
+		dto.setCurrent_local(addrLocal);
 		service.insertMember(dto);
 		return "redirect:complete";
 	}
 	
 	@GetMapping("/complete")
-	public String completeJoin() {
-		return "/join/complete";
+	public ModelAndView completeJoin(
+		Principal principal
+		) 
+	{
+		ModelAndView mview = new ModelAndView();
+		String userId = "no";
+		String local = "";
+		String[] localArr = {};
+		String currentLocal = "";
+		if(principal != null) {
+			userId = principal.getName();
+			local = service.getLocal(principal);
+			currentLocal = service.currentLocal(userId);
+			localArr = local.split(",");
+		}
+		
+		mview.addObject("localCnt", localArr.length);
+		mview.addObject("localArr", localArr);
+		mview.addObject("currentLocal", currentLocal);
+		mview.setViewName("/join/complete");
+		return mview;
 	}
 	
 	@PostMapping("/pwCheck")
@@ -221,5 +242,4 @@ public class MemberController {
 		map.put("nick", service.getNickCheck(nick));
 		return map;
 	} 
-	
 }

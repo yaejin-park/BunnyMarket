@@ -32,7 +32,7 @@
 	</update>
 	
 	<delete id="delete" parameterType="String">
-		delete from community where idx=#{idx}
+		delete from community where idx = #{idx}
 	</delete>
 	
 	<update id="update">

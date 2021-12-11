@@ -48,10 +48,12 @@ public class EventController {
 		String userId = "no";
 		String local ="";
 		String[] localArr = {};
+		String currentLocal = "";
 		if(principal != null) {
 			userId = principal.getName();
 			userType = memberService.currentUserType(principal);
 			local = memberService.getLocal(principal);
+			currentLocal = memberService.currentLocal(userId);
 			localArr = local.split(",");
 		}
 		
@@ -86,6 +88,7 @@ public class EventController {
 		mview.addObject("status", status);
 		mview.addObject("localCnt", localArr.length);
 		mview.addObject("localArr", localArr);
+		mview.addObject("currentLocal", currentLocal);
 		mview.setViewName("/event/list");
 		return mview;
 	}
@@ -105,11 +108,13 @@ public class EventController {
 		String userNickName = "no";
 		String local = "";
 		String[] localArr = {};
+		String currentLocal = "";
 		if(principal != null) {
 			userId = principal.getName();
 			userType = memberService.currentUserType(principal);
 			userNickName = memberService.currentUserNickName(principal);
 			local = memberService.getLocal(principal);
+			currentLocal = memberService.currentLocal(userId);
 			localArr = local.split(",");
 		}
 		if(key != null) {
@@ -136,6 +141,7 @@ public class EventController {
 		mview.addObject("localCnt", localArr.length);
 		mview.addObject("localArr", localArr);
 		mview.addObject("currentPage", currentPage);
+		mview.addObject("currentLocal", currentLocal);
 		
 		mview.setViewName("/event/detail");
 		
@@ -151,14 +157,17 @@ public class EventController {
 		String userId = "no";
 		String local = "";
 		String[] localArr = {};
+		String currentLocal = "";
 		if(principal != null) {
 			userId = principal.getName();
 			local = memberService.getLocal(principal);
+			currentLocal = memberService.currentLocal(userId);
 			localArr = local.split(",");
 		}
 
 		mview.addObject("localCnt", localArr.length);
 		mview.addObject("localArr", localArr);
+		mview.addObject("currentLocal", currentLocal);
 		mview.setViewName("/event/writeForm");
 		return mview;
 	}
@@ -227,9 +236,11 @@ public class EventController {
 		String userId = "no";
 		String local = "";
 		String[] localArr = {};
+		String currentLocal = "";
 		if(principal != null) {
 			userId = principal.getName();
 			local = memberService.getLocal(principal);
+			currentLocal = memberService.currentLocal(userId);
 			localArr = local.split(",");
 		}
 		EventDTO dto = service.getData(idx);
@@ -239,6 +250,8 @@ public class EventController {
 		mview.addObject("localArr", localArr);
 		mview.addObject("dto", dto);
 		mview.addObject("photoList", photoList);
+		mview.addObject("currentLocal", currentLocal);
+
 		mview.setViewName("/event/updateForm");
 		return mview;
 	}
