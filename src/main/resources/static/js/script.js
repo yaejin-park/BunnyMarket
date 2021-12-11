@@ -95,10 +95,6 @@ $(function(){
 		if(!$(".menu").hasClass("gnb-on")){
 			gsap.to(".gnb", 0, {right:-$(".gnb").outerWidth(true) - 100});
 		}
-		
-		$(".product-list li").each(function(){
-			$(this).find(".img-div").height($(this).find(".img-div").width());
-		});
 	}).resize();
 });
 
