@@ -50,6 +50,8 @@
 					</div>
 				</c:forEach>
 			</div>
+			
+			
 		</div>
 	
 		<div class="info">
@@ -119,7 +121,7 @@
 	</div>
 	
 	<div class="img-detail-div">
-		<a href="javascript:" class="img-detail-view">상세사진보기(접기)</a>
+		<a href="javascript:" class="img-detail-view txt">상세사진보기</a>
 		<div class="content-img">
 		<c:forEach var="photo" items="${dto.photo}">
 			<img src="/photo/${photo}" alt="">
