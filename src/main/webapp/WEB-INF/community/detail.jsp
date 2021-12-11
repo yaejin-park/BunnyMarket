@@ -4,9 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <link rel="stylesheet" type="text/css" href="/css/swiper.min.css">
-<link rel="stylesheet" type="text/css" href="/css/common.css">
 <link rel="stylesheet" type="text/css" href="/css/community_style.css">
 
 <div class="community-div inner">
@@ -22,28 +20,30 @@
 					<c:forEach items="${photo}" var="photo">
 						<div class="swiper-slide bigImg fix">
 							<!-- 이미지 없는경우 -->
-							<c:if test="${photo=='no'}">
-								<img alt="thumbnail" src="../image/co-noimg.jpg">
+							<c:if test="${photo==''}">
+								<img alt="thumbnail" src="../image/co-noimg.jpg" />
 							</c:if>
 							<!-- 이미지 있는경우 -->
-							<c:if test="${photo!='no'}">
-								<img alt="thumbnail" src="../photo/${photo}">
+							<c:if test="${photo!=''}">
+								<img alt="thumbnail" src="../photo/${photo}" />
 							</c:if>
 						</div>
 					</c:forEach>
 				</div>
-				<div class="swiper-butten-next"></div>
-				<div class="swiper-butten-prev"></div>
+				<c:if test="${fn:length(photo) != 1}">
+				<div class="swiper-button-next"></div>
+				<div class="swiper-button-prev"></div>
 				<div class="swiper-pagination"></div>
+				</c:if>
 			</div>
 			<div class="smImgDiv">
 				<c:forEach items="${photo}" var="photo">
 					<div class="smImg child">
-						<c:if test="${photo=='no'}">
+						<c:if test="${photo==''}">
 						<!-- 이미지 없는경우 -->
 							<img alt="smallImage" src="../image/co-noimg.jpg">
 						</c:if>
-						<c:if test="${photo!='no'}">
+						<c:if test="${photo!=''}">
 						<!-- 이미지 있을경우 -->
 							<img alt="smallImage" src="../photo/${photo}">
 						</c:if>
@@ -119,7 +119,7 @@
 	</div>
 	
 	<div class="img-detail-div">
-		<a href="javascript:" class="img-detail-view">상세사진보기(접기)</a>
+		<button href="javascript:" class="img-detail-view btn-add btn-sm">상세 사진보기</button>
 		<div class="content-img">
 		<c:forEach var="photo" items="${dto.photo}">
 			<img src="/photo/${photo}" alt="">

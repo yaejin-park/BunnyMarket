@@ -1,29 +1,20 @@
 $(function(){
-	setTimeout(() => {
-	 var swiper = new Swiper(".mySwiper", {
-		    navigation: {
-		      nextEl: ".swiper-button-next",
-		      prevEl: ".swiper-button-prev",
-		    },
-		    pagination: {
-		      el: ".swiper-pagination",
-		    },
-		  });
-	}, 20);
+
+	$(window).on("resize", function(){
+		$(".cummu-list .img-div").each(function(){
+			$(this).height($(this).width());
+			if($(this).find("img").width() * $(this).height() < $(this).find("img").height() * $(this).width()){
+				$(this).find("img").width($(this).width());
+				$(this).find("img").height("auto");
+			}else{
+				$(this).find("img").width("auto");
+				$(this).find("img").height($(this).height());
+			}
+		});
+	}).resize();
 
 	$(window).on("load", function(){
 		$(".img-detail-div").find(".content-img").hide();
-		
-        $(".cummu-list li").each(function(){
-			$(this).find(".img-div").height($(this).find(".img-div").width());
-            if($(this).children("img").width() > $(this).children("img").height()){
-                $(this).children("img").width("auto");
-                $(this).children("img").height("100%");
-            }else{
-                $(this).children("img").width("100%");
-                $(this).children("img").height("auto");
-            }
-        });
     });
 
 	var fileListArr = new Array();
@@ -98,7 +89,7 @@ $(function(){
 		var title = $(".commu-div.write-form input[name='title']").val();
 		var content = $(".commu-div.write-form textarea[name='content']").val();
 		var formData = new FormData();
-		if(title == '' || content == '' || fileCnt == 0){
+		if(title == '' || content == ''){
 			alert("필수 입력을 입력해주세요.");
 			return;
 		}
@@ -135,7 +126,7 @@ $(function(){
 		var deletePhoto = deleteFile.split(",");
 		
 		var formData = new FormData();
-		if(title == '' || content == '' || fileCnt == 0){
+		if(title == '' || content == ''){
 			alert("필수 입력을 입력해주세요.");
 			return;
 		}
