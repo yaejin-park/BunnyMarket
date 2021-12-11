@@ -20,14 +20,14 @@
 			<div class="detail-swiper">
 				<div class="bigImgDiv swiper-wrapper">
 					<c:forEach items="${photo}" var="photo">
-						<div class="swiper-slide bigImg fix"> <!-- positon : relative -->
+						<div class="swiper-slide bigImg fix">
 							<!-- 이미지 없는경우 -->
 							<c:if test="${photo=='no'}">
-								<img class="bigImg" alt="thumbnail" src="../image/co-noimg.jpg"> <!-- position:abso, top50% left 50% trasla -50%-% -->
+								<img alt="thumbnail" src="../image/co-noimg.jpg">
 							</c:if>
 							<!-- 이미지 있는경우 -->
 							<c:if test="${photo!='no'}">
-								<img class="bigImage" alt="thumbnail" src="../photo/${photo}">
+								<img alt="thumbnail" src="../photo/${photo}">
 							</c:if>
 						</div>
 					</c:forEach>
@@ -41,11 +41,11 @@
 					<div class="smImg child">
 						<c:if test="${photo=='no'}">
 						<!-- 이미지 없는경우 -->
-							<img class="smImg" alt="smallImage" src="../image/co-noimg.jpg">
+							<img alt="smallImage" src="../image/co-noimg.jpg">
 						</c:if>
 						<c:if test="${photo!='no'}">
 						<!-- 이미지 있을경우 -->
-							<img class="smImg" alt="smallImage" src="../photo/${photo}">
+							<img alt="smallImage" src="../photo/${photo}">
 						</c:if>
 					</div>
 				</c:forEach>
@@ -108,13 +108,22 @@
 									<c:if test="${userId == dto.id}">
 										<button type="button" class="btn-update deupdate"
 										onclick="location.href='/community/auth/updateform?idx=${dto.idx}&currentPage=${currentPage}'">수정</button>
-										<button type="button" id="deleteBtn" class="btn-delete dedelete" value="${dto.idx}">삭제</button>
+										<button type="button" class="btn-delete dedelete" idx="${dto.idx}">삭제</button>
 									</c:if>
 								</sec:authorize>
 						</div>
 					</td>
 				</tr>
 			</table>
+		</div>
+	</div>
+	
+	<div class="img-detail-div">
+		<a href="javascript:" class="img-detail-view">상세사진보기(접기)</a>
+		<div class="content-img">
+		<c:forEach var="photo" items="${dto.photo}">
+			<img src="/photo/${photo}" alt="">
+		</c:forEach>
 		</div>
 	</div>
 

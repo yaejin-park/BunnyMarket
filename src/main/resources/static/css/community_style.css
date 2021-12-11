@@ -132,6 +132,7 @@
 	width:calc((323px -30px)/4);
 	border:2px solid #f7f6fc;
 	overflow:hidden;
+	display: inline-block;
 }
 
 .community-div .community-detail-div .infoAll .img.group .smImgDiv .smImg img {

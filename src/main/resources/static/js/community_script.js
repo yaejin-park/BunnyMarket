@@ -56,7 +56,6 @@ $(function(){
 			}
 			reader.readAsDataURL(files[i]);
 			
-			//list에 대표이미지 사이즈 맞추기
 			reader.onloadend = function(e){
 				$(".preview-img").each(function(){
 					$(this).height($(this).width());
@@ -298,12 +297,20 @@ $(function(){
 				success:function(){
 					alert("댓글을 삭제했습니다.");
 					location.reload();
-				}
+					}
 			});
 		}
 	});
-});
 	
+	//이미지 상세 보기
+	$(".img-detail-view").click(function() {
+		$(this).text("상세사진보기(열기)");
+		$(this).parents(".img-detail-div").siblings().find(".content-img").hide();
+		$(this).parents(".img-detail-div").find(".content-img").toggle();
+	});
+});
+
+
 function dibsClicked(){
 	var idx = $(".community-div input[name='cIdx']").val();
 	console.log("idx =>" + idx);
