@@ -94,6 +94,24 @@
 	font-weight:bold;
 	color:#333;
 }
+.infoAll .info .table .profile {
+	position:relative;
+	display:inline-block;
+	width:70px;
+	height:70px;
+	margin-right:10px;
+	border-radius:100%;
+	border:2px solid #f7f6fc;
+	overflow:hidden;
+	vertical-align:top;
+}
+.infoAll .info .table .profile .profileImg{
+	position:absolute;
+	top:50%;
+	left:50%;
+	transform:translate(-50%, -50%);
+	width:100%;
+}
 /* detail-reply */
 .ad-div .reply .tit {
 	margin-bottom:20px;
@@ -110,15 +128,20 @@
 	vertical-align:middle;
 }
 .ad-div .re-info.writer .profile {
-	top:20px;
-	left:20px;
-	width:50px;
+	position:relative;
+	width:40px;
+	height:40px;
+	margin-right:10px;
 	border-radius:50%;
-	border:1px solid #f7f6fc;
+	border:1px solid #e5e5e5;
 	overflow:hidden;
 }
 .ad-div .re-info.writer .profile img {
+	position:absolute;
+	top:50%;
+	left:50%;
 	width:100%;
+	transform:translate(-50%, -50%);
 }
 .ad-div .re-content {
 	margin:10px 0;

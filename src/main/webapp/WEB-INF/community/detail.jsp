@@ -212,7 +212,7 @@
 					        <div class="btn-wrap">
 					        	<a href="javascript:" class="reply-btn">답글쓰기</a>
 					        	<c:if test="${userId==replyDto.id}">
-			                	<a href="javascript:" class="btn-delete btn-sm" idx="${replyDto.idx}">삭제</a>
+			                		<a href="javascript:" class="btn-delete btn-sm" idx="${replyDto.idx}">삭제</a>
 					        	</c:if>
 					        </div>
 		    			</div>
