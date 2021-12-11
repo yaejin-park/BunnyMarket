@@ -8,7 +8,7 @@ $(function(){
 		}else{
 			$(this).removeClass("on");
 			$("header .menu").removeClass("gnb-on");   
-			gsap.to(".gnb", 0.6, {opacity:0, right:"-50%", ease:Power3.easeOut});
+			gsap.to(".gnb", 0.6, {opacity:0, right:-($(".gnb").outerWidth(true) + 100), ease:Power3.easeOut});
 			$("body").css("overflow","auto");
 		}
 	});
@@ -90,6 +90,12 @@ $(function(){
 			});
 		}
 	});
+	
+	$(window).resize(function(){
+		if(!$(".menu").hasClass("gnb-on")){
+			gsap.to(".gnb", 0, {right:-$(".gnb").outerWidth(true) - 100});
+		}
+	}).resize();
 });
 
 function loadFile(event){

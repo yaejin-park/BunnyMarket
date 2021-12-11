@@ -24,9 +24,11 @@
 }
 .cummu-list li .img-div img {
 	position:absolute;
+	width:100%;
 	top:50%;
 	left:50%;
 	transform:translate(-50%, -50%);
+	
 }
 .cummu-list li:nth-child(4n){
 	margin-right:0;
@@ -35,16 +37,16 @@
 	margin-top:0;
 }
 .cummu-list li .text-div{
-	padding: 8px 20px 10px 20px;
+	padding: 8px 10px 30px 10px;
 }
 .cummu-list li .text-div .tit{
-	margin-top:45px;
+	margin-top:25px;
 	white-space:nowrap;
 	overflow:hidden;
 	text-overflow:ellipsis;
 }
 .cummu-list li .text-div .txt{
-	margin-top:10px;
+	margin-top:8px;
 	white-space:nowrap;
 	overflow:hidden;
 	text-overflow:ellipsis;
@@ -103,18 +105,18 @@
 	margin-top:40px;
 }
 
-.detail-swiper {
+.infoAll .img.group .detail-swiper {
 	position:relative;
 	overflow:hidden;
 }
 
-.bigImg{
+.bigImgDiv .swiper-slide .bigImg{
 	padding-top:10px;
 	width:323px;
 	border:2px solid #f7f6fc;
 	overflow:hidden;
 }
-.bigImg img {
+.bigImgDiv .swiper-slide .bigImg img {
 	position:absolute;
 	top:50%;
 	left:50%;
@@ -123,47 +125,48 @@
 
 .smImgDiv{
 	margin-top:5px;
+	display: inline-flex;
 }
 
-.smImg{
+.smImgDiv .smImg{
 	position:relative;
 	width:calc((323px -30px)/4);
 	border:2px solid #f7f6fc;
 	overflow:hidden;
 }
-.smImg img {
+.smImgDiv .smImg img {
 	position:absolute;
 	top:50%;
 	left:50%;
 	transform:translate(-50%,-50%);
 }
 
-.infoAll .group{
+.community-div .infoAll .group{
 	margin-top:0;
 	float:left;
 	width:330px;
 	margin-right:40px;
 }
 
-.info{
+.community-div .infoAll .info{
 	float:left;
     width:calc(100% - 395px);
     margin-left:25px;
 }
 
-.infoAll:after{
+.community-div .infoAll:after{
 	content:""; 
 	display:block; 
 	clear:both;
 }
 
-.detailtit{
+.community-div .infoAll .info table .detailtit{
 	font-size:25pt;
 	font-weight:bold;
 	padding:8px 0px 8px 0px;
 }
 
-.other{
+.community-div .infoAll .info table .other{
 	padding:5px 0px 5px 0px;
 }
 

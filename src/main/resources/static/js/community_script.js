@@ -1,4 +1,18 @@
 $(function(){
+	
+	$(".smImgDiv").mouseenter(function() {
+		var original = $(".bigImage").attr("src");
+		console.log("enter"+original);
+		$(".smallImg").hover(function() {
+			var src = $(this).attr("src");
+			$(".bigImage").attr("src",src);
+		});
+	}), function() {
+		console.log("out");
+		var src = $(this).attr("src");
+		$(".bigImage").attr("src",original);
+	}
+
 	$(window).on("load", function(){
         $(".cummu-list li").each(function(){
 			$(this).find(".img-div").height($(this).find(".img-div").width());
@@ -65,8 +79,14 @@ $(function(){
 		console.log(fileListArr.length);
 	});
 	
-	$(document).on("click", ".preview-img .close", function(){
+	var deleteFile = "";
+	$(document).on("click", ".commu-div .preview-img .close", function(e){
 		var delIdx = $(this).parent(".preview-img").attr("idx");
+		
+		if($(this).parents(".commu-div").hasClass("update")){
+			var fileTxt = $(e.target).prev("img").attr("src");
+			deleteFile += $(e.target).prev("img").attr("src").substring(7,fileTxt.length)  + ",";
+		}
 		
 		var fileArr = fileListArr;
 		fileArr.splice(delIdx,1);

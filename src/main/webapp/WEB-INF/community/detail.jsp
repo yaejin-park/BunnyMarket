@@ -7,6 +7,7 @@
 <link rel="stylesheet" type="text/css" href="/css/swiper.min.css">
 <link rel="stylesheet" type="text/css" href="/css/common.css">
 <link rel="stylesheet" type="text/css" href="/css/community_style.css">
+
 <div class="community-div inner">
 	<div class="community-detail-div">
 	<input type="hidden" name="current-page" value="${currentPage}">
@@ -21,7 +22,7 @@
 						<div class="swiper-slide bigImg fix">
 							<!-- 이미지 없는경우 -->
 							<c:if test="${photo=='no'}">
-								<img src="../image/co-noimg.jpg">
+								<img class="bigImg" alt="thumbnail" src="../image/co-noimg.jpg">
 							</c:if>
 							<!-- 이미지 있는경우 -->
 							<c:if test="${photo!='no'}">
@@ -39,11 +40,11 @@
 					<div class="smImg child">
 						<c:if test="${photo=='no'}">
 						<!-- 이미지 없는경우 -->
-							<img src="../image/co-noimg.jpg">
+							<img class="smImg" alt="smallImage" src="../image/co-noimg.jpg">
 						</c:if>
 						<c:if test="${photo!='no'}">
 						<!-- 이미지 있을경우 -->
-							<img alt="smallImage" src="../photo/${photo}" class="smallImg">
+							<img class="smImg" alt="smallImage" src="../photo/${photo}">
 						</c:if>
 					</div>
 				</c:forEach>

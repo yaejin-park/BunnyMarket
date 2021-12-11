@@ -18,6 +18,12 @@ $(function(){
         });
     });
 
+	$(window).resize(function(){
+		$(".product-list li").each(function(){
+			$(this).find(".img-div").height($(this).find(".img-div").width());
+		});
+	}).resize();
+
 	$(window).scroll(function(){
 		// console.log($(window).scrollTop());
 		var scrollTop = $(window).scrollTop() + $(window).height();
