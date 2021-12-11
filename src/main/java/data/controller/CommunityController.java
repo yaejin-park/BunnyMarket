@@ -304,7 +304,6 @@ public class CommunityController {
 	public ModelAndView updateform(
 			 @RequestParam String idx,
 			 @RequestParam String currentPage,
-			 
 			Principal principal
 			) 
 	{
@@ -321,41 +320,36 @@ public class CommunityController {
 		}
 		
 		CommunityDTO dto = service.getData(idx);
+		String[] photoList = dto.getPhoto().split(",");
 		
 		mview.addObject("dto",dto);
 		mview.addObject("currentPage",currentPage);
 		mview.addObject("localCnt", localArr.length);
 		mview.addObject("localArr", localArr);
+		mview.addObject("photoList",photoList);
 		mview.setViewName("/community/updateForm");
 		return mview;
 	}
 	
 	@PostMapping("/auth/update")
 	public @ResponseBody void update(
+			@RequestParam String idx,
 			MultipartHttpServletRequest multiRequest,
 			HttpServletRequest request,
-			HttpSession session,
-			@RequestParam String idx,
-			@RequestParam(defaultValue = "1") int currentPage,
-			Principal principal
+			HttpSession session
 			)throws Exception
 	{
 		
-		//로그인중이 아닐 경우 종료
-		String isLogin=(String)request.getSession().getAttribute("isLogin");
-		if(isLogin==null) {
-			return;
-		}
+		String path = session.getServletContext().getRealPath("/photo");
+		
 		List<MultipartFile> fileList = multiRequest.getFiles("uploadFile");
 	    String title = multiRequest.getParameter("title");
 	    String content = multiRequest.getParameter("content");
 	      
-	    String photoname = "";
-	    String originalPhotoName = "";
-	      
+	    String photoname = multiRequest.getParameter("updatePhoto");
+	    String originalPhotoName = multiRequest.getParameter("updateOrigin");
+	    
 	    if(fileList != null) {
-	    	String path = session.getServletContext().getRealPath("/photo");
-
 			File dir = new File(path);
 			if(!dir.isDirectory()) {
 				dir.mkdirs();}
@@ -374,16 +368,14 @@ public class CommunityController {
 					
 				photoname = photoname.substring(0, photoname.length()-1);
 				originalPhotoName = originalPhotoName.substring(0, originalPhotoName.length()-1);
-				}
-	      }
+			}
+	    }
 	    
-	    String id = principal.getName();
 	    CommunityDTO dto = new CommunityDTO();
-	    dto.setId(id);
-	    dto.setIdx(idx);
 	    dto.setTitle(title);
 	    dto.setContent(content);
 	    dto.setPhoto(photoname);
+	    dto.setIdx(idx);
 	    dto.setOriginal_photo(originalPhotoName);
 		
 		//수정

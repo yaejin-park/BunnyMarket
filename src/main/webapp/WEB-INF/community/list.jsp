@@ -36,7 +36,6 @@
 									<c:if test="${a.photo=='no'}">
 										<img src="../image/co-noimg.jpg">
 									</c:if>
-									
 								<!-- 이미지 있을경우 -->
 									<c:if test="${a.photo!='no'}">
 										<img src="../photo/${fn:split(a.photo,',')[0]}">
