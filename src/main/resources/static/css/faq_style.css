@@ -1,8 +1,8 @@
 .faq-div {
 	margin-top:40px;
 }
-.faq-div .table .num {
-	width:150px;
+.faq-div .table {
+	margin-top:40px;
 }
 .faq-div .table .category {
 	width:200px;
@@ -24,6 +24,7 @@
 	width:120px;
 	height:40px;
 	font-size: 14px;
+	float:left;
 }
 .faq-div table td {
 	text-align:center;
@@ -36,4 +37,8 @@
 }
 .faq-div .answer {
 	font-weight:bolder;
+}
+.faq-div #faq-category {
+	height:47px;
+	text-align:center;
 }
