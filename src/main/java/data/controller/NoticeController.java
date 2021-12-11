@@ -48,6 +48,18 @@ public class NoticeController {
 
 	{
 		ModelAndView mview = new ModelAndView();
+		
+		//지역 가져오기
+	      String userId = "no";
+	      String local = "";
+	      String[] localArr = {};
+	      if(principal != null) {
+	         userId = principal.getName();
+	         local =Mservice.getLocal(principal);
+	         localArr = local.split(",");
+	      }
+	      mview.addObject("localCnt",localArr.length);
+	      mview.addObject("localArr",localArr);
 
 		int totalCount = Nservice.NgetTotalCount();
 

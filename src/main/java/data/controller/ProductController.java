@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -334,9 +335,15 @@ public class ProductController {
 		
 		//팝업창 insert
 		
-		String seller=principal.getName();
-		model.addAttribute("seller", seller);
+		String seller="no";
+		if(principal != null) {
+			seller=principal.getName();
+		}
+	
 		
+		model.addAttribute("poplist", poplist);
+		model.addAttribute("idx", idx);
+		model.addAttribute("seller", seller);
 		model.addAttribute("dto", dto);
 		model.addAttribute("list", list);
 		model.addAttribute("isLogin", isLogin);
@@ -402,12 +409,12 @@ public class ProductController {
 	
 
 
-	
+	@ResponseBody
 	@PostMapping("/popinsert")
-	public String insert(@ModelAttribute ReviewDTO rdto)
+	public String popinsert(@RequestParam String seller,@RequestParam String buyer,@RequestParam String content)
 	{	
-		rservice.ReviewInsert(rdto);
-		
+		String buyerid=mservice.getIdTakeNick(buyer);
+		System.out.println(buyerid);
 		return "/product/list";
 	}
 	
