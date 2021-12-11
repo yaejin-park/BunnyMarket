@@ -14,9 +14,9 @@
 		<if test="category!='전체'">
 			where category=#{category}
 		</if>
-		<if test="keyword!=null">
+	<!-- <if test="keyword!=null">
 			and title like CONCAT('%',#{keyword},'%') 
-		</if>
+		</if> -->
 		order by idx desc limit #{start},#{perpage}
 	</select>
 	
@@ -74,8 +74,24 @@
 		update product set sellstatus = #{status} where idx=#{idx}
 	</update>
 	
-	<select id="sellList" parameterType="pdto" resultType="pdto">
-      select * from product where sellstatus = #{status} and id = #{id} order by idx asc
+	<select id="sellList" parameterType="HashMap" resultType="pdto">
+      select * from product order by idx desc limit #{start},#{perpage}
    </select>
-	
+
+   <select id="getListByStatus" parameterType="HashMap" resultType="pdto">
+		select
+			*
+		from
+			product
+		<if test="sellstatus != null and sellstatus != '전체'">
+		where
+			sellstatus =#{sellstatus}
+		</if>
+		order by idx desc 
+		limit #{start},#{perpage}
+	</select>
+   
+	<select id="getMainList" resultType="pdto">
+		select * from product order by idx desc limit 0,12
+	</select>
 </mapper>

@@ -171,6 +171,8 @@ $(function(){
 			data:{"local": local},
 			success:function(){
 				console.log("성공");
+				alert("지역변경 완료했습니다.")
+				location.reload();
 			}
 		});
 	});
@@ -183,7 +185,7 @@ $(function(){
 			data:{"local":text},
 			dataType:"json",
 			success:function(data){
-				if(data.cnt>0){
+				if(data.orginalLocal == text){
 					alert("기본 주소는 삭제할 수 없습니다.");
 				}else{		
 					if($(".local-map-div .user-local-list li:not(.plus-type)").length > 1){
@@ -199,10 +201,5 @@ $(function(){
 				}
 			}
 		});	
-	});
-	
-	$(document).on("click", "header .local-option li:not(.set-btn)", function(){
-		console.log($(this).find("span").text());
-		$("header .local-div .local-btn").text($(this).find("span").text());
 	});
 });

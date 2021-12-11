@@ -205,6 +205,7 @@
 				<input type="hidden" name="seller" value="${seller}" id="seller">
 				<input type="hidden" name="buyer" value="" id="buyer">
 				
+
 				<div id="my-rating">
 				
 				<fieldset> 
@@ -224,6 +225,7 @@
 				</div>
 				<textarea placeholder="선택사항" name="content" id="popcontent"></textarea>
 				<button type="button" class="btn-add" id="btn-pop-insert">등록</button>
+				<input type="hidden" id="isLogin" value="${isLogin}">
 				
 			
 		</div>	
@@ -234,6 +236,12 @@
 	
 	
 </div>
+
+		
+	
+	
+	
+
 	
 
     
@@ -273,6 +281,7 @@ $(document).ready(function() {
 			}
 		}
 	}
+
 
 	$("#choosePop .review-choose-btn").click(function(){
 		var chooseNick = $(this).parent("td.go").prev(".name").find("span").text();
@@ -357,7 +366,7 @@ function dibsClicked(){
 	console.log("dibs");
 	//로그인 여부
 	//로그인 안했을 경우
-	if(${isLogin != "Y"}){
+	if($("#isLogin").val() !="Y"){
 		alert("로그인 이후, 사용가능합니다");
 		return;
 	}  else{ //로그인 했을 경우
@@ -400,7 +409,7 @@ function dibsClicked(){
 $(document).on("click","#follow", function() {
 	//로그인 여부
 	//로그인 안했을 경우
-	if(${isLogin!="Y"}){
+	if($("#isLogin").val() != "Y"){
 		alert("로그인 이후, 이용가능한 서비스입니다.");
 		return;
 	}  else{
@@ -458,15 +467,23 @@ $(document).on("click","#follow", function() {
 $(document).on("click","#chatBtn", function() {
 	//로그인 여부
 	//로그인 안했을 경우
-	if(${isLogin!="Y"}){
+	if($("#isLogin").val() != "Y"){
 		alert("로그인 이후, 이용가능한 서비스입니다.");
 		return;
 	}  else{
 		//로그인 했을 경우
-		var id = "${myId}";
+		//판매완료 상태일때
+		if($(".sellstatus span").text()=="판매완료"){
+			alert("판매완료된 제품입니다.\n채팅이 불가합니다.");
+			return;
+		} else if($(".sellstatus span").text()=="예약중"){
+			alert("예약 중인 제품입니다.\n채팅이 불가합니다.");
+			return;
+		}
+		
 		var idx = "${dto.idx}";
 		
-		location.href ='../chat/auth/room?idx='+idx+"&id="+id;
+		location.href ='../chat/auth/room?idx='+idx;
 	}
 });
 
@@ -516,6 +533,9 @@ $(document).on("change", "#statusSelect", function() {
 	}); 
 });
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> b79eaea570bb11660a4311df649fd33ed280e955
 </script>
 

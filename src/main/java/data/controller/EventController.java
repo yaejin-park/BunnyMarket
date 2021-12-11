@@ -39,6 +39,7 @@ public class EventController {
 	public ModelAndView list(
 		@RequestParam(defaultValue = "1") int currentPage,
 		@RequestParam(defaultValue = "전체") String category,
+		@RequestParam(defaultValue = "process") String status,
 		Principal principal
 		) 
 	{
@@ -55,7 +56,7 @@ public class EventController {
 		}
 		
 		List<String> categoryArr = service.getCategory();
-		int total = service.getTotal(category);
+		int total = service.getTotal(category, status);
 		
 		int perPage=10;
 		int totalPage;
@@ -72,7 +73,7 @@ public class EventController {
 		}
 		start=(currentPage-1)*perPage;
 		
-		List<EventDTO> list = service.getPageList(start , perPage, category);
+		List<EventDTO> list = service.getPageList(start , perPage, category, status);
 		
 		mview.addObject("totalCount", total);
 		mview.addObject("eventList", list);
@@ -82,6 +83,7 @@ public class EventController {
 		mview.addObject("userType", userType);
 		mview.addObject("categoryArr", categoryArr);
 		mview.addObject("selectCategory", category);
+		mview.addObject("status", status);
 		mview.addObject("localCnt", localArr.length);
 		mview.addObject("localArr", localArr);
 		mview.setViewName("/event/list");
@@ -168,20 +170,15 @@ public class EventController {
 		HttpSession session
 		) throws Exception
 	{
-		//System.out.println("fileList =>" + multiRequest.getFile("uploadFile"));
 		List<MultipartFile> fileList = multiRequest.getFiles("uploadFile");
 		String title = multiRequest.getParameter("title");
 		String content = multiRequest.getParameter("content");
 		String category = multiRequest.getParameter("category");
 		Timestamp eventStart = Timestamp.valueOf(multiRequest.getParameter("eventStart"));
 		Timestamp eventEnd = Timestamp.valueOf(multiRequest.getParameter("eventEnd"));
-		/*
-		System.out.println("title => " + title);
-		System.out.println("content => " + content);
-		System.out.println("filename=>" + fileList.get(0).getOriginalFilename());*/
+		
 		String photoname = "";
 		String originalPhotoName = "";
-		//System.out.println("file갯수=>" + fileList.size());
 		if(fileList != null) {
 			String path = session.getServletContext().getRealPath("/photo");
 			
@@ -320,13 +317,26 @@ public class EventController {
 		Principal principal
 		) 
 	{
+		System.out.println("checkStep =>" +checkStep);
+		int regroup = dto.getRegroup();
+		int restep = dto.getRestep();
+		int relevel = dto.getRelevel();
+		
 		dto.setId(principal.getName());
 		if(checkStep.equals("no")) {
-			dto.setRegroup(dto.getRegroup() + 1);
+			regroup = regroup+1;
+			restep=0;
+			relevel=0;
 		}else {
-			dto.setRestep(dto.getRestep() + 1);
-			dto.setRelevel(dto.getRelevel() + 1);
+			service.updateReplyStep(restep, regroup);
+			
+			restep++;
+			relevel++;
 		}
+
+		dto.setRegroup(regroup);
+		dto.setRestep(restep);
+		dto.setRelevel(relevel);
 		service.insertReplyData(dto);
 	}
 	

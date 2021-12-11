@@ -27,11 +27,11 @@
 	</select>
 	
 	<select id="getChatIdx" parameterType="String" resultType="String"> 
-		select idx from chat where product_idx = #{product_idx} and buyer_id= #{buyer_id}
+		select idx from chat where product_idx = #{product_idx} and (seller_id =#{id} or buyer_id =#{id})
 	</select>
 	
-	<update id="updateChatTime" parameterType="String">
-		update chat set last_time = now() where product_idx = #{product_idx} and buyer_id= #{buyer_id}
+	<update id="updateChatTimeMsg" parameterType="String">
+		update chat set last_time = now(), last_msg = #{last_msg} where product_idx = #{product_idx} and (seller_id =#{id} or buyer_id =#{id})
 	</update>
 	
 	<select id="getChatFile" parameterType="String" resultType="String"> 
@@ -42,4 +42,33 @@
 		delete from chat_list where chat_idx=#{chat_idx} and id=#{id}
 	</delete>
 	
+	<delete id="deleteChat" parameterType="String">
+		delete from chat where idx=#{idx}
+	</delete>
+	
+	<select id="countList" parameterType="String" resultType="int">
+		select count(*) from chat_list where chat_idx=#{chat_idx}
+	</select>
+	
+	<select id="getChatList" parameterType="String" resultType="cldto">
+		select * from chat_list where id = #{id}
+	</select>
+	
+	<select id="getChatListJoin" parameterType="String" resultType="cldto">
+		select cl.product_idx as product_idx, c.last_msg as last_msg ,m.profile as profile, m.nickname as nickname,  p.uploadfile as upload_file
+		from chat_list AS cl 
+		INNER JOIN chat AS c ON cl.chat_idx = c.idx 
+		INNER JOIN member AS m ON m.id = 
+			CASE 
+				WHEN c.buyer_id = cl.id THEN c.seller_id 
+		        WHEN c.seller_id = cl.id THEN c.buyer_id 
+			END
+		INNER JOIN product AS p ON c.product_idx = p.idx
+		where cl.id = #{id}
+		order by c.last_time desc
+	</select> 
+	
+	<update id="updateChatState" parameterType="String">
+		update chat set state = #{state} where product_idx=#{product_idx}
+	</update>
 </mapper>

@@ -66,12 +66,12 @@ public class LocalController {
 		System.out.println("local=>"+local);
 		map.put("local", local);
 		map.put("id", principal.getName());
-		String cnt = memberService.checkLocal(map);
-		
-		System.out.println("cnt=>"+cnt);
+		String[] localArr = memberService.getLocal(principal).split(",");
+		String orginalLocal = localArr[0];
+		System.out.println("orginalLocal=>"+orginalLocal);
 		
 		HashMap<String, String> resultMap = new HashMap<String, String>();
-		resultMap.put("cnt", cnt);
+		resultMap.put("orginalLocal", orginalLocal);
 		return resultMap;
 	}
 }

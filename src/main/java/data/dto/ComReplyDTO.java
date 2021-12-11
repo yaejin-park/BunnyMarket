@@ -11,10 +11,11 @@ public class ComReplyDTO {
 	private String id;
 	private String content;
 	private Timestamp writeday;
-	
+	private String profile;
 	private int regroup;
 	private int restep;
 	private int relevel;
+	private String nickname;
 	
 	public int getIdx() {
 		return idx;
@@ -46,6 +47,12 @@ public class ComReplyDTO {
 	public void setWriteday(Timestamp writeday) {
 		this.writeday = writeday;
 	}
+	public String getProfile() {
+		return profile;
+	}
+	public void setProfile(String profile) {
+		this.profile = profile;
+	}
 	public int getRegroup() {
 		return regroup;
 	}
@@ -63,6 +70,12 @@ public class ComReplyDTO {
 	}
 	public void setRelevel(int relevel) {
 		this.relevel = relevel;
+	}
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 	
 	
