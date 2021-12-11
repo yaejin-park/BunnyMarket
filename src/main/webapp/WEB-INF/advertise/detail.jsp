@@ -96,7 +96,7 @@
 		<c:if test="${userId == dto.id}">
 			<button type="button" class="btn-list delist" onclick="location.href='list'">목록</button>
 			<button type="button" class="btn-update" onclick="location.href='./auth/updateform?idx=${dto.idx}&currentPage=${currentPage}'">수정</button>
-			<button type="button" id="deleteBtn" class="btn-delete" value="${dto.idx}">삭제</button>
+			<button type="button" id="deleteBtn" class="btn-delete" idx="${dto.idx}">삭제</button>
 		</c:if>
 	</div>
 	<div class="img-detail-div">
@@ -223,5 +223,5 @@
 	</div>
 </div>
 
-<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script type="text/javascript" src="/js/swiper.min.js"></script>
 <script type="text/javascript" src="/js/advertise_script.js"></script>
