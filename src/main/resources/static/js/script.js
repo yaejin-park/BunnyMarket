@@ -61,9 +61,7 @@ $(function(){
 			gsap.to(".gnb", 0, {right:-$(".gnb").outerWidth(true) - 100});
 		}
 		
-		//상세페이지 롤링
 		if($(".detail-swiper").length > 0){
-			// 상세 페이지 - 큰 이미지 롤링
 			$(".infoAll .bigImg").each(function(){
 				$(this).height($(this).width());
 				if($(this).width() > $(this).find("img").height()){
@@ -87,7 +85,6 @@ $(function(){
 			});
 		}
 		if($(".thumbnailDiv").length > 0) {
-			//리스트 이미지 정사각형
 			$(".thumbnailDiv").each(function(){
 				$(this).height($(this).width());
 				
