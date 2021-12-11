@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -34,7 +35,6 @@ import data.dto.CommunityDTO;
 import data.dto.MemberDTO;
 import data.mapper.CommunityMapper;
 import data.service.CommunityService;
-import data.service.ComreplyService;
 import data.service.MemberService;
 
 @Controller
@@ -43,8 +43,7 @@ public class CommunityController {
 
 	@Autowired
 	CommunityService service;
-	@Autowired
-	ComreplyService reservice;
+	
 	@Autowired
 	MemberService mservice;
 
@@ -94,7 +93,7 @@ public class CommunityController {
 
 		for(CommunityDTO d:list) {
 			//댓글 갯수가져오기
-			List<ComReplyDTO> relist=reservice.getReplyList(Integer.parseInt(d.getIdx()));
+			List<ComReplyDTO> relist = service.getReplyList(d.getIdx());
 			d.setAcount(relist.size());
 		}
 		
@@ -104,7 +103,6 @@ public class CommunityController {
 		mview.addObject("endPage",endPage);
 		mview.addObject("totalPage",totalPage);
 		mview.addObject("currentPage",currentPage);
-
 		mview.addObject("totalCount",list.size());
 
 		mview.setViewName("/community/list");
@@ -143,13 +141,8 @@ public class CommunityController {
 				)throws Exception
 	   {
 		
-		//로그인중이 아닐 경우 종료
-		String isLogin=(String)request.getSession().getAttribute("isLogin");
-		if(isLogin==null) {
-			return;
-		}
-		
 	    List<MultipartFile> fileList = multiRequest.getFiles("uploadFile");
+	    
 	    String title = multiRequest.getParameter("title");
 	    String content = multiRequest.getParameter("content");
 	      
@@ -183,8 +176,10 @@ public class CommunityController {
 	      }
 	      
 	      //아이디 얻어서 dto에 저장
-	      String id = principal.getName();
 	      CommunityDTO dto = new CommunityDTO();
+	    //아이디 얻어서 dto에 저장
+	      String id=principal.getName();
+	      
 	      dto.setId(id);
 	      dto.setTitle(title);
 	      dto.setContent(content);
@@ -199,82 +194,86 @@ public class CommunityController {
 	@GetMapping("/detail")
 	public ModelAndView detail(
 			@RequestParam String idx,
+			@RequestParam(defaultValue = "1") int currentPage,
 			@RequestParam(required = false) String key,
+			@RequestParam Map<String, String> map,
 			HttpServletRequest request,
-			Principal principal,
-			@RequestParam Map<String, String> map
+			Model model,
+			Principal principal
 			)
 	{
 		ModelAndView mview = new ModelAndView();
+		//지역 가져오기
+		String userId = "no";
+		String userType = "no";
+		String userNickName = "no";
+		String local = "";
+		String[] localArr = {};
+		String userProfile = "no";
 		
-		//커뮤니티DTO 데이터 가져오기 
-		CommunityDTO dto = service.getData(idx);
-		
-		//멤버DTO 데이터 가져오기 
-		MemberDTO mdto =service.getMemData(idx);
-		 
-		//닉네임 가져오기
-		String nick = mservice.getNick(dto.getId());
+		//아이디,닉네임,위치 가져오기
+		if(principal != null) {
+			userId = principal.getName();
+			userType = mservice.currentUserType(principal);
+			userNickName = mservice.currentUserNickName(principal);
+			userProfile = mservice.getMemberId(userId).getProfile();
+			local = mservice.getLocal(principal);
+			localArr = local.split(",");
+		}
 		
 		//로그인 여부
 		String isLogin = "N";
 		isLogin = (String)request.getSession().getAttribute("isLogin");
-		
-		//로그인 되어있을때 
+
+		//로그인 되어 있을 경우,
 		if(isLogin!=null) {
-			//로그인 아이디 가져오기
 			String id = principal.getName();
-			mview.addObject("myId",id);
-			
-			//공감 클릭여부
-			int goodCheck = service.goodCheck(id, idx);
-			mview.addObject("goodCheck",goodCheck);
+			model.addAttribute("myId", id);
 		}
-		
 		//리스트에서 들어올 경우 조회수 증가하기
-		if(key!=null)
+		if(key!=null) {
 			service.updateReadCount(idx);
-		
-		//,로 사진나누기 (대표이미지)
-		String []photo = dto.getPhoto().split(",");
-		
-		//지역 가져오기
-		String userId = "no";
-		String local = "";
-		String[] localArr = {};
-		if(principal != null) {
-			userId = principal.getName();
-			local = mservice.getLocal(principal);
-			localArr = local.split(",");
+			
 		}
-		mview.addObject("localCnt",localArr.length);
-		mview.addObject("localArr",localArr);
+		//커뮤니티DTO 데이터 가져오기 
+		CommunityDTO dto = service.getData(idx);
+		
+		//게시글 닉네임,이미지 불러오기
+		String nick = mservice.getNick(dto.getId());
+		String profile = mservice.getMemberId(dto.getId()).getProfile(); //  게시글 쓴 애 프로필
+		
+		//,로 DB사진나누기 (대표이미지)
+		String [] photo = dto.getPhoto().split(",");
+		
+		//댓글관련
+		String maxReply = service.getMaxReply(idx);
+		
+		List<ComReplyDTO> relist = service.getReplyList(idx);
+		int recount = relist.size();
+		
+		for(ComReplyDTO cdto:relist) {
+			cdto.setNickname(mservice.getNick(cdto.getId()));
+			cdto.setProfile(mservice.getMemberId(cdto.getId()).getProfile());
+		}
 		
 		mview.addObject("dto",dto);
-		mview.addObject("mdto",mdto);
 		mview.addObject("photo",photo);
-		mview.addObject("isLogin",isLogin);
 		mview.addObject("nick",nick);
-		
-		//댓글
-		List<ComReplyDTO> relist=reservice.getReplyList(Integer.parseInt(idx));
-		mview.addObject("recount", relist.size());
+		mview.addObject("userId", userId);
+		mview.addObject("userType", userType);
+		mview.addObject("userNickName", userNickName);
+		mview.addObject("userProfile", userProfile); // 현재 로그인된 애 프로필 (댓글쓸때)
 		mview.addObject("relist", relist);
+		mview.addObject("recount", recount);
+		mview.addObject("maxReply", maxReply);
+		mview.addObject("localCnt", localArr.length);
+		mview.addObject("localArr", localArr);
+		mview.addObject("currentPage", currentPage);
+		mview.addObject("isLogin", isLogin);
+		mview.addObject("profile", profile);
 		
-		 //아래값은 답글일 경우만 넘어옴(num, currentPage도) 
-		String currentPage=map.get("currentPage"); 
-		String num=map.get("num"); 
-		String regroup=map.get("regroup"); 
-		String restep=map.get("restep"); 
-		String relevel=map.get("relevel");
-		  
-		  //입력폼에 hidden 넣어줘야함 
-		mview.addObject("num", num==null?"0":num);
-		mview.addObject("currentPage",currentPage==null?"1":currentPage);
-		mview.addObject("regroup",regroup==null?"0":regroup);
-		mview.addObject("restep",restep==null?"0":restep);
-		mview.addObject("relevel",relevel==null?"0":relevel);
-		 
+		System.out.println("isLogin=>" + isLogin);
+		
 		mview.setViewName("/community/detail");
 		
 		return mview;
@@ -284,27 +283,24 @@ public class CommunityController {
 	public String delete(
 			@RequestParam String idx,
 			@RequestParam String currentPage,
-			HttpSession session
+			HttpSession session,
+			CommunityDTO dto
 			)
 	{
-		//실제 업로드 폴더경로 구하기
-		String path = session.getServletContext().getRealPath("/photo");
-		System.out.println(path);
-		
-		//업로드 파일명 구하기
-		String photo=service.getData(idx).getPhoto();
-		
-		//File 객체 생성
-		File file = new File(path + "\\" + photo);
-		
-		//삭제하기
-		file.delete();
-		
-		service.delete(idx);
-		return "redirect:list?currentPage="+currentPage;
+		//글삭제시 저장된 이미지도 삭제
+	      String path=session.getServletContext().getRealPath("/photo");
+	      //업로드된 이미지명
+	      String uploadimg=service.getData(dto.getIdx()).getPhoto();
+	      //File 객체 생성
+	      File file=new File(path+"\\"+uploadimg);
+	      //이미지 삭제
+	      file.delete();
+	      
+	     service.delete(idx);
+		return "redirect:../list?currentPage="+currentPage;
 	}
 	
-	@GetMapping("/updateform")
+	@GetMapping("/auth/updateform")
 	public ModelAndView updateform(
 			 @RequestParam String idx,
 			 @RequestParam String currentPage,
@@ -334,13 +330,13 @@ public class CommunityController {
 		return mview;
 	}
 	
-	@PostMapping("/update")
+	@PostMapping("/auth/update")
 	public @ResponseBody void update(
 			MultipartHttpServletRequest multiRequest,
 			HttpServletRequest request,
 			HttpSession session,
 			@RequestParam String idx,
-			@RequestParam String currentPage,
+			@RequestParam(defaultValue = "1") int currentPage,
 			Principal principal
 			)throws Exception
 	{
@@ -350,15 +346,12 @@ public class CommunityController {
 		if(isLogin==null) {
 			return;
 		}
-		 
 		List<MultipartFile> fileList = multiRequest.getFiles("uploadFile");
 	    String title = multiRequest.getParameter("title");
 	    String content = multiRequest.getParameter("content");
 	      
-	      
 	    String photoname = "";
 	    String originalPhotoName = "";
-	      
 	      
 	    if(fileList != null) {
 	    	String path = session.getServletContext().getRealPath("/photo");
@@ -395,32 +388,78 @@ public class CommunityController {
 		
 		//수정
 		service.update(dto);
-		
 	}
 	
-	@ResponseBody
+	
 	@PostMapping("/updateGoodcount")
-	public int updateGoodcount(@RequestParam String idx, Principal principal) {
-		String id = principal.getName();
+	public @ResponseBody HashMap<String, Integer> updateGoodCount(
+			@RequestParam String idx, 
+			Principal principal
+			) 
+	{
 		//goodcount +1 하기 
-		service.updateGoodcount(idx);
-		//데이터 추가
-		service.insertGood(id, idx);
+		service.updateGoodCount(idx);
+		Integer goodCnt = service.getGoodCount(idx);
+		HashMap<String, Integer> resultMap = new HashMap<String, Integer>();
+		resultMap.put("goodCnt", goodCnt);
 		
-		return service.getGoodCount(idx);
+		return resultMap;
 	}
 	
-	@ResponseBody
+	
 	@PostMapping("/updateGoodCancel")
-	public int updateGoodCancel(@RequestParam String idx, Principal principal) {
-		String id = principal.getName();
+	public @ResponseBody HashMap<String, Integer> updateGoodCancel(
+			@RequestParam String idx, 
+			Principal principal
+			) 
+	{
 		//goodcount -1하기
 		service.updateGoodCancel(idx);
-		//데이터 삭제
-		service.deleteGood(id, idx);
 		
-		return service.getGoodCount(idx);
+		Integer goodCnt = service.getGoodCount(idx);
+		HashMap<String, Integer> resultMap = new HashMap<String, Integer>();
+		resultMap.put("goodCnt", goodCnt);
+		
+		return resultMap;
 	}
+	
+	@PostMapping("/auth/reply/insert")
+	public @ResponseBody void replyInsert(
+			@ModelAttribute ComReplyDTO dto,
+			@RequestParam String checkStep,
+			Principal principal
+			)
+	{
+		System.out.println("checkStep =>"+ checkStep);
+		int regroup = dto.getRegroup();
+		int restep = dto.getRestep();
+		int relevel = dto.getRelevel();
+		
+		dto.setId(principal.getName());
+		if(checkStep.equals("no")) {
+			regroup = regroup + 1;
+			restep = 0;
+			relevel = 0;
+		}else {
+			service.updateReplyStep(restep,regroup);
+			
+			restep++;
+			relevel++;
+		}
+		dto.setRegroup(regroup);
+		dto.setRestep(restep);
+		dto.setRelevel(relevel);
+		service.insertReplyData(dto);
+	}
+	
+	@GetMapping("/auth/reply/delete")
+	public @ResponseBody void replyDelete(
+			@RequestParam String idx
+			)
+	{
+		service.deleteReply(idx);
+	}
+	
 	
 }
 

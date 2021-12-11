@@ -5,15 +5,17 @@
 <div class="faq-div">
 	<div class="inner">
 		<form class="faq-form-div">
-			<div class="btn-wrap">
-				<button type="submit" class="btn-add" onclick="location.href='insertform'">글쓰기</button>
-			</div>
-			<select id="faq-category">
+		<select id="faq-category">
 				<option value="all">전체</option>
 				<option value="sale">구매/판매</option> 
 				<option value="manner">거래매너</option>
 				<option value="other">기타</option>
 			</select>
+			<c:if test="${admin == 'admin'}">
+				<div class="btn-wrap">
+					<button type="button" class="btn-add" onclick="location.href='insertform'">글쓰기</button>
+				</div>
+			</c:if>
 			<table class="table">
 				<thead>
 					<tr>
@@ -25,7 +27,7 @@
 				<tbody id="faq-list-tbody">
 				</tbody>
 			</table>
-			<div id="pagination" style="width: 800px; text-align: center;">
+			<div class="paging">
 			</div>
 		</form>
 	</div>

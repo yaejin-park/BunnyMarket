@@ -30,6 +30,11 @@ $(function(){
 			$(".sub-body .search-area").removeClass("on");   
 		}
 	});   
+	
+	$(document).on("click", "header .local-option li:not(.set-btn)", function(){
+		console.log($(this).find("span").text());
+		$("header .local-div .local-btn").text($(this).find("span").text());
+	});
    
 	$(window).on("load",function(){
 		//상세페이지 롤링

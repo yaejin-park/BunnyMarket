@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import data.dto.FaqDTO;
 import data.dto.ProductDTO;
 
 @Mapper
@@ -24,4 +25,7 @@ public interface ProductMapper {
 	public void deleteData(String idx);
 	public List<ProductDTO> getRelateList(String category, String idx);
 	public void updateStatus(HashMap<String, String> map);
+	public List<ProductDTO> sellList(HashMap<String, Integer> map);
+	public List<ProductDTO> getListByStatus(HashMap<String, Object>map);
+	public List<ProductDTO> getMainList();
 }

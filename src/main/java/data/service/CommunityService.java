@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import data.dto.ComReplyDTO;
 import data.dto.CommunityDTO;
+import data.dto.EventReplyDTO;
 import data.dto.MemberDTO;
 import data.mapper.CommunityMapper;
 
@@ -64,22 +66,32 @@ public class CommunityService {
 	{
 		return mapper.getMemData(idx);
 	}
-	public int goodCheck(String id, String idx) {
-		return mapper.goodCheck(id, idx);
+	public int goodCheck(String userId, String idx) {
+		return mapper.goodCheck(userId, idx);
 	}
 	public int getGoodCount(@RequestParam String idx) {
 		return mapper.getGoodCount(idx);
 	}
-	public void updateGoodcount(@RequestParam String idx) {
-		mapper.updateGoodcount(idx);
+	public void updateGoodCount(@RequestParam String idx) {
+		mapper.updateGoodCount(idx);
 	}
 	public void updateGoodCancel(@RequestParam String idx) {
 		mapper.updateGoodCancel(idx);
 	}
-	public void insertGood(String id, String idx){
-		mapper.insertGood(id,idx);
+	public void insertReplyData(ComReplyDTO dto) {
+		mapper.insertReplyData(dto);
 	}
-	public void deleteGood(String id, String idx) {
-		mapper.deleteGood(id, idx);
+	public void updateReplyStep(int restep,int regroup) {
+		mapper.updateReplyStep(restep, regroup);
 	}
+	public List<ComReplyDTO> getReplyList(String idx) {
+		return mapper.getReplyList(idx);
+	}
+	public String getMaxReply(String idx) {
+		return mapper.getMaxReply(idx);
+	}
+	public void deleteReply(String idx) {
+		mapper.deleteReply(idx);
+	}
+	
 }

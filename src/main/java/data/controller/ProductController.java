@@ -306,6 +306,8 @@ public class ProductController {
 		//로그인 여부
 		String isLogin = "N";
 		isLogin = (String)request.getSession().getAttribute("isLogin");
+		
+		System.out.println("isLogin =>" + isLogin);
 
 		//로그인 되어 있을 경우,
 		if(isLogin!=null) {

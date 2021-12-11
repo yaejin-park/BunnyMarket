@@ -30,12 +30,10 @@ public class LoginController {
 			@RequestParam(value = "exception", required = false) String exception
 			) 
 	{
-		model.addAttribute("error", error);
 		model.addAttribute("exception", exception);
-		
+		model.addAttribute("error", error);
 		request.getSession().setAttribute("returnUrl", request.getHeader("referer"));
-		System.out.println("returnUrl =>" + request.getHeader("referer"));
-
+		//System.out.println("returnUrl =>" + request.getHeader("referer"));
 		return "/login/main";
 	}	
 	

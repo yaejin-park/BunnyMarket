@@ -4,14 +4,17 @@ import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
 
+import java.util.List;
+import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -26,6 +29,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+
+import data.dto.FaqDTO;
 import data.dto.FollowDTO;
 import data.dto.MemberDTO;
 import data.dto.ProductDTO;
@@ -34,6 +39,7 @@ import data.service.FollowService;
 import data.service.MemberService;
 import data.service.ProductLikeService;
 import data.service.ProductService;
+
 
 @Controller
 @RequestMapping("/mypage/auth")
@@ -60,25 +66,23 @@ public class MypageController {
 		) 
 	{
 		ModelAndView mview=new ModelAndView();
-		
-		//로그인 체크
-		String isLogin="N";
-		isLogin=(String)request.getSession().getAttribute("isLogin");
-		
-		//로그인 되어 있을 경우,
-		if(isLogin!=null) {
-			//로그인 아이디 가져오기
-			String id=principal.getName();
-			mview.addObject("myId", id);
+		String id = "no";
+		String local = "";
+		String[] localArr = {};
+		if(principal != null) {
+			id = principal.getName();
+			local = memService.getLocal(principal);
+			localArr = local.split(",");
 		}
 		
-		//닉네임 가져오기
 		String nick=memService.getNick(principal.getName());
 		String profile = memService.getMemberId(principal.getName()).getProfile();
 		
-		mview.addObject("isLogin", isLogin);
 		mview.addObject("nick", nick);
 		mview.addObject("profile", profile);
+		mview.addObject("myId", id);
+		mview.addObject("localCnt", localArr.length);
+		mview.addObject("localArr", localArr);
 		
 		mview.setViewName("/mypage/detail");
 		return mview;
@@ -205,6 +209,7 @@ public class MypageController {
 	
 	@PostMapping("/member/update")
 	public String updateMember(
+		@RequestParam String type,
 		@RequestParam String email1,
 		@RequestParam String email2,
 		@RequestParam String hp1,
@@ -214,31 +219,18 @@ public class MypageController {
 		@RequestParam String zonecode,
 		@RequestParam String addr1,
 		@RequestParam String addr2,
-		MemberDTO dto,
-		Principal principal
+		MemberDTO dto
 		) 
 	{	
-		System.out.println("addrLocal=>" + addrLocal);
-		String[] localArr = memService.getLocal(principal).split(",");
-		String local = "";
-		
-		localArr[0] = addrLocal;
-		
-		for(String i:localArr) {
-			local+=i+",";
-		}
-				
-		local = local.substring(0, local.length()-1);
-		
-		
-		dto.setEmail(email1 + "@" + email2); 
+		dto.setType(type);
+		dto.setPw(encoder.encode(dto.getPw()));
+		dto.setEmail(email1 + "@" + email2);
 		dto.setHp(hp1 + "-" + hp2 + "-" + hp3);
-		dto.setLocal(local); 
+		dto.setLocal(addrLocal);
 		dto.setAddr(addr1 + "," + addr2);
-		dto.setZonecode(zonecode); 
+		dto.setZonecode(zonecode);
 		memService.updateMember(dto);
-		
-		return "redirect:../detail";
+		return "redirect:complete";
 	}
 	
 	@GetMapping("/member/deleteform")
@@ -269,15 +261,16 @@ public class MypageController {
 	public String deleteMember(
 		Principal principal,
 		HttpServletRequest request
-		) 
+		)
 	{
 		memService.deleteMember(principal.getName());
 		request.getSession().removeAttribute("isLogin");
 		return "redirect:/logout";
 	}
 	
-	@GetMapping("/selllist")
-	public @ResponseBody ModelAndView sell_list(
+
+	@GetMapping("/sellList")
+	public @ResponseBody ModelAndView sellList(
 		@RequestParam(defaultValue = "1") int currentPage,
 		@RequestParam (defaultValue = "전체") String category,
 		HttpServletRequest request,
@@ -311,7 +304,7 @@ public class MypageController {
 		totalPage = totalCount/perPage + (totalCount%perPage==0?0:1);
 		//각 블럭의 시작페이지
 		startPage = (currentPage-1)/perBlock * perBlock +1; 
-		//각 블럭 마지막페이지
+		//각 블럭의 마지막페이지
 		endPage = startPage + perBlock-1;
 		if(endPage>totalPage){ endPage = totalPage; }
 		//각 페이지에서 불러올 시작번호
@@ -319,29 +312,35 @@ public class MypageController {
 		
 		List<ProductDTO> list = pservice.getList(startPage, perPage, "전체", "no", "no");
 		
-		
-		//request에서 getParameter로 kind 값을 불러오기
-		String kind = request.getParameter("kind");
-		
 		//출력에 필요한 변수들을 request에 저장
 		mview.addObject("list",list);
-		mview.addObject("kind",kind);
 		mview.addObject("startPage",startPage);
 		mview.addObject("endPage",endPage);
 		mview.addObject("totalPage",totalPage);
 		mview.addObject("currentPage",currentPage);
-		mview.addObject("totalCount",list.size());
 		
-		mview.setViewName("/mypage/sell_list");
+		mview.setViewName("/mypage/sellList");
 		return mview;
 	}
 	@GetMapping("/productlike/list")
 	public ModelAndView productLikeList(
-			@RequestParam (defaultValue = "1") int currentPage, HttpSession session) { 
+			@RequestParam (defaultValue = "1") int currentPage, Principal principal) { 
 		ModelAndView mview = new ModelAndView();
-		String id = (String)session.getAttribute("myid");
+		//지역 가져오기
+		String userId = "no";
+		String local = "";
+		String[] localArr = {};
+		if(principal != null) {
+			userId = principal.getName();
+			local = memService.getLocal(principal);
+			localArr = local.split(",");
+		}
+		mview.addObject("localCnt",localArr.length);
+		
+		mview.addObject("localArr",localArr);
+		String id = principal.getName();
 		int totalCount = plservice.getTotalCount(id);
-	
+		
 		//페이징 처리에 필요한 변수 선언
 		int perPage = 20;
 		int totalPage;
@@ -369,6 +368,9 @@ public class MypageController {
 		//각 페이지에 출력할 시작번호
 		int no = totalCount-(currentPage-1)*perPage;
 		
+		//닉네임 가져오기
+		String nick=memService.getNick(principal.getName());		
+		mview.addObject("nick", nick);
 		//출력에 필요한 변수들을 request에 저장
 		mview.addObject("list",list);
 		mview.addObject("startPage", startPage);
@@ -381,6 +383,48 @@ public class MypageController {
 		mview.setViewName("/productlike/list");
 			  
 		return mview; 
+	}
+	
+
+	@GetMapping("/getListByStatus")
+	@ResponseBody
+	public Map<String, Object> getListByStatus(
+			@RequestParam(defaultValue = "1") int currentPage, 
+			@RequestParam(defaultValue = "전체") String sellstatus,
+			@RequestParam String uploadfile) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		//System.out.println("currentPage="+currentPage);
+		int totalCount=pservice.getTotalCount(sellstatus, "no", "no");
+		int perPage=10;
+		int totalPage;
+		int start;
+		int perBlock=5;
+		int startPage;
+		int endPage;
+		
+		totalPage=totalCount/perPage+(totalCount%perPage == 0?0:1);
+		startPage=(currentPage-1)/perBlock*perBlock+1;
+		endPage=startPage+perBlock-1;
+		
+		if(endPage>totalPage) {
+			endPage=totalPage;
+		}
+		
+		start=(currentPage-1)*perPage;
+		
+		List<ProductDTO> list = pservice.getListByStatus(sellstatus, startPage, perPage, uploadfile);
+		System.out.println("size:"+list.size());
+		System.out.println("status"+sellstatus);
+		
+		result.put("list", list);
+		result.put("sellstatus", sellstatus);
+		result.put("startPage", startPage);
+		result.put("endPage", endPage);
+		result.put("totalPage", totalPage);
+		result.put("currentPage", currentPage);
+		result.put("totalCount", totalCount);
+
+		return result;
 	}
 	
 	@GetMapping("/followlist")
