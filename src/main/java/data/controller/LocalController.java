@@ -29,14 +29,17 @@ public class LocalController {
 		String userId = "no";
 		String local = "";
 		String[] localArr = {};
+		String currentLocal = "";
 		if(principal != null) {
 			userId = principal.getName();
 			local = memberService.getLocal(principal);
+			currentLocal = memberService.currentLocal(userId);
 			localArr = local.split(",");
 		}
 		
 		mview.addObject("localCnt", localArr.length);
 		mview.addObject("localArr", localArr);
+		mview.addObject("currentLocal", currentLocal);
 		mview.setViewName("/local/addLocal");
 		return mview;
 	}
@@ -52,7 +55,6 @@ public class LocalController {
 		map.put("id", userId);
 		map.put("local", local);
 		
-		System.out.println(local);
 		memberService.updateLocal(map);
 	}
 	
@@ -73,5 +75,18 @@ public class LocalController {
 		HashMap<String, String> resultMap = new HashMap<String, String>();
 		resultMap.put("orginalLocal", orginalLocal);
 		return resultMap;
+	}
+	
+
+	@GetMapping("/auth/updatecurrentlocal")
+	public @ResponseBody void updateCurrentLocal(
+		@RequestParam String local,
+		Principal principal
+		) 
+	{
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("id", principal.getName());
+		map.put("current_local", local);
+		memberService.updateCurrentLocal(map);
 	}
 }

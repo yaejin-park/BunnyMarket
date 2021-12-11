@@ -16,6 +16,8 @@ public interface MemberMapper {
 	public String currentUserName(String id);
 	public String currentUserNickName(String id);
 	public String currentUserType(String id);
+	public String currentLocal(String id);
+	public void updateCurrentLocal(HashMap<String, String> map);
 	public String getLocal(String id);
 	public void updateLocal(HashMap<String, String> map);
 	public String checkPw(HashMap<String, String> map);

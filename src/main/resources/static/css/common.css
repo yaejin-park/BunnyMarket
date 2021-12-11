@@ -360,6 +360,13 @@ header .local-div .local-option:before {
 	height:12px;
 	background:url("../image/local-arrow-bg.png") no-repeat right center / 100% auto;
 }
+header .local-div .local-option li {
+	margin-bottom:10px;
+	cursor:pointer;
+}
+header .local-div .local-option li:last-child {
+	margin-bottom:0;
+}
 #cBody {
 	padding:137px 0 175px;
 }

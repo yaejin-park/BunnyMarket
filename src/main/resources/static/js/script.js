@@ -32,8 +32,13 @@ $(function(){
 	});   
 	
 	$(document).on("click", "header .local-option li:not(.set-btn)", function(){
-		console.log($(this).find("span").text());
+		var localTxt = $(this).find("span").text();
 		$("header .local-div .local-btn").text($(this).find("span").text());
+		$.ajax({
+			type:"get",
+			url:"/local/auth/updatecurrentlocal",
+			data:{"local":localTxt}
+		})
 	});
    
 	$(window).on("load",function(){
