@@ -64,8 +64,13 @@ $(function(){
 	});
 	
 	var deleteFile = "";
-	$(document).on("click", ".preview-img .close", function(){
+	$(document).on("click", ".ad-div .preview-img .close", function(e){
 		var delIdx = $(this).parent(".preview-img").attr("idx");
+		
+		if($(this).parents(".ad-div").hasClass("update")){
+			var fileTxt = $(e.target).prev("img").attr("src");
+			deleteFile += $(e.target).prev("img").attr("src").substring(7,fileTxt.length)  + ",";
+		}
 		
 		var fileArr = fileListArr;
 		fileArr.splice(delIdx,1);

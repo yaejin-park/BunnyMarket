@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -45,10 +46,12 @@ public class AdvertiseController {
 		 String userId="no";
 		 String local="";
 		 String []localArr = {};
+			String currentLocal = "";
 		 if(principal != null) {
 		    userId=principal.getName();
 		    local = memService.getLocal(principal);
 		    localArr=local.split(",");
+			currentLocal = memService.currentLocal(userId);
 		 }
 		  
 		  mview.addObject("localCnt", localArr.length);
@@ -167,7 +170,8 @@ public class AdvertiseController {
 				@RequestParam(defaultValue = "1") int currentPage,
 				@RequestParam(required = false) String key,
 				@RequestParam Map<String, String> map,
-				HttpServletRequest request, Principal principal) {
+				HttpServletRequest request, Principal principal,
+				Model model) {
 		ModelAndView mview=new ModelAndView();
 		
 		String userId = "no";
@@ -175,11 +179,17 @@ public class AdvertiseController {
 		String userNickName = "no";
 		String local = "";
 		String[] localArr = {};
-		String profile = "no";
+		String userProfile = "no";
+		String currentLocal = "";
 		
 		//로그인 여부
 		String isLogin = "N";
 		isLogin = (String)request.getSession().getAttribute("isLogin");
+		//로그인 되어 있을 경우,
+		if(isLogin!=null) {
+			String id = principal.getName();
+			model.addAttribute("myId", id);
+		} 
 		
 		if(principal != null) {
 			userId = principal.getName();
@@ -187,20 +197,23 @@ public class AdvertiseController {
 			userNickName = memService.currentUserNickName(principal);
 			local = memService.getLocal(principal);
 			localArr = local.split(",");
-			profile=memService.getMemberId(principal.getName()).getProfile();
+			currentLocal = memService.currentLocal(userId);
+			userProfile=memService.getMemberId(userId).getProfile();
 		}
 		
 		//조회수 증가
 		if(key!=null) {
 			service.updateReadCount(idx);
 		}
+		
 		AdvertiseDTO dto=service.getData(idx);
 		//이미지
 		String []dbimg=dto.getPhoto().split(",");
 		String maxReply = service.getMaxReply(idx);
 		
-		//게시글 닉네임 불러오기
+		//게시글 닉네임, 이미지 불러오기
 		String nick=memService.getNick(dto.getId());
+		String profile=memService.getMemberId(dto.getId()).getProfile();
 		
 		//댓글관련
 		List<AdreplyDTO> relist=service.getReplyList(idx);
@@ -208,6 +221,7 @@ public class AdvertiseController {
 		
 		for(AdreplyDTO reDto:relist) {
 			reDto.setNickname(memService.getNick(reDto.getId()));
+			reDto.setProfile(memService.getMemberId(reDto.getId()).getProfile());
 		}
 		mview.addObject("dto", dto);
 		mview.addObject("currentPage", currentPage);
@@ -223,6 +237,7 @@ public class AdvertiseController {
 		mview.addObject("localArr", localArr);
 		mview.addObject("isLogin", isLogin);
 		mview.addObject("profile", profile);
+		mview.addObject("userProfile", userProfile); //현재 로그인 된 유저 프로필
 		
 		mview.setViewName("/advertise/detail");
 		return mview;
@@ -257,68 +272,54 @@ public class AdvertiseController {
 	}
 	
 	@PostMapping("/auth/update")
-	public @ResponseBody void update(@ModelAttribute AdvertiseDTO dto,
-			HttpSession session, 
-			HttpServletRequest request,
+	public @ResponseBody void update(
+			@RequestParam String idx,
 			MultipartHttpServletRequest multiRequest,
-			Principal principal,
-			@RequestParam List<MultipartFile> uploadFile) throws Exception {
-	
-		//로그인중이 아닐 경우 종료
-		String isLogin=(String)request.getSession().getAttribute("isLogin");
-		if(isLogin==null) {
-			return;
-		}
+			HttpServletRequest request,
+			HttpSession session
+			) throws Exception
+	{
+		String path = session.getServletContext().getRealPath("/photo");
 		
-		//uuid(랜덤이름) 생성
-		UUID uuid=UUID.randomUUID();		
-
-		//이미지 업로드 폴더 지정
-		String path=session.getServletContext().getRealPath("/photo");
+		List<MultipartFile> fileList = multiRequest.getFiles("uploadFile");
+		String title = multiRequest.getParameter("title");
+		String content = multiRequest.getParameter("content");
 		
-		String title=multiRequest.getParameter("title");
-		String content=multiRequest.getParameter("content");
-		uploadFile = dto.getPhotoupload();
 		
-		String photoplus = multiRequest.getParameter("updatePhoto");
+		String photoname = multiRequest.getParameter("updatePhoto");
+		String originalPhotoName = multiRequest.getParameter("updateOrigin");
 		
-		//이미지 업로드 안했을때
-		if(uploadFile.get(0).getOriginalFilename().equals("")) {
-			dto.setPhoto("no");
-		}else {	//이미지 업로드 했을때
-			//이전 사진 삭제
-			String ufile=service.getData(dto.getIdx()).getPhoto();
-			File file=new File(path+"\\"+ufile);
-			file.delete();
-			
-			System.out.println(path);
-	
-			for(int i=0;i<uploadFile.size();i++) {
-				String photo=uuid.toString()+"_"+uploadFile.get(i).getOriginalFilename();
-				//실제 업로드
-				try {
-					uploadFile.get(i).transferTo(new File(path+"\\"+photo));
-				} catch (IllegalStateException | IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				photoplus += photo+",";
+		if(fileList != null) {
+			File dir = new File(path);
+			if(!dir.isDirectory()) {
+				dir.mkdirs();
 			}
-			//마지막 콤마 제거
-			photoplus = photoplus.substring(0, photoplus.length()-1);
-			dto.setPhoto(photoplus);
+			
+			if(!fileList.isEmpty()) {
+				for(int i=0; i<fileList.size(); i++) {
+					String random = UUID.randomUUID().toString();
+					String originalFileName = fileList.get(i).getOriginalFilename();
+					String saveFileName = random + "_" + originalFileName;
+					String savePath = path + "\\" + saveFileName;
+					fileList.get(i).transferTo(new File(savePath));		
+					
+					photoname += saveFileName + ",";
+					originalPhotoName += originalFileName + ","; 
+				}
+				
+				photoname = photoname.substring(0, photoname.length()-1);
+				originalPhotoName = originalPhotoName.substring(0, originalPhotoName.length()-1);
+			}
 		}
-		//아이디 얻어서 dto에 저장
-		String id=principal.getName();
-		dto.setId(id);
-		
+
+		AdvertiseDTO dto = service.getData(idx);
+		dto.setIdx(idx);
 		dto.setTitle(title);
 		dto.setContent(content);
+		dto.setPhoto(photoname);
+		dto.setOriginal_photo(originalPhotoName);
 		
-		//insert
 		service.updateAdvertise(dto);
-		//return "redirect:/advertise/detail?idx="+service.getMaxIdx();
-		//return "/advertise/list";
 	}
 	
 	@GetMapping("/auth/delete")

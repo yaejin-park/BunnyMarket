@@ -16,7 +16,7 @@
 					<label for="chooseFile"> 
 						<img src="/image/write-upload-icon.JPG" alt="이미지 등록">
 					</label>
-					<input type="file" id="chooseFile" name="photoupload" class="img-input" multiple="multiple"/>
+					<input type="file" id="chooseFile" name="photo-upload" class="img-input" multiple="multiple"/>
 				</div>
 				<div class="preview-area">
 					<input type="hidden" name="photo" value="${dto.photo}">

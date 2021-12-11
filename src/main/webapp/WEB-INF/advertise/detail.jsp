@@ -15,10 +15,10 @@
 					<c:forEach items="${dto.photo}" var="dbimg">				
 						<div class="swiper-slide bigImg fix">
 							<c:if test="${dto.photo=='no'}">
-								<img class="bigImg" alt="thumbnail" src="/image/list-noimg.gif">
+								<img alt="thumbnail" src="/image/list-noimg.gif">
 							</c:if>
 							<c:if test="${dto.photo!='no'}">
-								<img class="bigImg" alt="thumbnail" src="../photo/${dbimg}">
+								<img alt="thumbnail" src="../photo/${dbimg}">
 							</c:if>
 						</div>
 					</c:forEach>
@@ -31,10 +31,10 @@
 				<c:forEach items="${dbimg}" var="dbimg">			
 					<div class="smImg child">
 						<c:if test="${dto.photo=='no'}">
-							<img alt="smallImage" src="/image/list-noimg.gif" class="smImg">
+							<img alt="smallImage" src="/image/list-noimg.gif">
 						</c:if>
 						<c:if test="${dto.photo!='no'}">
-							<img alt="smallImage" src="../photo/${dbimg}" class="smImg">
+							<img alt="smallImage" src="../photo/${dbimg}">
 						</c:if>
 					</div>
 				</c:forEach>
@@ -49,13 +49,15 @@
 					</td>
 				</tr>
 				<tr>
-					<td rowspan="2" class="profile">
-						<c:if test="${profile =='no'}">
-							<img alt="프로필이미지" src="/image/profile-icon.png" class="profileImg">
-						</c:if>
-						<c:if test="${profile !='no'}">
-							<img alt="프로필이미지" src="/photo/${profile}" class="profileImg">
-						</c:if>
+					<td rowspan="2">
+						<p class="profile">
+							<c:if test="${profile =='no'}">
+								<img alt="프로필이미지" src="/image/profile-icon.png" class="profileImg">
+							</c:if>
+							<c:if test="${profile !='no'}">
+								<img alt="프로필이미지" src="/photo/${profile}" class="profileImg">
+							</c:if>
+						</p>
 					</td>
 					<td class="nick tit verticalBottom">
 						${nick}
@@ -121,11 +123,11 @@
 		<div class="re-div">
 			<p class="re-info writer">
 				<span class="profile">
-					<c:if test="${profile =='no'}">
+					<c:if test="${userProfile =='no'}">
 							<img alt="프로필이미지" src="/image/profile-icon.png">
 					</c:if>
-					<c:if test="${profile !='no'}">
-						<img alt="프로필이미지" src="/photo/${profile}">
+					<c:if test="${userProfile !='no'}">
+						<img alt="프로필이미지" src="/photo/${userProfile}">
 					</c:if>
 				</span>
 				<c:if test="${userNickName=='no'}">
@@ -170,7 +172,12 @@
 	    				<input type="hidden" name="relevel" value="${ardto.relevel}">
 	    				<p class="re-info writer">
 	    					<span class="profile">
-	    						<img alt="" src="/image/profile-icon.png">
+	    						<c:if test="${ardto.profile =='no'}">
+									<img alt="프로필이미지" src="/image/profile-icon.png">
+								</c:if>
+								<c:if test="${ardto.profile !='no'}">
+									<img alt="프로필이미지" src="/photo/${ardto.profile}">
+								</c:if>
 	    					</span>
 	    					<span>${ardto.nickname}</span>
 	    				</p>
@@ -192,7 +199,12 @@
 							<input type="hidden" value="${maxReply}" name="regroup">
 							<p class="re-info writer">
 								<span class="profile">
-									<img alt="" src="/image/profile-icon.png">
+									<c:if test="${userProfile =='no'}">
+									<img alt="프로필이미지" src="/image/profile-icon.png">
+								</c:if>
+								<c:if test="${userProfile !='no'}">
+									<img alt="프로필이미지" src="/photo/${userProfile}">
+								</c:if>
 								</span>
 								<c:if test="${userNickName=='no'}">
 									<a href="/login/main"><span>로그인해주세요.</span></a>
