@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import data.dto.FaqDTO;
 import data.dto.ProductDTO;
 
 @Mapper

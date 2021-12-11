@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <link rel="stylesheet" type="text/css" href="/css/swiper.min.css">
@@ -19,10 +20,10 @@
 			<div class="detail-swiper">
 				<div class="bigImgDiv swiper-wrapper">
 					<c:forEach items="${photo}" var="photo">
-						<div class="swiper-slide bigImg fix">
+						<div class="swiper-slide bigImg fix"> <!-- positon : relative -->
 							<!-- 이미지 없는경우 -->
 							<c:if test="${photo=='no'}">
-								<img class="bigImg" alt="thumbnail" src="../image/co-noimg.jpg">
+								<img class="bigImg" alt="thumbnail" src="../image/co-noimg.jpg"> <!-- position:abso, top50% left 50% trasla -50%-% -->
 							</c:if>
 							<!-- 이미지 있는경우 -->
 							<c:if test="${photo!='no'}">

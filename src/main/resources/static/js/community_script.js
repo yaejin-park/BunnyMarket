@@ -1,17 +1,15 @@
 $(function(){
-	
-	$(".smImgDiv").mouseenter(function() {
-		var original = $(".bigImage").attr("src");
-		console.log("enter"+original);
-		$(".smallImg").hover(function() {
-			var src = $(this).attr("src");
-			$(".bigImage").attr("src",src);
-		});
-	}), function() {
-		console.log("out");
-		var src = $(this).attr("src");
-		$(".bigImage").attr("src",original);
-	}
+	setTimeout(() => {
+	 var swiper = new Swiper(".mySwiper", {
+		    navigation: {
+		      nextEl: ".swiper-button-next",
+		      prevEl: ".swiper-button-prev",
+		    },
+		    pagination: {
+		      el: ".swiper-pagination",
+		    },
+		  });
+	}, 20);
 
 	$(window).on("load", function(){
         $(".cummu-list li").each(function(){

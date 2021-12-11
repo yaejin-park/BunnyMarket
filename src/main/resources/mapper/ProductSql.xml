@@ -11,7 +11,7 @@
 		</if>
 		
 		<if test="category!='전체'">
-			AND category=#{category}
+			AND category = #{category}
 		</if>
 		
 	 	<if test="keyword != 'no'">
@@ -26,8 +26,8 @@
 			and local = #{location}
 		</if>
 		
-		<if test="category!='전체'">
-			and category=#{category}
+		<if test="category != '전체'">
+			and category = #{category}
 		</if>
 		
 	 	<if test="keyword != 'no'">
