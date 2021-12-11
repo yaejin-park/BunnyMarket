@@ -9,7 +9,7 @@ import data.dto.ProductDTO;
 
 @Mapper
 public interface ProductMapper {
-	public int getTotalCount(String category);
+	public int getTotalCount(String category, String keyword, String location);
 	public List<ProductDTO> getList(HashMap<String, Object> map);
 	public ProductDTO getData(String idx);
 	public void insertData(ProductDTO dto);

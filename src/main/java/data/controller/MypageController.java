@@ -299,7 +299,7 @@ public class MypageController {
 		mview.addObject("localCnt",localArr.length);
 		mview.addObject("localArr",localArr);
 		
-		int totalCount = pservice.getTotalCount(category); 
+		int totalCount = pservice.getTotalCount("전체", "no", "no"); 
 		//페이징 처리에 필요한 변수
 		int perPage = 15; 
 		int totalPage;
@@ -317,7 +317,7 @@ public class MypageController {
 		//각 페이지에서 불러올 시작번호
 		start = (currentPage-1) * perPage; 
 		
-		List<ProductDTO> list = pservice.getList(startPage, perPage, category, local);
+		List<ProductDTO> list = pservice.getList(startPage, perPage, "전체", "no", "no");
 		
 		
 		//request에서 getParameter로 kind 값을 불러오기

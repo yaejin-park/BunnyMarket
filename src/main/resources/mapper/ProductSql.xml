@@ -3,20 +3,36 @@
 
 <mapper namespace="data.mapper.ProductMapper">
 	<select id="getTotalCount" resultType="int" parameterType="String">
-		select count(*) from product
-		<if test="category!='전체'">
-			where category=#{category}
+		SELECT COUNT(*) 
+		FROM product
+		WHERE 1=1
+		<if test="location != 'no'">
+			AND local = #{location}
 		</if>
+		
+		<if test="category!='전체'">
+			AND category=#{category}
+		</if>
+		
+	 	<if test="keyword != 'no'">
+			AND title LIKE CONCAT('%',#{keyword},'%') 
+		</if> 
 	</select>
 
 	<select id="getList" resultType="pdto" parameterType="HashMap">
 		select * from product
-		<if test="category!='전체'">
-			where category=#{category}
+		where 1=1
+		<if test="location != 'no'">
+			and local = #{location}
 		</if>
-<!-- 		<if test="keyword!=null">
+		
+		<if test="category!='전체'">
+			and category=#{category}
+		</if>
+		
+	 	<if test="keyword != 'no'">
 			and title like CONCAT('%',#{keyword},'%') 
-		</if> -->
+		</if> 
 		order by idx desc limit #{start},#{perpage}
 	</select>
 	
@@ -58,7 +74,7 @@
 	</select>
 	
 	<update id="updateData" parameterType="String">
-		update product set title=#{title}, uploadfile=#{uploadfile}, price=#{price}, content =#{content}, category=#{category}, id=#{id}, local=#{local} 
+		update product set title=#{title}, uploadfile=#{uploadfile}, price=#{price}, content =#{content}, category=#{category}, local=#{local} 
 		where idx= #{idx}
 	</update>
 	

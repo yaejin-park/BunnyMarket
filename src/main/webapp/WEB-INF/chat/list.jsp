@@ -14,6 +14,7 @@
 <div class="inner">
 	<div class="list-room">
 		<div class="chat-list">
+			<!--고정된 상단 나의 이름-->
 			<div class="wrap">
 				<img alt="profile" src="/image/profile-icon.png"
 					class="profile-img me">
@@ -21,7 +22,8 @@
 					<span class="tit nick">${nick}</span>
 				</div>
 			</div>
-
+			
+			
 			<!-- 채팅리스트 X -->
 			<c:if test="${chlist.size() == 0}">
 				<div class="nodata" id="noList">
@@ -31,11 +33,12 @@
 					<p class="tit">채팅내역이 존재하지 않습니다.</p>
 				</div>
 			</c:if>
-
+			
+			<div class="list-scroll">
 			<!-- 채팅리스트 O -->
 			<c:if test="${chlist.size() != 0}">
 				<c:forEach var="one" items="${chlist}">
-					<div class="alist" onclick="location.href='../../chat/auth/list?idx=${one.product_idx}&key=click'">
+					<div class="alist link" onclick="location.href='../../chat/auth/list?idx=${one.product_idx}&key=click'">
 						<div class="alist-info">
 							<div class="profile-div">
 								<img alt="profile" src="/image/profile-icon.png"
@@ -53,6 +56,7 @@
 					</div>
 				</c:forEach>
 			</c:if>
+		</div>
 		</div>
 
 		<!-- 채팅방 -->
@@ -104,12 +108,22 @@
 				<!-- 채팅 -->
 				<div id="chating" class="chating">
 					<c:forEach var="chat" items="${chatHistory}">
+						<c:set var="thisTime" value="${fn:substring(chat.time,0,10)}"/>
+						<c:if test="${lastTime != null}">
+							<c:if test="${thisTime != lastTime}">
+								<fmt:parseDate var="dateString" value="${thisTime}" pattern="yyyy-MM-dd" />
+								<div class="date-wrap">
+									<div class="date-change">
+										<fmt:formatDate value="${dateString}" pattern="yyyy년 MM월 dd일" />
+									</div>
+								</div>
+							</c:if>
+						</c:if>
 						<c:if test="${chat.sender == id}">
 							<div class='me'>
 								<div class='time'>
-									<fmt:parseDate var="dateString" value="${chat.time}"
-										pattern="yyyy-MM-dd HH:mm:ss" />
-									<fmt:formatDate value="${dateString}" pattern=" HH:mm" />
+									<fmt:parseDate var="dateString" value="${chat.time}" pattern="yyyy-MM-dd HH:mm:ss" />
+									<fmt:formatDate value="${dateString}" pattern="a hh:mm" />
 								</div>
 								<div class='speech-bubble'>
 									<p>${chat.msg }</p>
@@ -123,10 +137,11 @@
 								</div>
 								<div class='time'>
 									<fmt:parseDate var="dateString" value="${chat.time}" pattern="yyyy-MM-dd HH:mm:ss" />
-									<fmt:formatDate value="${dateString}" pattern="HH:mm" />
+									<fmt:formatDate value="${dateString}" pattern="a hh:mm" />
 								</div>
 							</div>
 						</c:if>
+						<c:set var="lastTime" value="${fn:substring(chat.time,0,10)}"/>
 					</c:forEach>
 				</div>
 
@@ -191,14 +206,27 @@ $(document).ready(function() {
 						$("#sessionId").val(si);
 					}
 				} else if (d.type == "message") {
+					//현재 시간
+					var today = new Date();   
+					var now = today.getFullYear()+"-"+(today.getMonth()+1)+"-"+today.getDate(); // 년도
+					
+					if('${lastTime}' != now){
+						var s = '<div class="date-wrap"><div class="date-change">';
+						s += now.replace('-','년 ').replace('-', '월 ').replace('-', '일')+'</div></div>';
+						
+						$("#chating").append(s);
+					}
+					
 					if (d.sessionId == $("#sessionId").val()) {
 						$("#chating").append(
-						"<div class='me'><div class='time'><fmt:formatDate value="${now }" type="time" pattern=" hh:mm"/></div>"
-						+"<div class='speech-bubble'><p>"+ d.msg + "</p></div></div>");
+						"<div class='me'><div class='time'><fmt:formatDate value="${now }" type="time" pattern="a hh:mm"/></div>"
+						+"<div class='speech-bubble'><p>"+ d.msg + "</p></div></div>"+
+						"<c:set var='lastTime' value='${fn:substring(chat.time,0,10)}'/>");
 					} else {
 						$("#chating").append(
 						"<div class='other'><div class='speech-bubble other-bubble'><p>"+ d.msg
-						+ "</p></div><div class='time'><fmt:formatDate value="${now }" type="time" pattern=" hh:mm"/></div></div>");
+						+ "</p></div><div class='time'><fmt:formatDate value="${now }" type="time" pattern="a hh:mm"/></div></div>"+
+						"<c:set var='lastTime' value='${fn:substring(chat.time,0,10)}'/>");
 					}
 					//스크롤 항상 제일 밑으로
 					$(".chating").scrollTop($(".chating")[0].scrollHeight);

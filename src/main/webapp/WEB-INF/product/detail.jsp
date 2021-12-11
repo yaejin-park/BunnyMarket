@@ -166,6 +166,8 @@
 		</c:if>
 	</div>
 </div>
+<input type="hidden" id="isLogin" value="${isLogin}">
+		<input type="hidden" id="likeCheck" value="${likeCheck}">
 <input type="hidden" id="sellstatus" name="sellstatus" value="${dto.sellstatus}">
 <input type="hidden" id="currentPage" name="currentPage" value="${currentPage}">
 </div>
@@ -235,7 +237,7 @@
 		</form>
 			<button type="button" class="modal-close">닫기</button>
 		</div>
-		<input type="hidden" id="isLogin" value="${isLogin}">
+		
 	</div>
 	
 
@@ -245,10 +247,10 @@
 <script>
 $(document).ready(function() {
 	//로그인 되어 있을 경우,
-	if(${isLogin == "Y"}){
+	if($("#isLogin").val() == "Y"){
 		//좋아요 여부로 하트 버튼 변경
 		//좋아요 안했을 시,
-		if(${likeCheck==0}){
+		if($("#likeCheck").val()){
 			$("#dibsBtnImg").attr("src","/image/stopheart-icon.gif");
 		} else{
 			$("#dibsBtnImg").attr("src","/image/fullheart-icon.gif");
