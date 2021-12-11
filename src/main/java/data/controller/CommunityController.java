@@ -288,24 +288,13 @@ public class CommunityController {
 		return mview;
 	}
 	
-	@GetMapping("/delete")
+	@GetMapping("/auth/delete")
 	public String delete(
 			@RequestParam String idx,
-			@RequestParam String currentPage,
-			HttpSession session,
-			CommunityDTO dto
+			@RequestParam String currentPage
 			)
 	{
-		//글삭제시 저장된 이미지도 삭제
-	      String path=session.getServletContext().getRealPath("/photo");
-	      //업로드된 이미지명
-	      String uploadimg=service.getData(dto.getIdx()).getPhoto();
-	      //File 객체 생성
-	      File file=new File(path+"\\"+uploadimg);
-	      //이미지 삭제
-	      file.delete();
-	      
-	     service.delete(idx);
+	    service.delete(idx);
 		return "redirect:../list?currentPage="+currentPage;
 	}
 	
