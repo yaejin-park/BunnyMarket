@@ -1,5 +1,5 @@
 $(function(){
-	$(window).on("load", function(){
+	$(window).on("resize", function(){
         $(".event-list li").each(function(){
 			$(this).find(".img-div").height($(this).find(".img-div").width() / 1.8);
             if($(this).find("img").width() > $(this).find("img").height()){
@@ -10,7 +10,6 @@ $(function(){
                 $(this).find("img").height("auto");
             }
         });
-
     });
 
 	var fileListArr = new Array();
