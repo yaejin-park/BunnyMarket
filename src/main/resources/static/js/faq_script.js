@@ -1,4 +1,5 @@
 $(function () {
+	var g_currentPage = 0;
 	var getCategoryName = function(value) {
 		var name = '';
 		switch (value) {
@@ -19,6 +20,7 @@ $(function () {
 	}
 
 	var renderList = function(currentPage) {
+		g_currentPage = currentPage;
 		var category=$("#faq-category").val();
 		$.ajax({
 			type:"get",
@@ -38,7 +40,7 @@ $(function () {
 				var totalPage = data.totalPage;
 				
 				$("#faq-list-tbody").empty();
-				$("#pagination").empty();
+				$(".paging").empty();
 				
 				
 				if (list !== null && list.length > 0) {
@@ -49,8 +51,10 @@ $(function () {
 						html += '	<td>'+getCategoryName(a.category)+'</td>';
 						html += '	<td>'+a.question+'</td>';
 						html += '	<td>';
-						html += '		<button type="button" class="updatelist btn-update btn-sm" data-idx="'+a.idx+'">수정하기</button>';
-						html += '		<button type="button" class="deletelist btn-delete btn-sm" data-idx="'+a.idx+'">삭제하기</button>';
+						if (data.admin == 'admin') {
+							html += '			<button type="button" class="updatelist btn-update btn-sm" data-idx="'+a.idx+'">수정하기</button>';
+							html += '			<button type="button" class="deletelist btn-delete btn-sm" data-idx="'+a.idx+'">삭제하기</button>';
+						}
 						html += '		<button type="button" class="arrow1" data-idx="'+a.idx+'"></button>';
 						html += '	</td>';
 						html += '</tr>';
@@ -78,7 +82,7 @@ $(function () {
 						location.href="updateform?idx=" + idx + "&currentPage=" + currentPage;
 					});
 					
-					$(document).on("click",".deletelist",function() {
+					$(".deletelist").click(function() {
 						var idx = $(this).data('idx');
 						var a = confirm("삭제하겠습니까?");
 						if(a==true) {
@@ -88,33 +92,33 @@ $(function () {
 								url:"faqdelete",
 								data:{"idx":idx},
 								success:function(data) {
-									list();
+									renderList(g_currentPage);
 								}
 							});
 						}
 					});
 					
 					var ph = '';
-					ph += '<span class="paging">';
+					ph += '<span id="pagination">';
 					if (startPage > 1) {
-						ph += '<a href="#" class="prev" data-page="'+startPage-1+'"><span>이전</span></a>';
+						ph += '<a href="#" class="prev pagination" data-page="'+startPage-1+'"><span>이전</span></a>';
 					}
 					
 					for (var pp = startPage; pp <= endPage; pp++) {
 						if (currentPage == pp) {
-							ph += '<a href="#" class="active" data-page="'+pp+'">'+pp+'</a>';
+							ph += '<a href="#" class="active pagination" data-page="'+pp+'">'+pp+'</a>';
 						} else {
-							ph += '<a href="#" data-page="'+pp+'">'+pp+'</a>';
+							ph += '<a href="#" class="pagination" data-page="'+pp+'">'+pp+'</a>';
 						}
 					}
 					
 					if (endPage < totalPage) {
-						ph += '<a href="#" class="next" data-page="'+endPage+1+'"><span>다음</span></a>';
+						ph += '<a href="#" class="next pagination" data-page="'+endPage+1+'"><span>다음</span></a>';
 					}
 					ph += '</span>';
-					$("#pagination").append(ph);
+					$(".paging").append(ph);
 					
-					$(".active").click(function() {
+					$(".pagination").click(function() {
 						var page = $(this).data('page');
 						renderList(page);
 					});

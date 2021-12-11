@@ -1,25 +1,75 @@
 package data.controller;
 
+import java.security.Principal;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import data.service.MemberService;
 
 @Controller
 @RequestMapping("/term")
 public class TermController {
+	@Autowired
+	MemberService memService;
 	
 	@GetMapping("/use")
-	public String use() {
-		return "/term/use";
+	public ModelAndView use(Principal principal) {
+		ModelAndView mview = new ModelAndView();
+		//지역 가져오기
+		String userId = "no";
+		String local = "";
+		String[] localArr = {};
+		if(principal != null) {
+			userId = principal.getName();
+			local = memService.getLocal(principal);
+			localArr = local.split(",");
+		}
+		mview.addObject("localCnt",localArr.length);
+		mview.addObject("localArr",localArr);
+		
+		mview.setViewName("/term/use");
+		return mview;
 	}
 	
 	@GetMapping("/privacy")
-	public String privacy() {
-		return "/term/privacy";
+	public ModelAndView privacy(Principal principal) {
+		ModelAndView mview = new ModelAndView();
+		//지역 가져오기
+		String userId = "no";
+		String local = "";
+		String[] localArr = {};
+		if(principal != null) {
+			userId = principal.getName();
+			local = memService.getLocal(principal);
+			localArr = local.split(",");
+		}
+		mview.addObject("localCnt",localArr.length);
+		mview.addObject("localArr",localArr);
+		
+		mview.setViewName("/term/privacy");
+		return mview;
 	}
 	
 	@GetMapping("/location")
-	public String location() {
-		return "/term/location";
+	public ModelAndView location(Principal principal) {
+		ModelAndView mview = new ModelAndView();
+		//지역 가져오기
+		String userId = "no";
+		String local = "";
+		String[] localArr = {};
+		if(principal != null) {
+			userId = principal.getName();
+			local = memService.getLocal(principal);
+			localArr = local.split(",");
+		}
+		mview.addObject("localCnt",localArr.length);
+		mview.addObject("localArr",localArr);
+		
+		mview.setViewName("/term/location");
+		return mview;
 	}
 }

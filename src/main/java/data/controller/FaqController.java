@@ -1,5 +1,6 @@
 package data.controller;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,19 +20,35 @@ import org.springframework.web.servlet.ModelAndView;
 
 import data.dto.FaqDTO;
 import data.service.FaqService;
+import data.service.MemberService;
 
 @Controller
 @RequestMapping("/faq")
 public class FaqController {
 	
 	@Autowired
+	MemberService memService;
+	
+	@Autowired
 	FaqService service;
 	
 	@GetMapping("/list")
 	public ModelAndView list(
-			@RequestParam(defaultValue = "1") int currentPage) {
+			@RequestParam(defaultValue = "1") int currentPage, Principal principal) {
 		ModelAndView mview = new ModelAndView();
 		
+		//지역 가져오기
+		String userId = "no";
+		String local = "";
+		String[] localArr = {};
+		if(principal != null) {
+			userId = principal.getName();
+			local = memService.getLocal(principal);
+			localArr = local.split(",");
+		}
+		mview.addObject("localCnt",localArr.length);
+		mview.addObject("localArr",localArr);
+				
 		int totalCount=service.getTotalCount();
 		int perPage=10;
 		int totalPage;
@@ -48,6 +65,12 @@ public class FaqController {
 			endPage=totalPage;
 		}
 		
+		String admin="no";
+		if(principal != null) {
+			admin=memService.currentUserType(principal);
+		}
+		
+		mview.addObject("admin", admin);
 		start=(currentPage-1)*perPage;
 		List<FaqDTO> list = service.getList(start, perPage);
 		System.out.println("1:"+list.size());
@@ -69,7 +92,7 @@ public class FaqController {
 	@GetMapping("/list_by_category")
 	@ResponseBody
 	public Map<String, Object> listByCategory(
-			@RequestParam(defaultValue = "1") int currentPage, @RequestParam(defaultValue = "all") String category) {
+			@RequestParam(defaultValue = "1") int currentPage, @RequestParam(defaultValue = "all") String category, Principal principal) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		System.out.println("currentPage="+currentPage);
 		int totalCount=service.getTotalCount();
@@ -93,6 +116,13 @@ public class FaqController {
 		System.out.println("size:"+list.size());
 		int no=totalCount-(currentPage-1)*perPage;
 		
+		String admin="no";
+		if(principal != null) {
+			admin=memService.currentUserType(principal);
+		}
+		
+		result.put("admin", admin);	
+		
 		result.put("list", list);
 		result.put("category", category);
 		result.put("startPage", startPage);
@@ -113,8 +143,21 @@ public class FaqController {
 	}
 	
 	@GetMapping("/updateform")
-	public ModelAndView updateform(String idx, String currentPage) {
+	public ModelAndView updateform(String idx, String currentPage, Principal principal) {
 		ModelAndView mview=new ModelAndView();
+		
+		//지역 가져오기
+		String userId = "no";
+		String local = "";
+		String[] localArr = {};
+		if(principal != null) {
+			userId = principal.getName();
+			local = memService.getLocal(principal);
+			localArr = local.split(",");
+		}
+		mview.addObject("localCnt",localArr.length);
+		mview.addObject("localArr",localArr);
+		
 		FaqDTO dto=service.getData(idx);
 		mview.addObject("dto", dto);
 		mview.addObject("currnetPage", currentPage);
@@ -135,8 +178,12 @@ public class FaqController {
 		return "redirect:list?idx="+dto.getIdx()+"&currentPage="+currentPage;
 	}
 	@GetMapping("/faqdelete")
-	public void deleteFaq(String idx, String currentPage) {
+	@ResponseBody
+	public Map<String, Object> deleteFaq(String idx) {
+		Map<String, Object> result = new HashMap<String, Object>();
 		service.deleteFaq(idx);
-		return;
+		result.put("success", true);
+
+		return result;
 	}
 }
