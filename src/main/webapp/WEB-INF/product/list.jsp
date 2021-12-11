@@ -76,14 +76,28 @@
 <script>
 //지역설정
 $("#local").val($(".local-btn").text());
+$(document).ready(function () {
 
 //검색창
 $("input[name='search']").change(function() {
-	console.log("검색");
 	var keyword = $(this).val();
 	var category = $("#categoryActive").val();
 	var location = $("#local").val();
 	
-	location.href = "/product/list?keyword="+keyword+"&category="+category+"&location="+location;
+	/* $.ajax({
+		type: "get",
+		url: "list",
+		data: {"keyword" : keyword, "category" : category, "location" : location},
+		success: function(){
+			console.log(keyword, category, location);
+		}, error: function(e){
+			console.log(e, "e");
+		}
+	}); */
+	
+	window.location.href = "/product/list?keyword="+keyword+"&category="+category+"&location="+location;
+});
+
+
 });
 </script>

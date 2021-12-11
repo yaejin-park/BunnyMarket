@@ -53,7 +53,6 @@ public class ProductController {
 	@Autowired 
 	ReviewService rservice;
 
-	@ResponseBody
 	@GetMapping("/list")
 	public ModelAndView productList(
 			@RequestParam (defaultValue = "1") int currentPage,
@@ -62,8 +61,8 @@ public class ProductController {
 			@RequestParam (defaultValue = "no") String location,
 			Principal principal) { 
 		ModelAndView mview = new ModelAndView();
-
-		int totalCount = service.getTotalCount(category, keyword, "삼전동");
+		System.out.println(keyword);
+		int totalCount = service.getTotalCount(category, keyword, location);
 
 		//페이징 처리에 필요한 변수 선언
 		int perPage = 20;
