@@ -108,11 +108,11 @@ public class AdvertiseController {
 	
 	@PostMapping("/auth/insert")
 	public @ResponseBody void insert(@ModelAttribute AdvertiseDTO dto,
-				HttpSession session, 
-				HttpServletRequest request,
-				MultipartHttpServletRequest multiRequest,
-				Principal principal,
-				@RequestParam List<MultipartFile> photoupload) throws Exception {
+			HttpSession session, 
+			HttpServletRequest request,
+			MultipartHttpServletRequest multiRequest,
+			Principal principal,
+			@RequestParam List<MultipartFile> photoupload) throws Exception {
 
 		//로그인중이 아닐 경우 종료
 		String isLogin=(String)request.getSession().getAttribute("isLogin");
@@ -126,7 +126,7 @@ public class AdvertiseController {
 		String title=multiRequest.getParameter("title");
 		String content=multiRequest.getParameter("content");
 		photoupload = dto.getPhotoupload();
-
+	
 		//이미지 업로드 안했을때
 		if(photoupload.get(0).getOriginalFilename().equals("")) {
 			dto.setPhoto("no");
@@ -135,7 +135,7 @@ public class AdvertiseController {
 			String path=session.getServletContext().getRealPath("/photo");
 			String photoplus="";
 			System.out.println(path);
-
+	
 			for(int i=0;i<photoupload.size();i++) {
 				String photo=uuid.toString()+"_"+photoupload.get(i).getOriginalFilename();
 				//실제 업로드
@@ -160,8 +160,6 @@ public class AdvertiseController {
 		
 		//insert
 		service.insertAdvertise(dto);
-		//return "redirect:/advertise/detail?idx="+service.getMaxIdx();
-		//return "/advertise/list";
 	}
 	
 	@GetMapping("/detail")
@@ -177,6 +175,7 @@ public class AdvertiseController {
 		String userNickName = "no";
 		String local = "";
 		String[] localArr = {};
+		String profile = "no";
 		
 		//로그인 여부
 		String isLogin = "N";
@@ -188,6 +187,7 @@ public class AdvertiseController {
 			userNickName = memService.currentUserNickName(principal);
 			local = memService.getLocal(principal);
 			localArr = local.split(",");
+			profile=memService.getMemberId(principal.getName()).getProfile();
 		}
 		
 		//조회수 증가
@@ -201,7 +201,6 @@ public class AdvertiseController {
 		
 		//게시글 닉네임 불러오기
 		String nick=memService.getNick(dto.getId());
-		String profile = memService.getMemberId(principal.getName()).getProfile();
 		
 		//댓글관련
 		List<AdreplyDTO> relist=service.getReplyList(idx);
@@ -263,7 +262,7 @@ public class AdvertiseController {
 			HttpServletRequest request,
 			MultipartHttpServletRequest multiRequest,
 			Principal principal,
-			@RequestParam List<MultipartFile> photoupload) throws Exception {
+			@RequestParam List<MultipartFile> uploadFile) throws Exception {
 	
 		//로그인중이 아닐 경우 종료
 		String isLogin=(String)request.getSession().getAttribute("isLogin");
@@ -279,12 +278,12 @@ public class AdvertiseController {
 		
 		String title=multiRequest.getParameter("title");
 		String content=multiRequest.getParameter("content");
-		photoupload = dto.getPhotoupload();
+		uploadFile = dto.getPhotoupload();
 		
 		String photoplus = multiRequest.getParameter("updatePhoto");
 		
 		//이미지 업로드 안했을때
-		if(photoupload.get(0).getOriginalFilename().equals("")) {
+		if(uploadFile.get(0).getOriginalFilename().equals("")) {
 			dto.setPhoto("no");
 		}else {	//이미지 업로드 했을때
 			//이전 사진 삭제
@@ -294,11 +293,11 @@ public class AdvertiseController {
 			
 			System.out.println(path);
 	
-			for(int i=0;i<photoupload.size();i++) {
-				String photo=uuid.toString()+"_"+photoupload.get(i).getOriginalFilename();
+			for(int i=0;i<uploadFile.size();i++) {
+				String photo=uuid.toString()+"_"+uploadFile.get(i).getOriginalFilename();
 				//실제 업로드
 				try {
-					photoupload.get(i).transferTo(new File(path+"\\"+photo));
+					uploadFile.get(i).transferTo(new File(path+"\\"+photo));
 				} catch (IllegalStateException | IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -347,15 +346,28 @@ public class AdvertiseController {
 			Principal principal
 			) 
 		{
-			dto.setId(principal.getName());
-			if(checkStep.equals("no")) {
-				dto.setRegroup(dto.getRegroup() + 1);
-			}else {
-				dto.setRestep(dto.getRestep() + 1);
-				dto.setRelevel(dto.getRelevel() + 1);
-			}
-			service.insertReplyData(dto);
+		System.out.println("checkStep =>" +checkStep);
+		int regroup = dto.getRegroup();
+		int restep = dto.getRestep();
+		int relevel = dto.getRelevel();
+		
+		dto.setId(principal.getName());
+		if(checkStep.equals("no")) {
+			regroup = regroup+1;
+			restep=0;
+			relevel=0;
+		}else {
+			service.updateReplyStep(restep, regroup);
+			
+			restep++;
+			relevel++;
 		}
+
+		dto.setRegroup(regroup);
+		dto.setRestep(restep);
+		dto.setRelevel(relevel);
+		service.insertReplyData(dto);
+	}
 	
 	@GetMapping("/auth/reply/delete")
 	public @ResponseBody void delete(@RequestParam int idx) {
