@@ -255,6 +255,14 @@ tr.lineNeed .marginZero{
 	bottom: 20px;
 }
 
+.my-like .like-th {
+	margin-left: 100px;
+}
+
+.my-like .like-tr {
+	text-align:center;
+}
+
 /* background-image�� ���� */
 .info-sm-div{
 	width: 24px;
