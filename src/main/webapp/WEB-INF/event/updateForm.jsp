@@ -76,7 +76,7 @@
 		</div>
 		<div class="btn-wrap">
 			<button type="button" class="btn-add event-update-btn" >글쓰기</button>
-			<button type="button" class="btn-list" onclick="location.href='list'">취소하기</button>
+			<button type="button" class="btn-default" onclick="location.href='list'">취소하기</button>
 		</div>		
 	</div>
 </div>
