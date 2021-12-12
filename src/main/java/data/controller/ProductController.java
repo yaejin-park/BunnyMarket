@@ -4,6 +4,7 @@ import java.io.File;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -58,11 +59,26 @@ public class ProductController {
 			@RequestParam (defaultValue = "1") int currentPage,
 			@RequestParam (defaultValue = "전체") String category,
 			@RequestParam (defaultValue = "no") String keyword,
-			@RequestParam (defaultValue = "no") String location,
 			Principal principal) { 
 		ModelAndView mview = new ModelAndView();
-		System.out.println(keyword);
-		int totalCount = service.getTotalCount(category, keyword, location);
+		
+		//지역가져오기
+		String userId="no";
+		String local="";
+		String []localArr = {};
+		String currentLocal = "no";
+		//로그인 되어있을 경우,
+		if(principal != null) {
+			userId= principal.getName();
+			local = mservice.getLocal(principal);
+			localArr=local.split(",");
+			currentLocal = mservice.currentLocal(userId);
+		}
+		mview.addObject("localArr", localArr);
+		mview.addObject("localCnt", localArr.length);
+		mview.addObject("currentLocal", currentLocal);
+		
+		int totalCount = service.getTotalCount(category, keyword, currentLocal);
 
 		//페이징 처리에 필요한 변수 선언
 		int perPage = 20;
@@ -88,25 +104,11 @@ public class ProductController {
 
 		//각 페이지에 출력할 시작번호
 		int no = totalCount-(currentPage-1)*perPage;
-
-		//지역가져오기
-		String userId="no";
-		String local="";
-		String []localArr = {};
-		//로그인 되어있을 경우,
-		if(principal != null) {
-			userId= principal.getName();
-			local = mservice.getLocal(principal);
-			localArr=local.split(",");
-		}
-		location = localArr[0];
 		
 		//리스트 값 불러오기
-		List<ProductDTO> list = service.getList(start, perPage, category, keyword, location);
+		List<ProductDTO> list = service.getList(start, perPage, category, keyword, currentLocal);
 
 		//출력에 필요한 변수들을 request에 저장
-		mview.addObject("localArr", localArr);
-		mview.addObject("localCnt", localArr.length);
 		mview.addObject("list",list);
 		mview.addObject("startPage", startPage);
 		mview.addObject("endPage", endPage);
@@ -130,17 +132,22 @@ public class ProductController {
 		String userId="no";
 		String local="";
 		String []localArr = {};
+		String currentLocal = "";
 		//로그인 되어있을 경우,
 		if(principal != null) {
 			userId= principal.getName();
 			local = mservice.getLocal(principal);
 			localArr=local.split(",");
+			currentLocal = mservice.currentLocal(userId);
 		}
+		
+		mview.addObject("localArr", localArr);
+		mview.addObject("localCnt", localArr.length);
+		mview.addObject("currentLocal", currentLocal);
+		
 		ProductDTO dto = service.getData(idx);
 		String[] photoList = dto.getUploadfile().split(",");
 		
-		mview.addObject("localCnt", localArr.length);
-		mview.addObject("localArr", localArr);
 		mview.addObject("dto", dto);
 		mview.addObject("photoList", photoList);
 		
@@ -154,11 +161,21 @@ public class ProductController {
 		ModelAndView mview = new ModelAndView();
 		
 		//지역가져오기
-		String local=mservice.getLocal(principal);
-		String []localArr = local.split(",");
-
-		mview.addObject("localCnt", localArr.length);
+		String userId="no";
+		String local="";
+		String []localArr = {};
+		String currentLocal = "";
+		//로그인 되어있을 경우,
+		if(principal != null) {
+			userId= principal.getName();
+			local = mservice.getLocal(principal);
+			localArr=local.split(",");
+			currentLocal = mservice.currentLocal(userId);
+		}
+		
 		mview.addObject("localArr", localArr);
+		mview.addObject("localCnt", localArr.length);
+		mview.addObject("currentLocal", currentLocal);
 		mview.setViewName("/product/insertForm");
 		
 		return mview;
@@ -182,8 +199,7 @@ public class ProductController {
 		
 		if(fileList != null) {
 			String path = session.getServletContext().getRealPath("/photo");
-			
-			System.out.println(path);
+			//System.out.println(path);
 
 			File dir = new File(path);
 			if(!dir.isDirectory()) {
@@ -288,16 +304,18 @@ public class ProductController {
 			service.updateReadcount(idx);
 		}
 
-
 		//해당 idx의 데이터 가져오기
 		ProductDTO dto = service.getData(idx);
 		//�궗吏� ,濡� split(���몴 �씠誘몄�)
 		String []photo = dto.getUploadfile().split(",");
 
-
 		//닉네임 가져오기
 		String nick = mservice.getNick(dto.getId());
-
+		//프로필 이미지 가져오기
+		String profile = mservice.getMemberId(dto.getId()).getProfile();
+		//리뷰수 가져오기
+		int reviewCount = rservice.getCount(dto.getId());
+		
 		//같은 카테고리 연관제품 보여주기
 		String category = dto.getCategory();
 		List<ProductDTO> list = service.getRelateList(category,idx);
@@ -308,32 +326,27 @@ public class ProductController {
 		
 		System.out.println("isLogin =>" + isLogin);
 
-		//로그인 되어 있을 경우,
-		if(isLogin!=null) {
-			//로그인된 아이디
-			String id = principal.getName();
+		//지역가져오기
+		String id="no";
+		String local="";
+		String []localArr = {};
+		String currentLocal = "";
+		
+		//로그인 되어있을 경우,
+		if(principal != null) {
+			id= principal.getName();
 			model.addAttribute("myId", id);
-
-			//지역가져오기
-			String local="";
-			String []localArr = {};
-
 			local = mservice.getLocal(principal);
 			localArr=local.split(",");
-			
-
-			model.addAttribute("localCnt", localArr.length);
-			model.addAttribute("localArr", localArr);
-
-
+			currentLocal = mservice.currentLocal(id);
+		
 			//하트 버튼 클릭여부
 			int likeCheck = plservice.plikeCheck(id,idx);
 			model.addAttribute("likeCheck", likeCheck);
 
 			//팔로우 여부
-
 			int followCheck = flservice.followCheck(dto.getId(), id);
-			System.out.println("follow?"+followCheck);
+			//System.out.println("follow?"+followCheck);
 			model.addAttribute("followCheck", followCheck);
 
 			if(id.equals(dto.getId())) {
@@ -347,6 +360,10 @@ public class ProductController {
 					dto.setSellstatus("finished");
 				}
 			}
+			
+			//팝업창 insert
+			String seller=principal.getName();
+			model.addAttribute("seller", seller);
 		}
 		//팝업창 관련
 		
@@ -355,15 +372,27 @@ public class ProductController {
 		model.addAttribute("poplist", poplist);
 		model.addAttribute("idx", idx);
 		
+
 		//팝업창 insert
+
 		
-		String seller=principal.getName();
+		String seller="no";
+		if(principal != null) {
+			seller=principal.getName();
+		}
+	
+		
 		model.addAttribute("seller", seller);
-		
+
+		model.addAttribute("localArr", localArr);
+		model.addAttribute("localCnt", localArr.length);
+		model.addAttribute("currentLocal", currentLocal);
 		model.addAttribute("dto", dto);
 		model.addAttribute("list", list);
 		model.addAttribute("isLogin", isLogin);
 		model.addAttribute("nick", nick);
+		model.addAttribute("profile", profile);
+		model.addAttribute("reviewCount", reviewCount);
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("photo", photo);
 
@@ -424,10 +453,23 @@ public class ProductController {
 		service.updateStatus(idx, status);
 	}
 	
+	@ResponseBody
 	@PostMapping("/popinsert")
-	public String insert(@ModelAttribute ReviewDTO rdto)
+	public String popinsert(@RequestParam int star,@RequestParam String seller,@RequestParam String buyer,@RequestParam String content,@RequestParam String idx)
 	{	
-		rservice.ReviewInsert(rdto);
+		String buyerid=mservice.getIdTakeNick(buyer);
+		Map<String, String> map = new HashMap<String,String>(); 
+		String star1 = String.valueOf(star);
+		
+		map.put("product_idx", idx);
+		map.put("star", star1);
+		map.put("seller", seller);
+		map.put("buyer", buyerid);
+		map.put("content", content);
+		
+		rservice.ReviewInsert(map);
+		
+		
 		
 		return "/product/list";
 	}

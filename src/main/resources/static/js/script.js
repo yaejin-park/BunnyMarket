@@ -31,7 +31,7 @@ $(function(){
 		}
 	});   
 	
-	$(document).on("click", "header .local-option li:not(.set-btn)", function(){
+	$(document).on("click", "header .local-option li:not(.set-type)", function(){
 		var localTxt = $(this).find("span").text();
 		$("header .local-div .local-btn").text($(this).find("span").text());
 		$.ajax({

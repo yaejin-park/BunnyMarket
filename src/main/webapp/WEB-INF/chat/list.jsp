@@ -16,8 +16,15 @@
 		<div class="chat-list">
 			<!--고정된 상단 나의 이름-->
 			<div class="wrap">
-				<img alt="profile" src="/image/profile-icon.png"
-					class="profile-img me">
+				<div class="profile-div login-user">
+					<c:if test="${profile == 'no' }">
+						<img alt="profile" src="/image/profile-icon.png" class="profile-img">	
+					</c:if>
+					<c:if test="${profile != 'no' }">
+						<img alt="profile" src="/photo/${profile}" class="profile-img">	
+					</c:if>
+				</div>
+				
 				<div class="info-text">
 					<span class="tit nick">${nick}</span>
 				</div>
@@ -38,11 +45,15 @@
 			<!-- 채팅리스트 O -->
 			<c:if test="${chlist.size() != 0}">
 				<c:forEach var="one" items="${chlist}">
-					<div class="alist link" onclick="location.href='../../chat/auth/list?idx=${one.product_idx}&key=click'">
+					<div class="alist link  ${dto.idx == one.product_idx? 'click-list' : ''}" onclick="location.href='../../chat/auth/list?idx=${one.product_idx}&key=click&sender=${one.id}'">
 						<div class="alist-info">
 							<div class="profile-div">
-								<img alt="profile" src="/image/profile-icon.png"
-									class="profile-img">
+								<c:if test="${one.profile == 'no' }">
+									<img alt="profile" src="/image/profile-icon.png" class="profile-img">	
+								</c:if>
+								<c:if test="${one.profile != 'no' }">
+									<img alt="profile" src="/photo/${one.profile}" class="profile-img">	
+								</c:if>
 							</div>
 							<div class="list-info">
 								<div class="tit">${one.nickname}</div>
@@ -79,10 +90,17 @@
 				<input type="hidden" id="chatHistory" value="${chatHistory}">
 				<div class="info">
 					<div class="wrap">
-						<img alt="profile" src="/image/profile-icon.png"
-							class="profile-img">
+						<div class="profile-div">
+							<c:if test="${yourprofile == 'no' }">
+								<img alt="profile" src="/image/profile-icon.png" class="profile-img">	
+							</c:if>
+							<c:if test="${yourprofile != 'no' }">
+								<img alt="profile" src="/photo/${yourprofile}" class="profile-img">	
+							</c:if>
+						</div>
 						<div class="info-text">
-							<span class="tit nick">${yournick}</span> <span class="sm-tit">후기</span>
+							<div class="tit nick">${yournick}</div>
+							<div class="sm-tit">후기 ${reviewCount}개</div>
 						</div>
 						<div class="chatout-btn">
 							<button type="button" class="btn-list" id="chatOutBtn">나가기</button>
@@ -90,18 +108,26 @@
 					</div>
 
 					<div class="wrap link" onclick="location.href='../../product/detail?idx=${dto.idx}'">
-						<div class="thumbNail">
-							<img alt="product_thumbnail" src="/photo/${photo}" class="thumbImg" />
-						</div>
-						<div class="info-text">
-							<div class="title-div">
-								<div class="status" id="status">${dto.sellstatus}</div>
-								<div class="title">${dto.title}</div>
+						<div class="front">
+							<div class="thumbNail">
+								<img alt="product_thumbnail" src="/photo/${photo}" class="thumbImg" />
 							</div>
-							<div class="price tit">
-								<fmt:formatNumber type="number" value="${dto.price}" />원
+							<div class="info-text">
+								<div class="title-div">
+									<div class="status" id="status">${dto.sellstatus}</div>
+									<div class="title">${dto.title}</div>
+								</div>
+								<div class="price tit">
+									<fmt:formatNumber type="number" value="${dto.price}" />원
+								</div>
 							</div>
 						</div>
+						<!-- 판매완료인데 내 아이디가 buyer, seller 중 하나면, 후기작성버튼 -->
+						<c:if test="${dto.sellstatus=='판매완료'}">
+							<div class="back">
+								<button class="btn-default review-btn">후기 작성</button>				
+							</div>
+						</c:if>
 					</div>
 				</div>
 
@@ -109,15 +135,13 @@
 				<div id="chating" class="chating">
 					<c:forEach var="chat" items="${chatHistory}">
 						<c:set var="thisTime" value="${fn:substring(chat.time,0,10)}"/>
-						<c:if test="${lastTime != null}">
-							<c:if test="${thisTime != lastTime}">
-								<fmt:parseDate var="dateString" value="${thisTime}" pattern="yyyy-MM-dd" />
-								<div class="date-wrap">
-									<div class="date-change">
-										<fmt:formatDate value="${dateString}" pattern="yyyy년 MM월 dd일" />
-									</div>
+						<c:if test="${thisTime != lastTime || lastTime == null}">
+							<fmt:parseDate var="dateString" value="${thisTime}" pattern="yyyy-MM-dd" />
+							<div class="date-wrap">
+								<div class="date-change">
+									<fmt:formatDate value="${dateString}" pattern="yyyy년 MM월 dd일" />
 								</div>
-							</c:if>
+							</div>
 						</c:if>
 						<c:if test="${chat.sender == id}">
 							<div class='me'>
@@ -210,11 +234,22 @@ $(document).ready(function() {
 					var today = new Date();   
 					var now = today.getFullYear()+"-"+(today.getMonth()+1)+"-"+today.getDate(); // 년도
 					
-					if('${lastTime}' != now){
+					console.log($(".time").length);
+					
+					//한번도 날짜가 찍힌적이 없으면 날짜 출력
+					if($(".date-change").length==0){
 						var s = '<div class="date-wrap"><div class="date-change">';
-						s += now.replace('-','년 ').replace('-', '월 ').replace('-', '일')+'</div></div>';
+						s += now.replace('-','년 ').replace('-', '월 ')+'일</div></div>';
 						
 						$("#chating").append(s);
+					} else{
+						//시간이 다르면
+						if('${lastTime}' != now){
+							var s = '<div class="date-wrap"><div class="date-change">';
+							s += now.replace('-','년 ').replace('-', '월 ')+'일</div></div>';
+							
+							$("#chating").append(s);
+						}
 					}
 					
 					if (d.sessionId == $("#sessionId").val()) {

@@ -30,9 +30,11 @@ public class MainController {
 		String userId = "no";
 		String local ="";
 		String[] localArr = {};
+		String currentLocal = "";
 		if(principal != null) {
 			userId = principal.getName();
 			local = memberService.getLocal(principal);
+			currentLocal = memberService.currentLocal(userId);
 			localArr = local.split(",");
 		}
 		
@@ -42,6 +44,7 @@ public class MainController {
 		mview.addObject("localArr", localArr);
 		mview.addObject("productList", productList);
 		mview.addObject("productCnt", productList.size());
+		mview.addObject("currentLocal", currentLocal);
 		mview.setViewName("/layout/main");
 		return mview;
 	}

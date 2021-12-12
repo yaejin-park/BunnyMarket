@@ -72,32 +72,21 @@
 	</div>
 </div>
 <input type="hidden" id="categoryActive" value="${category}">
-<input type="hidden" name="local" id="local" value="">
 <script>
 //지역설정
-$("#local").val($(".local-btn").text());
-$(document).ready(function () {
-
-//검색창
-$("input[name='search']").change(function() {
-	var keyword = $(this).val();
-	var category = $("#categoryActive").val();
-	var location = $("#local").val();
-	
-	/* $.ajax({
-		type: "get",
-		url: "list",
-		data: {"keyword" : keyword, "category" : category, "location" : location},
-		success: function(){
-			console.log(keyword, category, location);
-		}, error: function(e){
-			console.log(e, "e");
-		}
-	}); */
-	
-	window.location.href = "/product/list?keyword="+keyword+"&category="+category+"&location="+location;
+$(".local-option li").on("click", function() {
+	location.reload();
 });
 
+$(document).ready(function () {
+	//검색창
+	$("input[name='search']").change(function() {
+		var keyword = $(this).val();
+		var category = $("#categoryActive").val();
+		var location = $("#local").val();
+		
+		window.location.href = "/product/list?keyword="+keyword+"&category="+category;
+	});
 
 });
 </script>

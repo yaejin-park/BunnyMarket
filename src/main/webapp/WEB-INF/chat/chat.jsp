@@ -5,6 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <c:set var="now" value="<%=new java.util.Date()%>" />
 
@@ -15,9 +16,17 @@
 		<input type="hidden" id="chatHistory" value="${chatHistory}">
 		<div class="info">
 			<div class="wrap">
-				<img alt="profile" src="/image/profile-icon.png" class="profile-img">
+				<div class="profile-div">
+					<c:if test="${profile == 'no' }">
+						<img alt="profile" src="/image/profile-icon.png" class="profile-img">	
+					</c:if>
+					<c:if test="${profile != 'no' }">
+						<img alt="profile" src="/photo/${one.profile}" class="profile-img">	
+					</c:if>
+				</div>
 				<div class="info-text">
-					<span class="tit nick">${nick}</span> <span class="sm-tit">후기</span>
+					<div class="tit nick">${nick}</div>
+					<div class="sm-tit">후기 ${reviewCount}개</div>
 				</div>
 				<div class="chatout-btn">
 					<button type="button" class="btn-list" id="chatOutBtn">나가기</button>
@@ -30,12 +39,7 @@
 				</div>
 				<div class="info-text">
 					<div class="title-div">
-						<%-- <c:if test="${dto.state == 'no'}"> --%>
-							<div class="status" id="status">${dto.sellstatus}</div>
-						<%-- </c:if>
-						<c:if test="${dto.state != 'no'}">
-							<div class="status" id="status">삭제됨</div>
-						</c:if> --%>
+						<div class="status" id="status">${dto.sellstatus}</div>
 						<div class="title">${dto.title}</div>
 					</div>
 					<div class="price tit">
@@ -48,12 +52,22 @@
 		<div id="chating" class="chating">
 			<!-- 채팅 히스토리 -->
 			<c:forEach var="chat" items="${chatHistory}">
+				<c:set var="thisTime" value="${fn:substring(chat.time,0,10)}"/>
+				<c:if test="${thisTime != lastTime || lastTime == null}">
+					<fmt:parseDate var="dateString" value="${thisTime}" pattern="yyyy-MM-dd" />
+					<div class="date-wrap">
+						<div class="date-change">
+							<fmt:formatDate value="${dateString}" pattern="yyyy년 MM월 dd일" />
+						</div>
+					</div>
+				</c:if>
+			
 				<!-- 내가 보낸 메세지 -->
 				<c:if test="${chat.sender == id}">
 					<div class='me'>
 						<div class='time'>
 							<fmt:parseDate var="dateString" value="${chat.time}" pattern="yyyy-MM-dd HH:mm:ss" />
-							<fmt:formatDate value="${dateString}" pattern=" HH:mm" />
+							<fmt:formatDate value="${dateString}" pattern="a hh:mm" />
 						</div>
 						<div class='speech-bubble'>
 							<p>${chat.msg }</p>
@@ -69,10 +83,11 @@
 						</div>
 						<div class='time'>
 							<fmt:parseDate var="dateString" value="${chat.time}" pattern="yyyy-MM-dd HH:mm:ss" />
-							<fmt:formatDate value="${dateString}" pattern="HH:mm" />
+							<fmt:formatDate value="${dateString}" pattern="a hh:mm" />
 						</div>
 					</div>
 				</c:if>
+				<c:set var="lastTime" value="${fn:substring(chat.time,0,10)}"/>
 			</c:forEach>
 		</div>
 
@@ -125,18 +140,37 @@ function wsEvt() {
 					$("#sessionId").val(si);
 				}
 			} else if (d.type == "message") {
-				if (d.sessionId == $("#sessionId").val()) {
-					var s = "<div class='me'>";
-					s += "<div class='time'>";
-					s += "<fmt:formatDate value="${now}" type="time" pattern=" hh:mm"/>";
-					s += "</div>";
-					s += "<div class='speech-bubble'><p>"+ d.msg + "</p></div></div>";
+				//현재 시간
+				var today = new Date();   
+				var now = today.getFullYear()+"-"+(today.getMonth()+1)+"-"+today.getDate(); // 년도
+				
+				//날짜 출력
+				//한번도 날짜가 찍힌적이 없으면 날짜 출력
+				if($(".date-change").length==0){
+					var s = '<div class="date-wrap"><div class="date-change">';
+					s += now.replace('-','년 ').replace('-', '월 ')+'일</div></div>';
 					
 					$("#chating").append(s);
+				} else{
+					//시간이 다르면
+					if('${lastTime}' != now){
+						var s = '<div class="date-wrap"><div class="date-change">';
+						s += now.replace('-','년 ').replace('-', '월 ')+'일</div></div>';
+						
+						$("#chating").append(s);
+					}
+				}
+				
+				if (d.sessionId == $("#sessionId").val()) {
+					$("#chating").append(
+					"<div class='me'><div class='time'><fmt:formatDate value="${now }" type="time" pattern="a hh:mm"/></div>"
+					+"<div class='speech-bubble'><p>"+ d.msg + "</p></div></div>"+
+					"<c:set var='lastTime' value='${fn:substring(chat.time,0,10)}'/>");
 				} else {
 					$("#chating").append(
 					"<div class='other'><div class='speech-bubble other-bubble'><p>"+ d.msg
-					+ "</p></div><div class='time'><fmt:formatDate value="${now }" type="time" pattern=" hh:mm"/></div></div>");
+					+ "</p></div><div class='time'><fmt:formatDate value="${now }" type="time" pattern="a hh:mm"/></div></div>"+
+					"<c:set var='lastTime' value='${fn:substring(chat.time,0,10)}'/>");
 				}
 				//스크롤 항상 제일 밑으로
 				$(".chating").scrollTop($(".chating")[0].scrollHeight);
@@ -172,6 +206,9 @@ function first() {
 	var roomNumber = $("#roomNumber").val();
 	var msg = $("#chatting").val();
 	msg = msg.replaceAll(/(\n|\r\n)/g,'<br>');
+	//현재 시간
+	var today = new Date();   
+	var now = today.getFullYear()+"-"+(today.getMonth()+1)+"-"+today.getDate(); // 년도
 
 	//방 만들기
 	$.ajax({
@@ -188,7 +225,7 @@ function first() {
 		},
 		error : function(data) {
 			console.log("에러", data);
-		}
+		} 
 	});
 
 	var option = {

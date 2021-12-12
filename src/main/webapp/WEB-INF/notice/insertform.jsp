@@ -6,12 +6,12 @@
 	<form action="insert" method="post" enctype="multipart/form-data">
 
 
-		<table class="wtable">
+		<table class="insert-table">
 			<tr>
 				<th><label>제목</label><br> <input type="text"
 					required="required" placeholder="제목을 입력하세요" name="title"
 					class="title">
-					<div class="filebox">
+					<div class="file-div">
 
 
 						<input multiple="multiple" type="file" name="upload" class="file">

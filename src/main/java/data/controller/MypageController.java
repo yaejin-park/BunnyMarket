@@ -69,9 +69,11 @@ public class MypageController {
 		String id = "no";
 		String local = "";
 		String[] localArr = {};
+		String currentLocal = "";
 		if(principal != null) {
 			id = principal.getName();
 			local = memService.getLocal(principal);
+			currentLocal = memService.currentLocal(id);
 			localArr = local.split(",");
 		}
 		
@@ -83,6 +85,7 @@ public class MypageController {
 		mview.addObject("myId", id);
 		mview.addObject("localCnt", localArr.length);
 		mview.addObject("localArr", localArr);
+		mview.addObject("currentLocal", currentLocal);
 		
 		mview.setViewName("/mypage/detail");
 		return mview;
@@ -193,15 +196,18 @@ public class MypageController {
 		String userId = "no";
 		String local="";
 		String[] localArr = {};
+		String currentLocal = "";
 		if(principal != null) {
 			userId = principal.getName();
 			local = memService.getLocal(principal);
+			currentLocal = memService.currentLocal(userId);
 			localArr = local.split(",");
 		}
 		MemberDTO dto = memService.getMemberId(userId);
 		
 		mview.addObject("localCnt", localArr.length);
 		mview.addObject("localArr", localArr);
+		mview.addObject("currentLocal", currentLocal);
 		mview.addObject("dto", dto);
 		mview.setViewName("/mypage/updateMemberForm");
 		return mview;
@@ -225,10 +231,20 @@ public class MypageController {
 		String[] localArr = memService.getLocal(principal).split(",");
 		String local = memService.getLocal(principal);
 		for(var i=0; i<localArr.length; i++) {
-			local = addrLocal + "," + localArr[1] + ",";
+			if(localArr.length == 2) {
+				local = addrLocal + "," + localArr[1] + ",";	
+			}else {
+				local = addrLocal + ",";
+			}
 		}
 		local = local.substring(0, local.length() - 1);
-		
+		if(localArr.length == 1) {
+			HashMap<String, String> map = new HashMap<String, String>();
+			map.put("current_local", local);
+			map.put("id", principal.getName());
+			memService.updateCurrentLocal(map);
+		}
+			
 		dto.setEmail(email1 + "@" + email2);
 		dto.setHp(hp1 + "-" + hp2 + "-" + hp3);
 		dto.setLocal(local);
@@ -248,16 +264,19 @@ public class MypageController {
 		String userNickName = "";
 		String local="";
 		String[] localArr = {};
+		String currentLocal = "";
 		if(principal != null) {
 			userId = principal.getName();
 			userNickName = memService.currentUserNickName(principal);
 			local = memService.getLocal(principal);
+			currentLocal = memService.currentLocal(userId);
 			localArr = local.split(",");
 		}
 		
 		mview.addObject("localCnt", localArr.length);
 		mview.addObject("localArr", localArr);
 		mview.addObject("userNickName", userNickName);
+		mview.addObject("currentLocal", currentLocal);
 		mview.setViewName("/mypage/deleteMemberForm");
 		return mview;
 	}
