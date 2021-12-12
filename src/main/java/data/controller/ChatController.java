@@ -162,7 +162,7 @@ public class ChatController {
 	}
 	
 	@GetMapping("/auth/list")
-	public ModelAndView chatList(@RequestParam (required = false) String idx, @RequestParam (defaultValue = "no") String key, Principal principal, HttpSession session) throws IOException  {
+	public ModelAndView chatList(@RequestParam (required = false) String idx, @RequestParam (defaultValue = "no") String key,@RequestParam (required = false) String sender, Principal principal, HttpSession session) throws IOException  {
 		ModelAndView mview = new ModelAndView();
 		
 		//로그인 아이디
@@ -234,9 +234,9 @@ public class ChatController {
 			mview.addObject("photo", thumb);
 			
 			//상대방 닉네임& 프로필
-			String yournick = mservice.getNick(pservice.getData(idx).getId()); 
-			String yourprofile = mservice.getMemberId(pservice.getData(idx).getId()).getProfile(); 
-			int reviewCount = rservice.getCount(pservice.getData(idx).getId());
+			String yournick = mservice.getNick(sender); 
+			String yourprofile = mservice.getMemberId(sender).getProfile(); 
+			int reviewCount = rservice.getCount(sender);
 			mview.addObject("yournick", yournick);
 			mview.addObject("yourprofile", yourprofile);
 			mview.addObject("reviewCount", reviewCount);

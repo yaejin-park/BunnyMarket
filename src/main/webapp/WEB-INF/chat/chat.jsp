@@ -25,7 +25,8 @@
 					</c:if>
 				</div>
 				<div class="info-text">
-					<span class="tit nick">${nick}</span> <span class="sm-tit">후기 ${reviewCount}개</span>
+					<div class="tit nick">${nick}</div>
+					<div class="sm-tit">후기 ${reviewCount}개</div>
 				</div>
 				<div class="chatout-btn">
 					<button type="button" class="btn-list" id="chatOutBtn">나가기</button>
@@ -38,12 +39,7 @@
 				</div>
 				<div class="info-text">
 					<div class="title-div">
-						<%-- <c:if test="${dto.state == 'no'}"> --%>
-							<div class="status" id="status">${dto.sellstatus}</div>
-						<%-- </c:if>
-						<c:if test="${dto.state != 'no'}">
-							<div class="status" id="status">삭제됨</div>
-						</c:if> --%>
+						<div class="status" id="status">${dto.sellstatus}</div>
 						<div class="title">${dto.title}</div>
 					</div>
 					<div class="price tit">

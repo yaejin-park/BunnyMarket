@@ -140,8 +140,9 @@ div.other .time {
 	display: flex;
 	border-bottom: 2.3px solid #f7f6fc;
 	align-items: center;
-    height: 85px;
+    height: 82px;
     padding: 13px;
+    justify-content: space-between;
 }
 
 .info .wrap:last-child{
@@ -243,7 +244,7 @@ form.msgForm .chat-btn-div .btn-add{
     min-height: 64px;
     height: 107px;
     padding: 30px;
-    padding-bottom: 30px;
+    padding-bottom: 13px;
     display: flex;
 }
 
@@ -264,6 +265,11 @@ form.msgForm .chat-btn-div .btn-add{
     display: flex;
     flex-direction: column;
     margin-left: 20px;
+}
+
+.front{
+	display: flex;
+    align-items: center;
 }
 
 .thumbNail{
