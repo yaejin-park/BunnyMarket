@@ -68,7 +68,7 @@
 								<span>${local}</span>
 							</li>
 						</c:forEach>
-						<li>
+						<li class="set-type">
 							<a href="/local/auth/add" class="set-btn">내 동네 설정하기</a>
 						</li>
 					</ul>

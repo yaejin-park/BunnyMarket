@@ -69,7 +69,7 @@
 	padding:20px;
 	border:1px solid #e5e5e5;
 }
-.product-div li .txt-div .tit {
+.product-div li .txt-div .txt {
 	text-overflow:ellipsis;
 	white-space:nowrap;
 	overflow:hidden;

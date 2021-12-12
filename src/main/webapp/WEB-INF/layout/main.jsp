@@ -41,7 +41,7 @@
 								<img alt="" src="/photo/${thumbName}">
 							</div>
 							<div class="txt-div">
-								<p class="">${productDto.title}</p>
+								<p class="txt">${productDto.title}</p>
 								<p class="tit price">
 									<fmt:formatNumber type="number" value="${productDto.price}"></fmt:formatNumber> 원
 								</p>
