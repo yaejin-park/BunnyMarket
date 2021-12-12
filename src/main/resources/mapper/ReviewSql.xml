@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="data.mapper.ReviewMapper">
-	
- 
-
-
 	<select id="getList" parameterType="String" resultType="chdto">
-		SELECT m.profile, m.nickname, c.last_time, c.buyer_id FROM chat AS c INNER JOIN member AS m ON c.buyer_id = m.id where c.product_idx = #{idx}
+		SELECT m.profile, m.nickname, c.last_time, c.buyer_id 
+		FROM chat AS c INNER JOIN member AS m 
+			ON c.buyer_id = m.id 
+		where c.product_idx = #{idx};
 	</select>
 	
-	
 	<insert id="ReviewInsert" parameterType="rdto">
-		insert into review (seller,buyer,content,star,product_idx,writeday) values (#{seller},#{buyer},#{content},#{star},#{product_idx},now())	
+		insert into review (reviewer, reviewee, content, star, product_idx, writeday) values (#{reviewer},#{reviewee},#{content},#{star},#{product_idx},now())	
 	</insert>
 	
 	<select id="getCount" parameterType="String" resultType="int">
-		select count(*) from review where seller=#{id}
+		select count(*) from review where reviewer=#{id}
 	</select>
 	
+	<select id="checkWrite" parameterType="String" resultType="int">
+		select count(*) from review where reviewer=#{id} and product_idx=#{idx}
+	</select>
 	
-	
-	
-	
-	
+	<select id="checkReviewee" parameterType="String" resultType="int">
+		select count(*) from review where reviewee=#{id} and product_idx=#{idx}
+	</select>
 	
 </mapper>

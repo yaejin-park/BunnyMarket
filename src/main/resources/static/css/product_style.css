@@ -360,38 +360,47 @@ select.statusSelect option{
 
 /* popup css*/
 .review {
-	
-	margin-left:auto; 
-    margin-right:auto;
-    width:80%;
-	border: #e5e5e5 solid 3px;
-	 
-	
-	
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+    width: 80%;
+    border: #e5e5e5 solid 2.3px;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.img {
-	width: 10%;
+.review .right{
+	display: flex;
+    align-items: center;
+}
+
+.profile-img-div{
+    position: relative;
+    width: 70px;
+    height: 70px;
+    margin: 11px 21px;
 }
 
 .popimg{
-	width:60px;
-}
-
-.name {
-	width: 30%;
-}
-
-.go {
-	width: 5%;
+	position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(50, 50);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    margin: auto;
+    border-radius: 50%;
+    border: 2px solid #e5e5e5;
 }
 
 .small {
-	display: block !important;
+	display: block;
 	color: #bebebe;
 }
 
-.arrow {
+.arrow{
 	position: relative;
 	display: inline-block;
 	vertical-align: middle;
@@ -404,9 +413,18 @@ select.statusSelect option{
 	border: 7px solid transparent;
 	border-top: 7px solid;
 	border-right: 7px solid;
-	margin: 15px;
+	margin: 21px;
 	transform: rotate(45deg);
 	cursor: pointer;
+}
+
+.review:hover{
+	border-color: #ff7ab0;
+}
+
+#my-rating {
+    display: flex;
+    justify-content: center;
 }
 
 #my-rating fieldset {
@@ -431,7 +449,6 @@ select.statusSelect option{
 }
 
 
-
 #my-rating label:hover ~ label {
 	text-shadow: 0 0 0 #ff7ab0;; /* 마우스 호버 뒤에오는 이모지들 */
 }
@@ -443,7 +460,6 @@ select.statusSelect option{
 }
 
 #pop-insert{
-	
 	margin-left:auto; 
     margin-right:auto;
 }
@@ -454,11 +470,12 @@ select.statusSelect option{
 }
 
 #popcontent{
-	height: 200px;
-	 margin-bottom: 10px;
+    margin-top: 30px;
+    height: 200px;
+    margin-bottom: 20px;
 }
+
 #btn-popinsert{
 	margin-top: 15px;
-	
 }
 

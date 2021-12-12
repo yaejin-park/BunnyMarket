@@ -6,30 +6,24 @@ import org.apache.ibatis.type.Alias;
 
 @Alias("rdto")
 public class ReviewDTO {
-	private String seller;
-	private String buyer;
+	private String reviwer;
+	private String reviewee;
 	private String content;
 	private String star;
 	private Timestamp writeday;
 	private String product_idx;
 	
-	public String getProduct_idx() {
-		return product_idx;
+	public String getReviwer() {
+		return reviwer;
 	}
-	public void setProduct_idx(String product_idx) {
-		this.product_idx = product_idx;
+	public void setReviwer(String reviwer) {
+		this.reviwer = reviwer;
 	}
-	public String getSeller() {
-		return seller;
+	public String getReviewee() {
+		return reviewee;
 	}
-	public void setSeller(String seller) {
-		this.seller = seller;
-	}
-	public String getBuyer() {
-		return buyer;
-	}
-	public void setBuyer(String buyer) {
-		this.buyer = buyer;
+	public void setReviewee(String reviewee) {
+		this.reviewee = reviewee;
 	}
 	public String getContent() {
 		return content;
@@ -48,5 +42,11 @@ public class ReviewDTO {
 	}
 	public void setWriteday(Timestamp writeday) {
 		this.writeday = writeday;
+	}
+	public String getProduct_idx() {
+		return product_idx;
+	}
+	public void setProduct_idx(String product_idx) {
+		this.product_idx = product_idx;
 	}
 }

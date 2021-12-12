@@ -362,11 +362,11 @@ public class ProductController {
 			}
 			
 			//팝업창 insert
-			String seller=principal.getName();
-			model.addAttribute("seller", seller);
+			String reviewer=principal.getName();
+			model.addAttribute("reviewer", reviewer);
 		}
-		//팝업창 관련
 		
+		//팝업창 관련
 		//팝업창 choose
 		List<ChatDTO> poplist=rservice.getList(idx);
 		model.addAttribute("poplist", poplist);
@@ -376,13 +376,13 @@ public class ProductController {
 		//팝업창 insert
 
 		
-		String seller="no";
+		String reviewer="no";
 		if(principal != null) {
-			seller=principal.getName();
+			reviewer=principal.getName();
 		}
 	
 		
-		model.addAttribute("seller", seller);
+		model.addAttribute("reviewer", reviewer);
 
 		model.addAttribute("localArr", localArr);
 		model.addAttribute("localCnt", localArr.length);
@@ -455,24 +455,26 @@ public class ProductController {
 	
 	@ResponseBody
 	@PostMapping("/popinsert")
-	public String popinsert(@RequestParam int star,@RequestParam String seller,@RequestParam String buyer,@RequestParam String content,@RequestParam String idx)
+	public String popinsert(@RequestParam int star,@RequestParam String reviewer,@RequestParam String reviewee,@RequestParam String content,@RequestParam String idx)
 	{	
-		String buyerid=mservice.getIdTakeNick(buyer);
 		Map<String, String> map = new HashMap<String,String>(); 
 		String star1 = String.valueOf(star);
 		
 		map.put("product_idx", idx);
 		map.put("star", star1);
-		map.put("seller", seller);
-		map.put("buyer", buyerid);
+		map.put("reviewer", reviewer);
+		map.put("reviewee", reviewee);
 		map.put("content", content);
 		
 		rservice.ReviewInsert(map);
 		
-		
-		
 		return "/product/list";
 	}
 	
-
+	@ResponseBody
+	@PostMapping("/checkWrite")
+	public int checkWrite(@RequestParam String idx, Principal principal) {
+		String id = principal.getName();
+		return rservice.checkWrite(id, idx);
+	}
 }
