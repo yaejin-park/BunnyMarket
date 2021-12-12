@@ -13,6 +13,5 @@ public interface FollowMapper {
 	public void deleteFollow(String followee, String follower);
 	
 	//follow list
-	public List<FollowDTO> selectFollowerList(int follower);
-	public List<FollowDTO> selectFolloweeList(int followee);
+	public List<FollowDTO> getFollowList(String follower);
 }
