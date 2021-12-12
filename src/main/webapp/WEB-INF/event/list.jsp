@@ -51,7 +51,7 @@
 									<fmt:formatDate value="${edto.event_end}" pattern="yyyy.MM.dd" />
 								</p>
 								<div class="etc">
-									<p class="good-count">${edto.applycount}</p>
+									<p class="reply-count">${edto.replycount}</p>
 									<p class="read-count">${edto.readcount}</p>
 								</div>
 							</div>

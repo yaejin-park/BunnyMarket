@@ -14,8 +14,8 @@ public class EventDTO {
 	private String category;
 	private Timestamp event_start;
 	private Timestamp event_end;
+	private String replycount;
 	private String readcount;
-	private String applycount;
 	private Timestamp writeday;
 	
 	public String getIdx() {
@@ -66,17 +66,17 @@ public class EventDTO {
 	public void setEvent_end(Timestamp event_end) {
 		this.event_end = event_end;
 	}
+	public String getReplycount() {
+		return replycount;
+	}
+	public void setReplycount(String replycount) {
+		this.replycount = replycount;
+	}
 	public String getReadcount() {
 		return readcount;
 	}
 	public void setReadcount(String readcount) {
 		this.readcount = readcount;
-	}
-	public String getApplycount() {
-		return applycount;
-	}
-	public void setApplycount(String applycount) {
-		this.applycount = applycount;
 	}
 	public Timestamp getWriteday() {
 		return writeday;

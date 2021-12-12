@@ -7,7 +7,7 @@
 	.guide .inner {
 		margin-top:120px;
 	}
-	.guide .inner .title {
+	.guide .inner > .title {
 		margin-bottom:20px;
 		font-size:25px;
 		font-weight:bold;
@@ -34,6 +34,27 @@
 	}
 	.color.default {
 		background:#e5e5e5;
+	}
+	
+	@media all and (max-width:768px){
+		.guide {
+			padding-bottom:70px;
+		}
+		.guide .inner {
+			margin-top:60px;
+		}
+		.guide .inner > .title {
+			margin-bottom:10px;
+			font-size:20px;
+		}
+		.btn-div {
+			margin-bottom:30px;
+		}
+		.color {
+			width:50px;
+			height:50px;
+			margin-right:15px;
+		}
 	}
 </style>
 <div class="guide">
@@ -76,33 +97,35 @@
 	</div>       
 	<div class="inner">
 		<p class="title">Table 가이드</p>
-		<table class="table">
-			<thead>
-				<tr>
-					<th class="num">번호</th>
-					<th class="title">타이틀</th>
-					<th class="writer">작성자</th>
-					<th class="writeday">작성일</th>
-					<th class="readcount">조회수</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>2</td>
-					<td>안녕하세요</td>
-					<td>한희규</td>
-					<td>2021.12.29</td>
-					<td>12</td>
-				</tr>
-				<tr>
-					<td>1</td>
-					<td>안녕하세요 반가워요!</td>
-					<td>박예진</td>
-					<td>2021.11.19</td>
-					<td>7</td>
-				</tr>
-			</tbody>
-		</table>
+		<div class="scroll-type">
+			<table class="table">
+				<thead>
+					<tr>
+						<th class="num">번호</th>
+						<th class="title">타이틀</th>
+						<th class="writer">작성자</th>
+						<th class="writeday">작성일</th>
+						<th class="readcount">조회수</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>2</td>
+						<td>안녕하세요</td>
+						<td>한희규</td>
+						<td>2021.12.29</td>
+						<td>12</td>
+					</tr>
+					<tr>
+						<td>1</td>
+						<td>안녕하세요 반가워요!</td>
+						<td>박예진</td>
+						<td>2021.11.19</td>
+						<td>7</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</div>
 	<div class="inner">
 		<p class="title">데이터없을 경우</p>

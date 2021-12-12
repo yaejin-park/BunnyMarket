@@ -23,4 +23,5 @@ public interface EventMapper {
 	public List<EventReplyDTO> getReplyList(String idx);
 	public String getMaxReply(String idx);
 	public void deleteReply(String idx);
+	public String getReplyCount(String idx);
 }
