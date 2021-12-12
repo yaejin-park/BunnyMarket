@@ -2,6 +2,7 @@ package data.mapper;
 
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -15,7 +16,7 @@ public interface ReviewMapper {
 	
 	
 	public List<ChatDTO> getList(String idx);
-	public void ReviewInsert(ReviewDTO rdto);
+	public void ReviewInsert(Map<String, String> map);
 
 	
 

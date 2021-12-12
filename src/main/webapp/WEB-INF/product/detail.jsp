@@ -187,8 +187,12 @@
 		<div class="modal-content">
 			<table class="review">
 				<c:forEach var="r" items="${poplist}">
-					<tr>
+					<tr><c:if test="${r.profile == 'no'}">
 						<td class="img"><img alt="profile" src="/image/profile-icon.png" class="popimg"></td>
+						</c:if>
+						<c:if test="${r.profile!= 'no'}">
+						<td class="img"><img alt="profile" src="${r.profile}" class="popimg"></td>
+						</c:if>
 						<td class="name">
 							<span>${r.nickname}</span>
 							<small class="small">${r.last_time}</small>
@@ -207,12 +211,13 @@
 	<div class="modal">
 	
 		<div class="modal-title"><span class="choose-nick"></span>님과의 거래후기는?</div>
-			<div class="modal-content" id="popinsert">
+			<div class="modal-content" id="pop-insert">
 	
 	
 		
 				<input type="hidden" name="seller" value="${seller}" id="seller">
 				<input type="hidden" name="buyer" value="" id="buyer">
+				<input type="hidden" name="idx" value="${idx}" id="idx">
 				
 
 				<div id="my-rating">
@@ -296,41 +301,39 @@ $(document).ready(function() {
 		$("#insertPop").find(".choose-nick").text(chooseNick);
 		$('input[name=buyer]').attr('value',chooseNick);
 	})
-	var star;
-	$('#my-rating input').click(function(){
-		var star = $('input:radio[name="star"]:checked').val();
-		console.log(star);
-	})
-	
-/* 	$("#btn-pop-insert").click(function(){
 
-		var star = $('input:radio[name="star"]:checked').val();
-		console.log(star);
+	
+ 	$("#btn-pop-insert").click(function(){
+
+		star = $('input:radio[name="star"]:checked').val();
+		seller =$('#seller').val();
+		buyer =$('#buyer').val();
+		content=$('#popcontent').val();
+		idx=$('#idx').val();
 		
-		console.log(star);
+		console.log(content);
 		$.ajax({
 		    url: "popinsert",
 		    type: "post",
-		    datatype:"json",
-		    processData: false,
-		    contentType: false,
+		    datatype:"txt",
 		    data:{
-		    	
+		    	"star" : star,
 		    	"seller":seller,
 		    	"buyer":buyer,
-		    	"content":popcontent
+		    	"content":content,
+		    	"idx":idx
 	
 		    },
 		    success: function (data) {
 		            alert("데이터 전송이 성공적으로 끝났을 때 실행");
 		        }, error: function (data) {
-		        	console.log("tlf"+star);
+		        	console.log("실패");
 				}
 		    
 		});
 	    
 	
-	}) */
+	})
 
 
 

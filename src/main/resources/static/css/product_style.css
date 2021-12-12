@@ -442,7 +442,7 @@ select.statusSelect option{
 	 /* 마우스 클릭 체크 */
 }
 
-#popinsert{
+#pop-insert{
 	
 	margin-left:auto; 
     margin-right:auto;
@@ -455,6 +455,7 @@ select.statusSelect option{
 
 #popcontent{
 	height: 200px;
+	 margin-bottom: 10px;
 }
 #btn-popinsert{
 	margin-top: 15px;

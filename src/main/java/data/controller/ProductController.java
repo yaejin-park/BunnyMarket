@@ -4,6 +4,7 @@ import java.io.File;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -366,7 +367,7 @@ public class ProductController {
 		model.addAttribute("idx", idx);
 		
 		//팝업창 insert
-<<<<<<< HEAD
+
 		
 		String seller="no";
 		if(principal != null) {
@@ -374,17 +375,10 @@ public class ProductController {
 		}
 	
 		
-		model.addAttribute("poplist", poplist);
-		model.addAttribute("idx", idx);
 		model.addAttribute("seller", seller);
-=======
-		String seller=principal.getName();
-		model.addAttribute("seller", seller);
-		
 		model.addAttribute("localArr", localArr);
 		model.addAttribute("localCnt", localArr.length);
 		model.addAttribute("currentLocal", currentLocal);
->>>>>>> 076cd4f774ba62c001a2142511fdc3b02d40319f
 		model.addAttribute("dto", dto);
 		model.addAttribute("list", list);
 		model.addAttribute("isLogin", isLogin);
@@ -450,12 +444,24 @@ public class ProductController {
 		service.updateStatus(idx, status);
 	}
 	
-
+	@ResponseBody
 	@PostMapping("/popinsert")
-	public String popinsert(@RequestParam String seller,@RequestParam String buyer,@RequestParam String content)
+	public String popinsert(@RequestParam int star,@RequestParam String seller,@RequestParam String buyer,@RequestParam String content,@RequestParam String idx)
 	{	
 		String buyerid=mservice.getIdTakeNick(buyer);
-		System.out.println(buyerid);
+		Map<String, String> map = new HashMap<String,String>(); 
+		String star1 = String.valueOf(star);
+		
+		map.put("product_idx", idx);
+		map.put("star", star1);
+		map.put("seller", seller);
+		map.put("buyer", buyerid);
+		map.put("content", content);
+		
+		rservice.ReviewInsert(map);
+		
+		
+		
 		return "/product/list";
 	}
 	
