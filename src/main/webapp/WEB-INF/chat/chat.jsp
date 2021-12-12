@@ -25,7 +25,7 @@
 					</c:if>
 				</div>
 				<div class="info-text">
-					<span class="tit nick">${nick}</span> <span class="sm-tit">후기</span>
+					<span class="tit nick">${nick}</span> <span class="sm-tit">후기 ${reviewCount}개</span>
 				</div>
 				<div class="chatout-btn">
 					<button type="button" class="btn-list" id="chatOutBtn">나가기</button>

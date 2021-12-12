@@ -45,7 +45,7 @@
 			<!-- 채팅리스트 O -->
 			<c:if test="${chlist.size() != 0}">
 				<c:forEach var="one" items="${chlist}">
-					<div class="alist link" onclick="location.href='../../chat/auth/list?idx=${one.product_idx}&key=click'">
+					<div class="alist link  ${dto.idx == one.product_idx? 'click-list' : ''}" onclick="location.href='../../chat/auth/list?idx=${one.product_idx}&key=click'">
 						<div class="alist-info">
 							<div class="profile-div">
 								<c:if test="${one.profile == 'no' }">
@@ -99,7 +99,8 @@
 							</c:if>
 						</div>
 						<div class="info-text">
-							<span class="tit nick">${yournick}</span> <span class="sm-tit">후기</span>
+							<div class="tit nick">${yournick}</div>
+							<div class="sm-tit">후기 ${reviewCount}개</div>
 						</div>
 						<div class="chatout-btn">
 							<button type="button" class="btn-list" id="chatOutBtn">나가기</button>

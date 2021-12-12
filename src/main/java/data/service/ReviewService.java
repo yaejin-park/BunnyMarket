@@ -26,5 +26,8 @@ public class ReviewService {
 	public void ReviewInsert(ReviewDTO rdto) {
 		rmapper.ReviewInsert(rdto);
 	}
-
+	
+	public int getCount(String id) {
+		return rmapper.getCount(id);
+	}
 }

@@ -32,6 +32,7 @@ import data.dto.ProductDTO;
 import data.service.ChatService;
 import data.service.MemberService;
 import data.service.ProductService;
+import data.service.ReviewService;
 
 @Controller
 @RequestMapping("/chat")
@@ -45,6 +46,9 @@ public class ChatController {
 
 	@Autowired
 	MemberService mservice;
+	
+	@Autowired
+	ReviewService rservice;
 
 	@GetMapping("/auth/room")
 	public ModelAndView chatRoom(@RequestParam String idx, Principal principal, HttpSession session) throws IOException  {
@@ -126,6 +130,7 @@ public class ChatController {
 		
 		String nick = mservice.getNick(pservice.getData(idx).getId());
 		String profile = mservice.getMemberId(pservice.getData(idx).getId()).getProfile();
+		int reviewCount = rservice.getCount(id);
 		
 		//지역가져오기
 		String userId="no";
@@ -150,6 +155,7 @@ public class ChatController {
 		mview.addObject("id", id);
 		mview.addObject("nick", nick);
 		mview.addObject("profile", profile);
+		mview.addObject("reviewCount", reviewCount);
 		mview.setViewName("/chat/chat");
 
 		return mview;	
@@ -230,8 +236,10 @@ public class ChatController {
 			//상대방 닉네임& 프로필
 			String yournick = mservice.getNick(pservice.getData(idx).getId()); 
 			String yourprofile = mservice.getMemberId(pservice.getData(idx).getId()).getProfile(); 
+			int reviewCount = rservice.getCount(pservice.getData(idx).getId());
 			mview.addObject("yournick", yournick);
 			mview.addObject("yourprofile", yourprofile);
+			mview.addObject("reviewCount", reviewCount);
 		}
 
 		String nick = mservice.getNick(id); //내 닉네임
