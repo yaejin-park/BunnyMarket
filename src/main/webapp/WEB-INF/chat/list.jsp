@@ -16,8 +16,15 @@
 		<div class="chat-list">
 			<!--고정된 상단 나의 이름-->
 			<div class="wrap">
-				<img alt="profile" src="/image/profile-icon.png"
-					class="profile-img me">
+				<div class="profile-div login-user">
+					<c:if test="${profile == 'no' }">
+						<img alt="profile" src="/image/profile-icon.png" class="profile-img">	
+					</c:if>
+					<c:if test="${profile != 'no' }">
+						<img alt="profile" src="/photo/${profile}" class="profile-img">	
+					</c:if>
+				</div>
+				
 				<div class="info-text">
 					<span class="tit nick">${nick}</span>
 				</div>
@@ -41,8 +48,12 @@
 					<div class="alist link" onclick="location.href='../../chat/auth/list?idx=${one.product_idx}&key=click'">
 						<div class="alist-info">
 							<div class="profile-div">
-								<img alt="profile" src="/image/profile-icon.png"
-									class="profile-img">
+								<c:if test="${one.profile == 'no' }">
+									<img alt="profile" src="/image/profile-icon.png" class="profile-img">	
+								</c:if>
+								<c:if test="${one.profile != 'no' }">
+									<img alt="profile" src="/photo/${one.profile}" class="profile-img">	
+								</c:if>
 							</div>
 							<div class="list-info">
 								<div class="tit">${one.nickname}</div>
@@ -79,8 +90,14 @@
 				<input type="hidden" id="chatHistory" value="${chatHistory}">
 				<div class="info">
 					<div class="wrap">
-						<img alt="profile" src="/image/profile-icon.png"
-							class="profile-img">
+						<div class="profile-div">
+							<c:if test="${yourprofile == 'no' }">
+								<img alt="profile" src="/image/profile-icon.png" class="profile-img">	
+							</c:if>
+							<c:if test="${yourprofile != 'no' }">
+								<img alt="profile" src="/photo/${yourprofile}" class="profile-img">	
+							</c:if>
+						</div>
 						<div class="info-text">
 							<span class="tit nick">${yournick}</span> <span class="sm-tit">후기</span>
 						</div>
@@ -109,15 +126,13 @@
 				<div id="chating" class="chating">
 					<c:forEach var="chat" items="${chatHistory}">
 						<c:set var="thisTime" value="${fn:substring(chat.time,0,10)}"/>
-						<c:if test="${lastTime != null}">
-							<c:if test="${thisTime != lastTime}">
-								<fmt:parseDate var="dateString" value="${thisTime}" pattern="yyyy-MM-dd" />
-								<div class="date-wrap">
-									<div class="date-change">
-										<fmt:formatDate value="${dateString}" pattern="yyyy년 MM월 dd일" />
-									</div>
+						<c:if test="${thisTime != lastTime || lastTime == null}">
+							<fmt:parseDate var="dateString" value="${thisTime}" pattern="yyyy-MM-dd" />
+							<div class="date-wrap">
+								<div class="date-change">
+									<fmt:formatDate value="${dateString}" pattern="yyyy년 MM월 dd일" />
 								</div>
-							</c:if>
+							</div>
 						</c:if>
 						<c:if test="${chat.sender == id}">
 							<div class='me'>
@@ -210,11 +225,22 @@ $(document).ready(function() {
 					var today = new Date();   
 					var now = today.getFullYear()+"-"+(today.getMonth()+1)+"-"+today.getDate(); // 년도
 					
-					if('${lastTime}' != now){
+					console.log($(".time").length);
+					
+					//한번도 날짜가 찍힌적이 없으면 날짜 출력
+					if($(".date-change").length==0){
 						var s = '<div class="date-wrap"><div class="date-change">';
-						s += now.replace('-','년 ').replace('-', '월 ').replace('-', '일')+'</div></div>';
+						s += now.replace('-','년 ').replace('-', '월 ')+'일</div></div>';
 						
 						$("#chating").append(s);
+					} else{
+						//시간이 다르면
+						if('${lastTime}' != now){
+							var s = '<div class="date-wrap"><div class="date-change">';
+							s += now.replace('-','년 ').replace('-', '월 ')+'일</div></div>';
+							
+							$("#chating").append(s);
+						}
 					}
 					
 					if (d.sessionId == $("#sessionId").val()) {

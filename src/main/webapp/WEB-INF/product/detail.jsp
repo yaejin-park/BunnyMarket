@@ -35,7 +35,14 @@
 	<table class="table table-default">
 		<tr>
 			<td rowspan="2" class="profile">
-				<img alt="profile" src="/image/profile-icon.png" class="profileImg">	
+				<div class="profile-div">
+					<c:if test="${profile == 'no' }">
+						<img alt="profile" src="/image/profile-icon.png" class="profile-img">	
+					</c:if>
+					<c:if test="${profile != 'no' }">
+						<img alt="profile" src="/photo/${profile}" class="profile-img">	
+					</c:if>
+				</div>
 			</td>
 			<td class="nick tit verticalBottom">
 				${nick}
@@ -130,7 +137,7 @@
 			<div class="tit child">연관상품</div>
 			<div class="child tit-sm more">
 				<a href="list?category=${dto.category}">
-					더보기>
+					더보기 >
 				</a>
 			</div>
 		</div>
