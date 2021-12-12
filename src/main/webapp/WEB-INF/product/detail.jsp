@@ -53,7 +53,7 @@
 		</tr>
 		<tr>
 			<td class="tit-sm verticalTop">
-				후기 
+				후기 ${reviewCount} 개
 			</td>
 		</tr>	
 		<tr>

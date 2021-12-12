@@ -17,6 +17,7 @@ public interface ReviewMapper {
 	
 	public List<ChatDTO> getList(String idx);
 	public void ReviewInsert(Map<String, String> map);
+	public int getCount(String id);
 
 	
 

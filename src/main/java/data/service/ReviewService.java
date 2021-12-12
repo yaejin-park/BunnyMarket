@@ -27,5 +27,8 @@ public class ReviewService {
 	public void ReviewInsert(Map<String, String> map) {
 		rmapper.ReviewInsert(map);
 	}
-
+	
+	public int getCount(String id) {
+		return rmapper.getCount(id);
+	}
 }

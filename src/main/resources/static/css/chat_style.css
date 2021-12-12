@@ -256,6 +256,10 @@ form.msgForm .chat-btn-div .btn-add{
     align-items: center;
 }
 
+.alist.click-list{
+	background-color: #eee;
+}
+
 .list-info{
     display: flex;
     flex-direction: column;
@@ -347,10 +351,9 @@ form.msgForm .chat-btn-div .btn-add{
   border-radius: 10px;
 } 
 
-div.info-text span.tit.nick {
+div.info-text div.tit.nick {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    width: 100px;
-    height: 20px;
+    width: 300px;
 }

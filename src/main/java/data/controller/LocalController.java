@@ -50,12 +50,11 @@ public class LocalController {
 		Principal principal
 		) 
 	{
-		HashMap<String, String> map = new HashMap<String, String>();
+		HashMap<String, String> localMap = new HashMap<String, String>();
 		String userId = principal.getName();
-		map.put("id", userId);
-		map.put("local", local);
-		
-		memberService.updateLocal(map);
+		localMap.put("id", userId);
+		localMap.put("local", local);
+		memberService.updateLocal(localMap);
 	}
 	
 	@GetMapping("/auth/getlocal")
