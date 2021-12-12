@@ -1,27 +1,20 @@
 $(function(){
-	setTimeout(() => {
-	 var swiper = new Swiper(".mySwiper", {
-		    navigation: {
-		      nextEl: ".swiper-button-next",
-		      prevEl: ".swiper-button-prev",
-		    },
-		    pagination: {
-		      el: ".swiper-pagination",
-		    },
-		  });
-	}, 20);
+
+	$(window).on("resize", function(){
+		$(".cummu-list .img-div").each(function(){
+			$(this).height($(this).width());
+			if($(this).find("img").width() * $(this).height() < $(this).find("img").height() * $(this).width()){
+				$(this).find("img").width($(this).width());
+				$(this).find("img").height("auto");
+			}else{
+				$(this).find("img").width("auto");
+				$(this).find("img").height($(this).height());
+			}
+		});
+	}).resize();
 
 	$(window).on("load", function(){
-        $(".cummu-list li").each(function(){
-			$(this).find(".img-div").height($(this).find(".img-div").width());
-            if($(this).children("img").width() > $(this).children("img").height()){
-                $(this).children("img").width("auto");
-                $(this).children("img").height("100%");
-            }else{
-                $(this).children("img").width("100%");
-                $(this).children("img").height("auto");
-            }
-        });
+		$(".img-detail-div").find(".content-img").hide();
     });
 
 	var fileListArr = new Array();
@@ -56,7 +49,6 @@ $(function(){
 			}
 			reader.readAsDataURL(files[i]);
 			
-			//list에 대표이미지 사이즈 맞추기
 			reader.onloadend = function(e){
 				$(".preview-img").each(function(){
 					$(this).height($(this).width());
@@ -97,7 +89,7 @@ $(function(){
 		var title = $(".commu-div.write-form input[name='title']").val();
 		var content = $(".commu-div.write-form textarea[name='content']").val();
 		var formData = new FormData();
-		if(title == '' || content == '' || fileCnt == 0){
+		if(title == '' || content == ''){
 			alert("필수 입력을 입력해주세요.");
 			return;
 		}
@@ -134,7 +126,7 @@ $(function(){
 		var deletePhoto = deleteFile.split(",");
 		
 		var formData = new FormData();
-		if(title == '' || content == '' || fileCnt == 0){
+		if(title == '' || content == ''){
 			alert("필수 입력을 입력해주세요.");
 			return;
 		}
@@ -298,12 +290,20 @@ $(function(){
 				success:function(){
 					alert("댓글을 삭제했습니다.");
 					location.reload();
-				}
+					}
 			});
 		}
 	});
-});
 	
+	//이미지 상세 보기
+		$(".img-detail-view").click(function() {
+			$(this).parents(".img-detail-div").siblings().find(".content-img").hide();
+			$(this).parents(".img-detail-div").find(".content-img").toggle();
+		});
+	
+});
+
+
 function dibsClicked(){
 	var idx = $(".community-div input[name='cIdx']").val();
 	console.log("idx =>" + idx);

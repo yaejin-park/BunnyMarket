@@ -162,7 +162,7 @@
 				</div>
 				
 				<div class="btn-wrap">
-					<button type="submit" class="btn-add join-btn">회원가입</a>
+					<button type="submit" class="btn-add">회원수정</a>
 					<button type="button" class="btn-default">취소</a>
 				</div>
 			</form>

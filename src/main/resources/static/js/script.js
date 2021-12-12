@@ -41,64 +41,61 @@ $(function(){
 		})
 	});
    
-	$(window).on("load",function(){
-		//상세페이지 롤링
+	if($(".detail-swiper").length > 0){
+		var detailSwiper = new Swiper(".detail-swiper", {
+		    navigation: {
+		      nextEl: ".detail-swiper .swiper-button-next",
+		      prevEl: ".detail-swiper .swiper-button-prev",
+		    },
+		    pagination: {
+		      el: ".detail-swiper .swiper-pagination",
+		    },
+			observer:true,
+			observerParents:true,
+			updateOnImageReady:true
+		});
+	}
+	
+	$(window).on("resize", function(){
+		if(!$(".menu").hasClass("gnb-on")){
+			gsap.to(".gnb", 0, {right:-$(".gnb").outerWidth(true) - 100});
+		}
+		
 		if($(".detail-swiper").length > 0){
-			// 상세 페이지 - 큰 이미지 롤링
 			$(".infoAll .bigImg").each(function(){
 				$(this).height($(this).width());
-				if($(this).width() > $(this).find("img").height()){
-					$(this).find("img").width("auto");
-					$(this).find("img").height("100%");
-				}else{
-					$(this).find("img").width("100%");
+				if($(this).find("img").width() * $(this).height() < $(this).find("img").height() * $(this).width()){
+					$(this).find("img").width($(this).width());
 					$(this).find("img").height("auto");
+				}else{
+					$(this).find("img").width("auto");
+					$(this).find("img").height($(this).height());
 				}
 			});
 			
 			$(".infoAll .smImg").each(function(){
 				$(this).height($(this).width());
-				if($(this).width() > $(this).find("img").height()){
-					$(this).find("img").width("auto");
-					$(this).find("img").height("100%");
-				}else{
-					$(this).find("img").width("100%");
+				if($(this).find("img").width() * $(this).height() < $(this).find("img").height() * $(this).width()){
+					$(this).find("img").width($(this).width());
 					$(this).find("img").height("auto");
+				}else{
+					$(this).find("img").width("auto");
+					$(this).find("img").height($(this).height());
 				}
-			});
-			
-			var detailSwiper = new Swiper(".detail-swiper", {
-			    navigation: {
-			      nextEl: ".detail-swiper .swiper-button-next",
-			      prevEl: ".detail-swiper .swiper-button-prev",
-			    },
-			    pagination: {
-			      el: ".detail-swiper .swiper-pagination",
-			    },
-				observer:true,
-				observerParents:true,
-				updateOnImageReady:true
 			});
 		}
 		if($(".thumbnailDiv").length > 0) {
-			//리스트 이미지 정사각형
 			$(".thumbnailDiv").each(function(){
 				$(this).height($(this).width());
 				
-				if($(this).width() > $(this).find("img").height()){
-					$(this).find("img").width("auto");
-					$(this).find("img").height("100%");
-				}else{
-					$(this).find("img").width("100%");
+				if($(this).find("img").width() * $(this).height() < $(this).find("img").height() * $(this).width()){
+					$(this).find("img").width($(this).width());
 					$(this).find("img").height("auto");
+				}else{
+					$(this).find("img").width("auto");
+					$(this).find("img").height($(this).height());
 				}
 			});
-		}
-	});
-	
-	$(window).resize(function(){
-		if(!$(".menu").hasClass("gnb-on")){
-			gsap.to(".gnb", 0, {right:-$(".gnb").outerWidth(true) - 100});
 		}
 	}).resize();
 });

@@ -14,10 +14,18 @@ public class AdvertiseDTO {
 	private String title;
 	private String content;
 	private String photo;
-	private List<MultipartFile> photoupload;
+	private String original_photo;
 	private int readcount;
 	private int goodcount;
 	private Timestamp writeday;
+	private List<MultipartFile> photoupload;
+	
+	public String getOriginal_photo() {
+		return original_photo;
+	}
+	public void setOriginal_photo(String original_photo) {
+		this.original_photo = original_photo;
+	}
 	
 	public List<MultipartFile> getPhotoupload() {
 		return photoupload;

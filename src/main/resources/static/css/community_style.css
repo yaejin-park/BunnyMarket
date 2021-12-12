@@ -129,9 +129,10 @@
 
 .community-div .community-detail-div .infoAll .img.group .smImgDiv .smImg.child {
 	position:relative;
-	width:calc((323px -30px)/4);
+	width:calc((310px -30px)/4);
 	border:2px solid #f7f6fc;
 	overflow:hidden;
+	display: inline-block;
 }
 
 .community-div .community-detail-div .infoAll .img.group .smImgDiv .smImg img {
@@ -140,7 +141,14 @@
 	left:50%;
 	transform:translate(-50%,-50%);
 }
-
+.community-div .img-detail-div button{
+	margin-top:60px;
+}
+.community-div .img-detail-div .content-img img{
+	margin-top:20px;
+	margin-bottom:15px;
+	max-width: 320px;
+}
 .community-div .infoAll .group{
 	margin-top:0;
 	float:left;
@@ -229,7 +237,7 @@
 	width:100%;
 }
 .detailContent{
-	margin-top:60px;
+	margin-top:15px;
 	min-height:200px;
 }
 .detailbtn .delist{

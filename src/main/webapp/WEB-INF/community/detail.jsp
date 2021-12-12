@@ -4,9 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <link rel="stylesheet" type="text/css" href="/css/swiper.min.css">
-<link rel="stylesheet" type="text/css" href="/css/common.css">
 <link rel="stylesheet" type="text/css" href="/css/community_style.css">
 
 <div class="community-div inner">
@@ -20,32 +18,34 @@
 			<div class="detail-swiper">
 				<div class="bigImgDiv swiper-wrapper">
 					<c:forEach items="${photo}" var="photo">
-						<div class="swiper-slide bigImg fix"> <!-- positon : relative -->
+						<div class="swiper-slide bigImg fix">
 							<!-- 이미지 없는경우 -->
-							<c:if test="${photo=='no'}">
-								<img class="bigImg" alt="thumbnail" src="../image/co-noimg.jpg"> <!-- position:abso, top50% left 50% trasla -50%-% -->
+							<c:if test="${photo==''}">
+								<img alt="thumbnail" src="../image/co-noimg.jpg" />
 							</c:if>
 							<!-- 이미지 있는경우 -->
-							<c:if test="${photo!='no'}">
-								<img class="bigImage" alt="thumbnail" src="../photo/${photo}">
+							<c:if test="${photo!=''}">
+								<img alt="thumbnail" src="../photo/${photo}" />
 							</c:if>
 						</div>
 					</c:forEach>
 				</div>
-				<div class="swiper-butten-next"></div>
-				<div class="swiper-butten-prev"></div>
+				<c:if test="${fn:length(photo) != 1}">
+				<div class="swiper-button-next"></div>
+				<div class="swiper-button-prev"></div>
 				<div class="swiper-pagination"></div>
+				</c:if>
 			</div>
 			<div class="smImgDiv">
 				<c:forEach items="${photo}" var="photo">
 					<div class="smImg child">
-						<c:if test="${photo=='no'}">
+						<c:if test="${photo==''}">
 						<!-- 이미지 없는경우 -->
-							<img class="smImg" alt="smallImage" src="../image/co-noimg.jpg">
+							<img alt="smallImage" src="../image/co-noimg.jpg">
 						</c:if>
-						<c:if test="${photo!='no'}">
+						<c:if test="${photo!=''}">
 						<!-- 이미지 있을경우 -->
-							<img class="smImg" alt="smallImage" src="../photo/${photo}">
+							<img alt="smallImage" src="../photo/${photo}">
 						</c:if>
 					</div>
 				</c:forEach>
@@ -108,13 +108,22 @@
 									<c:if test="${userId == dto.id}">
 										<button type="button" class="btn-update deupdate"
 										onclick="location.href='/community/auth/updateform?idx=${dto.idx}&currentPage=${currentPage}'">수정</button>
-										<button type="button" id="deleteBtn" class="btn-delete dedelete" value="${dto.idx}">삭제</button>
+										<button type="button" class="btn-delete dedelete" idx="${dto.idx}">삭제</button>
 									</c:if>
 								</sec:authorize>
 						</div>
 					</td>
 				</tr>
 			</table>
+		</div>
+	</div>
+	
+	<div class="img-detail-div">
+		<button href="javascript:" class="img-detail-view btn-add btn-sm">상세 사진보기</button>
+		<div class="content-img">
+		<c:forEach var="photo" items="${dto.photo}">
+			<img src="/photo/${photo}" alt="">
+		</c:forEach>
 		</div>
 	</div>
 
@@ -201,7 +210,7 @@
 					        <div class="btn-wrap">
 					        	<a href="javascript:" class="reply-btn">답글쓰기</a>
 					        	<c:if test="${userId==replyDto.id}">
-			                	<a href="javascript:" class="btn-delete btn-sm" idx="${replyDto.idx}">삭제</a>
+			                		<a href="javascript:" class="btn-delete btn-sm" idx="${replyDto.idx}">삭제</a>
 					        	</c:if>
 					        </div>
 		    			</div>

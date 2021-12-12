@@ -1,5 +1,5 @@
 $(function(){
-	setTimeout(() => {
+/*	setTimeout(() => {
 	 var swiper = new Swiper(".mySwiper", {
 		    navigation: {
 		      nextEl: ".swiper-button-next",
@@ -9,7 +9,7 @@ $(function(){
 		      el: ".swiper-pagination",
 		    },
 		  });
-	}, 20);
+	}, 20);*/
 	
 	var fileListArr = new Array();
 	var keyNum = 0;
@@ -63,8 +63,14 @@ $(function(){
 		console.log(fileListArr.length);
 	});
 	
-	$(document).on("click", ".preview-img .close", function(){
+	var deleteFile = "";
+	$(document).on("click", ".ad-div .preview-img .close", function(e){
 		var delIdx = $(this).parent(".preview-img").attr("idx");
+		
+		if($(this).parents(".ad-div").hasClass("update")){
+			var fileTxt = $(e.target).prev("img").attr("src");
+			deleteFile += $(e.target).prev("img").attr("src").substring(7,fileTxt.length)  + ",";
+		}
 		
 		var fileArr = fileListArr;
 		fileArr.splice(delIdx,1);
@@ -113,7 +119,7 @@ $(function(){
 		var content = $(".ad-div.write-form textarea[name='content']").val();
 		var photo = $(".ad-div input[name='photo']").val().split(",");
 		var deletePhoto = deleteFile.split(",");
-		console.log("되냐")
+		
 		var formData = new FormData();
 		if(title == '' || content == '' || fileCnt == 0){
 			alert("필수 입력을 입력해주세요.");
@@ -146,7 +152,7 @@ $(function(){
 		
 		for(var i=0; i<fileListArr.length; i++){
 			console.log(fileListArr[i]);
-			formData.append("photoupload", fileListArr[i]);
+			formData.append("uploadFile", fileListArr[i]);
 		}
 		
 		$.ajax({
@@ -169,7 +175,7 @@ $(function(){
 	//글 삭제
 	$(".detailbtn .btn-delete").click(function() {
 		var idx =  $(this).attr("idx");
-		var currentPage= $(".ad-detail-div input[name='current-page']").val();
+		var currentPage= $(".ad-div input[name='current-page']").val();
 		
 		var n = confirm("정말 게시물을 삭제하시겠습니까?");
 		if(n){

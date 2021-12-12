@@ -140,6 +140,7 @@ public class CommunityController {
 	
 	@PostMapping("/auth/insert")
 	   public @ResponseBody void insert(
+			   @ModelAttribute CommunityDTO dto,
 				MultipartHttpServletRequest multiRequest,
 				HttpServletRequest request,
 				HttpSession session,
@@ -154,13 +155,13 @@ public class CommunityController {
 	      
 	    String photoname = "";
 	    String originalPhotoName = "";
-	      
-	      if(fileList != null) {
-				String path = session.getServletContext().getRealPath("/photo");
+	    
+	    if(fileList != null) {
+			String path = session.getServletContext().getRealPath("/photo");
 
-				File dir = new File(path);
-				if(!dir.isDirectory()) {
-					dir.mkdirs();}
+			File dir = new File(path);
+			if(!dir.isDirectory()) {
+				dir.mkdirs();}
 		
 		if(!fileList.isEmpty()) {
 			for(int i=0; i<fileList.size(); i++) {
@@ -179,11 +180,9 @@ public class CommunityController {
 				photoname = photoname.substring(0, photoname.length()-1);
 				originalPhotoName = originalPhotoName.substring(0, originalPhotoName.length()-1);
 				}
-	      }
-	      
-	      //아이디 얻어서 dto에 저장
-	      CommunityDTO dto = new CommunityDTO();
-	    //아이디 얻어서 dto에 저장
+	      	}
+	    
+	      //아이디 얻어서 dto에 저장하기
 	      String id=principal.getName();
 	      
 	      dto.setId(id);
@@ -288,24 +287,13 @@ public class CommunityController {
 		return mview;
 	}
 	
-	@GetMapping("/delete")
+	@GetMapping("/auth/delete")
 	public String delete(
 			@RequestParam String idx,
-			@RequestParam String currentPage,
-			HttpSession session,
-			CommunityDTO dto
+			@RequestParam String currentPage
 			)
 	{
-		//글삭제시 저장된 이미지도 삭제
-	      String path=session.getServletContext().getRealPath("/photo");
-	      //업로드된 이미지명
-	      String uploadimg=service.getData(dto.getIdx()).getPhoto();
-	      //File 객체 생성
-	      File file=new File(path+"\\"+uploadimg);
-	      //이미지 삭제
-	      file.delete();
-	      
-	     service.delete(idx);
+	    service.delete(idx);
 		return "redirect:../list?currentPage="+currentPage;
 	}
 	
