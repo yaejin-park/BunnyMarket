@@ -1,7 +1,6 @@
-/* sellList js*/
+
 $(function(){
-	
-	
+
 	if($(".mydetail-form .side-menu-div").length > 0){
 		var sideMenuSwiper = new Swiper(".mydetail-form .side-menu-div", {
 	    	slidesPerView: 'auto',
@@ -70,4 +69,95 @@ $(function(){
 			}
 		}
 	});
+	
+	
+	//*** sell-List function ***
+	var g_currentPage = 0;
+	
+	var renderList = function(currentPage) {
+		g_currentPage = currentPage;
+		var sellstatus=$("#sell-status").val();
+		$.ajax({
+			type:"get",
+			dataType:"json",
+			url:"/mypage/auth/getListByStatus",
+			data:{
+				"sellstatus" : sellstatus,
+				"currentPage" : currentPage  
+			},
+			success:function(data){
+				var totalCount = data.totalCount;
+				var startPage = data.startPage;
+				var endPage = data.endPage;
+				var list = data.list;
+				var sellstatus = data.sellstatus;
+				var currentPage = data.currentPage;
+				var totalPage = data.totalPage;
+				
+				$("#sell-list-tbody").empty();
+				$(".paging").empty();
+				
+				
+				if (list !== null && list.length > 0) {
+					for (var i = 0; i < list.length; i++) {
+						var a = list[i];
+						var html = '';
+						html += '<tr colspan="3">';
+						html += '<td>';
+						html += '<c:forEach var="list" items="${list}">';
+						html +=	'<div class="simg">';
+						html +=	'<img alt="thumnail" src="../photo/${fn:split(list.uploadfile,'+'","'+')[0]}">';
+						html +=	'</div>'
+						html += '</c:forEach>';
+						html += '</td>';
+						html += '<td>';
+						html += '<div class="scate txt">' + a.category + '</div>';
+						html +=	'<div class="stitle tit">' + a.title + '</div>';
+						html +=	'<div class="sprice txt">' + a.price + '원</div>';
+						html += '</td>';
+						html += '<td>';
+						html += '<div class="sstatus">' + a.status + '</div>';
+						html += '</td>';
+						html += '</tr>';
+						
+						$("#sell-list-tbody").append(html);
+					}
+	
+					var ph = '';
+					ph += '<span id="pagination">';
+					if (startPage > 1) {
+						ph += '<a href="#" class="prev pagination" data-page="'+startPage-1+'"><span> < </span></a>';
+					}
+					
+					for (var pp = startPage; pp <= endPage; pp++) {
+						if (currentPage == pp) {
+							ph += '<a href="#" class="active pagination" data-page="'+pp+'">'+pp+'</a>';
+						} else {
+							ph += '<a href="#" class="pagination" data-page="'+pp+'">'+pp+'</a>';
+						}
+					}
+					
+					if (endPage < totalPage) {
+						ph += '<a href="#" class="next pagination" data-page="'+endPage+1+'"><span> > </span></a>';
+					}
+					ph += '</span>';
+					$(".paging").append(ph);
+					
+					$(".pagination").click(function() {
+						var page = $(this).data('page');
+						renderList(page);
+					});
+				}
+
+			}
+		});
+	};
+
+	$("#sell-status").on('change', function() {
+		renderList(1);
+	});
+	
+	renderList(1);
+	
+	
 });

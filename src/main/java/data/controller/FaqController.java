@@ -92,7 +92,10 @@ public class FaqController {
 	@GetMapping("/list_by_category")
 	@ResponseBody
 	public Map<String, Object> listByCategory(
-			@RequestParam(defaultValue = "1") int currentPage, @RequestParam(defaultValue = "all") String category, Principal principal) {
+			@RequestParam(defaultValue = "1") int currentPage, 
+			@RequestParam(defaultValue = "all") String category, 
+			Principal principal) 
+		{
 		Map<String, Object> result = new HashMap<String, Object>();
 		System.out.println("currentPage="+currentPage);
 		int totalCount=service.getTotalCount();
