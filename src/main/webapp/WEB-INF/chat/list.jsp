@@ -45,7 +45,7 @@
 			<!-- 채팅리스트 O -->
 			<c:if test="${chlist.size() != 0}">
 				<c:forEach var="one" items="${chlist}">
-					<div class="alist link" onclick="location.href='../../chat/auth/list?idx=${one.product_idx}&key=click'">
+					<div class="alist link  ${dto.idx == one.product_idx? 'click-list' : ''}" onclick="location.href='../../chat/auth/list?idx=${one.product_idx}&key=click&sender=${one.id}'">
 						<div class="alist-info">
 							<div class="profile-div">
 								<c:if test="${one.profile == 'no' }">
@@ -99,7 +99,8 @@
 							</c:if>
 						</div>
 						<div class="info-text">
-							<span class="tit nick">${yournick}</span> <span class="sm-tit">후기</span>
+							<div class="tit nick">${yournick}</div>
+							<div class="sm-tit">후기 ${reviewCount}개</div>
 						</div>
 						<div class="chatout-btn">
 							<button type="button" class="btn-list" id="chatOutBtn">나가기</button>
@@ -107,18 +108,26 @@
 					</div>
 
 					<div class="wrap link" onclick="location.href='../../product/detail?idx=${dto.idx}'">
-						<div class="thumbNail">
-							<img alt="product_thumbnail" src="/photo/${photo}" class="thumbImg" />
-						</div>
-						<div class="info-text">
-							<div class="title-div">
-								<div class="status" id="status">${dto.sellstatus}</div>
-								<div class="title">${dto.title}</div>
+						<div class="front">
+							<div class="thumbNail">
+								<img alt="product_thumbnail" src="/photo/${photo}" class="thumbImg" />
 							</div>
-							<div class="price tit">
-								<fmt:formatNumber type="number" value="${dto.price}" />원
+							<div class="info-text">
+								<div class="title-div">
+									<div class="status" id="status">${dto.sellstatus}</div>
+									<div class="title">${dto.title}</div>
+								</div>
+								<div class="price tit">
+									<fmt:formatNumber type="number" value="${dto.price}" />원
+								</div>
 							</div>
 						</div>
+						<!-- 판매완료인데 내 아이디가 buyer, seller 중 하나면, 후기작성버튼 -->
+						<c:if test="${dto.sellstatus=='판매완료'}">
+							<div class="back">
+								<button class="btn-default review-btn">후기 작성</button>				
+							</div>
+						</c:if>
 					</div>
 				</div>
 

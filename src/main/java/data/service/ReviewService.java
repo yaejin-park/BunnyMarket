@@ -3,6 +3,7 @@ package data.service;
 
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,8 +24,11 @@ public class ReviewService {
 		return rmapper.getList(idx);
 	}
 	
-	public void ReviewInsert(ReviewDTO rdto) {
-		rmapper.ReviewInsert(rdto);
+	public void ReviewInsert(Map<String, String> map) {
+		rmapper.ReviewInsert(map);
 	}
-
+	
+	public int getCount(String id) {
+		return rmapper.getCount(id);
+	}
 }

@@ -9,9 +9,16 @@ public class ReviewDTO {
 	private String seller;
 	private String buyer;
 	private String content;
-	private int star;
+	private String star;
 	private Timestamp writeday;
+	private String product_idx;
 	
+	public String getProduct_idx() {
+		return product_idx;
+	}
+	public void setProduct_idx(String product_idx) {
+		this.product_idx = product_idx;
+	}
 	public String getSeller() {
 		return seller;
 	}
@@ -30,10 +37,10 @@ public class ReviewDTO {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public int getStar() {
+	public String getStar() {
 		return star;
 	}
-	public void setStar(int star) {
+	public void setStar(String star) {
 		this.star = star;
 	}
 	public Timestamp getWriteday() {

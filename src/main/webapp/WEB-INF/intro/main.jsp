@@ -5,7 +5,7 @@
 <div class="inner">
 
 
-	<table class="intro">
+	<table class="intro-table">
 
 		<tr>
 

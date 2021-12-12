@@ -53,7 +53,7 @@
 		</tr>
 		<tr>
 			<td class="tit-sm verticalTop">
-				후기 
+				후기 ${reviewCount} 개
 			</td>
 		</tr>	
 		<tr>
@@ -185,20 +185,22 @@
 	<div class="modal">
 		<div class="modal-title"><h2>거래완료</h2> <h3>구매자를 선택해주세요</h3></div>
 		<div class="modal-content">
-		
-				<table class="review">
-					<c:forEach var="r" items="${poplist}">
-					<tr>
-							<td class="img"><img alt="profile" src="/image/profile-icon.png" class="popimg"></td>
-						
-						<td class="name">${r.nickname}<small class="small">${r.last_time}</small></td>
-						<td class="go"><i class="arrow" onclick="popOpen('#insertPop')"></i></td>
+			<table class="review">
+				<c:forEach var="r" items="${poplist}">
+					<tr><c:if test="${r.profile == 'no'}">
+						<td class="img"><img alt="profile" src="/image/profile-icon.png" class="popimg"></td>
+						</c:if>
+						<c:if test="${r.profile!= 'no'}">
+						<td class="img"><img alt="profile" src="${r.profile}" class="popimg"></td>
+						</c:if>
+						<td class="name">
+							<span>${r.nickname}</span>
+							<small class="small">${r.last_time}</small>
+						</td>
+						<td class="go"><i class="arrow review-choose-btn"></i></td>
 					</tr>
-	</c:forEach>
-				</table>
-	
-		
-			
+				</c:forEach>
+			</table>
 		</div>
 		<button type="button" class="modal-close">닫기</button>
 	</div>
@@ -207,46 +209,52 @@
 
 <div class="popup-modal" id="insertPop">
 	<div class="modal">
-		
-		<div class="modal-title">${popliat}님과의 거래후기는?</div>
 	
-		
-			<form name="myform" id="myform" method="post" action="popinsert" enctype="multipart/form-data">
-		<div class="modal-content">
-			
-	<input type="hidden" name="seller" value="${seller}" id="seller">
-	
-	<input type="hidden" name="buyer" value="${r.buyer_id}" id="buyer">
-	
-	
+		<div class="modal-title"><span class="choose-nick"></span>님과의 거래후기는?</div>
+			<div class="modal-content" id="pop-insert">
 	
 	
 		
-			<div class="my-rating"></div>
-			
-			<fieldset> 
-						<legend>이모지 별점</legend>
-						<input type="radio" name="star" value="5" id="rate1"><label
-							for="rate1">⭐</label> <input type="radio" name="star" value="4"
-							id="rate2"><label for="rate2">⭐</label> <input
-							type="radio" name="star" value="3" id="rate3"><label
-							for="rate3">⭐</label> <input type="radio" name="star" value="2"
-							id="rate4"><label for="rate4">⭐</label> <input
-							type="radio" name="star" value="1" id="rate5"><label
-							for="rate5">⭐</label>
-					</fieldset>
-			<textarea placeholder="선택사항" name="content" id="content"></textarea>
+				<input type="hidden" name="seller" value="${seller}" id="seller">
+				<input type="hidden" name="buyer" value="" id="buyer">
+				<input type="hidden" name="idx" value="${idx}" id="idx">
 				
-		</div>
-	
-	
-		<button type="submit" class="btn-add">등록</button>
-		</form>
-			<button type="button" class="modal-close">닫기</button>
-		</div>
+
+				<div id="my-rating">
+				
+				<fieldset> 
+					<legend>이모지 별점</legend>
+					<input type="radio" name="star" value="5" id="rate1">
+					<label for="rate1">⭐</label> 
+					<input type="radio" name="star" value="4" id="rate2">
+					<label for="rate2">⭐</label> 
+					<input type="radio" name="star" value="3" id="rate3">
+					<label for="rate3">⭐</label> 
+					<input type="radio" name="star" value="2" id="rate4">
+					<label for="rate4">⭐</label> 
+					<input type="radio" name="star" value="1" id="rate5">
+					<label for="rate5">⭐</label>
+				</fieldset>
+				
+				</div>
+				<textarea placeholder="선택사항" name="content" id="popcontent"></textarea>
+				<button type="button" class="btn-add" id="btn-pop-insert">등록</button>
+				<input type="hidden" id="isLogin" value="${isLogin}">
+				
+			
+		</div>	
+		<button type="button" class="modal-close">닫기</button>
 		
-	</div>
+	</div>	
+
 	
+	
+</div>
+
+		
+	
+	
+
 
     
 
@@ -286,7 +294,59 @@ $(document).ready(function() {
 		}
 	}
 
-});
+
+	$("#choosePop .review-choose-btn").click(function(){
+		var chooseNick = $(this).parent("td.go").prev(".name").find("span").text();
+		popOpen("#insertPop");
+		$("#insertPop").find(".choose-nick").text(chooseNick);
+		$('input[name=buyer]').attr('value',chooseNick);
+	})
+
+	
+ 	$("#btn-pop-insert").click(function(){
+
+		star = $('input:radio[name="star"]:checked').val();
+		seller =$('#seller').val();
+		buyer =$('#buyer').val();
+		content=$('#popcontent').val();
+		idx=$('#idx').val();
+		
+		console.log(content);
+		$.ajax({
+		    url: "popinsert",
+		    type: "post",
+		    datatype:"txt",
+		    data:{
+		    	"star" : star,
+		    	"seller":seller,
+		    	"buyer":buyer,
+		    	"content":content,
+		    	"idx":idx
+	
+		    },
+		    success: function (data) {
+		            alert("데이터 전송이 성공적으로 끝났을 때 실행");
+		        }, error: function (data) {
+		        	console.log("실패");
+				}
+		    
+		});
+	    
+	
+	})
+
+
+
+
+	
+		
+});  
+
+
+	
+	 
+	
+
 
 //미리보기 이미지 클릭시,
 /* $(document).on("click",".smallImg", function(e) {
@@ -482,6 +542,7 @@ $(document).on("change", "#statusSelect", function() {
         }
 	}); 
 });
+
 
 </script>
 

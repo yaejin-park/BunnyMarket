@@ -354,19 +354,22 @@ public class MypageController {
 		String userId = "no";
 		String local = "";
 		String[] localArr = {};
+		String currentLocal = "";
 		if(principal != null) {
 			userId = principal.getName();
 			local = memService.getLocal(principal);
+			currentLocal = memService.currentLocal(userId);
 			localArr = local.split(",");
 		}
 		mview.addObject("localCnt",localArr.length);
-		
 		mview.addObject("localArr",localArr);
+		mview.addObject("currentLocal", currentLocal);
+		
 		String id = principal.getName();
 		int totalCount = plservice.getTotalCount(id);
 		
 		//페이징 처리에 필요한 변수 선언
-		int perPage = 20;
+		int perPage = 10;
 		int totalPage;
 		int start;
 		int perBlock = 5;

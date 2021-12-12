@@ -11,11 +11,13 @@
 	
 	
 	<insert id="ReviewInsert" parameterType="rdto">
-		insert into review (seller,buyer,content,star,writeday) values (#{seller},#{buyer},#{content},#{star},now())	
+		insert into review (seller,buyer,content,star,product_idx,writeday) values (#{seller},#{buyer},#{content},#{star},#{product_idx},now())	
 	</insert>
 	
-
-
+	<select id="getCount" parameterType="String" resultType="int">
+		select count(*) from review where seller=#{id}
+	</select>
+	
 	
 	
 	

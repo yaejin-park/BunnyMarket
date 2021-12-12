@@ -4,6 +4,7 @@ import java.io.File;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -312,6 +313,8 @@ public class ProductController {
 		String nick = mservice.getNick(dto.getId());
 		//프로필 이미지 가져오기
 		String profile = mservice.getMemberId(dto.getId()).getProfile();
+		//리뷰수 가져오기
+		int reviewCount = rservice.getCount(dto.getId());
 		
 		//같은 카테고리 연관제품 보여주기
 		String category = dto.getCategory();
@@ -357,6 +360,10 @@ public class ProductController {
 					dto.setSellstatus("finished");
 				}
 			}
+			
+			//팝업창 insert
+			String seller=principal.getName();
+			model.addAttribute("seller", seller);
 		}
 		//팝업창 관련
 		
@@ -365,10 +372,18 @@ public class ProductController {
 		model.addAttribute("poplist", poplist);
 		model.addAttribute("idx", idx);
 		
+
 		//팝업창 insert
-		String seller=principal.getName();
-		model.addAttribute("seller", seller);
+
 		
+		String seller="no";
+		if(principal != null) {
+			seller=principal.getName();
+		}
+	
+		
+		model.addAttribute("seller", seller);
+
 		model.addAttribute("localArr", localArr);
 		model.addAttribute("localCnt", localArr.length);
 		model.addAttribute("currentLocal", currentLocal);
@@ -377,6 +392,7 @@ public class ProductController {
 		model.addAttribute("isLogin", isLogin);
 		model.addAttribute("nick", nick);
 		model.addAttribute("profile", profile);
+		model.addAttribute("reviewCount", reviewCount);
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("photo", photo);
 
@@ -437,10 +453,23 @@ public class ProductController {
 		service.updateStatus(idx, status);
 	}
 	
+	@ResponseBody
 	@PostMapping("/popinsert")
-	public String insert(@ModelAttribute ReviewDTO rdto)
+	public String popinsert(@RequestParam int star,@RequestParam String seller,@RequestParam String buyer,@RequestParam String content,@RequestParam String idx)
 	{	
-		rservice.ReviewInsert(rdto);
+		String buyerid=mservice.getIdTakeNick(buyer);
+		Map<String, String> map = new HashMap<String,String>(); 
+		String star1 = String.valueOf(star);
+		
+		map.put("product_idx", idx);
+		map.put("star", star1);
+		map.put("seller", seller);
+		map.put("buyer", buyerid);
+		map.put("content", content);
+		
+		rservice.ReviewInsert(map);
+		
+		
 		
 		return "/product/list";
 	}
