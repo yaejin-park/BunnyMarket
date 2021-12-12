@@ -455,30 +455,37 @@ public class MypageController {
 	}
 	
 	@GetMapping("/followlist")
-	public String follow(@PathVariable int idx,
-			Model model,
-			HttpSession session,
-			Principal principal) {
+	public String follow(
+			@RequestParam(value="idx", required=false) String idx,
+				HttpServletRequest request,
+				HttpSession session,
+				Model model,
+				Principal principal) {
 		
 		String userId = "no";
 		String local = "";
 		String[] localArr = {};
-		
+		String currentLocal = "";
 		if(principal != null) {
 			userId = principal.getName();
 			local = memService.getLocal(principal);
+			currentLocal = memService.currentLocal(userId);
 			localArr = local.split(",");
 		}
+		
+		//로그인한 회원정보 가져오기
+		String nick=memService.getNick(principal.getName());
+		String profile = memService.getMemberId(principal.getName()).getProfile();	
+		model.addAttribute("nick", nick);
+		model.addAttribute("profile", profile);
+		model.addAttribute("userId", userId);
+		
 		FollowDTO fdto=new FollowDTO();
-		int followCheck=followService.followCheck(fdto.getFollowee(), fdto.getFollower());
-		List<FollowDTO> followerList=followService.selectFolloweeList(idx);
-		List<FollowDTO> followeeList=followService.selectFollowerList(idx);
+		List<FollowDTO> flist=followService.getFollowList(fdto.getFollower());
+		int fcount = flist.size();
 		
-		model.addAttribute("id", userId);
-		model.addAttribute("followCheck", followCheck);
-		model.addAttribute("follow", followCheck);
-		model.addAttribute("followCheck", followCheck);
-		
+		model.addAttribute("flist", flist);
+		model.addAttribute("fcount", fcount);
 		
 		return "/mypage/follow_list";
 	}	

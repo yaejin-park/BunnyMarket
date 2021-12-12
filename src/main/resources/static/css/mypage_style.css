@@ -121,3 +121,8 @@
 		display:flex;
 	}
 }
+
+/* mypage-followList */
+.nodata{
+	border:0px;
+}
