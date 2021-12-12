@@ -19,6 +19,9 @@ public class FaqService {
 	public int getTotalCount() {
 		return mapper.getTotalCount();
 	}
+	public int getTotalCountByCategory(String category) {
+		return mapper.getTotalCountByCategory(category);
+	}
 	public FaqDTO getData(String num) {
 		return mapper.getData(num);
 	}

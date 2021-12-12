@@ -98,7 +98,7 @@ public class FaqController {
 			@RequestParam(defaultValue = "1") int currentPage, @RequestParam(defaultValue = "all") String category, Principal principal) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		System.out.println("currentPage="+currentPage);
-		int totalCount=service.getTotalCount();
+		int totalCount=service.getTotalCountByCategory(category);
 		int perPage=10;
 		int totalPage;
 		int start;
