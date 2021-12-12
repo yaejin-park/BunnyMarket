@@ -1,0 +1,66 @@
+
+/* productlike List */
+
+.mylike-form .inner {
+	position:relative;
+	padding-left:130px;
+}
+
+.my-like .like-th {
+	margin-left: 100px;
+}
+
+.my-like .like-tr {
+	text-align:center;
+}
+
+.mylike-form .side-menu-div {
+	position:absolute;
+	top:0;
+	left:0;
+	width:70px;
+	z-index:2;
+}
+
+.mylike-form .side-menu-div a {
+	display:block;
+	line-height:40px;
+}
+
+.mylike-form .side-menu-div .swiper-wrapper {
+	display:block;
+}
+
+.shortTit{
+	display: block;
+ 	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+    margin-bottom: 18px;
+}
+
+.oneList{
+    width: calc((100% - 30px * 3) / 4);
+    margin-right: 30px;
+    margin-bottom: 30px;
+   	cursor: pointer;
+}
+
+.oneList:nth-child(4n){
+	margin-right: 0;
+}
+
+.thumbnailDiv{
+	position: relative;
+	overflow: hidden;
+	width: 100px; 
+	height: 100px;
+}
+
+.thumbnailDiv img{
+	position:absolute;
+	top:50%;
+	left:50%;
+	transform:translate(-50%,-50%);
+}
+

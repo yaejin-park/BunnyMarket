@@ -55,4 +55,7 @@ public class EventService {
 	public void deleteReply(String idx) {
 		mapper.deleteReply(idx);
 	}
+	public String getReplyCount(String idx) {
+		return mapper.getReplyCount(idx);
+	}
 }

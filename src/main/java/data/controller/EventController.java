@@ -77,6 +77,10 @@ public class EventController {
 		
 		List<EventDTO> list = service.getPageList(start , perPage, category, status);
 		
+		for(EventDTO dto:list) {
+			dto.setReplycount(service.getReplyCount(dto.getIdx()));
+		}
+		
 		mview.addObject("totalCount", total);
 		mview.addObject("eventList", list);
 		mview.addObject("startPage", startPage);

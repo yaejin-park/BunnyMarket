@@ -63,7 +63,6 @@
 	border:1px solid #fff;
 	background:#ff7ab0 url("/image/close-icon.png") no-repeat center / 100%;
 }
-
 .local-map-div .user-local-list li.plus-type .plus-btn {
 	margin-left:0;
 	border:1px solid #e5e5e5;
@@ -95,4 +94,66 @@
 }
 #setLocalPop .btn-wrap, #setCurrentPop .btn-wrap {
 	margin-top:40px;
+}
+@media all and (max-width:1400px){
+	.local-map-div #map .map-util {
+		width:calc((100vw - 1000px) /2);
+	}
+}
+@media all and (max-width:1024px){
+	.local-map-div #map .map-util {
+		width:6vw;
+	}
+}
+@media all and (max-width:768px){
+	.local-map-div {
+		margin-top:20px;
+	}
+	.local-map-div #map .map-util {
+		width:10vw;
+	}
+	.local-map-div #map .map-util .current-btn {
+		width:30px;
+		height:30px;  
+		background-size:20px auto;
+	}
+	.local-map-div .choose-div {
+		margin-top:30px;
+	}
+	.local-map-div .choose-div .title-div {
+		margin-bottom:20px;
+	}
+	.local-map-div .choose-div .title-div .tit {
+		margin-bottom:5px;
+	}
+	.local-map-div .user-local-list li {
+		margin-right:10px;
+		padding:5px 10px;
+	}
+	.local-map-div .user-local-list li span {
+		display:inline-block;
+		line-height:23px;
+	}
+	.local-map-div .user-local-list li a {
+		vertical-align:top;
+	}
+	.local-map-div .search-area {
+		width:100%;
+		margin-top:20px;
+	}
+	.local-map-div .search-div {
+		margin-bottom:20px;
+	}
+	.local-map-div .search-list {
+		width:100%;
+	}
+	.local-map-div .search-list li {
+		padding:5px 10px;
+	}
+	.local-map-div .btn-wrap {
+		margin-top:20px;
+	}
+	#setLocalPop .btn-wrap, #setCurrentPop .btn-wrap {
+		margin-top:20px;
+	}
 }

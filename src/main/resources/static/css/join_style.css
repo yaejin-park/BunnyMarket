@@ -100,6 +100,7 @@
 }
 .join-div .write-form .form-div.email-div input {
 	width:200px;
+	margin-right:10px;
 }
 .join-div .write-form .form-div.email-div span {
 	margin:0 10px;
@@ -109,10 +110,7 @@
 }
 .join-div .write-form .form-div.email-div .domain {
 	width:200px;
-	margin-left:15px;
-}
-.join-div .write-form .form-div.email-div .email-check {
-	margin-left:15px;
+	margin-right:15px;
 }
 .join-div .write-form .email-certify {
 	display:none;
@@ -266,4 +264,147 @@
 }
 #pwChangePop .btn-wrap {
 	margin-top:20px;
+}
+
+@media all and (max-width:1400px){
+	.join-div .write-form .form-div.email-div {
+		display:block;
+	}
+	.join-div .write-form .form-div.email-div > * {
+		margin-bottom:10px;
+	}
+}
+
+@media all and (max-width:768px){
+	.join-intro {
+		max-width:94%;
+		padding-top:50px;
+	}
+	.join-intro .title-div .tit {
+		margin-bottom:20px;
+		font-size:20px;
+	}
+	.join-intro .title-div .admin-btn {
+		margin-top:10px;
+		padding-left:20px;
+		font-size:14px;
+		line-height:20px;
+		background-size:15px;
+	}
+	.join-div .sns-login-div {
+		margin-bottom:30px;
+		padding:30px;
+	}
+	.join-div .sns-login {
+		margin-top:10px;
+	}
+	.join-div .sns-login a {
+		width:40px;
+		height:40px;
+		margin-right:5px;
+	}	
+	.join-div .write-form .child {
+		width:100%;
+	}
+	.join-div .write-form .child:first-child {
+		width:100%;
+	}
+	.join-div .write-form .form-div input {
+		width:100%;
+	}
+	.join-div .write-form .has-btn-type {
+		display:flex;
+		flex-wrap:nowrap;
+	}
+	.join-div .write-form .has-btn-type button {
+		height:35px;
+		margin-left:10px;
+		padding:0 10px;
+	}
+	.join-div .write-form .info-txt {
+		margin-top:5px;
+		font-size:14px;
+	}
+	.join-div .write-form .pw-msg, .join-div .write-form .pw-check-msg {
+		display:inline;
+		margin-left:0;
+		font-size:14px;
+		line-height:1;
+	}
+	.join-div .write-form .form-div.email-div {
+		display:block;
+	}
+	.join-div .write-form .form-div.email-div input {
+		width:calc(50% - 21px);
+		margin-right:5px;
+	}
+	.join-div .write-form .form-div.email-div span {
+		line-height:35px;
+		margin:0 5px;
+	}
+	.join-div .write-form .form-div.email-div .domain {
+		width:calc(50% - 21px);
+		margin-right:5px;
+	}
+	.join-div .write-form .form-div.email-div .email-check {
+		height:35px;
+		margin-right:5px;
+		padding:0 10px;
+	}
+	.join-div .write-form .email-certify {
+		margin-top:10px;
+	}
+	.join-div .write-form .email-certify .txt {
+		margin-bottom:5px;
+		font-size:14px;
+	}
+	.join-div .write-form .email-certify .form-div input {
+		width:calc(50% - 21px);
+	}
+	.join-div .write-form .email-certify .form-div .email-msg {
+		margin-top:5px;
+		font-size:14px;
+	}
+	.join-div .write-form .hp-div select, .join-div .write-form .hp-div input {
+		width:calc((100% - 15px) / 3);
+	}
+	.join-div .write-form .hp-div span {
+		line-height:35px;
+	}
+	.join-div .write-form .addr-div .form-div {
+		margin-bottom:5px;
+	}
+	.join-div .write-form .addr-div .form-div.has-btn-type span {
+		line-height:35px;
+	}
+	.join-div .term-area {
+		margin-top:30px;
+	}
+	.join-div .term-area .all-check {
+		padding:10px;
+	}
+	.join-div .term-area input[type="checkbox"]{
+		margin-right:5px;
+	}
+	.join-div .term-area .acco-btn {
+		padding:10px;
+	}
+	.join-div .acco-div .acco-con {
+		height:150px;
+		padding:10px;
+	} 
+	.join-div .complete-div {
+		padding-top:30px;
+	}
+	.join-div .complete-div .icon {
+		width:50px;
+		margin:0 auto 15px;
+	}
+	.join-div .complete-div .tit {
+		margin-bottom:10px;
+		font-size:20px;
+	}
+	.join-div .complete-div .btn-wrap {
+		margin-top:20px;
+	}
 }

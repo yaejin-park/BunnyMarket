@@ -79,3 +79,47 @@
 #findPwPop .btn-wrap {
 	margin-top:20px;
 }
+
+@media all and (max-width:768px){
+	.find-member-div .tab-btn .inner {
+		max-width:94%;
+		padding-top:50px;
+	}
+	.find-form-div {
+		max-width:94%;
+		margin:20px auto 0;
+	}
+	.find-form-div .form-div {
+		margin-top:5px;
+	}
+	.find-form-div .btn-wrap {
+		margin-top:20px;
+	}
+	.find-form-div .email-div {
+		margin-top:5px;
+	}
+	.find-form-div .email-div .form-div:first-child span {
+		line-height:35px;
+	}
+	.find-form-div .email-certify .msg {
+		margin-top:5px;
+		font-size:14px;
+	}
+	#findIdPop .result {
+		margin-top:10px;
+		padding:10px 0;
+	}
+	#findIdPop .result span {
+		font-size:20px;
+	}
+	#findPwPop .result {
+		margin-top:10px;
+		padding:10px 0;
+	}
+	#findPwPop .result span {
+		font-size:20px;
+	}
+	#findPwPop .btn-wrap {
+		margin-top:10px;
+	}	
+}
