@@ -14,15 +14,10 @@
 		delete from follow  where followee=#{followee} and follower=#{follower}
 	</delete>
 	
-	<select id="getFollowList" parameterType="String" resultType="fldto">
-		select followee from follow where follower=#{id}
+	<select id="followeeList" parameterType="String" resultType="fldto">
+		select followee from follow where follower=#{follower}
 	</select>
-		
-	<select id="selectFollowerList" parameterType="int" resultType="fldto">
-		select followee from follow follower=#{id}
-	</select>
-	
-	<select id="selectFolloweeList" parameterType="int" resultType="fldto">
-		select follower from follow followee=#{id}
+	<select id="followerList" parameterType="String" resultType="fldto">
+		select follower from follow where followee=#{followee}
 	</select>
 </mapper>

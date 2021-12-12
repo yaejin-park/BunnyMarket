@@ -123,6 +123,9 @@
 }
 
 /* mypage-followList */
-.nodata{
+.follow-div .nodata{
 	border:0px;
+}
+.follow-div .my-follow .follow-table td{
+	text-align:center;
 }

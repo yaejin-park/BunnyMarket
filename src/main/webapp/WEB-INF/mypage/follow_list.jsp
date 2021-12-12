@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link rel="stylesheet" type="text/css" href="/css/swiper.min.css">
 <link rel="stylesheet" type="text/css" href="/css/mypage_style.css">
-<div class="mydetail-form">
+<div class="mydetail-form follow-div">
 	<div class="inner">
 		<div class="swiper side-menu-div">
 			<div class="swiper-wrapper">
@@ -17,33 +17,42 @@
 		</div>
 		<div class="my-follow">
 		<h3><b>모아보기</b></h3>
-			<table class="table">
+			<table class="table follow-table">
 				<tr>
-					<th>팔로워(나를팔로잉한사람) 0</th>
-					<th>팔로우(내가팔로잉한사람) 0</th>
+					<th>팔로워 ${fwerCount}</th>
+					<th>팔로우 ${fweeCount}</th>
 				</tr>
 				<tr>
-					<c:if test="${fcount==0}">
-					<td colspan="2">
+					<td>
+						<c:if test="${fwerCount==0}">
 							<div class="nodata">
 								<p class="icon">
 									<img alt="" src="/image/nodata-icon.png">
 								</p>
-								<p>팔로우 내역이 없습니다.</p>
+								<p>팔로워가 없습니다.</p>
 							</div>
-						</td>
 						</c:if>
-					<c:if test="${fcount>0}">	
-					<td>
-					    <ul class="re-list">
-					    	<c:forEach var="follow" items="${flist}">
-					    		<c:if test="true">
-					    			<div>팔로잉</div>
-					    		</c:if>
-					    	</c:forEach>
-					    </ul>
+						<c:if test="${fwerCount>0}">
+				    		<c:forEach var="fdto" items="${followerList}">
+					    			<div>짜증나 [ ${fdto.follower} ]</div>
+							</c:forEach>
+						</c:if>
 					</td>
-					</c:if>
+					<td>					
+						<c:if test="${fweeCount==0}">
+							<div class="nodata">
+								<p class="icon">
+									<img alt="" src="/image/nodata-icon.png">
+								</p>
+								<p>팔로우가 없습니다.</p>
+							</div>
+						</c:if>
+						<c:if test="${fweeCount>0}">
+							<c:forEach var="fdto" items="${followeeList}">
+					    			<div>어케함?ㅎ [ ${fdto.followee} ]</div>
+							</c:forEach>
+						</c:if>
+					</td>
 				</tr>
 			</table>
 		</div>

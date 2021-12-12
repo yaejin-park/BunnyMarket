@@ -27,7 +27,11 @@ public class FollowService {
 		mapper.deleteFollow(followee, follower);
 	}
 	
-	public List<FollowDTO> getFollowList(String follower){
-		return mapper.getFollowList(follower);
+	public List<FollowDTO> followeeList(String followee){
+		return mapper.followeeList(followee);
+	}
+	
+	public List<FollowDTO> followerList(String follower){
+		return mapper.followerList(follower);
 	}
 }

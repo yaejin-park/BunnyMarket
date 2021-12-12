@@ -354,22 +354,19 @@ public class MypageController {
 		String userId = "no";
 		String local = "";
 		String[] localArr = {};
-		String currentLocal = "";
 		if(principal != null) {
 			userId = principal.getName();
 			local = memService.getLocal(principal);
-			currentLocal = memService.currentLocal(userId);
 			localArr = local.split(",");
 		}
 		mview.addObject("localCnt",localArr.length);
-		mview.addObject("localArr",localArr);
-		mview.addObject("currentLocal", currentLocal);
 		
+		mview.addObject("localArr",localArr);
 		String id = principal.getName();
 		int totalCount = plservice.getTotalCount(id);
 		
 		//페이징 처리에 필요한 변수 선언
-		int perPage = 10;
+		int perPage = 20;
 		int totalPage;
 		int start;
 		int perBlock = 5;
@@ -475,18 +472,24 @@ public class MypageController {
 		
 		//로그인한 회원정보 가져오기
 		String nick=memService.getNick(principal.getName());
-		String profile = memService.getMemberId(principal.getName()).getProfile();	
+		String profile = memService.getMemberId(principal.getName()).getProfile();
+		String id=memService.getMemberId(principal.getName()).getId();
+		
+		FollowDTO fdto=new FollowDTO();
+		List<FollowDTO> followeeLsit=followService.followerList(id);//로그인한 사람을 팔로우한 사람
+		List<FollowDTO> followerList=followService.followerList(userId); //로그인한 사람이 팔로우한 사람
+		int fweeCount = followeeLsit.size();
+		int fwerCount = followerList.size();
+
 		model.addAttribute("nick", nick);
 		model.addAttribute("profile", profile);
 		model.addAttribute("userId", userId);
-		
-		FollowDTO fdto=new FollowDTO();
-		List<FollowDTO> flist=followService.getFollowList(fdto.getFollower());
-		int fcount = flist.size();
-		
-		model.addAttribute("flist", flist);
-		model.addAttribute("fcount", fcount);
+		model.addAttribute("id", id);
+		model.addAttribute("followeeLsit", followeeLsit);
+		model.addAttribute("followerList", followerList);
+		model.addAttribute("fweeCount", fweeCount);
+		model.addAttribute("fwerCount", fwerCount);
 		
 		return "/mypage/follow_list";
-	}	
+	}
 }
