@@ -13,6 +13,7 @@ public class EventReplyDTO {
 	private int restep;
 	private int relevel;
 	private String nickname;
+	private String profile;
 	
 	public String getIdx() {
 		return idx;
@@ -67,5 +68,11 @@ public class EventReplyDTO {
 	}
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
+	}
+	public String getProfile() {
+		return profile;
+	}
+	public void setProfile(String profile) {
+		this.profile = profile;
 	}
 }

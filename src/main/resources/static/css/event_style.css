@@ -64,6 +64,7 @@
 	vertical-align:middle;
 }
 .event-div .re-info.writer .profile {
+	position:relative;
 	width:40px;
 	height:40px;
 	margin-right:10px;
@@ -72,7 +73,11 @@
 	overflow:hidden;
 }
 .event-div .re-info.writer .profile img {
+	position:absolute;
+	top:50%;
+	left:50%;
 	width:100%;
+	transform:translate(-50%, -50%);
 }
 .event-div .re-content {
 	margin:10px 0;
@@ -109,6 +114,11 @@
 }
 .event-div .re-list .re-content .btn-wrap {
 	margin-top:10px;
+}
+.event-div .re-list .re-content .btn-wrap:after {
+	content:"";
+	display:block;
+	clear:both;
 }
 .event-div .re-list .re-content .btn-wrap .reply-btn {
 	float:left;
