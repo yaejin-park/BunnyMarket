@@ -102,12 +102,11 @@ public class ProductService {
 		return mapper.sellList(map);
 	}
 	
-	public List<ProductDTO> getListByStatus(String sellstatus, int start, int perpage,String uploadfile) {
+	public List<ProductDTO> getListByStatus(String sellstatus, int start, int perpage) {
 		HashMap<String, Object> map=new HashMap<String, Object>();
 		map.put("sellstatus", sellstatus);
 		map.put("start", start);
 		map.put("perpage", perpage);
-		map.put("uploadfile", uploadfile);
 		return mapper.getListByStatus(map);
 	}
 	
