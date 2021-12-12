@@ -57,6 +57,9 @@ public class AdvertiseService {
 	public void insertReplyData(AdreplyDTO dto) {
 		mapper.insertReplyData(dto);
 	}
+	public void updateReplyStep(int restep, int regroup) {
+		mapper.updateReplyStep(restep, regroup);
+	}
 	public List<AdreplyDTO> getReplyList(String idx) {
 		return mapper.getReplyList(idx);
 	}

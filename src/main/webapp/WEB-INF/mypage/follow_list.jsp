@@ -7,53 +7,45 @@
 	<div class="inner">
 		<div class="swiper side-menu-div">
 			<div class="swiper-wrapper">
-				<a href="./selllist" class="swiper-slide">판매내역</a>
+				<a href="./sellList" class="swiper-slide">판매내역</a>
 				<b><a href="./followlist" class="swiper-slide">모아보기</a></b>
-				<a href="" class="swiper-slide">관심목록</a>
 				<a href="./productlike/list" class="swiper-slide">나의후기</a>
-				<a href="./updateform" class="swiper-slide">회원수정</a>
-				<a href="./unregister" class="swiper-slide">회원탈퇴</a>
+				<a href="./productlike/list" class="swiper-slide">관심목록</a>
+				<a href="./member/updateform" class="swiper-slide">회원수정</a>
+				<a href="./member/deleteform" class="swiper-slide">회원탈퇴</a>
 			</div>
 		</div>
-		<div class="my-page">
-			<!-- 프로필 이미지 선택 -->
-			<div class="profile-update">
-				<div class="profile-update">
-					<div class="profile-img">
-						<c:if test="${profile =='no'}">
-							<img alt="프로필이미지" src="/image/profile-icon.png">
+		<div class="my-follow">
+		<h3><b>모아보기</b></h3>
+			<table class="table">
+				<tr>
+					<th>팔로워(나를팔로잉한사람) 0</th>
+					<th>팔로우(내가팔로잉한사람) 0</th>
+				</tr>
+				<tr>
+					<c:if test="${fcount==0}">
+					<td colspan="2">
+							<div class="nodata">
+								<p class="icon">
+									<img alt="" src="/image/nodata-icon.png">
+								</p>
+								<p>팔로우 내역이 없습니다.</p>
+							</div>
+						</td>
 						</c:if>
-						<c:if test="${profile !='no'}">
-							<img alt="프로필이미지" src="/photo/${profile}">
-						</c:if>
-					</div>
-				</div>
-			</div>			
-			<div class="my-info">
-				<b>${nick}</b> 회원님 안녕하세요.
-			</div>
-		</div>
-		<div class="tit">
-			팔로워 ${fcount}
-		</div>
-		<div>
-			<c:if test="${followerList==0}">
-				<div class="nodata">
-					<p class="icon">
-						<img alt="" src="/image/nodata-icon.png">
-					</p>
-					<p>팔로우한 사용자가 없습니다.</p>
-				</div>
-			</c:if>
-			<c:if test="${followerList>0}">
-			    <ul class="re-list">
-			    	<c:forEach var="follow" items="${followerList}">
-			    		<c:if test="true">
-			    			<div>팔로워 ${follow.followee}</div>
-			    		</c:if>
-			    	</c:forEach>
-			    </ul>
-			</c:if>
+					<c:if test="${fcount>0}">	
+					<td>
+					    <ul class="re-list">
+					    	<c:forEach var="follow" items="${flist}">
+					    		<c:if test="true">
+					    			<div>팔로잉</div>
+					    		</c:if>
+					    	</c:forEach>
+					    </ul>
+					</td>
+					</c:if>
+				</tr>
+			</table>
 		</div>
 	</div>
 </div>

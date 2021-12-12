@@ -41,13 +41,16 @@ public class FaqController {
 		String userId = "no";
 		String local = "";
 		String[] localArr = {};
+		String currentLocal = "";
 		if(principal != null) {
 			userId = principal.getName();
 			local = memService.getLocal(principal);
+			currentLocal = memService.currentLocal(userId);
 			localArr = local.split(",");
 		}
 		mview.addObject("localCnt",localArr.length);
 		mview.addObject("localArr",localArr);
+		mview.addObject("currentLocal", currentLocal);
 				
 		int totalCount=service.getTotalCount();
 		int perPage=10;
@@ -98,7 +101,7 @@ public class FaqController {
 		{
 		Map<String, Object> result = new HashMap<String, Object>();
 		System.out.println("currentPage="+currentPage);
-		int totalCount=service.getTotalCount();
+		int totalCount=service.getTotalCountByCategory(category);
 		int perPage=10;
 		int totalPage;
 		int start;
@@ -153,13 +156,16 @@ public class FaqController {
 		String userId = "no";
 		String local = "";
 		String[] localArr = {};
+		String currentLocal = "";
 		if(principal != null) {
 			userId = principal.getName();
 			local = memService.getLocal(principal);
+			currentLocal = memService.currentLocal(userId);
 			localArr = local.split(",");
 		}
 		mview.addObject("localCnt",localArr.length);
 		mview.addObject("localArr",localArr);
+		mview.addObject("currentLocal", currentLocal);
 		
 		FaqDTO dto=service.getData(idx);
 		mview.addObject("dto", dto);

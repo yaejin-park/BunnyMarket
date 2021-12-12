@@ -29,6 +29,7 @@ public interface AdvertiseMapper {
 	
 	//reply
 	public void insertReplyData(AdreplyDTO dto);
+	public void updateReplyStep(int restep, int regroup);
 	public List<AdreplyDTO> getReplyList(String idx);
 	public String getMaxReply(String idx);
 	public void deleteReply(int idx);

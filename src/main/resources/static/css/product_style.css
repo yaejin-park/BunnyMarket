@@ -18,10 +18,21 @@
 	float: left;
 }
 
-.profileImg{
-	border-radius: 100%;
-	border: 2.3px solid #f7f6fc;
-	width: 100px;
+.profile-div{
+    position: relative;
+    width: 92px;
+    height: 92px;
+    border-radius: 50%;
+    border: 2px solid #f7f6fc;
+    overflow: hidden;
+}
+
+.profile-img{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    transform: translate(-50%, -50%);
 }
 
 .detail-swiper {
@@ -205,7 +216,6 @@ tr.lineNeed .marginZero{
     width: calc((100% - 10px * 6) / 6);
     background-color: #f7f6fc;
     border-radius: 10px;
-    vertical-align: middle;
     font-weight: 500;
     float: left;
 }
@@ -253,6 +263,14 @@ tr.lineNeed .marginZero{
 	position: absolute;
 	right: 20px;
 	bottom: 20px;
+}
+
+.my-like .like-th {
+	margin-left: 100px;
+}
+
+.my-like .like-tr {
+	text-align:center;
 }
 
 /* background-image�� ���� */
@@ -350,38 +368,47 @@ select.statusSelect option{
 
 /* popup css*/
 .review {
-	
-	margin-left:auto; 
-    margin-right:auto;
-    width:80%;
-	border: #e5e5e5 solid 3px;
-	 
-	
-	
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+    width: 80%;
+    border: #e5e5e5 solid 2.3px;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.img {
-	width: 10%;
+.review .right{
+	display: flex;
+    align-items: center;
+}
+
+.profile-img-div{
+    position: relative;
+    width: 70px;
+    height: 70px;
+    margin: 11px 21px;
 }
 
 .popimg{
-	width:60px;
-}
-
-.name {
-	width: 30%;
-}
-
-.go {
-	width: 5%;
+	position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(50, 50);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    margin: auto;
+    border-radius: 50%;
+    border: 2px solid #e5e5e5;
 }
 
 .small {
-	display: block !important;
+	display: block;
 	color: #bebebe;
 }
 
-.arrow {
+.arrow{
 	position: relative;
 	display: inline-block;
 	vertical-align: middle;
@@ -394,39 +421,69 @@ select.statusSelect option{
 	border: 7px solid transparent;
 	border-top: 7px solid;
 	border-right: 7px solid;
-	margin: 15px;
+	margin: 21px;
 	transform: rotate(45deg);
 	cursor: pointer;
 }
 
-#myform fieldset {
+.review:hover{
+	border-color: #ff7ab0;
+}
+
+#my-rating {
+    display: flex;
+    justify-content: center;
+}
+
+#my-rating fieldset {
+	
 	display: inline-block; /* 하위 별점 이미지들이 있는 영역만 자리를 차지함.*/
 	direction: rtl; /* 이모지 순서 반전 */
 	border: 0; /* 필드셋 테두리 제거 */
 }
 
-#myform fieldset legend {
+#my-rating fieldset legend {
 	text-align: left;
 }
 
-#myform input[type=radio] {
+#my-rating input[type=radio] {
 	display: none; /* 라디오박스 감춤 */
 }
 
-#myform label {
+#my-rating label {
 	font-size: 3em; /* 이모지 크기 */
 	color: transparent; /* 기존 이모지 컬러 제거 */
 	text-shadow: 0 0 0 #f0f0f0; /* 새 이모지 색상 부여 */
 }
 
 
-
-#myform label:hover ~ label {
+#my-rating label:hover ~ label {
 	text-shadow: 0 0 0 #ff7ab0;; /* 마우스 호버 뒤에오는 이모지들 */
 }
 
-#myform input[type=radio]:checked ~ label {
+#my-rating input[type=radio]:checked ~ label {
 	text-shadow: 0 0 0 #ff7ab0;;
 	cursor: pointer;
 	 /* 마우스 클릭 체크 */
 }
+
+#pop-insert{
+	margin-left:auto; 
+    margin-right:auto;
+}
+
+#btn-pop{
+	
+	margin-top: 15px;
+}
+
+#popcontent{
+    margin-top: 30px;
+    height: 200px;
+    margin-bottom: 20px;
+}
+
+#btn-popinsert{
+	margin-top: 15px;
+}
+

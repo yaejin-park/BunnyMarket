@@ -14,9 +14,9 @@
 	</div>
 	<div class="category-div">
 		<div class="inner">
-			<a href="list?currentPage=1" class="${selectCategory == '전체'?'active':''}">전체</a>
+			<a href="list?currentPage=1&status=${status}" class="${selectCategory == '전체'?'active':''}">전체</a>
 			<c:forEach var="category" items="${categoryArr}">
-				<a href="list?currentPage=1&category=${category}" class="${selectCategory == category?'active':''}">${category}</a>
+				<a href="list?currentPage=1&category=${category}&status=${status}" class="${selectCategory == category?'active':''}">${category}</a>
 			</c:forEach>
 		</div>
 	</div>
@@ -51,7 +51,7 @@
 									<fmt:formatDate value="${edto.event_end}" pattern="yyyy.MM.dd" />
 								</p>
 								<div class="etc">
-									<p class="good-count">${edto.applycount}</p>
+									<p class="reply-count">${edto.replycount}</p>
 									<p class="read-count">${edto.readcount}</p>
 								</div>
 							</div>

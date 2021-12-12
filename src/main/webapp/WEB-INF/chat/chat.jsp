@@ -5,6 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <c:set var="now" value="<%=new java.util.Date()%>" />
 
@@ -15,45 +16,72 @@
 		<input type="hidden" id="chatHistory" value="${chatHistory}">
 		<div class="info">
 			<div class="wrap">
-				<img alt="profile" src="/image/profile-icon.png" class="profile-img">
+				<div class="profile-div">
+					<c:if test="${profile == 'no' }">
+						<img alt="profile" src="/image/profile-icon.png" class="profile-img">	
+					</c:if>
+					<c:if test="${profile != 'no' }">
+						<img alt="profile" src="/photo/${profile}" class="profile-img">	
+					</c:if>
+				</div>
 				<div class="info-text">
-					<span class="tit nick">${nick}</span> <span class="sm-tit">후기</span>
+					<div class="tit nick">${nick}</div>
+					<div class="sm-tit">후기 ${reviewCount}개</div>
 				</div>
 				<div class="chatout-btn">
 					<button type="button" class="btn-list" id="chatOutBtn">나가기</button>
 				</div>
 			</div>
 
-			<div class="wrap link" onclick="location.href='../../product/detail?idx=${dto.idx}'">
-				<div class="thumbNail">
-					<img alt="product_thumbnail" src="/photo/${photo}" class="thumbImg" />
-				</div>
-				<div class="info-text">
-					<div class="title-div">
-						<%-- <c:if test="${dto.state == 'no'}"> --%>
+			<div class="wrap link">
+				<div class="front" onclick="location.href='../../product/detail?idx=${dto.idx}'">
+					<div class="thumbNail">
+						<img alt="product_thumbnail" src="/photo/${photo}" class="thumbImg" />
+					</div>
+					<div class="info-text">
+						<div class="title-div">
 							<div class="status" id="status">${dto.sellstatus}</div>
-						<%-- </c:if>
-						<c:if test="${dto.state != 'no'}">
-							<div class="status" id="status">삭제됨</div>
-						</c:if> --%>
-						<div class="title">${dto.title}</div>
-					</div>
-					<div class="price tit">
-						<fmt:formatNumber type="number" value="${dto.price}" />원
+							<div class="title">${dto.title}</div>
+						</div>
+						<div class="price tit">
+							<fmt:formatNumber type="number" value="${dto.price}" />원
+						</div>
 					</div>
 				</div>
+				<!-- 판매완료+ 후기작성에 해당하면, 후기작성버튼 -->
+				<c:if test="${dto.sellstatus=='판매완료' && checkReviewee != 0 && checkWrite == 0}">
+					<div class="back">
+						<button type="button" class="btn-default" id="reviewBtn">후기 작성</button>				
+					</div>
+				</c:if>
+				<!-- 후기작성에 해당하지만, 후기가 있으면 -->
+				<c:if test="${dto.sellstatus=='판매완료' && checkWrite != 0 }">
+					<div class="back">
+						<button type="button" class="btn-default">후기 완료</button>				
+					</div>
+				</c:if>
 			</div>
 		</div>
 
 		<div id="chating" class="chating">
 			<!-- 채팅 히스토리 -->
 			<c:forEach var="chat" items="${chatHistory}">
+				<c:set var="thisTime" value="${fn:substring(chat.time,0,10)}"/>
+				<c:if test="${thisTime != lastTime || lastTime == null}">
+					<fmt:parseDate var="dateString" value="${thisTime}" pattern="yyyy-MM-dd" />
+					<div class="date-wrap">
+						<div class="date-change">
+							<fmt:formatDate value="${dateString}" pattern="yyyy년 MM월 dd일" />
+						</div>
+					</div>
+				</c:if>
+			
 				<!-- 내가 보낸 메세지 -->
 				<c:if test="${chat.sender == id}">
 					<div class='me'>
 						<div class='time'>
 							<fmt:parseDate var="dateString" value="${chat.time}" pattern="yyyy-MM-dd HH:mm:ss" />
-							<fmt:formatDate value="${dateString}" pattern=" HH:mm" />
+							<fmt:formatDate value="${dateString}" pattern="a hh:mm" />
 						</div>
 						<div class='speech-bubble'>
 							<p>${chat.msg }</p>
@@ -69,10 +97,11 @@
 						</div>
 						<div class='time'>
 							<fmt:parseDate var="dateString" value="${chat.time}" pattern="yyyy-MM-dd HH:mm:ss" />
-							<fmt:formatDate value="${dateString}" pattern="HH:mm" />
+							<fmt:formatDate value="${dateString}" pattern="a hh:mm" />
 						</div>
 					</div>
 				</c:if>
+				<c:set var="lastTime" value="${fn:substring(chat.time,0,10)}"/>
 			</c:forEach>
 		</div>
 
@@ -96,6 +125,44 @@
 			onclick="location.href='../../product/detail?idx=${dto.idx}'">뒤로가기</button>
 	</div>
 </div>
+
+
+<!-- 별점 팝업 -->
+<div class="popup-modal" id="insertPop">
+	<div class="modal">
+		<div class="modal-title">${yournick}님과의 거래후기는?</div>
+			<div class="modal-content" id="pop-insert">
+				<input type="hidden" name="reviewer" value="${reviewer}" id="reviewer">
+				<input type="hidden" name="reviewee" value="" id="reviewee">
+				<input type="hidden" name="idx" value="${idx}" id="idx">
+
+				<div id="my-rating">
+					<fieldset> 
+						<legend>이모지 별점</legend>
+						<input type="radio" name="star" value="5" id="rate1">
+						<label for="rate1">⭐</label> 
+						<input type="radio" name="star" value="4" id="rate2">
+						<label for="rate2">⭐</label> 
+						<input type="radio" name="star" value="3" id="rate3">
+						<label for="rate3">⭐</label> 
+						<input type="radio" name="star" value="2" id="rate4">
+						<label for="rate4">⭐</label> 
+						<input type="radio" name="star" value="1" id="rate5">
+						<label for="rate5">⭐</label>
+					</fieldset>
+				</div>
+				
+				<textarea placeholder="선택사항" name="content" id="popcontent"></textarea>
+				<div class="btn-wrap">
+					<button type="button" class="btn-add" id="btn-pop-insert">등록</button>
+				</div>
+			
+				<input type="hidden" id="isLogin" value="${isLogin}">
+		</div>	
+		<button type="button" class="modal-close">닫기</button>
+	</div>	
+</div>
+
 <script type="text/javascript">
 //스크롤 항상 제일 밑으로
 $(".chating").scrollTop($(".chating")[0].scrollHeight);
@@ -125,18 +192,37 @@ function wsEvt() {
 					$("#sessionId").val(si);
 				}
 			} else if (d.type == "message") {
-				if (d.sessionId == $("#sessionId").val()) {
-					var s = "<div class='me'>";
-					s += "<div class='time'>";
-					s += "<fmt:formatDate value="${now}" type="time" pattern=" hh:mm"/>";
-					s += "</div>";
-					s += "<div class='speech-bubble'><p>"+ d.msg + "</p></div></div>";
+				//현재 시간
+				var today = new Date();   
+				var now = today.getFullYear()+"-"+(today.getMonth()+1)+"-"+today.getDate(); // 년도
+				
+				//날짜 출력
+				//한번도 날짜가 찍힌적이 없으면 날짜 출력
+				if($(".date-change").length==0){
+					var s = '<div class="date-wrap"><div class="date-change">';
+					s += now.replace('-','년 ').replace('-', '월 ')+'일</div></div>';
 					
 					$("#chating").append(s);
+				} else{
+					//시간이 다르면
+					if('${lastTime}' != now){
+						var s = '<div class="date-wrap"><div class="date-change">';
+						s += now.replace('-','년 ').replace('-', '월 ')+'일</div></div>';
+						
+						$("#chating").append(s);
+					}
+				}
+				
+				if (d.sessionId == $("#sessionId").val()) {
+					$("#chating").append(
+					"<div class='me'><div class='time'><fmt:formatDate value="${now }" type="time" pattern="a hh:mm"/></div>"
+					+"<div class='speech-bubble'><p>"+ d.msg + "</p></div></div>"+
+					"<c:set var='lastTime' value='${fn:substring(chat.time,0,10)}'/>");
 				} else {
 					$("#chating").append(
 					"<div class='other'><div class='speech-bubble other-bubble'><p>"+ d.msg
-					+ "</p></div><div class='time'><fmt:formatDate value="${now }" type="time" pattern=" hh:mm"/></div></div>");
+					+ "</p></div><div class='time'><fmt:formatDate value="${now }" type="time" pattern="a hh:mm"/></div></div>"+
+					"<c:set var='lastTime' value='${fn:substring(chat.time,0,10)}'/>");
 				}
 				//스크롤 항상 제일 밑으로
 				$(".chating").scrollTop($(".chating")[0].scrollHeight);
@@ -172,6 +258,9 @@ function first() {
 	var roomNumber = $("#roomNumber").val();
 	var msg = $("#chatting").val();
 	msg = msg.replaceAll(/(\n|\r\n)/g,'<br>');
+	//현재 시간
+	var today = new Date();   
+	var now = today.getFullYear()+"-"+(today.getMonth()+1)+"-"+today.getDate(); // 년도
 
 	//방 만들기
 	$.ajax({
@@ -188,7 +277,7 @@ function first() {
 		},
 		error : function(data) {
 			console.log("에러", data);
-		}
+		} 
 	});
 
 	var option = {
@@ -252,6 +341,50 @@ if ($("#status").text() == "판매완료") {
 } else if ($("#status").text() == "판매중") {
 	$("#status").css("color", "#3088d4");
 }
+
+//후기작성 버튼
+$(document).on("click","#reviewBtn",function(){
+	var chooseNick = $(this).find(".name").find("span").text();
+	popClose("#choosePop");
+	popOpen("#insertPop");
+	$(".choose-nick").text(chooseNick);
+	$('input[name=reviewee]').attr('value',chooseNick);
+});
+
+//후기 등록 눌렀을 때,
+$("#btn-pop-insert").click(function(){
+	star = $('input:radio[name="star"]:checked').val();
+	reviewer =$('#reviewer').val();
+	reviewee =$('#seller').val();
+	content=$('#popcontent').val();
+	idx=$('#idx').val();
+	
+	if(star == null){
+		alert("별점을매겨주세요.");
+		return;
+	}
+	
+	console.log(content);
+	$.ajax({
+	    url: "../../product/popinsert",
+	    type: "post",
+	    datatype:"txt",
+	    data:{
+	    	"star" : star,
+	    	"reviewer":reviewer,
+	    	"reviewee":reviewee,
+	    	"content":content,
+	    	"idx":idx
+	    },
+	    success: function (data) {
+	    	console.log(star, reviewer, reviewee, content, idx, data);
+            alert("후기 작성 성공");
+            popClose("#insertPop");
+        }, error: function (data) {
+        	console.log("실패", star, reviewer, reviewee, content, idx, data);
+		}
+	});
+})
 
 //채팅방 나가기
 $("#chatOutBtn").click(function() {

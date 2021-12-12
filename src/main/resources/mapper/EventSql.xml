@@ -75,4 +75,8 @@
 	<delete id="deleteReply" parameterType="String">
 		delete from event_reply where idx=#{idx}
 	</delete>
+	
+	<select id="getReplyCount" parameterType="String" resultType="String">
+		select count(*) from event_reply where num=#{idx}
+	</select>
 </mapper>

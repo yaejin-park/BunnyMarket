@@ -55,7 +55,7 @@
 	</select>
 	
 	<select id="getChatListJoin" parameterType="String" resultType="cldto">
-		select cl.product_idx as product_idx, c.last_msg as last_msg ,m.profile as profile, m.nickname as nickname,  p.uploadfile as upload_file
+		select cl.product_idx as product_idx, c.last_msg as last_msg ,m.profile as profile, m.nickname as nickname, m.id as id, p.uploadfile as upload_file
 		from chat_list AS cl 
 		INNER JOIN chat AS c ON cl.chat_idx = c.idx 
 		INNER JOIN member AS m ON m.id = 

@@ -35,7 +35,14 @@
 	<table class="table table-default">
 		<tr>
 			<td rowspan="2" class="profile">
-				<img alt="profile" src="/image/profile-icon.png" class="profileImg">	
+				<div class="profile-div">
+					<c:if test="${profile == 'no' }">
+						<img alt="profile" src="/image/profile-icon.png" class="profile-img">	
+					</c:if>
+					<c:if test="${profile != 'no' }">
+						<img alt="profile" src="/photo/${profile}" class="profile-img">	
+					</c:if>
+				</div>
 			</td>
 			<td class="nick tit verticalBottom">
 				${nick}
@@ -46,7 +53,7 @@
 		</tr>
 		<tr>
 			<td class="tit-sm verticalTop">
-				후기 
+				후기 ${reviewCount} 개
 			</td>
 		</tr>	
 		<tr>
@@ -130,7 +137,7 @@
 			<div class="tit child">연관상품</div>
 			<div class="child tit-sm more">
 				<a href="list?category=${dto.category}">
-					더보기>
+					더보기 >
 				</a>
 			</div>
 		</div>
@@ -173,75 +180,84 @@
 </div>
 
 
-
+<!-- 후기 팝업 -->
 <div class="popup-modal" id="choosePop">
 	<div class="modal">
 		<div class="modal-title"><h2>거래완료</h2> <h3>구매자를 선택해주세요</h3></div>
 		<div class="modal-content">
-		
-				<table class="review">
-					<c:forEach var="r" items="${poplist}">
-					<tr>
-							<td class="img"><img alt="profile" src="/image/profile-icon.png" class="popimg"></td>
-						
-						<td class="name">${r.nickname}<small class="small">${r.last_time}</small></td>
-						<td class="go"><i class="arrow" onclick="popOpen('#insertPop')"></i></td>
-					</tr>
-	</c:forEach>
-				</table>
-	
-		
+			<!-- 구매자가 없을 경우 -->
+			<c:if test="${poplist == null}">
+				<h1>존재X</h1>
+			</c:if>
 			
+			<!-- 구매자가 있을 경우 -->
+			<c:if test="${poplist != null}">
+				<c:forEach var="r" items="${poplist}">
+				<div class="review">
+					<div class="right">
+						<div class="profile-img-div">
+							<c:if test="${r.profile == 'no'}">
+								<img alt="profile" src="/image/profile-icon.png" class="popimg">
+							</c:if>
+							
+							<c:if test="${r.profile!= 'no'}">
+								<img alt="profile" src="/photo/${r.profile}" class="popimg">
+							</c:if>
+						</div>
+						<div class="name tit">
+							<span>${r.nickname}</span>
+							<small class="small">
+								<fmt:formatDate value="${r.last_time}" pattern="yy/MM/dd a hh:mm" />
+							</small>
+						</div>
+					</div>
+					<div class="go">
+						<i class="arrow review-choose-btn"></i>
+					</div>
+				</div>
+				</c:forEach>
+			</c:if>
 		</div>
+		
 		<button type="button" class="modal-close">닫기</button>
 	</div>
 </div>
 
-
 <div class="popup-modal" id="insertPop">
 	<div class="modal">
-		
-		<div class="modal-title">${popliat}님과의 거래후기는?</div>
-	
-		
-			<form name="myform" id="myform" method="post" action="popinsert" enctype="multipart/form-data">
-		<div class="modal-content">
-			
-	<input type="hidden" name="seller" value="${seller}" id="seller">
-	
-	<input type="hidden" name="buyer" value="${r.buyer_id}" id="buyer">
-	
-	
-	
-	
-		
-			<div class="my-rating"></div>
-			
-			<fieldset> 
-						<legend>이모지 별점</legend>
-						<input type="radio" name="star" value="5" id="rate1"><label
-							for="rate1">⭐</label> <input type="radio" name="star" value="4"
-							id="rate2"><label for="rate2">⭐</label> <input
-							type="radio" name="star" value="3" id="rate3"><label
-							for="rate3">⭐</label> <input type="radio" name="star" value="2"
-							id="rate4"><label for="rate4">⭐</label> <input
-							type="radio" name="star" value="1" id="rate5"><label
-							for="rate5">⭐</label>
-					</fieldset>
-			<textarea placeholder="선택사항" name="content" id="content"></textarea>
-				
-		</div>
-	
-	
-		<button type="submit" class="btn-add">등록</button>
-		</form>
-			<button type="button" class="modal-close">닫기</button>
-		</div>
-		
-	</div>
-	
+		<div class="modal-title"><span class="choose-nick"></span>님과의 거래후기는?</div>
+			<div class="modal-content" id="pop-insert">
+				<input type="hidden" name="reviewer" value="${reviewer}" id="reviewer">
+				<input type="hidden" name="reviewee" value="" id="reviewee">
+				<input type="hidden" name="idx" value="${idx}" id="idx">
 
-    
+				<div id="my-rating">
+					<fieldset> 
+						<legend>이모지 별점</legend>
+						<input type="radio" name="star" value="5" id="rate1">
+						<label for="rate1">⭐</label> 
+						<input type="radio" name="star" value="4" id="rate2">
+						<label for="rate2">⭐</label> 
+						<input type="radio" name="star" value="3" id="rate3">
+						<label for="rate3">⭐</label> 
+						<input type="radio" name="star" value="2" id="rate4">
+						<label for="rate4">⭐</label> 
+						<input type="radio" name="star" value="1" id="rate5">
+						<label for="rate5">⭐</label>
+					</fieldset>
+				</div>
+				
+				<textarea placeholder="선택사항" name="content" id="popcontent"></textarea>
+				<div class="btn-wrap">
+					<button type="button" class="btn-add" id="btn-pop-insert">등록</button>
+				</div>
+			
+				<input type="hidden" id="isLogin" value="${isLogin}">
+		</div>	
+		<button type="button" class="modal-close">닫기</button>
+	</div>	
+</div>
+
 
 <script type="text/javascript" src="/js/swiper.min.js"></script>
 <script>
@@ -279,7 +295,52 @@ $(document).ready(function() {
 		}
 	}
 
-});
+	
+	$(".review").click(function(){
+		var chooseNick = $(this).find(".name").find("span").text();
+		popClose("#choosePop");
+		popOpen("#insertPop");
+		$(".choose-nick").text(chooseNick);
+		$('input[name=reviewee]').attr('value',chooseNick);
+	})
+	
+	//리뷰 등록 눌렀을 때,
+ 	$("#btn-pop-insert").click(function(){
+		star = $('input:radio[name="star"]:checked').val();
+		reviewer =$('#reviewer').val();
+		reviewee =$('#reviewee').val();
+		content=$('#popcontent').val();
+		idx=$('#idx').val();
+		
+		if(star == null){
+			alert("별점을매겨주세요.");
+			return;
+		}
+		
+		console.log(content);
+		$.ajax({
+		    url: "popinsert",
+		    type: "post",
+		    datatype:"txt",
+		    data:{
+		    	"star" : star,
+		    	"reviewer":reviewer,
+		    	"reviewee":reviewee,
+		    	"content":content,
+		    	"idx":idx
+		    },
+		    success: function (data) {
+	            alert("후기 작성 성공");
+	            popClose("#insertPop");
+	        }, error: function (data) {
+	        	console.log("실패", star, reviewer, reviewee, content, idx);
+			}
+		});
+	})
+});  
+
+	
+
 
 //미리보기 이미지 클릭시,
 /* $(document).on("click",".smallImg", function(e) {
@@ -403,6 +464,7 @@ $(document).on("click","#follow", function() {
 				});
 			}
 		}
+		
 	}
 });
 
@@ -462,19 +524,27 @@ $(document).on("change", "#statusSelect", function() {
         	//판매상태에 따라 글씨색 바뀌기
 			if($("#statusSelect").val() == "finished"){
 				$("#statusSelect").css("color","#979593");
-				popOpen("#choosePop");
+				//후기 썼는지 안썼는지 체크
+				$.ajax({
+					type : "post",  
+					url : "checkWrite",     
+			        data : {"idx":idx},
+			        success: function(data){
+			        	if(data == 0){
+			        		popOpen("#choosePop");
+			        	}
+			        }
+				});
 			} else if($("#statusSelect").val() == "reserved"){
 				$("#statusSelect").css("color", "#ff7ab0");
 			} else if($("#statusSelect").val() == "selling"){
 				$("#statusSelect").css("color", "#3088d4");
 			}
-        
         },
         error: function(e){
         	console.log("Status error",e);
         }
 	}); 
 });
-
 </script>
 

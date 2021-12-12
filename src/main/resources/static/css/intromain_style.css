@@ -11,10 +11,10 @@
 }
 
 @media all and (max-width:1300px) {
-	.intro .picture {
+	.intro-table .picture {
 		width: 50%;
 	}
-	.intro .ment {
+	.intro-table .ment {
 		width: 50%;
 	}
 	.logo {
@@ -29,10 +29,10 @@
 }
 
 @media all and (max-width:768px) {
-	.intro .picture {
+	.intro-table .picture {
 		width: 50%;
 	}
-	.intro .ment {
+	.intro-table .ment {
 		width: 50%;
 	}
 	body {

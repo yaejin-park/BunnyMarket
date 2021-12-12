@@ -105,6 +105,31 @@ div.other .time {
     font-size: 12px;
 }
 
+/* 프로필 */
+.profile-div{
+    position: relative;
+    border-radius: 50%;
+    min-width: 60px;
+	width: 60px;
+	height: 60px;
+    overflow: hidden;
+    border: 2.3px solid #f7f6fc;
+}
+
+.profile-img{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 120%;
+    transform: translate(-50%, -50%);
+}
+
+
+.profile-div.login-user{
+	border: 2.3px solid #ff7ab0;
+}
+
+
 .info{
 	display: flex;
 	font-size: 14pt;
@@ -115,9 +140,9 @@ div.other .time {
 	display: flex;
 	border-bottom: 2.3px solid #f7f6fc;
 	align-items: center;
-	min-height: 64px;
-    height: 85px;
+    height: 82px;
     padding: 13px;
+    justify-content: space-between;
 }
 
 .info .wrap:last-child{
@@ -134,12 +159,6 @@ div.other .time {
 .sm-tit{
 	color: #746a66;
     font-size: 11pt;
-}
-
-.profile-img{
-	border-radius: 100%;
-	border: 2.3px solid #f7f6fc;
-	width: 60px;
 }
 
 .chatout-btn{
@@ -225,7 +244,7 @@ form.msgForm .chat-btn-div .btn-add{
     min-height: 64px;
     height: 107px;
     padding: 30px;
-    padding-bottom: 30px;
+    padding-bottom: 13px;
     display: flex;
 }
 
@@ -238,10 +257,20 @@ form.msgForm .chat-btn-div .btn-add{
     align-items: center;
 }
 
+.alist.click-list{
+	background-color: #eee;
+}
+
 .list-info{
     display: flex;
     flex-direction: column;
     margin-left: 20px;
+}
+
+.front{
+	display: flex;
+	width: 100%;
+    align-items: center;
 }
 
 .thumbNail{
@@ -262,10 +291,6 @@ form.msgForm .chat-btn-div .btn-add{
 	margin: auto;
 }
 
-.profile-img.chat-list-profile {
-    border: 2.3px solid #ff7ab0;
-}
-
 .list-info .msg{
 	width: 240px;
     white-space: nowrap;
@@ -275,10 +300,6 @@ form.msgForm .chat-btn-div .btn-add{
 
 .alist .alist-info{
 	display: flex;
-}
-
-.profile-img.me{
-	border: 2.3px solid #ff7ab0;
 }
 
 .container .nodata{
@@ -312,6 +333,11 @@ form.msgForm .chat-btn-div .btn-add{
     margin: 26px;
 }
 
+.date-change:nth-child(1){
+	margin: 0px;
+	margin-bottom: 26px;
+}
+
 .date-wrap{
 	width: 100%;
     display: flex;
@@ -331,3 +357,69 @@ form.msgForm .chat-btn-div .btn-add{
   background-color: #bdbcbc;
   border-radius: 10px;
 } 
+
+div.info-text div.tit.nick {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 300px;
+}
+
+/* 리뷰 별점 팝업 */
+#my-rating {
+    display: flex;
+    justify-content: center;
+}
+
+#my-rating fieldset {
+	
+	display: inline-block; /* 하위 별점 이미지들이 있는 영역만 자리를 차지함.*/
+	direction: rtl; /* 이모지 순서 반전 */
+	border: 0; /* 필드셋 테두리 제거 */
+}
+
+#my-rating fieldset legend {
+	text-align: left;
+}
+
+#my-rating input[type=radio] {
+	display: none; /* 라디오박스 감춤 */
+}
+
+#my-rating label {
+	font-size: 3em; /* 이모지 크기 */
+	color: transparent; /* 기존 이모지 컬러 제거 */
+	text-shadow: 0 0 0 #f0f0f0; /* 새 이모지 색상 부여 */
+}
+
+
+#my-rating label:hover ~ label {
+	text-shadow: 0 0 0 #ff7ab0;; /* 마우스 호버 뒤에오는 이모지들 */
+}
+
+#my-rating input[type=radio]:checked ~ label {
+	text-shadow: 0 0 0 #ff7ab0;;
+	cursor: pointer;
+	 /* 마우스 클릭 체크 */
+}
+
+#pop-insert{
+	margin-left:auto; 
+    margin-right:auto;
+}
+
+#btn-pop{
+	
+	margin-top: 15px;
+}
+
+#popcontent{
+    margin-top: 30px;
+    height: 200px;
+    margin-bottom: 20px;
+}
+
+#btn-popinsert{
+	margin-top: 15px;
+}
+

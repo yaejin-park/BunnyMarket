@@ -15,10 +15,10 @@
 					<c:forEach items="${dto.photo}" var="dbimg">				
 						<div class="swiper-slide bigImg fix">
 							<c:if test="${dto.photo=='no'}">
-								<img class="bigImg" alt="thumbnail" src="/image/list-noimg.gif">
+								<img alt="thumbnail" src="/image/list-noimg.gif">
 							</c:if>
 							<c:if test="${dto.photo!='no'}">
-								<img class="bigImg" alt="thumbnail" src="../photo/${dbimg}">
+								<img alt="thumbnail" src="../photo/${dbimg}">
 							</c:if>
 						</div>
 					</c:forEach>
@@ -31,10 +31,10 @@
 				<c:forEach items="${dbimg}" var="dbimg">			
 					<div class="smImg child">
 						<c:if test="${dto.photo=='no'}">
-							<img alt="smallImage" src="/image/list-noimg.gif" class="smImg">
+							<img alt="smallImage" src="/image/list-noimg.gif">
 						</c:if>
 						<c:if test="${dto.photo!='no'}">
-							<img alt="smallImage" src="../photo/${dbimg}" class="smImg">
+							<img alt="smallImage" src="../photo/${dbimg}">
 						</c:if>
 					</div>
 				</c:forEach>
@@ -44,42 +44,43 @@
 		<div class="info">
 			<table class="table table-default">
 				<tr>				
-					<td class="ad-tit" colspan="3">
+					<td class="ad-tit" colspan="2">
 						${dto.title}
 					</td>
 				</tr>
 				<tr>
-					<td rowspan="2" class="profile">
-						<c:if test="${profile =='no'}">
-							<img alt="프로필이미지" src="/image/profile-icon.png" class="profileImg">
-						</c:if>
-						<c:if test="${profile !='no'}">
-							<img alt="프로필이미지" src="/photo/${profile}" class="profileImg">
-						</c:if>
+					<td class="profile-td" rowspan="2">
+						<p class="profile">
+							<c:if test="${profile =='no'}">
+								<img alt="프로필이미지" src="/image/profile-icon.png" class="profileImg">
+							</c:if>
+							<c:if test="${profile !='no'}">
+								<img alt="프로필이미지" src="/photo/${profile}" class="profileImg">
+							</c:if>
+						</p>
 					</td>
 					<td class="nick tit verticalBottom">
 						${nick}
 					</td>
 				</tr>
 				<tr>
-					<td colspan="2" class="tit-sm">
+					<td class="tit-sm" colspan="2">
 						작성일 <fmt:formatDate value="${dto.writeday}" pattern="yy.MM.dd HH:mm"/>
 					</td>
-					<td colspan="3" class="tit-sm">
-				<div class="info-sm">   
-					<div class="info-sm-div">
-						<a href="detail?idx=${dto.idx}&currentPage=${currentPage}&key=list#reply">
-							<div class="comment icon-sm">${recount}</div>
-						</a>
-					</div>
-					<div class="info-sm-div">
-						<div class="dibs icon-sm">${dto.goodcount}</div>
-					</div>
-					<div class="info-sm-div">
-						<div class="read icon-sm">${dto.readcount}</div>
-					</div>
-				</div>
-			</td>
+				</tr>
+				<tr>
+					<td class="tit-sm" colspan="2">
+						<div class="info-sm">   
+							<div class="info-sm-div">
+								<a href="detail?idx=${dto.idx}&currentPage=${currentPage}&key=list#reply">
+									<div class="comment icon-sm">${recount}</div>
+								</a>
+							</div>
+							<div class="info-sm-div">
+								<div class="read icon-sm">${dto.readcount}</div>
+							</div>
+						</div>
+					</td>
 				</tr>
 			</table>
 		</div>
@@ -96,7 +97,7 @@
 		<c:if test="${userId == dto.id}">
 			<button type="button" class="btn-list delist" onclick="location.href='list'">목록</button>
 			<button type="button" class="btn-update" onclick="location.href='./auth/updateform?idx=${dto.idx}&currentPage=${currentPage}'">수정</button>
-			<button type="button" id="deleteBtn" class="btn-delete" value="${dto.idx}">삭제</button>
+			<button type="button" id="deleteBtn" class="btn-delete" idx="${dto.idx}">삭제</button>
 		</c:if>
 	</div>
 	<div class="img-detail-div">
@@ -121,11 +122,11 @@
 		<div class="re-div">
 			<p class="re-info writer">
 				<span class="profile">
-					<c:if test="${profile =='no'}">
+					<c:if test="${userProfile =='no'}">
 							<img alt="프로필이미지" src="/image/profile-icon.png">
 					</c:if>
-					<c:if test="${profile !='no'}">
-						<img alt="프로필이미지" src="/photo/${profile}">
+					<c:if test="${userProfile !='no'}">
+						<img alt="프로필이미지" src="/photo/${userProfile}">
 					</c:if>
 				</span>
 				<c:if test="${userNickName=='no'}">
@@ -170,7 +171,12 @@
 	    				<input type="hidden" name="relevel" value="${ardto.relevel}">
 	    				<p class="re-info writer">
 	    					<span class="profile">
-	    						<img alt="" src="/image/profile-icon.png">
+	    						<c:if test="${ardto.profile =='no'}">
+									<img alt="프로필이미지" src="/image/profile-icon.png">
+								</c:if>
+								<c:if test="${ardto.profile !='no'}">
+									<img alt="프로필이미지" src="/photo/${ardto.profile}">
+								</c:if>
 	    					</span>
 	    					<span>${ardto.nickname}</span>
 	    				</p>
@@ -192,7 +198,12 @@
 							<input type="hidden" value="${maxReply}" name="regroup">
 							<p class="re-info writer">
 								<span class="profile">
-									<img alt="" src="/image/profile-icon.png">
+									<c:if test="${userProfile =='no'}">
+									<img alt="프로필이미지" src="/image/profile-icon.png">
+								</c:if>
+								<c:if test="${userProfile !='no'}">
+									<img alt="프로필이미지" src="/photo/${userProfile}">
+								</c:if>
 								</span>
 								<c:if test="${userNickName=='no'}">
 									<a href="/login/main"><span>로그인해주세요.</span></a>
@@ -223,5 +234,5 @@
 	</div>
 </div>
 
-<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<script type="text/javascript" src="/js/swiper.min.js"></script>
 <script type="text/javascript" src="/js/advertise_script.js"></script>

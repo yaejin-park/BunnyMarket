@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <link rel="stylesheet" type="text/css" href="/css/event_style.css">
 <div class="event-div inner">
 	<div class="event-detail-div">
@@ -43,7 +44,12 @@
 		<div class="re-div">
 			<p class="re-info writer">
 				<span class="profile">
-					<img alt="" src="/image/profile-icon.png">
+					<c:if test="${userProfile=='no'}">
+						<img alt="" src="/image/profile-icon.png">
+					</c:if>
+					<c:if test="${userProfile!='no'}">
+						<img alt="" src="/photo/${userProfile}">
+					</c:if>
 				</span>
 				<c:if test="${userNickName=='no'}">
 					<a href="/login/main"><span>로그인해주세요.</span></a>
@@ -85,17 +91,29 @@
 	    				<input type="hidden" name="regroup" value="${replyDto.regroup}">
 	    				<input type="hidden" name="restep" value="${replyDto.restep}">
 	    				<input type="hidden" name="relevel" value="${replyDto.relevel}">
-	    				<p class="re-info writer">
+	    				<div class="re-info writer">
 	    					<span class="profile">
-	    						<img alt="" src="/image/profile-icon.png">
+								<c:if test="${replyDto.profile=='no'}">
+									<img alt="" src="/image/profile-icon.png">
+								</c:if>
+								<c:if test="${replyDto.profile!='no'}">
+									<img alt="" src="/photo/${replyDto.profile}">
+								</c:if>
 	    					</span>
-	    					<span>${replyDto.nickname}</span>
-	    				</p>
+	    					<p class="writer-info">
+	    						<span>${replyDto.nickname}</span>
+		                		<span class="date">${replyDto.writeday}</span>
+	    					</p>
+	    				</div>
 		    			<div class="re-content">
 		                	<p class="txt">${replyDto.content}</p>
 					        <div class="btn-wrap">
 					        	<a href="javascript:" class="reply-btn">답글쓰기</a>
-			                	<a href="javascript:" class="btn-delete btn-sm" idx="${replyDto.idx}">삭제</a>
+					        	<sec:authorize access="isAuthenticated()">
+					        		<c:if test="${userId == replyDto.id }">
+					        			<a href="javascript:" class="btn-delete btn-sm" idx="${replyDto.idx}">삭제</a>
+					        		</c:if>
+			                	</sec:authorize>
 					        </div>
 		    			</div>
 		    			<div class="re-div">
@@ -103,7 +121,12 @@
 							<input type="hidden" value="${maxReply}" name="regroup">
 							<p class="re-info writer">
 								<span class="profile">
-									<img alt="" src="/image/profile-icon.png">
+									<c:if test="${userProfile=='no'}">
+										<img alt="" src="/image/profile-icon.png">
+									</c:if>
+									<c:if test="${userProfile!='no'}">
+										<img alt="" src="/photo/${userProfile}">
+									</c:if>
 								</span>
 								<c:if test="${userNickName=='no'}">
 									<a href="/login/main"><span>로그인해주세요.</span></a>

@@ -1,6 +1,4 @@
-
 /* community List */
-
 .commu-wrap {
 	margin-top:40px;
 }
@@ -15,10 +13,10 @@
 	width:calc((100% - 90px) / 4);
 	margin-right:30px;
 	margin-top:30px;
+	padding-top:30px;
 }
 .cummu-list li .img-div {
 	position:relative;
-	top: 20px;
 	width:100%;
 	overflow:hidden;
 }
@@ -28,7 +26,6 @@
 	top:50%;
 	left:50%;
 	transform:translate(-50%, -50%);
-	
 }
 .cummu-list li:nth-child(4n){
 	margin-right:0;
@@ -53,44 +50,27 @@
 }
 .cummu-list li .text-div .date {
 	position:absolute;
-	top:-10px;
+	top:0;
 	right:0;
 	color: #999;
 }
-.inner .commu-div ul li .reply-heart .gdcount-icon .gd-img {
-	width:25px;
+.inner .commu-div ul li .reply-heart {
 	position:absolute;
-	top:-10px;
+	top:0;
 	left:0;
-	color: #999;
-}
-.inner .commu-div ul li .reply-heart .gdcount-icon .gd-img img {
-	width:100%;
-}
-.inner .commu-div ul li .reply-heart .gdcount-icon .gdcount{
 	font-size: 15px;
-	position:absolute;
-	top:-10px;
 	color: #999;
-	margin-left: 27px;
 }
-.inner .commu-div ul li .reply-heart .reply-icon .rec-img{
+.inner .commu-div ul li .reply-heart > div {
+	display:inline-block;
+	margin-right:10px;
+}
+.inner .commu-div ul li .reply-heart > div > div {
+	display:inline-block;
 	width:25px;
-	position:absolute;
-	top:-10px;
-	left:0;
-	color: #999;
-	margin-left:40px;
 }
-.inner .commu-div ul li .reply-heart .reply-icon .rec-img img {
+.inner .commu-div ul li .reply-heart > div img {
 	width:100%;
-}
-.inner .commu-div ul li .reply-heart .reply-icon .recount{
-	font-size: 15px;
-	position:absolute;
-	top:-10px;
-	color: #999;
-	margin-left:70px;
 }
 
 /* community Write&Update Form */
@@ -185,10 +165,6 @@
 .infoAll .info .table tr td .fmtdate{
 	color:#999;
 	text-align:left;
-}
-
-.infoAll .info .table tr td .readcount{
-	float: right;
 }
 
 .infoAll .info .table tr td .detailtit{
@@ -357,4 +333,208 @@
 	margin:20px 0 0 50px;
 	padding:20px;
 	border:1px solid #e5e5e5;
+}
+
+@media all and (max-width:1400px) {
+	/* community List */
+	.cummu-list li{
+		width:calc((100% - 60px) / 3);
+	}
+	.cummu-list li:nth-child(4n){
+		margin-right:30px;
+	}
+	.cummu-list li:nth-child(-n+4){
+		margin-top:30px;
+	}
+	.cummu-list li:nth-child(3n){
+		margin-right:0;
+	}
+	.cummu-list li:nth-child(-n+3){
+		margin-top:0;
+	}
+	/* community Detail */
+	.community-div .infoAll .group.img {
+		margin-top:0;
+		float:left;
+		width:330px;
+		margin-right:40px;
+	}
+	.community-div .infoAll .info{
+		float:left;
+	    width:calc(100% - 370px);
+	    margin-left:0;
+	}
+}
+
+@media all and (max-width:768px) {
+	/* community List */
+	.cummu-list li{
+		width:calc((100% - 15px) / 2);
+		margin-top:15px;
+		margin-right:15px;
+		padding-top:20px;
+	}
+	.cummu-list li:nth-child(4n), .cummu-list li:nth-child(3n){
+		margin-right:15px;
+	}
+	.cummu-list li:nth-child(-n+4), .cummu-list li:nth-child(-n+3){
+		margin-top:15px;
+	}
+	.cummu-list li:nth-child(even){
+		margin-right:0;
+	}
+	.cummu-list li:nth-child(-n+2){
+		margin-top:0;
+	}
+	.cummu-list li .text-div .tit{
+		margin-top:0;
+	}
+	.cummu-list li .text-div .txt{
+		margin-top:4px;
+	}
+	.cummu-list li .text-div .date {
+		top:-5px;
+		font-size:12px;
+	}
+	.inner .commu-div ul li .reply-heart {
+		top:-5px;
+		font-size: 12px;
+	}
+	.inner .commu-div ul li .reply-heart > div {
+		margin-right:5px;
+	}
+	.inner .commu-div ul li .reply-heart > div > div {
+		width:15px;
+	}
+	.commu-div .inner .group .child textarea {
+		height:150px;
+	}
+	/* community Detail */
+	.community-div .community-detail-div .infoAll{
+		margin-top:20px;
+	}
+	.community-div .community-detail-div .infoAll .img.group .detail-swiper .swiper-slide.bigImg{
+		padding-top:0;
+		width:100%;
+	}
+	.community-div .community-detail-div .infoAll .img.group .smImgDiv .smImg.child {
+		position:relative;
+		width:calc((100% - 30px) / 4);
+	}
+	.community-div .img-detail-div button{
+		margin-top:30px;
+	}
+	.community-div .img-detail-div .content-img img{
+		max-width: 100%;
+		margin:10px auto 15px;
+	}
+	.community-div .infoAll .group.img{
+		float:none;
+	    width:100%;
+		margin-right:0;
+	}
+	.community-div .infoAll .info{
+		float:none;
+	    width:100%;
+	    margin-top:40px;
+	    margin-left:0;
+	}
+	.community-div .infoAll .info table .detailtit{
+		font-size:20px;
+	}
+	.infoAll .info .table tr td .nick.txt{
+		display:inline-block;
+		line-height:50px;
+	}
+	.infoAll .info .table tr td .loginokbtn{
+		padding-top: 10px;
+	}
+	.infoAll .info .table tr td .btn-wrap:after {
+		content:"";
+		display:block;
+		clear:both;
+	}
+	.infoAll .info .table tr td .btn-wrap .goodbtn {
+		float:left;
+	}
+	.infoAll .info .table tr td .btn-wrap .goodbtn img{
+		width:50px;
+		margin-top: -30px;
+	}
+	.infoAll .info .table tr td .btn-wrap .deupdate{
+		margin-left:10px;
+	}
+	.infoAll .info .table .pro-img {
+		width:50px;
+		height:50px;
+	}
+	.detailContent{
+		margin-top:15px;
+		min-height:200px;
+	}
+	.detailbtn .delist{
+		float:right;
+		margin-top:20px;
+		margin-left:10px;
+	}
+	.infoAll .info table .other .reply-heart .gdcount-icon img{
+		width:15px;
+	}
+	.infoAll .info table .other .reply-heart .gdcount-icon .gdcount{
+		font-size:14px;
+	}
+	.infoAll .info table .other .reply-heart .reply-icon img{
+		width:15px;
+	}
+	.infoAll .info table .other .reply-heart .reply-icon .recount{
+		font-size:14px;
+	}
+	/* reply */
+	.community-div .reply .tit {
+		margin-top:40px;
+		margin-bottom:10px;
+	}
+	.community-div .reply .re-div {
+		padding:5px;
+	}
+	.community-div .re-info.writer span {
+		font-size:14px;
+	}
+	.community-div .re-info.writer .profile {
+		width:30px;
+		height:30px;
+		margin-right:5px;
+	}
+	.community-div .re-content {
+		margin:5px 0;
+	}
+	.community-div .re-content textarea {
+		height:50px;
+	}
+	.community-div .re-div .re-util {
+		padding-top:5px;
+	}
+	.community-div .re-div .re-util .text-count {
+		bottom:5px;
+		left:5px;
+	}
+	.community-div .re-list-div {
+		margin-top:20px;
+	}
+	.community-div .re-list li {
+		padding:10px 0;
+	}
+	.community-div .re-list li.bg {
+		padding:10px 25px;
+	}
+	.community-div .re-list .re-content .btn-wrap {
+		margin-top:5px;
+	}
+	.community-div .re-list .re-content .btn-wrap .reply-btn {
+		font-size:12px;
+	}
+	.community-div .re-list .re-div {
+		margin:10px 0 0 25px;
+		padding:10px;
+	}
 }
