@@ -105,6 +105,31 @@ div.other .time {
     font-size: 12px;
 }
 
+/* 프로필 */
+.profile-div{
+    position: relative;
+    border-radius: 50%;
+    min-width: 60px;
+	width: 60px;
+	height: 60px;
+    overflow: hidden;
+    border: 2.3px solid #f7f6fc;
+}
+
+.profile-img{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 120%;
+    transform: translate(-50%, -50%);
+}
+
+
+.profile-div.login-user{
+	border: 2.3px solid #ff7ab0;
+}
+
+
 .info{
 	display: flex;
 	font-size: 14pt;
@@ -115,7 +140,6 @@ div.other .time {
 	display: flex;
 	border-bottom: 2.3px solid #f7f6fc;
 	align-items: center;
-	min-height: 64px;
     height: 85px;
     padding: 13px;
 }
@@ -134,12 +158,6 @@ div.other .time {
 .sm-tit{
 	color: #746a66;
     font-size: 11pt;
-}
-
-.profile-img{
-	border-radius: 100%;
-	border: 2.3px solid #f7f6fc;
-	width: 60px;
 }
 
 .chatout-btn{
@@ -262,10 +280,6 @@ form.msgForm .chat-btn-div .btn-add{
 	margin: auto;
 }
 
-.profile-img.chat-list-profile {
-    border: 2.3px solid #ff7ab0;
-}
-
 .list-info .msg{
 	width: 240px;
     white-space: nowrap;
@@ -275,10 +289,6 @@ form.msgForm .chat-btn-div .btn-add{
 
 .alist .alist-info{
 	display: flex;
-}
-
-.profile-img.me{
-	border: 2.3px solid #ff7ab0;
 }
 
 .container .nodata{
@@ -312,6 +322,11 @@ form.msgForm .chat-btn-div .btn-add{
     margin: 26px;
 }
 
+.date-change:nth-child(1){
+	margin: 0px;
+	margin-bottom: 26px;
+}
+
 .date-wrap{
 	width: 100%;
     display: flex;
@@ -331,3 +346,11 @@ form.msgForm .chat-btn-div .btn-add{
   background-color: #bdbcbc;
   border-radius: 10px;
 } 
+
+div.info-text span.tit.nick {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100px;
+    height: 20px;
+}

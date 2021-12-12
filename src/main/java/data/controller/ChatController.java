@@ -125,22 +125,31 @@ public class ChatController {
 		String thumb = photo[0];
 		
 		String nick = mservice.getNick(pservice.getData(idx).getId());
+		String profile = mservice.getMemberId(pservice.getData(idx).getId()).getProfile();
 		
-		//지역 설정
+		//지역가져오기
+		String userId="no";
 		String local="";
 		String []localArr = {};
+		String currentLocal = "";
+		//로그인 되어있을 경우,
+		if(principal != null) {
+			userId= principal.getName();
+			local = mservice.getLocal(principal);
+			localArr=local.split(",");
+			currentLocal = mservice.currentLocal(userId);
+		}
 		
-		local = mservice.getLocal(principal);
-		localArr=local.split(",");
-		  
-		mview.addObject("localCnt", localArr.length);
 		mview.addObject("localArr", localArr);
+		mview.addObject("localCnt", localArr.length);
+		mview.addObject("currentLocal", currentLocal);
 
 		mview.addObject("dto", dto);
 		mview.addObject("roomNumber", roomNumber);
 		mview.addObject("photo", thumb);
 		mview.addObject("id", id);
 		mview.addObject("nick", nick);
+		mview.addObject("profile", profile);
 		mview.setViewName("/chat/chat");
 
 		return mview;	
@@ -152,6 +161,8 @@ public class ChatController {
 		
 		//로그인 아이디
 		String id = principal.getName();
+		//로그인 프로필
+		String profile = mservice.getMemberId(id).getProfile();
 		
 		//보일 채팅 리스트
 		List<ChatListDTO> chlist = service.getChatListJoin(id);
@@ -216,26 +227,36 @@ public class ChatController {
 			mview.addObject("roomNumber", roomNumber);
 			mview.addObject("photo", thumb);
 			
-			//상대방 닉네임
+			//상대방 닉네임& 프로필
 			String yournick = mservice.getNick(pservice.getData(idx).getId()); 
+			String yourprofile = mservice.getMemberId(pservice.getData(idx).getId()).getProfile(); 
 			mview.addObject("yournick", yournick);
+			mview.addObject("yourprofile", yourprofile);
 		}
 
 		String nick = mservice.getNick(id); //내 닉네임
-		//지역 설정
+		
+		//지역가져오기
+		String userId="no";
 		String local="";
 		String []localArr = {};
+		String currentLocal = "";
+		//로그인 되어있을 경우,
+		if(principal != null) {
+			userId= principal.getName();
+			local = mservice.getLocal(principal);
+			localArr=local.split(",");
+			currentLocal = mservice.currentLocal(userId);
+		}
 		
-		local = mservice.getLocal(principal);
-		localArr=local.split(",");
-		  
-		mview.addObject("localCnt", localArr.length);
 		mview.addObject("localArr", localArr);
-		//지역설정 끝
+		mview.addObject("localCnt", localArr.length);
+		mview.addObject("currentLocal", currentLocal);
 		
 		mview.addObject("key", key);
 		mview.addObject("chlist", chlist);
 		mview.addObject("id", id);
+		mview.addObject("profile", profile);
 		mview.addObject("nick", nick);
 		mview.setViewName("/chat/list");
 
@@ -350,6 +371,9 @@ public class ChatController {
 			//채팅리스트 만들기
 			service.insertChatList(chat_idx,seller,idx); 
 		}
+		
+		//마지막 시간 업데이트 + 메세지
+		service.updateChatTimeMsg(idx,id, msg);
 
 		map.put("chat_idx", chat_idx);
 

@@ -18,10 +18,21 @@
 	float: left;
 }
 
-.profileImg{
-	border-radius: 100%;
-	border: 2.3px solid #f7f6fc;
-	width: 100px;
+.profile-div{
+    position: relative;
+    width: 92px;
+    height: 92px;
+    border-radius: 50%;
+    border: 2px solid #f7f6fc;
+    overflow: hidden;
+}
+
+.profile-img{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    transform: translate(-50%, -50%);
 }
 
 .detail-swiper {
@@ -205,7 +216,6 @@ tr.lineNeed .marginZero{
     width: calc((100% - 10px * 6) / 6);
     background-color: #f7f6fc;
     border-radius: 10px;
-    vertical-align: middle;
     font-weight: 500;
     float: left;
 }
