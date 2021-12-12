@@ -4,19 +4,20 @@ $(function(){
 			el: ".main-vis .swiper-pagination",
 		},
 	});
-	
-	$(window).on("load", function(){
-        $(".product-list li").each(function(){
+
+	$(window).resize(function(){
+		$(".product-list li").each(function(){
 			$(this).find(".img-div").height($(this).find(".img-div").width());
-            if($(this).find("img").width() > $(this).find("img").height()){
-                $(this).find("img").width("auto");
-                $(this).find("img").height("100%");
-            }else{
-                $(this).find("img").width("100%");
-                $(this).find("img").height("auto");
-            }
-        });
-    });
+			
+			if($(this).find(".img-div").width() * $(this).height() < $(this).find(".img-div").height() * $(this).width()){
+				$(this).find("img").width($(this).width());
+				$(this).find("img").height("auto");
+			}else{
+				$(this).find("img").width("auto");
+				$(this).find("img").height($(this).height());
+			}
+		});
+	}).resize();
 
 	$(window).scroll(function(){
 		// console.log($(window).scrollTop());

@@ -33,12 +33,11 @@
 								
 								<div class="img-div">
 								<!-- 이미지 없을경우 -->
-									<c:if test="${a.photo=='no'}">
+									<c:if test="${a.photo==''}">
 										<img src="../image/co-noimg.jpg">
 									</c:if>
-									
 								<!-- 이미지 있을경우 -->
-									<c:if test="${a.photo!='no'}">
+									<c:if test="${a.photo!=''}">
 										<img src="../photo/${fn:split(a.photo,',')[0]}">
 									</c:if>
 								</div>

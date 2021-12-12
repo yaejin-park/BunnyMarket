@@ -36,13 +36,7 @@
   background-color: #bdbcbc;
   border-radius: 10px;
 } 
-/* .chating::-webkit-scrollbar-track {
-  background-color: grey;
-  border-radius: 10px;
-  box-shadow: inset 0px 0px 5px white;
-}
- */
- /* 채팅 말풍선 */
+/* 채팅 말풍선 */
  .speech-bubble {
  	position: relative;	
     background: #ff7ab0;
@@ -111,6 +105,31 @@ div.other .time {
     font-size: 12px;
 }
 
+/* 프로필 */
+.profile-div{
+    position: relative;
+    border-radius: 50%;
+    min-width: 60px;
+	width: 60px;
+	height: 60px;
+    overflow: hidden;
+    border: 2.3px solid #f7f6fc;
+}
+
+.profile-img{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 120%;
+    transform: translate(-50%, -50%);
+}
+
+
+.profile-div.login-user{
+	border: 2.3px solid #ff7ab0;
+}
+
+
 .info{
 	display: flex;
 	font-size: 14pt;
@@ -121,7 +140,6 @@ div.other .time {
 	display: flex;
 	border-bottom: 2.3px solid #f7f6fc;
 	align-items: center;
-	min-height: 64px;
     height: 85px;
     padding: 13px;
 }
@@ -140,12 +158,6 @@ div.other .time {
 .sm-tit{
 	color: #746a66;
     font-size: 11pt;
-}
-
-.profile-img{
-	border-radius: 100%;
-	border: 2.3px solid #f7f6fc;
-	width: 60px;
 }
 
 .chatout-btn{
@@ -210,7 +222,7 @@ form.msgForm .chat-btn-div .btn-add{
     margin: 30px 10px;
 }
 
-div.info div.wrap.link{
+.link{
 	cursor: pointer;
 }
 
@@ -268,10 +280,6 @@ div.info div.wrap.link{
 	margin: auto;
 }
 
-.profile-img.chat-list-profile {
-    border: 2.3px solid #ff7ab0;
-}
-
 .list-info .msg{
 	width: 240px;
     white-space: nowrap;
@@ -281,10 +289,6 @@ div.info div.wrap.link{
 
 .alist .alist-info{
 	display: flex;
-}
-
-.profile-img.me{
-	border: 2.3px solid #ff7ab0;
 }
 
 .container .nodata{
@@ -307,4 +311,46 @@ div.info div.wrap.link{
 .nodata{
 	padding-top: 113px;
 	border-top: 0px; 
+}
+
+.date-change{
+	background-color: #bdbcbc;
+    color: white;
+    padding: 8px 20px;
+    border-radius: 26px;
+    font-size: 0.8em;
+    margin: 26px;
+}
+
+.date-change:nth-child(1){
+	margin: 0px;
+	margin-bottom: 26px;
+}
+
+.date-wrap{
+	width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.list-scroll{
+	height: 724.47px;
+	overflow: auto;
+	overflow-x : hidden;
+}
+
+.list-scroll::-webkit-scrollbar {
+  width: 10px;
+}
+.list-scroll::-webkit-scrollbar-thumb {
+  background-color: #bdbcbc;
+  border-radius: 10px;
+} 
+
+div.info-text span.tit.nick {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100px;
+    height: 20px;
 }

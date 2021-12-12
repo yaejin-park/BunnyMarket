@@ -15,7 +15,14 @@ public class AdreplyDTO {
 	private int restep;
 	private int relevel;	
 	private String nickname;
+	private String profile;
 	
+	public String getProfile() {
+		return profile;
+	}
+	public void setProfile(String profile) {
+		this.profile = profile;
+	}
 	public String getNickname() {
 		return nickname;
 	}

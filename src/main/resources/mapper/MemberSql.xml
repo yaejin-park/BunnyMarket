@@ -45,6 +45,14 @@
 		select type from member where id=#{id}
 	</select>
 	
+	<select id="currentLocal" parameterType="String" resultType="String">
+		select current_local from member where id=#{id}
+	</select>
+	
+	<update id="updateCurrentLocal" parameterType="HashMap">
+		update member set current_local=#{current_local} where id=#{id}
+	</update>
+	
 	<select id="getLocal" parameterType="String" resultType="String">
 		select local from member where id=#{id}
 	</select>

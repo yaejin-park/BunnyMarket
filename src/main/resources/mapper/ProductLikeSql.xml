@@ -28,7 +28,7 @@
 		where
 			pl.id=#{id}
 		order by
-			idx asc 
+			idx desc 
 		limit #{start},#{perpage}
 	</select>
 </mapper>

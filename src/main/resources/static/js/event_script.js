@@ -1,16 +1,15 @@
 $(function(){
-	$(window).on("load", function(){
+	$(window).on("resize", function(){
         $(".event-list li").each(function(){
 			$(this).find(".img-div").height($(this).find(".img-div").width() / 1.8);
-            if($(this).find("img").width() > $(this).find("img").height()){
-                $(this).find("img").width("auto");
-                $(this).find("img").height("100%");
-            }else{
-                $(this).find("img").width("100%");
-                $(this).find("img").height("auto");
-            }
+            if($(this).find("img").width() * $(this).height() < $(this).find("img").height() * $(this).width()){
+				$(this).find("img").width($(this).width());
+				$(this).find("img").height("auto");
+			}else{
+				$(this).find("img").width("auto");
+				$(this).find("img").height($(this).height());
+			}
         });
-
     });
 
 	var fileListArr = new Array();
@@ -135,7 +134,7 @@ $(function(){
 		var deletePhoto = deleteFile.split(",");
 		
 		var formData = new FormData();
-		if(title == '' || content == '' || fileCnt == 0 || category == '' || eventStart == '' || eventEnd == ''){
+		if(title == '' || content == '' || category == '' || eventStart == '' || eventEnd == ''){
 			alert("필수 입력을 입력해주세요.");
 			return;
 		}

@@ -63,10 +63,12 @@ public class CommunityController {
 		String userId = "no";
 		String local = "";
 		String[] localArr = {};
+		String currentLocal = "";
 		if(principal != null) {
 			userId = principal.getName();
 			local = mservice.getLocal(principal);
 			localArr = local.split(",");
+			currentLocal = mservice.currentLocal(userId);
 		}
 		mview.addObject("localCnt",localArr.length);
 		mview.addObject("localArr",localArr);
@@ -104,6 +106,7 @@ public class CommunityController {
 		mview.addObject("totalPage",totalPage);
 		mview.addObject("currentPage",currentPage);
 		mview.addObject("totalCount",list.size());
+		mview.addObject("currentLocal",currentLocal);
 
 		mview.setViewName("/community/list");
 		return mview;
@@ -120,13 +123,16 @@ public class CommunityController {
 		String userId = "no";
 		String local = "";
 		String[] localArr = {};
+		String currentLocal = "";
 		if(principal != null) {
 			userId = principal.getName();
 			local = mservice.getLocal(principal);
 			localArr = local.split(",");
+			currentLocal = mservice.currentLocal(userId);
 		}
 		mview.addObject("localCnt",localArr.length);
 		mview.addObject("localArr",localArr);
+		mview.addObject("currentLocal",currentLocal);
 		mview.setViewName("/community/writeForm");
 		return mview;
 	}
@@ -134,6 +140,7 @@ public class CommunityController {
 	
 	@PostMapping("/auth/insert")
 	   public @ResponseBody void insert(
+			   @ModelAttribute CommunityDTO dto,
 				MultipartHttpServletRequest multiRequest,
 				HttpServletRequest request,
 				HttpSession session,
@@ -148,13 +155,13 @@ public class CommunityController {
 	      
 	    String photoname = "";
 	    String originalPhotoName = "";
-	      
-	      if(fileList != null) {
-				String path = session.getServletContext().getRealPath("/photo");
+	    
+	    if(fileList != null) {
+			String path = session.getServletContext().getRealPath("/photo");
 
-				File dir = new File(path);
-				if(!dir.isDirectory()) {
-					dir.mkdirs();}
+			File dir = new File(path);
+			if(!dir.isDirectory()) {
+				dir.mkdirs();}
 		
 		if(!fileList.isEmpty()) {
 			for(int i=0; i<fileList.size(); i++) {
@@ -173,11 +180,9 @@ public class CommunityController {
 				photoname = photoname.substring(0, photoname.length()-1);
 				originalPhotoName = originalPhotoName.substring(0, originalPhotoName.length()-1);
 				}
-	      }
-	      
-	      //아이디 얻어서 dto에 저장
-	      CommunityDTO dto = new CommunityDTO();
-	    //아이디 얻어서 dto에 저장
+	      	}
+	    
+	      //아이디 얻어서 dto에 저장하기
 	      String id=principal.getName();
 	      
 	      dto.setId(id);
@@ -209,6 +214,7 @@ public class CommunityController {
 		String userNickName = "no";
 		String local = "";
 		String[] localArr = {};
+		String currentLocal = "";
 		String userProfile = "no";
 		
 		//아이디,닉네임,위치 가져오기
@@ -219,6 +225,7 @@ public class CommunityController {
 			userProfile = mservice.getMemberId(userId).getProfile();
 			local = mservice.getLocal(principal);
 			localArr = local.split(",");
+			currentLocal = mservice.currentLocal(userId);
 		}
 		
 		//로그인 여부
@@ -268,6 +275,7 @@ public class CommunityController {
 		mview.addObject("maxReply", maxReply);
 		mview.addObject("localCnt", localArr.length);
 		mview.addObject("localArr", localArr);
+		mview.addObject("currentLocal",currentLocal);
 		mview.addObject("currentPage", currentPage);
 		mview.addObject("isLogin", isLogin);
 		mview.addObject("profile", profile);
@@ -279,24 +287,13 @@ public class CommunityController {
 		return mview;
 	}
 	
-	@GetMapping("/delete")
+	@GetMapping("/auth/delete")
 	public String delete(
 			@RequestParam String idx,
-			@RequestParam String currentPage,
-			HttpSession session,
-			CommunityDTO dto
+			@RequestParam String currentPage
 			)
 	{
-		//글삭제시 저장된 이미지도 삭제
-	      String path=session.getServletContext().getRealPath("/photo");
-	      //업로드된 이미지명
-	      String uploadimg=service.getData(dto.getIdx()).getPhoto();
-	      //File 객체 생성
-	      File file=new File(path+"\\"+uploadimg);
-	      //이미지 삭제
-	      file.delete();
-	      
-	     service.delete(idx);
+	    service.delete(idx);
 		return "redirect:../list?currentPage="+currentPage;
 	}
 	
@@ -304,7 +301,6 @@ public class CommunityController {
 	public ModelAndView updateform(
 			 @RequestParam String idx,
 			 @RequestParam String currentPage,
-			 
 			Principal principal
 			) 
 	{
@@ -314,48 +310,46 @@ public class CommunityController {
 		String userId = "no";
 		String local = "";
 		String[] localArr = {};
+		String currentLocal = "";
 		if(principal != null) {
 			userId = principal.getName();
 			local = mservice.getLocal(principal);
 			localArr = local.split(",");
+			currentLocal = mservice.currentLocal(userId);
 		}
 		
 		CommunityDTO dto = service.getData(idx);
+		String[] photoList = dto.getPhoto().split(",");
 		
 		mview.addObject("dto",dto);
 		mview.addObject("currentPage",currentPage);
 		mview.addObject("localCnt", localArr.length);
 		mview.addObject("localArr", localArr);
+		mview.addObject("currentLocal",currentLocal);
+		mview.addObject("photoList",photoList);
 		mview.setViewName("/community/updateForm");
 		return mview;
 	}
 	
 	@PostMapping("/auth/update")
 	public @ResponseBody void update(
+			@RequestParam String idx,
 			MultipartHttpServletRequest multiRequest,
 			HttpServletRequest request,
-			HttpSession session,
-			@RequestParam String idx,
-			@RequestParam(defaultValue = "1") int currentPage,
-			Principal principal
+			HttpSession session
 			)throws Exception
 	{
 		
-		//로그인중이 아닐 경우 종료
-		String isLogin=(String)request.getSession().getAttribute("isLogin");
-		if(isLogin==null) {
-			return;
-		}
+		String path = session.getServletContext().getRealPath("/photo");
+		
 		List<MultipartFile> fileList = multiRequest.getFiles("uploadFile");
 	    String title = multiRequest.getParameter("title");
 	    String content = multiRequest.getParameter("content");
 	      
-	    String photoname = "";
-	    String originalPhotoName = "";
-	      
+	    String photoname = multiRequest.getParameter("updatePhoto");
+	    String originalPhotoName = multiRequest.getParameter("updateOrigin");
+	    
 	    if(fileList != null) {
-	    	String path = session.getServletContext().getRealPath("/photo");
-
 			File dir = new File(path);
 			if(!dir.isDirectory()) {
 				dir.mkdirs();}
@@ -374,16 +368,14 @@ public class CommunityController {
 					
 				photoname = photoname.substring(0, photoname.length()-1);
 				originalPhotoName = originalPhotoName.substring(0, originalPhotoName.length()-1);
-				}
-	      }
+			}
+	    }
 	    
-	    String id = principal.getName();
 	    CommunityDTO dto = new CommunityDTO();
-	    dto.setId(id);
-	    dto.setIdx(idx);
 	    dto.setTitle(title);
 	    dto.setContent(content);
 	    dto.setPhoto(photoname);
+	    dto.setIdx(idx);
 	    dto.setOriginal_photo(originalPhotoName);
 		
 		//수정

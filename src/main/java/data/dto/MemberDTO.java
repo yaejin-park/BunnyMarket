@@ -24,6 +24,7 @@ public class MemberDTO implements UserDetails{
 	private String local;
 	private String type;
 	private String zonecode;
+	private String current_local;
 	
 	public String getIdx() {
 		return idx;
@@ -96,6 +97,12 @@ public class MemberDTO implements UserDetails{
 	}
 	public void setZonecode(String zonecode) {
 		this.zonecode = zonecode;
+	}
+	public String getCurrent_local() {
+		return current_local;
+	}
+	public void setCurrent_local(String current_local) {
+		this.current_local = current_local;
 	}
 	
 	public MemberDTO(String id, String name, String pw) {

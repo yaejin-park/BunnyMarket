@@ -53,6 +53,7 @@
 			</c:forEach>
 		</div>
 	</c:if>
+	
 	<!-- 페이징 -->
 	<div>
 		<div class="paging">
@@ -70,14 +71,22 @@
 		</div>
 	</div>
 </div>
-
+<input type="hidden" id="categoryActive" value="${category}">
 <script>
+//지역설정
+$(".local-option li").on("click", function() {
+	location.reload();
+});
+
+$(document).ready(function () {
+	//검색창
 	$("input[name='search']").change(function() {
-		console.log("검색");
 		var keyword = $(this).val();
-		var category = ${category};
-		console.log(keyword+","+category);
+		var category = $("#categoryActive").val();
+		var location = $("#local").val();
 		
-		location.href = "/product/list?keyword="+keyword+"&category="+category;
+		window.location.href = "/product/list?keyword="+keyword+"&category="+category;
 	});
+
+});
 </script>

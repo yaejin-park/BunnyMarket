@@ -35,7 +35,14 @@
 	<table class="table table-default">
 		<tr>
 			<td rowspan="2" class="profile">
-				<img alt="profile" src="/image/profile-icon.png" class="profileImg">	
+				<div class="profile-div">
+					<c:if test="${profile == 'no' }">
+						<img alt="profile" src="/image/profile-icon.png" class="profile-img">	
+					</c:if>
+					<c:if test="${profile != 'no' }">
+						<img alt="profile" src="/photo/${profile}" class="profile-img">	
+					</c:if>
+				</div>
 			</td>
 			<td class="nick tit verticalBottom">
 				${nick}
@@ -130,7 +137,7 @@
 			<div class="tit child">연관상품</div>
 			<div class="child tit-sm more">
 				<a href="list?category=${dto.category}">
-					더보기>
+					더보기 >
 				</a>
 			</div>
 		</div>
@@ -166,6 +173,8 @@
 		</c:if>
 	</div>
 </div>
+<input type="hidden" id="isLogin" value="${isLogin}">
+		<input type="hidden" id="likeCheck" value="${likeCheck}">
 <input type="hidden" id="sellstatus" name="sellstatus" value="${dto.sellstatus}">
 <input type="hidden" id="currentPage" name="currentPage" value="${currentPage}">
 </div>
@@ -240,9 +249,7 @@
 		
 	
 	
-	
 
-	
 
     
 
@@ -250,10 +257,10 @@
 <script>
 $(document).ready(function() {
 	//로그인 되어 있을 경우,
-	if(${isLogin == "Y"}){
+	if($("#isLogin").val() == "Y"){
 		//좋아요 여부로 하트 버튼 변경
 		//좋아요 안했을 시,
-		if(${likeCheck==0}){
+		if($("#likeCheck").val()){
 			$("#dibsBtnImg").attr("src","/image/stopheart-icon.gif");
 		} else{
 			$("#dibsBtnImg").attr("src","/image/fullheart-icon.gif");
@@ -533,9 +540,6 @@ $(document).on("change", "#statusSelect", function() {
 	}); 
 });
 
-<<<<<<< HEAD
 
-=======
->>>>>>> b79eaea570bb11660a4311df649fd33ed280e955
 </script>
 

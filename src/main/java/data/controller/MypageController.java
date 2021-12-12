@@ -222,27 +222,20 @@ public class MypageController {
 		Principal principal
 		) 
 	{	
-		System.out.println("addrLocal=>" + addrLocal);
 		String[] localArr = memService.getLocal(principal).split(",");
-		String local = "";
-		
-		localArr[0] = addrLocal;
-		
-		for(String i:localArr) {
-			local+=i+",";
+		String local = memService.getLocal(principal);
+		for(var i=0; i<localArr.length; i++) {
+			local = addrLocal + "," + localArr[1] + ",";
 		}
-				
-		local = local.substring(0, local.length()-1);
+		local = local.substring(0, local.length() - 1);
 		
-		
-		dto.setEmail(email1 + "@" + email2); 
+		dto.setEmail(email1 + "@" + email2);
 		dto.setHp(hp1 + "-" + hp2 + "-" + hp3);
-		dto.setLocal(local); 
+		dto.setLocal(local);
 		dto.setAddr(addr1 + "," + addr2);
-		dto.setZonecode(zonecode); 
+		dto.setZonecode(zonecode);
 		memService.updateMember(dto);
-		
-		return "redirect:../detail";
+		return "redirect:/mypage/auth/detail";
 	}
 	
 	@GetMapping("/member/deleteform")
@@ -304,7 +297,7 @@ public class MypageController {
 		mview.addObject("localCnt",localArr.length);
 		mview.addObject("localArr",localArr);
 		
-		int totalCount = pservice.getTotalCount(category); 
+		int totalCount = pservice.getTotalCount("전체", "no", "no"); 
 		//페이징 처리에 필요한 변수
 		int perPage = 15; 
 		int totalPage;
@@ -320,9 +313,9 @@ public class MypageController {
 		endPage = startPage + perBlock-1;
 		if(endPage>totalPage){ endPage = totalPage; }
 		//각 페이지에서 불러올 시작번호
-		start = (currentPage-1) * perPage;
+		start = (currentPage-1) * perPage; 
 		
-		List<ProductDTO> list = pservice.sellList(start, perPage);
+		List<ProductDTO> list = pservice.getList(startPage, perPage, "전체", "no", "no");
 		
 		//출력에 필요한 변수들을 request에 저장
 		mview.addObject("list",list);
@@ -336,11 +329,23 @@ public class MypageController {
 	}
 	@GetMapping("/productlike/list")
 	public ModelAndView productLikeList(
-			@RequestParam (defaultValue = "1") int currentPage, HttpSession session) { 
+			@RequestParam (defaultValue = "1") int currentPage, Principal principal) { 
 		ModelAndView mview = new ModelAndView();
-		String id = (String)session.getAttribute("myid");
+		//지역 가져오기
+		String userId = "no";
+		String local = "";
+		String[] localArr = {};
+		if(principal != null) {
+			userId = principal.getName();
+			local = memService.getLocal(principal);
+			localArr = local.split(",");
+		}
+		mview.addObject("localCnt",localArr.length);
+		
+		mview.addObject("localArr",localArr);
+		String id = principal.getName();
 		int totalCount = plservice.getTotalCount(id);
-	
+		
 		//페이징 처리에 필요한 변수 선언
 		int perPage = 20;
 		int totalPage;
@@ -368,6 +373,9 @@ public class MypageController {
 		//각 페이지에 출력할 시작번호
 		int no = totalCount-(currentPage-1)*perPage;
 		
+		//닉네임 가져오기
+		String nick=memService.getNick(principal.getName());		
+		mview.addObject("nick", nick);
 		//출력에 필요한 변수들을 request에 저장
 		mview.addObject("list",list);
 		mview.addObject("startPage", startPage);
@@ -391,7 +399,7 @@ public class MypageController {
 			@RequestParam String uploadfile) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		//System.out.println("currentPage="+currentPage);
-		int totalCount=pservice.getTotalCount(sellstatus);
+		int totalCount=pservice.getTotalCount(sellstatus, "no", "no");
 		int perPage=10;
 		int totalPage;
 		int start;
