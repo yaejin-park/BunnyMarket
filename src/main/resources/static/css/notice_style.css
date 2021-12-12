@@ -1,9 +1,9 @@
-.wtable .content {
+.insert-table .content {
 	height: 500px;
 	margin-top: 10px;
 }
 
-.wtable .title {
+.insert-table .title {
 	height: 40px;
 	margin-top: 5px;
 	margin-bottom: 10px;
@@ -17,14 +17,14 @@
 	float: right;
 }
 
-.file {
+.file-div{
 	border-top-width: 0px;
 	border-right-width: 0px;
 	border-bottom-width: 0px;
 	border-left-width: 0px;
 }
 
-.utable .title {
+.update-table .title {
 	height: 40px;
 	margin-top: 5px;
 	margin-bottom: 10px;
@@ -34,31 +34,29 @@
 	border-bottom: 2px solid black;
 }
 
-.utable .content {
+.update-table .content {
 	height: 500px;
 	margin-top: 10px;
 }
 
-#ctable .content {
+#content-table .content {
 	height: 500px;
 }
 
-.contenttxt {
+.content .content-txt {
 	vertical-align: baseline;
 	colspan: 3;
 	border-bottom: none
 }
 
-#ctable .test {
-	color: black;
-}
 
-#ctable .imgin {
+
+#content-table .imgin {
 	border-top: none;
 	border-bottom: none
 }
 
-#ctable .img {
+#content-table .img {
 	max-width: 200px;
 }
 
@@ -71,7 +69,7 @@ div .btn-wrap {
 	margin-bottom: 10px;
 }
 
-#bn {
+#content-nextbefore-table {
 	margin-top: 30px;
 }
 

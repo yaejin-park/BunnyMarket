@@ -13,7 +13,7 @@
 
 
 
-	<table class="table" id="ctable">
+	<table class="table" id="content-table">
 
 		<thead>
 			<tr>
@@ -26,7 +26,7 @@
 		<tbody class="content">
 
 			<tr>
-				<td class="contenttxt" colspan="3">${dto.content}<br>
+				<td class="content-txt" colspan="3">${dto.content}<br>
 				<br> <c:if test="${bupload==true}">
 						<c:forTokens var="pp" items="${dto.photo}" delims=",">
 							<img src="../photo/${pp}" class="img">
@@ -42,7 +42,7 @@
 
 	</table>
 
-	<table class="table" id="bn">
+	<table class="table" id="content-nextbefore-table">
 		<tr>
 			<c:if test="${next!=null}">
 				<td>다음글:&nbsp;&nbsp;<a

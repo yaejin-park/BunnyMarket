@@ -4,6 +4,7 @@ import java.io.File;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -371,6 +372,18 @@ public class ProductController {
 		model.addAttribute("poplist", poplist);
 		model.addAttribute("idx", idx);
 		
+
+		//팝업창 insert
+
+		
+		String seller="no";
+		if(principal != null) {
+			seller=principal.getName();
+		}
+	
+		
+		model.addAttribute("seller", seller);
+
 		model.addAttribute("localArr", localArr);
 		model.addAttribute("localCnt", localArr.length);
 		model.addAttribute("currentLocal", currentLocal);
@@ -440,10 +453,23 @@ public class ProductController {
 		service.updateStatus(idx, status);
 	}
 	
+	@ResponseBody
 	@PostMapping("/popinsert")
-	public String insert(@ModelAttribute ReviewDTO rdto)
+	public String popinsert(@RequestParam int star,@RequestParam String seller,@RequestParam String buyer,@RequestParam String content,@RequestParam String idx)
 	{	
-		rservice.ReviewInsert(rdto);
+		String buyerid=mservice.getIdTakeNick(buyer);
+		Map<String, String> map = new HashMap<String,String>(); 
+		String star1 = String.valueOf(star);
+		
+		map.put("product_idx", idx);
+		map.put("star", star1);
+		map.put("seller", seller);
+		map.put("buyer", buyerid);
+		map.put("content", content);
+		
+		rservice.ReviewInsert(map);
+		
+		
 		
 		return "/product/list";
 	}

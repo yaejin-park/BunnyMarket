@@ -14,7 +14,7 @@
 	<div class="inner" id="form">
 
 
-		<table class="utable">
+		<table class="update-table">
 
 			<thead>
 				<tr>
