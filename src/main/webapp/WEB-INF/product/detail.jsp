@@ -180,83 +180,84 @@
 </div>
 
 
-
+<!-- 후기 팝업 -->
 <div class="popup-modal" id="choosePop">
 	<div class="modal">
 		<div class="modal-title"><h2>거래완료</h2> <h3>구매자를 선택해주세요</h3></div>
 		<div class="modal-content">
-			<table class="review">
+			<!-- 구매자가 없을 경우 -->
+			<c:if test="${poplist == null}">
+				<h1>존재X</h1>
+			</c:if>
+			
+			<!-- 구매자가 있을 경우 -->
+			<c:if test="${poplist != null}">
 				<c:forEach var="r" items="${poplist}">
-					<tr><c:if test="${r.profile == 'no'}">
-						<td class="img"><img alt="profile" src="/image/profile-icon.png" class="popimg"></td>
-						</c:if>
-						<c:if test="${r.profile!= 'no'}">
-						<td class="img"><img alt="profile" src="${r.profile}" class="popimg"></td>
-						</c:if>
-						<td class="name">
+				<div class="review">
+					<div class="right">
+						<div class="profile-img-div">
+							<c:if test="${r.profile == 'no'}">
+								<img alt="profile" src="/image/profile-icon.png" class="popimg">
+							</c:if>
+							
+							<c:if test="${r.profile!= 'no'}">
+								<img alt="profile" src="/photo/${r.profile}" class="popimg">
+							</c:if>
+						</div>
+						<div class="name tit">
 							<span>${r.nickname}</span>
-							<small class="small">${r.last_time}</small>
-						</td>
-						<td class="go"><i class="arrow review-choose-btn"></i></td>
-					</tr>
+							<small class="small">
+								<fmt:formatDate value="${r.last_time}" pattern="yy/MM/dd a hh:mm" />
+							</small>
+						</div>
+					</div>
+					<div class="go">
+						<i class="arrow review-choose-btn"></i>
+					</div>
+				</div>
 				</c:forEach>
-			</table>
+			</c:if>
 		</div>
+		
 		<button type="button" class="modal-close">닫기</button>
 	</div>
 </div>
 
-
 <div class="popup-modal" id="insertPop">
 	<div class="modal">
-	
 		<div class="modal-title"><span class="choose-nick"></span>님과의 거래후기는?</div>
 			<div class="modal-content" id="pop-insert">
-	
-	
-		
-				<input type="hidden" name="seller" value="${seller}" id="seller">
-				<input type="hidden" name="buyer" value="" id="buyer">
+				<input type="hidden" name="reviewer" value="${reviewer}" id="reviewer">
+				<input type="hidden" name="reviewee" value="" id="reviewee">
 				<input type="hidden" name="idx" value="${idx}" id="idx">
-				
 
 				<div id="my-rating">
-				
-				<fieldset> 
-					<legend>이모지 별점</legend>
-					<input type="radio" name="star" value="5" id="rate1">
-					<label for="rate1">⭐</label> 
-					<input type="radio" name="star" value="4" id="rate2">
-					<label for="rate2">⭐</label> 
-					<input type="radio" name="star" value="3" id="rate3">
-					<label for="rate3">⭐</label> 
-					<input type="radio" name="star" value="2" id="rate4">
-					<label for="rate4">⭐</label> 
-					<input type="radio" name="star" value="1" id="rate5">
-					<label for="rate5">⭐</label>
-				</fieldset>
-				
+					<fieldset> 
+						<legend>이모지 별점</legend>
+						<input type="radio" name="star" value="5" id="rate1">
+						<label for="rate1">⭐</label> 
+						<input type="radio" name="star" value="4" id="rate2">
+						<label for="rate2">⭐</label> 
+						<input type="radio" name="star" value="3" id="rate3">
+						<label for="rate3">⭐</label> 
+						<input type="radio" name="star" value="2" id="rate4">
+						<label for="rate4">⭐</label> 
+						<input type="radio" name="star" value="1" id="rate5">
+						<label for="rate5">⭐</label>
+					</fieldset>
 				</div>
-				<textarea placeholder="선택사항" name="content" id="popcontent"></textarea>
-				<button type="button" class="btn-add" id="btn-pop-insert">등록</button>
-				<input type="hidden" id="isLogin" value="${isLogin}">
 				
+				<textarea placeholder="선택사항" name="content" id="popcontent"></textarea>
+				<div class="btn-wrap">
+					<button type="button" class="btn-add" id="btn-pop-insert">등록</button>
+				</div>
 			
+				<input type="hidden" id="isLogin" value="${isLogin}">
 		</div>	
 		<button type="button" class="modal-close">닫기</button>
-		
 	</div>	
-
-	
-	
 </div>
 
-		
-	
-	
-
-
-    
 
 <script type="text/javascript" src="/js/swiper.min.js"></script>
 <script>
@@ -294,22 +295,27 @@ $(document).ready(function() {
 		}
 	}
 
-
-	$("#choosePop .review-choose-btn").click(function(){
-		var chooseNick = $(this).parent("td.go").prev(".name").find("span").text();
-		popOpen("#insertPop");
-		$("#insertPop").find(".choose-nick").text(chooseNick);
-		$('input[name=buyer]').attr('value',chooseNick);
-	})
-
 	
+	$(".review").click(function(){
+		var chooseNick = $(this).find(".name").find("span").text();
+		popClose("#choosePop");
+		popOpen("#insertPop");
+		$(".choose-nick").text(chooseNick);
+		$('input[name=reviewee]').attr('value',chooseNick);
+	})
+	
+	//리뷰 등록 눌렀을 때,
  	$("#btn-pop-insert").click(function(){
-
 		star = $('input:radio[name="star"]:checked').val();
-		seller =$('#seller').val();
-		buyer =$('#buyer').val();
+		reviewer =$('#reviewer').val();
+		reviewee =$('#reviewee').val();
 		content=$('#popcontent').val();
 		idx=$('#idx').val();
+		
+		if(star == null){
+			alert("별점을매겨주세요.");
+			return;
+		}
 		
 		console.log(content);
 		$.ajax({
@@ -318,33 +324,21 @@ $(document).ready(function() {
 		    datatype:"txt",
 		    data:{
 		    	"star" : star,
-		    	"seller":seller,
-		    	"buyer":buyer,
+		    	"reviewer":reviewer,
+		    	"reviewee":reviewee,
 		    	"content":content,
 		    	"idx":idx
-	
 		    },
 		    success: function (data) {
-		            alert("데이터 전송이 성공적으로 끝났을 때 실행");
-		        }, error: function (data) {
-		        	console.log("실패");
-				}
-		    
+	            alert("후기 작성 성공");
+	            popClose("#insertPop");
+	        }, error: function (data) {
+	        	console.log("실패", star, reviewer, reviewee, content, idx);
+			}
 		});
-	    
-	
 	})
-
-
-
-
-	
-		
 });  
 
-
-	
-	 
 	
 
 
@@ -470,6 +464,7 @@ $(document).on("click","#follow", function() {
 				});
 			}
 		}
+		
 	}
 });
 
@@ -529,20 +524,27 @@ $(document).on("change", "#statusSelect", function() {
         	//판매상태에 따라 글씨색 바뀌기
 			if($("#statusSelect").val() == "finished"){
 				$("#statusSelect").css("color","#979593");
-				popOpen("#choosePop");
+				//후기 썼는지 안썼는지 체크
+				$.ajax({
+					type : "post",  
+					url : "checkWrite",     
+			        data : {"idx":idx},
+			        success: function(data){
+			        	if(data == 0){
+			        		popOpen("#choosePop");
+			        	}
+			        }
+				});
 			} else if($("#statusSelect").val() == "reserved"){
 				$("#statusSelect").css("color", "#ff7ab0");
 			} else if($("#statusSelect").val() == "selling"){
 				$("#statusSelect").css("color", "#3088d4");
 			}
-        
         },
         error: function(e){
         	console.log("Status error",e);
         }
 	}); 
 });
-
-
 </script>
 

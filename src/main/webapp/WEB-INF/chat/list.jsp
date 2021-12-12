@@ -30,7 +30,6 @@
 				</div>
 			</div>
 			
-			
 			<!-- 채팅리스트 X -->
 			<c:if test="${chlist.size() == 0}">
 				<div class="nodata" id="noList">
@@ -107,8 +106,8 @@
 						</div>
 					</div>
 
-					<div class="wrap link" onclick="location.href='../../product/detail?idx=${dto.idx}'">
-						<div class="front">
+					<div class="wrap link">
+						<div class="front" onclick="location.href='../../product/detail?idx=${dto.idx}'">
 							<div class="thumbNail">
 								<img alt="product_thumbnail" src="/photo/${photo}" class="thumbImg" />
 							</div>
@@ -122,10 +121,16 @@
 								</div>
 							</div>
 						</div>
-						<!-- 판매완료인데 내 아이디가 buyer, seller 중 하나면, 후기작성버튼 -->
-						<c:if test="${dto.sellstatus=='판매완료'}">
+						<!-- 판매완료+ 후기작성에 해당하면, 후기작성버튼 -->
+						<c:if test="${dto.sellstatus=='판매완료' && checkReviewee != 0 && checkWrite == 0}">
 							<div class="back">
-								<button class="btn-default review-btn">후기 작성</button>				
+								<button type="button" class="btn-default" id="reviewBtn">후기 작성</button>				
+							</div>
+						</c:if>
+						<!-- 후기작성에 해당하지만, 후기가 있으면 -->
+						<c:if test="${dto.sellstatus=='판매완료' && checkWrite != 0 }">
+							<div class="back">
+								<button type="button" class="btn-default">후기 완료</button>				
 							</div>
 						</c:if>
 					</div>
@@ -191,10 +196,47 @@
 		<button type="button" class="btn-default" onclick="location.href='../../product/list'">상품 목록</button>
 	</div>
 	<input type="hidden" name="key" id="key" value="${key}">
+	<input type="hidden" name="reviewer" value="${id}" id="reviewer">
 </div>
 
-<script>
+<!-- 별점 팝업 -->
+<div class="popup-modal" id="insertPop">
+	<div class="modal">
+		<div class="modal-title">${yournick}님과의 거래후기는?</div>
+			<div class="modal-content" id="pop-insert">
+				<input type="hidden" name="reviewer" value="${reviewer}" id="reviewer">
+				<input type="hidden" name="reviewee" value="" id="reviewee">
+				<input type="hidden" name="idx" value="${idx}" id="idx">
 
+				<div id="my-rating">
+					<fieldset> 
+						<legend>이모지 별점</legend>
+						<input type="radio" name="star" value="5" id="rate1">
+						<label for="rate1">⭐</label> 
+						<input type="radio" name="star" value="4" id="rate2">
+						<label for="rate2">⭐</label> 
+						<input type="radio" name="star" value="3" id="rate3">
+						<label for="rate3">⭐</label> 
+						<input type="radio" name="star" value="2" id="rate4">
+						<label for="rate4">⭐</label> 
+						<input type="radio" name="star" value="1" id="rate5">
+						<label for="rate5">⭐</label>
+					</fieldset>
+				</div>
+				
+				<textarea placeholder="선택사항" name="content" id="popcontent"></textarea>
+				<div class="btn-wrap">
+					<button type="button" class="btn-add" id="btn-pop-insert">등록</button>
+				</div>
+			
+				<input type="hidden" id="isLogin" value="${isLogin}">
+		</div>	
+		<button type="button" class="modal-close">닫기</button>
+	</div>	
+</div>
+
+
+<script>
 var ws;
 
 $(document).ready(function() {
@@ -294,6 +336,51 @@ $(document).ready(function() {
 			return;
 		}
 	});
+	
+	//후기작성 버튼
+	$(document).on("click","#reviewBtn",function(){
+		var chooseNick = $(this).find(".name").find("span").text();
+		popClose("#choosePop");
+		popOpen("#insertPop");
+		$(".choose-nick").text(chooseNick);
+		$('input[name=reviewee]').attr('value',chooseNick);
+	});
+
+	//리뷰 등록 눌렀을 때,
+ 	$("#btn-pop-insert").click(function(){
+		star = $('input:radio[name="star"]:checked').val();
+		reviewer =$('#reviewer').val();
+		reviewee =$('#seller').val();
+		content=$('#popcontent').val();
+		idx=$('#idx').val();
+		
+		if(star == null){
+			alert("별점을매겨주세요.");
+			return;
+		}
+		
+		console.log(content);
+		$.ajax({
+		    url: "../../product/popinsert",
+		    type: "post",
+		    datatype:"txt",
+		    data:{
+		    	"star" : star,
+		    	"reviewer":reviewer,
+		    	"reviewee":reviewee,
+		    	"content":content,
+		    	"idx":idx
+		    },
+		    success: function (data) {
+		    	console.log(star, reviewer, reviewee, content, idx, data);
+	            alert("후기 작성 성공");
+	            popClose("#insertPop");
+	        }, error: function (data) {
+	        	console.log("실패", star, reviewer, reviewee, content, idx, data);
+			}
+		});
+	})
+	
 });
 
 

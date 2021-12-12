@@ -44,12 +44,12 @@
 		<div class="info">
 			<table class="table table-default">
 				<tr>				
-					<td class="ad-tit" colspan="3">
+					<td class="ad-tit" colspan="2">
 						${dto.title}
 					</td>
 				</tr>
 				<tr>
-					<td rowspan="2">
+					<td class="profile-td" rowspan="2">
 						<p class="profile">
 							<c:if test="${profile =='no'}">
 								<img alt="프로필이미지" src="/image/profile-icon.png" class="profileImg">
@@ -64,24 +64,23 @@
 					</td>
 				</tr>
 				<tr>
-					<td colspan="2" class="tit-sm">
+					<td class="tit-sm" colspan="2">
 						작성일 <fmt:formatDate value="${dto.writeday}" pattern="yy.MM.dd HH:mm"/>
 					</td>
-					<td colspan="3" class="tit-sm">
-				<div class="info-sm">   
-					<div class="info-sm-div">
-						<a href="detail?idx=${dto.idx}&currentPage=${currentPage}&key=list#reply">
-							<div class="comment icon-sm">${recount}</div>
-						</a>
-					</div>
-					<div class="info-sm-div">
-						<div class="dibs icon-sm">${dto.goodcount}</div>
-					</div>
-					<div class="info-sm-div">
-						<div class="read icon-sm">${dto.readcount}</div>
-					</div>
-				</div>
-			</td>
+				</tr>
+				<tr>
+					<td class="tit-sm" colspan="2">
+						<div class="info-sm">   
+							<div class="info-sm-div">
+								<a href="detail?idx=${dto.idx}&currentPage=${currentPage}&key=list#reply">
+									<div class="comment icon-sm">${recount}</div>
+								</a>
+							</div>
+							<div class="info-sm-div">
+								<div class="read icon-sm">${dto.readcount}</div>
+							</div>
+						</div>
+					</td>
 				</tr>
 			</table>
 		</div>

@@ -4,6 +4,7 @@
 	padding-top:100px;
 }
 .login-div .sns-login {
+	display:none;
 	margin-bottom:40px;
 	text-align:center;
 }

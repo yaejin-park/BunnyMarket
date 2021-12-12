@@ -228,15 +228,23 @@ public class ChatController {
 			String []photo = dto.getUploadfile().split(",");
 			String thumb = photo[0];
 			
+			//후기작성해야하는지?
+			int checkReviewee = rservice.checkReviewee(id, idx);
+			//후기 존재하는지?
+			int checkWrite = rservice.checkWrite(id, idx);
+			
 			mview.addObject("dto", dto);
 			mview.addObject("chat_idx", chat_idx);
 			mview.addObject("roomNumber", roomNumber);
 			mview.addObject("photo", thumb);
+			mview.addObject("checkReviewee", checkReviewee);
+			mview.addObject("checkWrite", checkWrite);
 			
 			//상대방 닉네임& 프로필
 			String yournick = mservice.getNick(sender); 
 			String yourprofile = mservice.getMemberId(sender).getProfile(); 
 			int reviewCount = rservice.getCount(sender);
+			
 			mview.addObject("yournick", yournick);
 			mview.addObject("yourprofile", yourprofile);
 			mview.addObject("reviewCount", reviewCount);
@@ -249,6 +257,7 @@ public class ChatController {
 		String local="";
 		String []localArr = {};
 		String currentLocal = "";
+		
 		//로그인 되어있을 경우,
 		if(principal != null) {
 			userId= principal.getName();
@@ -316,7 +325,6 @@ public class ChatController {
 				bs.write(str.getBytes()); //Byte형으로만 넣을 수 있음
 			} catch (Exception e) {
 				e.getStackTrace();
-				// TODO: handle exception
 			} finally {
 				bs.close();
 			} 
@@ -355,7 +363,6 @@ public class ChatController {
 				bs.write(str.getBytes()); //Byte형으로만 넣을 수 있음
 			} catch (Exception e) {
 				e.getStackTrace();
-				// TODO: handle exception
 			} finally {
 				bs.close();
 			} 
