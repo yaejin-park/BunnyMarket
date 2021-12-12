@@ -109,10 +109,12 @@ public class EventController {
 		String local = "";
 		String[] localArr = {};
 		String currentLocal = "";
+		String userProfile = "no";
 		if(principal != null) {
 			userId = principal.getName();
 			userType = memberService.currentUserType(principal);
 			userNickName = memberService.currentUserNickName(principal);
+			userProfile = memberService.getMemberId(userId).getProfile();
 			local = memberService.getLocal(principal);
 			currentLocal = memberService.currentLocal(userId);
 			localArr = local.split(",");
@@ -130,11 +132,14 @@ public class EventController {
 		
 		for(EventReplyDTO reDto:relist) {
 			reDto.setNickname(memberService.getNick(reDto.getId()));
+			reDto.setProfile(memberService.getMemberId(reDto.getId()).getProfile());
 		}
 		mview.addObject("dto", dto);
 		mview.addObject("photoList", photoList);
 		mview.addObject("userType", userType);
+		mview.addObject("userId", userId);
 		mview.addObject("userNickName", userNickName);
+		mview.addObject("userProfile", userProfile);
 		mview.addObject("relist", relist);
 		mview.addObject("recount", recount);
 		mview.addObject("maxReply", maxReply);
