@@ -13,6 +13,7 @@ public interface FaqMapper {
 	public void insertFaq(FaqDTO dto);
 	public List<FaqDTO> getList(HashMap<String, Integer> map);
 	public int getTotalCount();
+	public int getTotalCountByCategory(String category);
 	public FaqDTO getCategory(String category);
 	public List<FaqDTO> getListByCategory(HashMap<String, Object>map);
 	public void updateFaq(FaqDTO dto);
