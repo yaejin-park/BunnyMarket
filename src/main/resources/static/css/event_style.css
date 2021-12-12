@@ -57,20 +57,31 @@
 	border:1px solid #e5e5e5;
 	border-radius:5px;
 }
-.event-div .re-info.writer span {
+.event-div .re-info.writer .writer-info {
 	display:inline-block;
 	font-size:16px;
 	font-weight:bold;
+	color:#333;
 	vertical-align:middle;
+}
+.event-div .re-info.writer .writer-info span {
+	display:block;
+}
+.event-div .re-info.writer .writer-info span.date {
+	font-weight:normal;
+	font-size:12px;
+	color:#999;
 }
 .event-div .re-info.writer .profile {
 	position:relative;
+	display:inline-block;
 	width:40px;
 	height:40px;
 	margin-right:10px;
 	border-radius:50%;
 	border:1px solid #e5e5e5;
 	overflow:hidden;
+	vertical-align:middle;
 }
 .event-div .re-info.writer .profile img {
 	position:absolute;
@@ -168,8 +179,13 @@
 	.event-div .reply .re-div {
 		padding:5px;
 	}
-	.event-div .re-info.writer span {
+	.event-div .re-info.writer .writer-info span {
 		font-size:14px;
+	}	
+	.event-div .re-info.writer .writer-info span.date {
+		font-weight:normal;
+		font-size:10px;
+		color:#999;
 	}
 	.event-div .re-info.writer .profile {
 		width:30px;

@@ -91,7 +91,7 @@
 	    				<input type="hidden" name="regroup" value="${replyDto.regroup}">
 	    				<input type="hidden" name="restep" value="${replyDto.restep}">
 	    				<input type="hidden" name="relevel" value="${replyDto.relevel}">
-	    				<p class="re-info writer">
+	    				<div class="re-info writer">
 	    					<span class="profile">
 								<c:if test="${replyDto.profile=='no'}">
 									<img alt="" src="/image/profile-icon.png">
@@ -100,8 +100,11 @@
 									<img alt="" src="/photo/${replyDto.profile}">
 								</c:if>
 	    					</span>
-	    					<span>${replyDto.nickname}</span>
-	    				</p>
+	    					<p class="writer-info">
+	    						<span>${replyDto.nickname}</span>
+		                		<span class="date">${replyDto.writeday}</span>
+	    					</p>
+	    				</div>
 		    			<div class="re-content">
 		                	<p class="txt">${replyDto.content}</p>
 					        <div class="btn-wrap">
