@@ -222,7 +222,11 @@ $(function(){
 	
 	$(".ad-div .re-list li.bg").each(function(){
 		var level = $(this).find("input[name='relevel']").val();
-		$(this).css("padding-left",(level*50) + "px");
+		if($(window).width() > 768) {
+			$(this).css("padding-left",(level*50) + "px");		
+		}else{
+			$(this).css("padding-left",(level*25) + "px");
+		}
 	})
 	
 	//대댓글

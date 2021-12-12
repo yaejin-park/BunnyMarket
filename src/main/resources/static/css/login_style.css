@@ -4,6 +4,7 @@
 	padding-top:100px;
 }
 .login-div .sns-login {
+	display:none;
 	margin-bottom:40px;
 	text-align:center;
 }
@@ -103,4 +104,46 @@
 }
 .login-div .btn-wrap a:last-child {
 	margin-bottom:0;
+}
+
+@media all and (max-width:768px){
+	.login-div {
+		max-width:94%;
+		padding-top:50px;
+	}
+	.login-div .sns-login {
+		margin-bottom:20px;
+	}
+	.login-div .sns-login a {
+		width:40px;
+		height:40px;
+		margin-right:5px;
+	}
+	.login-form .form-div {
+		margin-bottom:5px;
+	}
+	.login-form .form-div input::placeholder {
+		font-size:14px;
+	}
+	.login-form .form-div .check-box {
+		font-size:14px;
+	}
+	.login-form .form-div .check-box input {
+		margin-top:5px;
+		vertical-align:top;
+	}
+	.login-form .form-div .find a {
+		font-size:14px;
+	}
+	.login-form .form-div .find a:first-child:after {
+		width:3px;
+		height:3px;
+		margin:9px 5px 0 8px;
+	}
+	.login-div .btn-wrap {
+		margin-top:20px;
+	}
+	.login-div .btn-wrap a {
+		margin-bottom:5px;
+	}
 }

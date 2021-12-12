@@ -14,6 +14,16 @@
 	<select id="getTotalCount" resultType="int">
 		select count(*) from faq
 	</select>
+	<select id="getTotalCountByCategory" parameterType="String" resultType="int">
+		select
+			count(*)
+		from
+			faq
+		<if test="category != null and category != 'all'">
+		where
+			category =#{category}
+		</if>
+	</select>
 	<select id="getCategory" parameterType="String" resultType="fdto">
 		select * from where category =#{category}
 	</select>

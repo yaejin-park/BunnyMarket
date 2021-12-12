@@ -57,20 +57,31 @@
 	border:1px solid #e5e5e5;
 	border-radius:5px;
 }
-.event-div .re-info.writer span {
+.event-div .re-info.writer .writer-info {
 	display:inline-block;
 	font-size:16px;
 	font-weight:bold;
+	color:#333;
 	vertical-align:middle;
+}
+.event-div .re-info.writer .writer-info span {
+	display:block;
+}
+.event-div .re-info.writer .writer-info span.date {
+	font-weight:normal;
+	font-size:12px;
+	color:#999;
 }
 .event-div .re-info.writer .profile {
 	position:relative;
+	display:inline-block;
 	width:40px;
 	height:40px;
 	margin-right:10px;
 	border-radius:50%;
 	border:1px solid #e5e5e5;
 	overflow:hidden;
+	vertical-align:middle;
 }
 .event-div .re-info.writer .profile img {
 	position:absolute;
@@ -129,4 +140,89 @@
 	margin:20px 0 0 50px;
 	padding:20px;
 	border:1px solid #e5e5e5;
+}
+
+@media all and (max-width:768px) {
+	.event-div .category-div {
+		padding:10px 0; 
+	}
+	.event-div .category-div a {
+		padding:4px 7px;
+		margin-right:5px;
+	}
+	.event-detail-div {
+		margin-top:20px;
+	}
+	.event-detail-div .title-div {
+		padding-bottom:15px;
+	}
+	.event-detail-div .title-div .label {
+		padding:2px 4px;
+		font-size:12px;
+	}
+	.event-detail-div .title-div .tit {
+		margin:5px 0;
+		font-size:20px;
+	}
+	.event-detail-div .title-div .date {
+		font-size:12px;
+	}
+	.event-detail-div .view-div {
+		padding:30px 0 20px;
+	}
+	.event-detail-div .view-div .img-div {
+		margin:0 auto 30px;
+	}
+	.event-div .reply .tit {
+		margin-bottom:10px;
+	}
+	.event-div .reply .re-div {
+		padding:5px;
+	}
+	.event-div .re-info.writer .writer-info span {
+		font-size:14px;
+	}	
+	.event-div .re-info.writer .writer-info span.date {
+		font-weight:normal;
+		font-size:10px;
+		color:#999;
+	}
+	.event-div .re-info.writer .profile {
+		width:30px;
+		height:30px;
+		margin-right:5px;
+	}
+	.event-div .re-content {
+		margin:5px 0;
+	}
+	.event-div .re-content textarea {
+		height:50px;
+	}
+	.event-div .re-div .re-util {
+		padding-top:5px;
+	}
+	.event-div .re-div .re-util .text-count {
+		bottom:5px;
+		left:5px;
+		font-size:12px;
+	}
+	.event-div .re-list-div {
+		margin-top:20px;
+	}
+	.event-div .re-list li {
+		padding:10px 0;
+	}
+	.event-div .re-list li.bg {
+		padding:10px 25px;
+	}
+	.event-div .re-list .re-content .btn-wrap {
+		margin-top:5px;
+	}
+	.event-div .re-list .re-content .btn-wrap .reply-btn {
+		font-size:12px;
+	}
+	.event-div .re-list .re-div {
+		margin:10px 0 0 25px;
+		padding:10px;
+	}
 }
