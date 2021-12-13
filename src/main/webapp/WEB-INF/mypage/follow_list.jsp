@@ -10,19 +10,20 @@
 	<div class="inner">
 		<div class="swiper side-menu-div">
 	         <div class="swiper-wrapper">
+	            <a href="/mypage/auth/detail" class="swiper-slide">내상점</a>
 	            <a href="/mypage/auth/sellList" class="swiper-slide">판매내역</a>
 	            <a href="/mypage/auth/followlist" class="swiper-slide active">모아보기</a>
 	            <a href="javascript:" class="swiper-slide">나의후기</a>
-	            <a href="/mypage/auth/productlike/list" class="swiper-slide">관심목록</a>
+	            <a href="/mypage/auth/productlike" class="swiper-slide">관심목록</a>
 	            <a href="/mypage/auth/member/updateform" class="swiper-slide">회원수정</a>
 	            <a href="/mypage/auth/member/deleteform" class="swiper-slide">회원탈퇴</a>
 	         </div>
 	      </div>
 		<div class="myfollow-list">
 			<c:if test="${totalCount>0}">
-				<ul class="event-list ad-list">
+				<ul class="follow-product-list">
 					<c:forEach var="list" items="${followList}">
-						<li>
+						<li class="follow-li">
 							<a href="/product/detail?idx=${list.idx}&currentPage=${currentPage}&key=list">
 								<span></span>
 								<div class="pimg img-div">

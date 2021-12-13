@@ -1,16 +1,4 @@
-$(function(){
-/*	setTimeout(() => {
-	 var swiper = new Swiper(".mySwiper", {
-		    navigation: {
-		      nextEl: ".swiper-button-next",
-		      prevEl: ".swiper-button-prev",
-		    },
-		    pagination: {
-		      el: ".swiper-pagination",
-		    },
-		  });
-	}, 20);*/
-	
+$(function(){	
 	var fileListArr = new Array();
 	var keyNum = 0;
 	var fileCnt = 0;
