@@ -116,7 +116,7 @@ $(function(){
 						html +=	'<div class="sprice txt">' + a.price + '원</div>';
 						html += '</td>';
 						html += '<td>';
-						html += '<div class="sstatus">' + a.status + '</div>';
+						html += '<div class="sstatus">' + a.sellstatus + '</div>';
 						html += '</td>';
 						html += '</tr>';
 						
