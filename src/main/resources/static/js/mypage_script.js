@@ -97,11 +97,9 @@ $(function(){
 				$("#sell-list-tbody").empty();
 				$(".paging").empty();
 				
+				var html = "";
 				
 				if (list !== null && list.length > 0) {
-					for (var i = 0; i < list.length; i++) {
-						var a = list[i];
-						var html = '';
 						html += '<tr colspan="3">';
 						html += '<td>';
 						html += '<c:forEach var="list" items="${list}">';
