@@ -8,6 +8,16 @@
 
 <div class="sell-list">
 	<div class="inner">
+		<div class="swiper side-menu-div">
+	         <div class="swiper-wrapper">
+	            <a href="/mypage/auth/sellList" class="swiper-slide">판매내역</a>
+	            <a href="/mypage/auth/followlist" class="swiper-slide">모아보기</a>
+	            <a href="javascript:" class="swiper-slide">나의후기</a>
+	            <a href="/mypage/auth/productlike/list" class="swiper-slide">관심목록</a>
+	            <a href="/mypage/auth/member/updateform" class="swiper-slide active">회원수정</a>
+	            <a href="/mypage/auth/member/deleteform" class="swiper-slide">회원탈퇴</a>
+	         </div>
+	      </div>
 		<form action="sell-form-div">
 			<div class="sell-list-condition">
 				<p class="sell-info tit">판매 정보</p>
