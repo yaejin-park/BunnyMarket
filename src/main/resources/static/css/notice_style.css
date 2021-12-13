@@ -39,20 +39,15 @@
 	margin-top: 10px;
 }
 
-#content-table .content {
+
+/* content */
+#content-table .content-tbody {
 	height: 500px;
 }
 
-.content .content-txt {
+.content-tbody .content-txt {
 	vertical-align: baseline;
-	colspan: 3;
-	border-bottom: none
-}
-
-
-
-#content-table .imgin {
-	border-top: none;
+	
 	border-bottom: none
 }
 
@@ -60,19 +55,19 @@
 	max-width: 200px;
 }
 
-div .btn-wrap {
-	margin-top: 15px;
-	float: right;
-}
 
-.btn-wrap {
-	margin-bottom: 10px;
-}
 
 #content-nextbefore-table {
 	margin-top: 30px;
 }
 
+
+
+.btn-wrap {
+	margin-top: 15px;
+	float: right;
+	margin-bottom: 10px;
+}
 
 
 

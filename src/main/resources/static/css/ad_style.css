@@ -63,9 +63,12 @@
 	background-image: url("/image/comment-icon.png");
 	background-position:left center;
 }
-.info-sm div.read, .list-info-sm div.read{
+.ad-div .infoAll .info-sm div.read, .list-info-sm div.read{
 	background-image: url("/image/eye-icon.png");
 	background-position:left center;
+}
+.ad-div .infoAll .read{
+	margin-right:5px;
 }
 .ad-div .content-detail-div{
 	border:1px solid #ddd;
@@ -119,6 +122,126 @@
 	left:50%;
 	transform:translate(-50%, -50%);
 	width:100%;
+}
+.ad-div .infoAll .all{
+	margin-top: 40px;
+}
+
+.ad-div .infoAll .group.tit{
+	width: 150px;
+}
+
+.ad-div .infoAll .group{
+	margin-top: 40px;
+}
+
+.ad-div .infoAll .group:after{
+	content:""; display:block; clear:both;
+}
+
+.ad-div .infoAll .child{
+	float: left;
+}
+
+.ad-div .infoAll .detail-swiper {
+	position:relative;
+	overflow:hidden;
+}
+
+.ad-div .infoAll .bigImg{
+	padding-top:10px;
+	width: 323px;
+	border: 2.3px solid #f7f6fc;
+	overflow:hidden;
+}
+.ad-div .infoAll .bigImg img {
+	position:absolute;
+	top:50%;
+	left:50%;
+	transform:translate(-50%,-50%);
+}
+
+.ad-div .infoAll .smImgDiv{
+	margin-top: 5px;
+}
+
+.ad-div .infoAll .smImg{
+	position:relative;
+	width: calc((323px -30px)/4);
+	border: 2.3px solid #f7f6fc;
+	overflow:hidden;
+}
+.ad-div .infoAll .smImg img {
+	position:absolute;
+	top:50%;
+	left:50%;
+	transform:translate(-50%,-50%);
+}
+
+.ad-div .infoAll .group{
+	margin-top:0;
+	float:left;
+	width:330px;
+	margin-right: 40px;
+}
+
+.ad-div .infoAll .info{
+	float: left;
+    width: calc(100% - 395px);
+    margin-left: 25px;
+}
+
+.ad-div .infoAll .relative{
+	margin-top: 40px;
+}
+
+.ad-div .infoAll .bottomBoreder{
+	padding-top: 30px;
+	padding-bottom: 30px;
+	border-bottom: 2.3px solid #f7f6fc;
+}
+
+.ad-div .infoAll .detailContent{
+	margin-top: 60px;
+	height: 200px;
+}
+
+.ad-div .infoAll:after{
+	content:""; 
+	display:block; 
+	clear:both;
+}
+.ad-div .infoAll .table-default{
+	text-align: left;
+	border-top:0px;
+}
+.ad-div .infoAll .table-default tr {
+	border-bottom: 0px;
+}
+
+.ad-div .infoAll .table-default tr.lineNeed{
+	height: 70px;
+	border-top:1px solid #e5e5e5;
+	vertical-align:bottom;
+}
+
+.ad-div.table-default td{
+	padding: 7px;
+}
+/* background-image */
+.ad-div .infoAll .icon-sm{
+	background-repeat: no-repeat;
+    background-size: 20px;
+    background-position: center;
+    padding-left: 25px;
+    color: #746a66c7;
+}
+.ad-div .infoAll .info-sm div.dibs{
+	background-image: url("/image/heart-icon.png");
+} 
+
+.ad-div .infoAll .info-sm div.read{
+	background-image: url("/image/eye-icon.png");
 }
 /* detail-reply */
 .ad-div .reply .tit {

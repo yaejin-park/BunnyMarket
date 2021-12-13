@@ -1,6 +1,4 @@
-
 $(function(){
-
 	if($(".mydetail-form .side-menu-div").length > 0){
 		var sideMenuSwiper = new Swiper(".mydetail-form .side-menu-div", {
 	    	slidesPerView: 'auto',
@@ -31,7 +29,6 @@ $(function(){
 	        },       
 		});
 	}
-	
 	
 	$(".unregister-form #go-unregi").click(function(){
 		if($(".unregister-form .unregi-reason option").index($(".unregister-form .unregi-reason option:selected")) == 0){
@@ -97,16 +94,17 @@ $(function(){
 				$("#sell-list-tbody").empty();
 				$(".paging").empty();
 				
-				var html = "";
-				
 				if (list !== null && list.length > 0) {
+					for (var i = 0; i < list.length; i++) {
+						var a = list[i];
+						var photo=a.uploadfile.split(",")[0];
+						console.log("1:"+photo);
+						var html = '';
 						html += '<tr colspan="3">';
 						html += '<td>';
-						html += '<c:forEach var="list" items="${list}">';
 						html +=	'<div class="simg">';
-						html +=	'<img alt="thumnail" src="../photo/${fn:split(list.uploadfile,'+'","'+')[0]}">';
+						html +=	'<img alt="thumnail" src="/photo/'+photo+'">';
 						html +=	'</div>'
-						html += '</c:forEach>';
 						html += '</td>';
 						html += '<td>';
 						html += '<div class="scate txt">' + a.category + '</div>';
@@ -156,6 +154,21 @@ $(function(){
 	});
 	
 	renderList(1);
-	
-	
+
+	$(window).resize(function(){
+		if($(".my-like").length > 0){
+			$(".my-like .table .thumnail").each(function(){
+				$(this).height($(this).width());
+				
+	            if($(this).find("img").width() * $(this).height() < $(this).find("img").height() * $(this).width()){
+					$(this).find("img").width($(this).width());
+					$(this).find("img").height("auto");
+				}else{
+					$(this).find("img").width("auto");
+					$(this).find("img").height($(this).height());
+				}
+	        });
+		}
+		
+	});
 });

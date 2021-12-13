@@ -33,7 +33,8 @@
 			<td class="ment">
 
 				<p id="jump">
-					우리 동네의 다양한 이야기를 이웃과 함께 나누어요 <br><button type="button" class="btn-list btn-sm" id="center" id="jump" onclick="">바로가기</button></p>
+					우리 동네의 다양한 이야기를 이웃과 함께 나누어요 <br><button type="button" class="btn-list btn-sm" id="center" id="jump" onclick="location.href='/community/list'">
+					바로가기</button></p>
 			</td>
 			<td class="picture"><img src="../image/test2.png" id="jump"></td>
 
@@ -46,7 +47,7 @@
 				<h3 class="ment" id="jump">Event</h3>
 				<p class="ment" id="jump">
 					다양한 이벤트에 참여해보세요
-					<br><button type="button" class="btn-list btn-sm" id="center" id="jump" onclick="">바로가기</button>
+					<br><button type="button" class="btn-list btn-sm" id="center" id="jump" onclick="location.href='/event/list'">바로가기</button>
 				</p>
 
 

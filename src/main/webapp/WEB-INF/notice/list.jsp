@@ -20,7 +20,7 @@
 		</div>
 		<div class="btn-wrap">
 			<button class="btn-add" type="button"
-				onclick="location.href='writeform'">글쓰기</button>
+				onclick="location.href='writeform'" >글쓰기</button>
 		</div>
 	</div>
 

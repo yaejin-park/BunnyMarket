@@ -13,5 +13,6 @@ public interface FollowMapper {
 	public void deleteFollow(String followee, String follower);
 	
 	//follow list
-	public List<FollowDTO> getFollowList(String follower);
+	public int followeeCount(String followee);
+	public List<FollowDTO> followeeList(String followee);
 }

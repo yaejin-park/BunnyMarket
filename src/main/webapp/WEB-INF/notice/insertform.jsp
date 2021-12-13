@@ -27,8 +27,8 @@
 			</tr>
 		</table>
 		<div class="btn-wrap">
-			<button type="button" onclick="location.href='list'" class="btn-list">목록</button>
-			<button type="submit" class="btn-add">저장</button>
+			<button type="button" onclick="location.href='list'" class="btn-list" id="btn">목록</button>
+			<button type="submit" class="btn-add" id="btn">저장</button>
 
 		</div>
 	</form>

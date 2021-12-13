@@ -1,36 +1,20 @@
-
 /* faq List&Write&Update Form */
-
 .faq-div {
 	margin-top:40px;
 }
-
 .faq-div .table {
-	margin-top:40px;
+	margin-top:20px;
 }
-
+.faq-div .table th:first-child {
+	width:150px;
+}
 .faq-div #faq-category {
 	width:120px;
 	height:40px;
 	font-size: 14px;
-	float:left;
-	text-align:center;
-}
-
-.faq-div .table .category {
-	width:200px;
-}
-
-.faq-div .table .question {
-	width:400px;
-}
-
-.faq-div .faq-form-div {
-	margin-top:40px;
 }
 
 /* faq List */
-
 .faq-div .arrow1 {
 	float:right;
 	width:20px;
@@ -38,21 +22,27 @@
 	background:url("/image/faq-down-icon.png") no-repeat center / auto 20px;
 	transform:rotate(0deg);
 }
-
 .faq-div .arrow1.on {
 	transform:rotate(-180deg);
 }
-
-.faq-div table td {
-	text-align:center;
-}
-
 .faq-div table tr.answer {
 	display:none;
+	background:#f5f5f5;
 }
-
-.faq-div .answer {
-	font-weight:bolder;
+@media all and (max-width:768px) {
+	.faq-div {
+		margin-top:20px;
+	}
+	.faq-div .table th:first-child {
+		width:70px;
+	}
+	.faq-div #faq-category {
+		width:70px;
+		height:30px;
+		font-size: 12px;
+	}
+	.faq-div .table {
+		margin-top:20px;
+	}
 }
-
 
