@@ -12,7 +12,7 @@
 		<div class="inner">
 			<div class="group">
 				<div class="child tit">
-						이미지<span class="must">*</span>
+						이미지
 					</div>
 					<div class="child img-upload">
 						<div class="form-group upload-img">

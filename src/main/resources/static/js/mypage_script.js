@@ -98,14 +98,14 @@ $(function(){
 				if (list !== null && list.length > 0) {
 					for (var i = 0; i < list.length; i++) {
 						var a = list[i];
+						var photo=a.uploadfile.split(",")[0];
+						console.log("1:"+photo);
 						var html = '';
 						html += '<tr colspan="3">';
 						html += '<td>';
-						html += '<c:forEach var="list" items="${list}">';
 						html +=	'<div class="simg">';
-						html +=	'<img alt="thumnail" src="../photo/${fn:split(list.uploadfile,'+'","'+')[0]}">';
+						html +=	'<img alt="thumnail" src="/photo/'+photo+'">';
 						html +=	'</div>'
-						html += '</c:forEach>';
 						html += '</td>';
 						html += '<td>';
 						html += '<div class="scate txt">' + a.category + '</div>';
