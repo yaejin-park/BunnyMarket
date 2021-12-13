@@ -8,13 +8,17 @@
 <c:set var="root" value="<%=request.getContextPath() %>"></c:set>
 <section class="main-vis">
 	<div class="swiper-wrapper">
-		<div class="swiper-slide">
-			<img alt="" src="/image/main-vis4.jpg" class="pc-img">
-			<img alt="" src="/image/main-vis4-m.jpg" class="mobile-img">
+		<a href="/join/main" class="swiper-slide">
+			<img alt="" src="/image/main-vis1.jpg" class="pc-img">
+			<img alt="" src="/image/main-vis1-m.jpg" class="mobile-img">
+		</a>
+		<a href="/join/main" class="swiper-slide">
+			<img alt="" src="/image/main-vis2.jpg" class="pc-img">
+			<img alt="" src="/image/main-vis2-m.jpg" class="mobile-img">
 		</div>
-		<div class="swiper-slide">
-			<img alt="" src="/image/main-vis5.jpg" class="pc-img">
-			<img alt="" src="/image/main-vis5-m.jpg" class="mobile-img">
+		<a href="" class="swiper-slide">
+			<img alt="" src="/image/main-vis3.jpg" class="pc-img">
+			<img alt="" src="/image/main-vis3-m.jpg" class="mobile-img">
 		</div>
 	</div>
 	<div class="swiper-pagination"></div>

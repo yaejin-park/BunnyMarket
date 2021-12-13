@@ -292,7 +292,7 @@ public class MypageController {
 		return "redirect:/logout";
 	}
 	
-	@GetMapping("/productlike/list")
+	@GetMapping("/productlike")
 	public ModelAndView productLikeList(
 			@RequestParam (defaultValue = "1") int currentPage, Principal principal) { 
 		ModelAndView mview = new ModelAndView();
@@ -350,7 +350,7 @@ public class MypageController {
 		mview.addObject("currentPage", currentPage);
 		mview.addObject("totalCount", totalCount);
 		
-		mview.setViewName("/productlike/list");
+		mview.setViewName("/mypage/productLikeList");
 			  
 		return mview; 
 	}

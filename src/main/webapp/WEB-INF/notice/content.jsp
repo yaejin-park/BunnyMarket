@@ -23,7 +23,7 @@
 				<th>조회수&nbsp;&nbsp;${dto.readcount}</th>
 			</tr>
 		</thead>
-		<tbody class="content">
+		<tbody class="content-tbody">
 
 			<tr>
 				<td class="content-txt" colspan="3">${dto.content}<br>
@@ -71,10 +71,10 @@
 
 	<c:if test="${admin == 'admin'}">
 		<div class="btn-wrap">
-			<button type="button" class="btn-list" onclick="location.href='list'">목록</button>
-			<button class="btn-update"
-				onclick="location.href='updateform?idx=${dto.idx}&currentPage=${currentPage}'">수정</button>
-			<button class="btn-delete" id="delete2">삭제</button>
+			<button type="button" class="btn-list" onclick="location.href='list'" >목록</button>
+			<button type="button" class="btn-update"  onclick="location.href='updateform?idx=${dto.idx}&currentPage=${currentPage}'">수정</button>
+			
+			<button type="button" class="btn-delete delete2" >삭제</button>
 		</div>
 	</c:if>
 

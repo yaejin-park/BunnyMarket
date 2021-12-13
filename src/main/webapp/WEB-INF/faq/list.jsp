@@ -13,7 +13,7 @@
 			</select>
 			<c:if test="${admin == 'admin'}">
 				<div class="btn-wrap">
-					<button type="button" class="btn-add" onclick="location.href='insertform'">글쓰기</button>
+					<button type="button" class="btn-add" onclick="location.href='insertform'" >글쓰기</button>
 				</div>
 			</c:if>
 			<table class="table">

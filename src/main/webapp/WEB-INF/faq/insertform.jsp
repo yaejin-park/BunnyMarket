@@ -26,9 +26,9 @@
 				<textarea name="answer" placeholder="답변을 입력해주세요" required="required"></textarea>
 			</div>
 			<div class="btn-wrap">
-				<button type="submit" class="btn-add">등록하기</button>
+				<button type="submit" class="btn-add" >등록하기</button>
 				<button type="button" class="btn-list"
-					onclick="location.href='list'">취소하기</button>
+					onclick="location.href='list'" >취소하기</button>
 			</div>
 		</form>
 	</div>

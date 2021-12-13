@@ -10,6 +10,10 @@
 	overflow: hidden;
 }
 
+#jump{
+	margin-left: 50px;
+}
+
 @media all and (max-width:1300px) {
 	.intro-table .picture {
 		width: 50%;
@@ -25,19 +29,24 @@
 	 	width:200px;
 	
 	}
+	#jump{
+	margin-left: 50px;
+	}
 
 }
 
 @media all and (max-width:768px) {
+	body {
+		font-size: 10px;
+	}
+	
 	.intro-table .picture {
 		width: 50%;
 	}
 	.intro-table .ment {
 		width: 50%;
 	}
-	body {
-		font-size: 11px;
-	}
+	
 	.logo {
 		width: 100px;
 		height: 40px;
@@ -46,10 +55,11 @@
 		width:100px;
 	
 	}
+	#jump{
+	margin-left: 10px;
+	}
 
 }
 
 
-#jump{
-	margin-left: 50px;
-}
+
