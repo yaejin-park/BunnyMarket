@@ -189,15 +189,31 @@
 	font-size:12pt;
 	color:#ff7ab0;
 }
+.follow-product-list .follow-li{
+	float:left;	
+	width: calc((100% - 30px * 2) / 3);
+	margin-right: 30px;
+	margin-top: 30px;
+}
+.follow-product-list .follow-li:nth-of-type(3n){
+	margin-right:0;
+}
+.follow-product-list .follow-li:nth-of-type(-n + 3){
+	margin-top:0;
+}
+.follow-product-list .follow-li .product-profile-info {
+	padding:20px 20px 0;
+	line-height:40px;
+}
 .follow-div .myfollow-list .product-profile-info .profile {
 	position:relative;
 	display:inline-block;
 	width:40px;
 	height:40px;
-	margin-left:10px;
 	border-radius:100%;
 	border:2px solid #f7f6fc;
 	overflow:hidden;
+	vertical-align:top;
 }
 .follow-div .myfollow-list .product-profile-info .profile img{
 	position:absolute;
@@ -206,18 +222,10 @@
 	width:100%;
 	transform:translate(-50%, -50%);
 }
-.follow-product-list .follow-li{
-	width: calc((100% - 30px*3)/3);
-	margin-right: 30px;
-	margin-bottom: 30px;
-}
-.follow-product-list .follow-li{
-	float:left;	
-}
 .follow-div li .pimg {
 	position:relative;
 	width:100%;
-	height:100px;
+	height:200px;
 	overflow:hidden;
 }
 .follow-div li .pimg img {
@@ -227,18 +235,13 @@
 	transform:translate(-50%, -50%);
 }
 .follow-div .product-info-div {
-    margin-left:20px;
+	padding:10px 20px 20px;
 }
-.follow-div .list-tit{
-	font-size:25pt;
-	font-weight:bold;
+.follow-div .product-info-div .title {
+ 	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
-
-@media all and (max-width:1400px) {
-	
-	
-}
-
 @media all and (max-width:768px) {
 	.mydetail-form .inner {
 		padding-left:0;
@@ -347,17 +350,40 @@
 	.my-like .table .thumnail a {
 		height:80px;
 	}
-
-}
-=======
-
-@media all and (max-width: 1300px){
-	
-}
-
-@media all and (max-width: 768px) {
-	.mydetail-form .side-menu-div .swiper-wrapper {
-		display:flex;
+	/* follow-List */
+	.follow-div .myfollow-list .category{
+		font-size:10pt;
+	}
+	.follow-product-list .follow-li{
+		width: calc((100% - 15px) / 2);
+		margin-right: 15px;
+		margin-top: 15px;
+	}
+	.follow-product-list .follow-li:nth-of-type(3n){
+		margin-right:15px;
+	}
+	.follow-product-list .follow-li:nth-of-type(-n + 3){
+		margin-top:15px;
+	}
+	.follow-product-list .follow-li:nth-of-type(even){
+		margin-right:0;
+	}
+	.follow-product-list .follow-li:nth-of-type(-n + 2){
+		margin-top:0;
+	}
+	.follow-product-list .follow-li .product-profile-info {
+		padding:10px 10px 0;
+		line-height:30px;
+	}
+	.follow-div .myfollow-list .product-profile-info .profile {
+		width:30px;
+		height:30px;
+	}
+	.follow-div li .pimg {
+		height:100px;
+	}
+	.follow-div .product-info-div {
+		padding:5px 10px 10px;
 	}
 }
->>>>>>> 09ea897e7b36753bf463d423982d1e80e9fcf103
+

@@ -83,61 +83,64 @@ $(function(){
 	
 	
 	//*** sell-List function ***
-	var g_currentPage = 0;
+	if($(".sell-list").length > 0){
+		var g_currentPage = 0;
+		
+		var renderList = function(currentPage) {
+			g_currentPage = currentPage;
+			var sellstatus=$("#sell-status").val();
+			$.ajax({
+				type:"get",
+				dataType:"json",
+				url:"/mypage/auth/getListByStatus",
+				data:{
+					"sellstatus" : sellstatus
+				},
+				success:function(data){
+					var list = data.list;
+					var sellstatus = data.sellstatus;
+					
+					$("#sell-list-tbody").empty();
+					//$(".paging").empty();
 	
-	var renderList = function(currentPage) {
-		g_currentPage = currentPage;
-		var sellstatus=$("#sell-status").val();
-		$.ajax({
-			type:"get",
-			dataType:"json",
-			url:"/mypage/auth/getListByStatus",
-			data:{
-				"sellstatus" : sellstatus
-			},
-			success:function(data){
-				var list = data.list;
-				var sellstatus = data.sellstatus;
-				
-				$("#sell-list-tbody").empty();
-				$(".paging").empty();
-
-				if (list !== null && list.length > 0) {
-					for (var i = 0; i < list.length; i++) {
-						var a = list[i];
-						var photo=a.uploadfile.split(",")[0];
-						console.log("1:"+photo);
-						var html = '';
-						html += '<tr colspan="3">';
-						html += '<td>';
-						html +=	'<div class="simg">';
-						html +=	'<img alt="thumnail" src="/photo/'+photo+'">';
-						html +=	'</div>'
-						html += '</td>';
-						html += '<td>';
-						html += '<div class="scate txt">' + a.category + '</div>';
-						html +=	'<div class="stitle tit">' + a.title + '</div>';
-						html +=	'<div class="sprice txt">' + a.price + '원</div>';
-						html += '</td>';
-						html += '<td>';
-						html += '<div class="sstatus">' + a.sellstatus + '</div>';
-						html += '</td>';
-						html += '</tr>';
-						
-						$("#sell-list-tbody").append(html);
+					if (list !== null && list.length > 0) {
+						for (var i = 0; i < list.length; i++) {
+							var a = list[i];
+							var photo=a.uploadfile.split(",")[0];
+							console.log("1:"+photo);
+							var html = '';
+							html += '<tr colspan="3">';
+							html += '<td>';
+							html +=	'<div class="simg">';
+							html +=	'<img alt="thumnail" src="/photo/'+photo+'">';
+							html +=	'</div>'
+							html += '</td>';
+							html += '<td>';
+							html += '<div class="scate txt">' + a.category + '</div>';
+							html +=	'<div class="stitle tit">' + a.title + '</div>';
+							html +=	'<div class="sprice txt">' + a.price + '원</div>';
+							html += '</td>';
+							html += '<td>';
+							html += '<div class="sstatus">' + a.sellstatus + '</div>';
+							html += '</td>';
+							html += '</tr>';
+							
+							$("#sell-list-tbody").append(html);
+						}
+		
 					}
 	
 				}
-
-			}
-		});
-	};
-
-	$("#sell-status").on('change', function() {
-		renderList(1);
-	});
+			});
+		};
 	
-	renderList(1);
+		$("#sell-status").on('change', function() {
+			renderList(1);
+		});
+		
+		renderList(1);
+	}
+	
 
 	$(window).resize(function(){
 		if($(".my-like").length > 0){
