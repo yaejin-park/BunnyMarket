@@ -44,10 +44,9 @@
 		</table>
 	</div>
 	<div class="btn-wrap">
-		<button type="button" onclick="history.back()" class="btn-default"
-			id="back">이전</button>
+		<button type="button" onclick="history.back()" class="btn-default" >이전</button>
 		<button type="submit" class="btn-add"
-			onclick="location.href='content?idx=${dto.idx}&currnetPage=${currentPage}&key=list'">저장</button>
+			onclick="location.href='content?idx=${dto.idx}&currnetPage=${currentPage}&key=list'" >저장</button>
 	</div>
 </form>
 

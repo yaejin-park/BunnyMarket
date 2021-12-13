@@ -57,7 +57,7 @@ function deleteReport() {
 
 //content에서 삭제confirm창 띄우기
 $(function() {
-	$("#delete2").click(function() {
+	$(".delete2").click(function() {
 		var a = confirm("게시글을 삭제하시겠습니까?");
 		var idx = $('input').attr('value');
 		console.log(idx);
@@ -83,7 +83,7 @@ function delete1() {
 			$.ajax({
 				type: "get",
 				url: "delete",
-				data: { "idx": idx,"currentPage": currentPage  },
+				data: { "idx": idx,"currentPage": currentPage },
 				dataType: "text",
 				success: function() {
 					location.href="/notice/list";
@@ -94,6 +94,7 @@ function delete1() {
 	
 
 }
+
 
 
 
