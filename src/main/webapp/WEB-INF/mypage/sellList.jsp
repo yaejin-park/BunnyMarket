@@ -18,7 +18,6 @@
 	        </div>
 	    </div>
 		<div class="sell-list">
-			<form action="sell-form-div">
 				<div class="sell-list-condition">
 					<p class="sell-info tit">판매 정보</p>
 					<select id="sell-status">
@@ -41,10 +40,32 @@
 						<tbody class="sell-list-tbody" id="sell-list-tbody">
 						</tbody>
 					</table>
-					<div class="paging">
-					</div>
+					
+					<!-- 페이징 넣기 -->
+					<c:if test="${totalCount>0}">
+						<div class="paging">
+							<!-- 이전 -->
+							 <c:if test="${startPage>1}">
+								<a href="sellList?currentPage=${startPage-1}" class="prev"><span>이전</span></a>		 
+							 </c:if>
+							
+							<c:forEach var="pp" begin="${startPage}" end="${endPage}">
+								<c:if test="${currentPage==pp}">
+									<a href="sellList?currentPage=${pp}" class="active">${pp}</a>
+								</c:if>
+								<c:if test="${currentPage!=pp}">
+									<a href="sellList?currentPage=${pp}">${pp}</a>
+								</c:if>
+							</c:forEach>
+							
+							<!-- 다음 -->
+							<c:if test="${endPage<totalPage}">
+								<a href="sellList?currentPage=${endPage+1}" class="next"><span>다음</span></a>
+							</c:if>
+						</div>
+					</c:if>
+					
 				</div>
-			</form>	
 		</div>
 	</div>
 	

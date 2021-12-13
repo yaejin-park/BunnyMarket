@@ -136,8 +136,8 @@
 	width: 300px;
 }
 .sell-list .myselling-list table .sell-list-tbody .simg img{
-	width:155px;
-	height:155px;
+	width:135px;
+	height:135px;
 	border-radius:5px;
 	margin-top:5px;
 	margin-bottom: 5px;
@@ -151,7 +151,6 @@
 	color: #ff7ab0;
 }
 .sell-list .myselling-list table .sell-list-tbody .stitle{
-	margin-top:5px;
 	margin-bottom:30px;
 }
 /* productlike */
