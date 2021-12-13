@@ -14,15 +14,20 @@
 		delete from follow  where followee=#{followee} and follower=#{follower}
 	</delete>
 	
-	<select id="getFollowList" parameterType="String" resultType="fldto">
-		select followee from follow where follower=#{id}
-	</select>
-		
-	<select id="selectFollowerList" parameterType="int" resultType="fldto">
-		select followee from follow follower=#{id}
+	<select id="followeeCount" parameterType="String" resultType="int">
+		select count(*) 
+		FROM follow AS f
+	    INNER JOIN product AS p ON f.followee = p.id
+	    INNER JOIN member AS m ON m.id = f.followee
+	    where f.follower = #{followee};
 	</select>
 	
-	<select id="selectFolloweeList" parameterType="int" resultType="fldto">
-		select follower from follow followee=#{id}
+	<select id="followeeList" parameterType="String" resultType="fldto">
+		select m.nickname, m.profile, p.idx, p.title, p.category, p.price, p.uploadfile
+		FROM follow AS f
+	    INNER JOIN product AS p ON f.followee = p.id
+	    INNER JOIN member AS m ON m.id = f.followee
+	    where f.follower = #{followee};
 	</select>
+	
 </mapper>

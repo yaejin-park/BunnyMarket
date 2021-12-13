@@ -33,7 +33,7 @@
 				</div>
 			</div>
 
-			<div class="wrap link">
+			<div class="product-info wrap link">
 				<div class="front" onclick="location.href='../../product/detail?idx=${dto.idx}'">
 					<div class="thumbNail">
 						<img alt="product_thumbnail" src="/photo/${photo}" class="thumbImg" />

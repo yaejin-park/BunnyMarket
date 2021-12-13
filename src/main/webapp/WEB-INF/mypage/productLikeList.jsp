@@ -4,47 +4,47 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <link rel="stylesheet" type="text/css" href="/css/swiper.min.css">
-<link rel="stylesheet" type="text/css" href="/css/productlike_style.css">
-<div class="mylike-form">
+<link rel="stylesheet" type="text/css" href="/css/mypage_style.css">
+<div class="mydetail-form mylike-form">
 	<div class="inner">
 		<div class="swiper side-menu-div">
 			<div class="swiper-wrapper">
-				<b><a href="./sellList" class="swiper-slide">판매내역</a></b>
-				<a href="./followlist" class="swiper-slide">모아보기</a>
-				<a href="./productlike/list" class="swiper-slide">나의후기</a>
-				<a href="./productlike/list" class="swiper-slide">관심목록</a>
-				<a href="./member/updateform" class="swiper-slide">회원수정</a>
-				<a href="./member/deleteform" class="swiper-slide">회원탈퇴</a>
+				<a href="/mypage/auth/detail" class="swiper-slide">내정보</a>
+				<a href="/mypage/auth/sellList" class="swiper-slide">판매내역</a>
+				<a href="/mypage/auth/followlist" class="swiper-slide">모아보기</a>
+				<a href="javascript:" class="swiper-slide">나의후기</a>
+				<a href="/mypage/auth/productlike" class="swiper-slide active">관심목록</a>
+				<a href="/mypage/auth/member/updateform" class="swiper-slide">회원수정</a>
+				<a href="/mypage/auth/member/deleteform" class="swiper-slide">회원탈퇴</a>
 			</div>
 		</div>
 		<div class="my-like">
-		<h3><b>관심목록</b></h3>
+			<p class="tit">관심목록</p>
 			<table class="table">
 				<tr>
-					<th class="like-th"></th>
-					<th>상품정보</th>
-					<th>진행상태</th>
+					<th class="image">상품</th>
+					<th class="title">상품명</th>
+					<th class="price">금액</th>
+					<th class="status">진행상태</th>
 				</tr>
 					<c:if test="${list.size()!=0}">
 					<c:forEach items="${list}" var="one">
-						<tr class="like-tr">
-							<td>
+						<tr>
+							<td align="center" class="thumnail">
 								<c:set var="thumbName" value="${fn:split(one.uploadfile,',')[0]}" />
-								<div class="oneList child" onclick="location.href='../../../product/detail?idx=${one.idx}&currentPage=${currentPage}&key=list'">
-									<div class="thumbnailDiv">
-										<img alt="thumbnail" src="../../../photo/${thumbName}" class="thumbnail">
-									</div>
-								</div>
+								<a href="/product/detail?idx=${one.idx}&currentPage=${currentPage}&key=list">
+									<img alt="thumbnail" src="/photo/${thumbName}">
+								</a>
 							</td>
 							<td>
-								<div class="info-div">
-									<div class="tit">
-									<div class="shortTit">${one.title}</div>
-										<fmt:formatNumber type="number" value="${one.price}"/>원
-									</div>
-								</div>
+								<div class="tit">${one.title}</div>
 							</td>
-							<td>${one.sellstatus}</td>
+							<td align="center">
+								<fmt:formatNumber type="number" value="${one.price}"/>원
+							</td>
+							<td align="center">
+								${one.sellstatus}
+							</td>
 						</tr>
 					</c:forEach>
 					</c:if>

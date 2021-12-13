@@ -1,6 +1,4 @@
-
 $(function(){
-
 	if($(".mydetail-form .side-menu-div").length > 0){
 		var sideMenuSwiper = new Swiper(".mydetail-form .side-menu-div", {
 	    	slidesPerView: 'auto',
@@ -31,7 +29,6 @@ $(function(){
 	        },       
 		});
 	}
-	
 	
 	$(".unregister-form #go-unregi").click(function(){
 		if($(".unregister-form .unregi-reason option").index($(".unregister-form .unregi-reason option:selected")) == 0){
@@ -82,33 +79,26 @@ $(function(){
 			dataType:"json",
 			url:"/mypage/auth/getListByStatus",
 			data:{
-				"sellstatus" : sellstatus,
-				"currentPage" : currentPage  
+				"sellstatus" : sellstatus
 			},
 			success:function(data){
-				var totalCount = data.totalCount;
-				var startPage = data.startPage;
-				var endPage = data.endPage;
 				var list = data.list;
 				var sellstatus = data.sellstatus;
-				var currentPage = data.currentPage;
-				var totalPage = data.totalPage;
 				
 				$("#sell-list-tbody").empty();
 				$(".paging").empty();
-				
-				
+
 				if (list !== null && list.length > 0) {
 					for (var i = 0; i < list.length; i++) {
 						var a = list[i];
+						var photo=a.uploadfile.split(",")[0];
+						console.log("1:"+photo);
 						var html = '';
 						html += '<tr colspan="3">';
 						html += '<td>';
-						html += '<c:forEach var="list" items="${list}">';
 						html +=	'<div class="simg">';
-						html +=	'<img alt="thumnail" src="../photo/${fn:split(list.uploadfile,'+'","'+')[0]}">';
+						html +=	'<img alt="thumnail" src="/photo/'+photo+'">';
 						html +=	'</div>'
-						html += '</c:forEach>';
 						html += '</td>';
 						html += '<td>';
 						html += '<div class="scate txt">' + a.category + '</div>';
@@ -123,30 +113,6 @@ $(function(){
 						$("#sell-list-tbody").append(html);
 					}
 	
-					var ph = '';
-					ph += '<span id="pagination">';
-					if (startPage > 1) {
-						ph += '<a href="#" class="prev pagination" data-page="'+startPage-1+'"><span> < </span></a>';
-					}
-					
-					for (var pp = startPage; pp <= endPage; pp++) {
-						if (currentPage == pp) {
-							ph += '<a href="#" class="active pagination" data-page="'+pp+'">'+pp+'</a>';
-						} else {
-							ph += '<a href="#" class="pagination" data-page="'+pp+'">'+pp+'</a>';
-						}
-					}
-					
-					if (endPage < totalPage) {
-						ph += '<a href="#" class="next pagination" data-page="'+endPage+1+'"><span> > </span></a>';
-					}
-					ph += '</span>';
-					$(".paging").append(ph);
-					
-					$(".pagination").click(function() {
-						var page = $(this).data('page');
-						renderList(page);
-					});
 				}
 
 			}
@@ -158,6 +124,21 @@ $(function(){
 	});
 	
 	renderList(1);
-	
-	
+
+	$(window).resize(function(){
+		if($(".my-like").length > 0){
+			$(".my-like .table .thumnail").each(function(){
+				$(this).height($(this).width());
+				
+	            if($(this).find("img").width() * $(this).height() < $(this).find("img").height() * $(this).width()){
+					$(this).find("img").width($(this).width());
+					$(this).find("img").height("auto");
+				}else{
+					$(this).find("img").width("auto");
+					$(this).find("img").height($(this).height());
+				}
+	        });
+		}
+		
+	});
 });

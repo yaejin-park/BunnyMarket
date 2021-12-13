@@ -17,6 +17,10 @@
 .mydetail-form .side-menu-div .swiper-wrapper {
 	display:block;
 }
+.mydetail-form .side-menu-div a.active{
+	font-weight:bold;
+	color:#ff7ab0;
+}
 .mydetail-form .my-page {
 	text-align:center;
 	margin-bottom:30px;
@@ -76,38 +80,38 @@
 	color:#ddd;
 }
 /* unregister */
-.unregister-form .inner {
-	padding:0 15%;
+.unregister-form {
+	padding:0 10%;
 }
-.unregister-form .inner .unregi-image img{
+.unregister-form .unregi-image img{
 	width:300px;
 }
-.unregister-form .inner .unregi-message .unregi-msg1{
+.unregister-form .unregi-message .unregi-msg1{
 	font-size:20px;
 	font-weight:bold;
 	
 }
-.unregister-form .inner .unregi-message .unregi-msg2{
+.unregister-form .unregi-message .unregi-msg2{
 	display:block;
 	margin-top:10px;
 	font-size:17px;
 }
-.unregister-form .inner .unregi-question .unregi-ques{
+.unregister-form .unregi-question .unregi-ques{
 	display:block;
 	margin-top:80px;
 	font-size:20px;
 	font-weight:bold;
 }
-.unregister-form .inner .unregi-question .unregi-reason{
+.unregister-form .unregi-question .unregi-reason{
 	display:block;
 	text-align:center;
 	margin-top:10px;
 	width:400px;
 }
-.unregister-form .inner .unregi-question .btn .btn-add{
+.unregister-form .unregi-question .btn .btn-add{
 	margin-top:15px;
 }
-.unregister-form .inner .unregi-question .btn .btn-list{
+.unregister-form .unregi-question .btn .btn-list{
 	margin-top:15px;
 	margin-left:10px;
 }
@@ -115,20 +119,70 @@
 
 /* sellList */
 .sell-list .sell-list-condition #sell-status{
-	width:400px;
+	width:300px;
 	margin-top:10px;
 	margin-bottom:30px;
 }
 
 .sell-list .myselling-list table .pimg{
 	text-align:left;
+	width: 300px;
 }
 .sell-list .myselling-list table .pinfo{
 	text-align:left;
 }
+.sell-list .myselling-list table .psellstatus{
+	text-align:left;
+	width: 300px;
+}
+.sell-list .myselling-list table .sell-list-tbody .simg img{
+	width:135px;
+	height:135px;
+	border-radius:5px;
+	margin-top:5px;
+	margin-bottom: 5px;
+	
+}
+.sell-list .myselling-list table .sell-list-tbody .scate{
+	color: #ff7ab0;
+}
 .sell-list .myselling-list table .sell-list-tbody .sstatus{
-	font-size:30px;
-	color: #535353;
+	font-size:20px;
+	color: #ff7ab0;
+}
+.sell-list .myselling-list table .sell-list-tbody .stitle{
+	margin-bottom:30px;
+}
+/* productlike */
+.mylike-form .table .tit {
+ 	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.my-like > .tit {
+	margin-bottom:20px;
+}
+.my-like .table .image {
+	width:150px;
+}
+.my-like .table .price {
+	width:120px;
+}
+.my-like .table .status {
+	width:120px;
+}
+.my-like .table .thumnail a {
+	position:relative;
+	display:block;
+	height:130px;
+	overflow:hidden;
+}
+.my-like .table .thumnail img{
+	position:absolute; 
+	top:50%;
+	left:50%;
+	width:100%;
+	transform:translate(-50%, -50%);
 }
 @media all and (max-width: 1300px){
 	
@@ -140,8 +194,52 @@
 	}
 }
 
-
-/* mypage-followList */
-.nodata{
-	border:0px;
+/* follow-List */
+.follow-div .myfollow-list .follower{
+	text-align:left;
+}
+.follow-div .myfollow-list .category{
+	font-size:12pt;
+	color:#ff7ab0;
+}
+.follow-div .myfollow-list .product-profile-info .profile {
+	position:relative;
+	display:inline-block;
+	width:30px;
+	height:30px;
+	margin-left:10px;
+	border-radius:100%;
+	border:2px solid #f7f6fc;
+	overflow:hidden;
+	vertical-align:top;
+}
+.follow-div .myfollow-list .product-profile-info .profile .profileImg{
+	position:absolute;
+	top:50%;
+	left:50%;
+	transform:translate(-50%, -50%);
+	width:100%;
+}
+.follow-div li{
+	border:1px solid #ddd;
+}
+.follow-div li .pimg {
+	position:relative;
+	top: 30px;
+	width:100%;
+	height:200px;
+	overflow:hidden;
+}
+.follow-div li .pimg img {
+	position:absolute;
+	top:50%;
+	left:50%;
+	transform:translate(-50%, -50%);
+}
+.follow-div .product-info-div {
+    margin-left:20px;
+}
+.follow-div .list-tit{
+	font-size:25pt;
+	font-weight:bold;
 }

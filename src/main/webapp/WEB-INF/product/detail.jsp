@@ -7,14 +7,15 @@
 <link rel="stylesheet" type="text/css" href="/css/swiper.min.css">
 <link rel="stylesheet" type="text/css" href="/css/product_style.css">
 
-<div class="inner">
+<div class="inner product-detail">
 <div class="infoAll">
-	<div class="img group">
+	<!-- 상품 사진 -->
+	<div class="group">
 		<div class="detail-swiper">
-			<div class="bigImgDiv swiper-wrapper">
+			<div class="swiper-wrapper">
 				<c:forEach items="${photo}" var="photo">
-					<div class="swiper-slide bigImg fix">
-						<img class="bigImage" alt="thumbnail" src="../photo/${photo}" />
+					<div class="swiper-slide bigImg">
+						<img alt="thumbnail" src="../photo/${photo}" />
 					</div>
 				</c:forEach>
 			</div>
@@ -25,13 +26,13 @@
 		<div class="smImgDiv">
 			<c:forEach items="${photo}" var="photo">
 				<div class="smImg child">
-					<img alt="smallImage" src="../photo/${photo}" class="smallImg">
+					<img alt="smallImage" src="/photo/${photo}" class="smallImg">
 				</div>
 			</c:forEach>
 		</div>
 	</div>
 	
-	<div class="info">
+	<div class="detail-info">
 	<table class="table table-default">
 		<tr>
 			<td rowspan="2" class="profile">
@@ -70,7 +71,7 @@
 			</c:if>
 			<c:if test="${myId == dto.id}">
 				<td class="verticalBottom">
-					<select name="sellstaus" class="statusSelect" id="statusSelect">
+					<select name="sellstaus" class="status-select" id="statusSelect">
 						<option class="tit selling" value="selling">판매중</option>
 						<option class="tit reserved" value="reserved">예약중</option>
 						<option class="tit finished" value="finished">판매완료</option>
@@ -78,7 +79,7 @@
 				</td>
 			</c:if>
 			<td ${dto.sellstatus=='판매중' && dto.id != myId ?'colspan="3"':'colspan="2"'} class="tit verticalBottom">
-				<p class="productTitle">${dto.title}</p>
+				<p class="product-title">${dto.title}</p>
 			</td>
 		</tr>
 		<tr class="needHeight">
@@ -123,27 +124,28 @@
 	</div>
 </div>
 
-	<div>
-		<pre class="detailContent">${dto.content}</pre>
-	</div>
-	
-	<div class="btn-wrap bottomBoreder">
-		<button type="button" class="btn-list" onclick="location.href='list?currentPage=${currentPage}'">목록</button>
-	</div>
-	
-	<!-- 연관상품 -->
-	<div class="relative group">
-		<div class=" tit-bottom">
-			<div class="tit child">연관상품</div>
-			<div class="child tit-sm more">
-				<a href="list?category=${dto.category}">
-					더보기 >
-				</a>
-			</div>
+<div>
+	<pre class="detailContent">${dto.content}</pre>
+</div>
+
+<div class="btn-wrap bottomBoreder">
+	<button type="button" class="btn-list" onclick="location.href='list?currentPage=${currentPage}'">목록</button>
+</div>
+
+<!-- 연관상품 -->
+<div class="relative group">
+	<div class=" tit-bottom">
+		<div class="tit child">연관상품</div>
+		<div class="child tit-sm more">
+			<a href="list?category=${dto.category}">
+				더보기 >
+			</a>
 		</div>
-		<div class="relative-list">
-		
-		<c:if test="${list.size()==0}">
+	</div>
+	
+	<div class="relative-list">
+		<!-- 연관상품이 없을 경우 -->
+		<c:if test="${list.size() == 0}">
 			<div class="nodata">
 				<p class="icon">
 					<img alt="" src="/image/nodata-icon.png">
@@ -151,7 +153,8 @@
 				<p>등록된 데이터가 존재하지 않습니다.</p>
 			</div>
 		</c:if>
-		<c:if test="${list.size()!=0}">
+		<!-- 연관상품이 있을 경우 -->
+		<c:if test="${list.size() != 0}">
 			<div class="group">
 				<c:forEach items="${list}" var="one">
 					<c:set var="thumbName" value="${fn:split(one.uploadfile,',')[0]}" />
@@ -160,7 +163,7 @@
 							<img alt="thumbnail" src="../photo/${thumbName}"class="thumbnail">
 						</div>
 						<div class="info-div">
-							<div class="shortTit">${one.title}</div>
+							<div class="short-tit">${one.title}</div>
 							<div>
 								<div class="tit">
 									<fmt:formatNumber type="number" value="${one.price}"/>원
@@ -173,12 +176,13 @@
 		</c:if>
 	</div>
 </div>
+
 <input type="hidden" id="isLogin" value="${isLogin}">
-		<input type="hidden" id="likeCheck" value="${likeCheck}">
+<input type="hidden" id="likeCheck" value="${likeCheck}">
 <input type="hidden" id="sellstatus" name="sellstatus" value="${dto.sellstatus}">
 <input type="hidden" id="currentPage" name="currentPage" value="${currentPage}">
+<input type="hidden" id="category" name="category" value="${dto.category}">
 </div>
-
 
 <!-- 후기 팝업 -->
 <div class="popup-modal" id="choosePop">
@@ -186,12 +190,17 @@
 		<div class="modal-title"><h2>거래완료</h2> <h3>구매자를 선택해주세요</h3></div>
 		<div class="modal-content">
 			<!-- 구매자가 없을 경우 -->
-			<c:if test="${poplist == null}">
-				<h1>존재X</h1>
+			<c:if test="${poplist.size() == 0}">
+				<div class="nodata">
+					<p class="icon">
+						<img alt="" src="/image/nodata-icon.png">
+					</p>
+					<p>채팅내역이 존재하지 않습니다.</p>
+				</div>
 			</c:if>
 			
 			<!-- 구매자가 있을 경우 -->
-			<c:if test="${poplist != null}">
+			<c:if test="${poplist.size() != 0}">
 				<c:forEach var="r" items="${poplist}">
 				<div class="review">
 					<div class="right">
@@ -230,6 +239,7 @@
 				<input type="hidden" name="reviewer" value="${reviewer}" id="reviewer">
 				<input type="hidden" name="reviewee" value="" id="reviewee">
 				<input type="hidden" name="idx" value="${idx}" id="idx">
+				<input type="hidden" id="isLogin" value="${isLogin}">
 
 				<div id="my-rating">
 					<fieldset> 
@@ -251,8 +261,6 @@
 				<div class="btn-wrap">
 					<button type="button" class="btn-add" id="btn-pop-insert">등록</button>
 				</div>
-			
-				<input type="hidden" id="isLogin" value="${isLogin}">
 		</div>	
 		<button type="button" class="modal-close">닫기</button>
 	</div>	
@@ -294,7 +302,6 @@ $(document).ready(function() {
 			}
 		}
 	}
-
 	
 	$(".review").click(function(){
 		var chooseNick = $(this).find(".name").find("span").text();
@@ -337,9 +344,15 @@ $(document).ready(function() {
 			}
 		});
 	})
-});  
-
 	
+	//검색창
+	$("input[name='search']").change(function() {
+		var keyword = $(this).val();
+		var location = $("#local").val();
+		
+		window.location.href = "/product/list?keyword="+keyword;
+	});
+});  
 
 
 //미리보기 이미지 클릭시,
@@ -511,8 +524,6 @@ $("#deleteBtn").click(function() {
 $(document).on("change", "#statusSelect", function() {
 	var idx = ${dto.idx};
 	var status = $("#statusSelect").val();
-
-	//console.log(status);
 
 	//판매상태 변경(product)
 	$.ajax({

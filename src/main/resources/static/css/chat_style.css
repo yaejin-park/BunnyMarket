@@ -1,13 +1,25 @@
-*{
-	margin:0;
-	padding:0;
+.btn-wrap{
+    margin: 30px 10px;
 }
+
+.link{
+	cursor: pointer;
+}
+
+
+/* ((채팅방)) */
 .container{
 	width: 60%;
 	margin: 0 auto;
 	padding: 25px
 }
 
+.container .nodata{
+	padding: 200px;
+	border-top: 0px;
+}
+
+/* 채팅 출력부분 */
 .chating{
 	position: relative;
 	border : 2.3px solid #f7f6fc;
@@ -20,7 +32,8 @@
     align-items: flex-end;
     padding: 30px;
 }
-/* 스크롤바 */
+
+/* 스크롤*/
 .chat-box::-webkit-scrollbar {
   width: 10px;
 }
@@ -36,6 +49,7 @@
   background-color: #bdbcbc;
   border-radius: 10px;
 } 
+
 /* 채팅 말풍선 */
  .speech-bubble {
  	position: relative;	
@@ -75,7 +89,6 @@ div.me .speech-bubble:after {
     border-style: solid;
     border-color: transparent #eaebee transparent transparent
  }
-
 
 div.me{
 	display: flex;
@@ -124,12 +137,6 @@ div.other .time {
     transform: translate(-50%, -50%);
 }
 
-
-.profile-div.login-user{
-	border: 2.3px solid #ff7ab0;
-}
-
-
 .info{
 	display: flex;
 	font-size: 14pt;
@@ -156,28 +163,31 @@ div.other .time {
     flex-direction: column;
 }
 
-.sm-tit{
+.info-text .tit.nick {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 200px;
+}
+
+.info .info-text .sm-tit{
 	color: #746a66;
     font-size: 11pt;
 }
 
-.chatout-btn{
-	width: 100%;
-    display: flex;
-    justify-content: flex-end;
+.info .info-text .title-div{
+	display: flex;
 }
 
-.product-img{
-	height:60px;
-	width: 60px;
-}
-
-.title{
+.info .info-text .title-div .title{
     white-space: nowrap;
 }
 
-.title-div{
-	display: flex;
+
+.info .wrap .chatout-btn{
+	width: 100%;
+    display: flex;
+    justify-content: flex-end;
 }
 
 .status{
@@ -189,6 +199,7 @@ div.other .time {
 	white-space: nowrap;
 }
 
+/* 입력창 */
 form.msgForm {
     display: flex;
     flex-direction: column;
@@ -199,7 +210,7 @@ form.msgForm {
     border: 2.3px solid #f7f6fc;
 }
 
-textarea.chat-box:focus {
+form.msgForm textarea.chat-box:focus {
     outline: none;
 }
 
@@ -219,60 +230,13 @@ form.msgForm .chat-btn-div .btn-add{
     padding: 5px;
 }
 
-.btn-wrap{
-    margin: 30px 10px;
-}
-
-.link{
-	cursor: pointer;
-}
-
-.list-room {
-    display: flex;
-    height: 836px;
-    border: 2.3px solid #f7f6fc;
-}
-
-.chat-list{
-    border-right: 2.3px solid #f7f6fc;
-    width: 40%;
-}
-
-.chat-list .wrap{
-    border-bottom: 2.3px solid #f7f6fc;
-    align-items: center;
-    min-height: 64px;
-    height: 107px;
-    padding: 30px;
-    padding-bottom: 13px;
-    display: flex;
-}
-
-.alist{
-    display: flex;
-    flex-direction: row;
-    padding: 18px 30px;
-    border-bottom: 2.3px solid #f7f6fc;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.alist.click-list{
-	background-color: #eee;
-}
-
-.list-info{
-    display: flex;
-    flex-direction: column;
-    margin-left: 20px;
-}
-
+/* 중복 */
 .front{
 	display: flex;
 	width: 100%;
     align-items: center;
 }
-
+/* 중복 */
 .thumbNail{
 	position: relative;
     width: 70px;
@@ -280,7 +244,7 @@ form.msgForm .chat-btn-div .btn-add{
     border: 2px solid #e5e5e5;
 }
 
-.thumbImg{
+.thumbNail .thumbImg{
 	position: absolute; 
 	top: 0; 
 	left: 0; 
@@ -291,40 +255,14 @@ form.msgForm .chat-btn-div .btn-add{
 	margin: auto;
 }
 
-.list-info .msg{
-	width: 240px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+/* 날짜 변경 */
+.date-wrap{
+	width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
-.alist .alist-info{
-	display: flex;
-}
-
-.container .nodata{
-	padding: 200px;
-	border-top: 0px;
-}
-
-.btn-wrap.back{
-	display: flex;
-    width: 60%;
-    padding-right: 25px;
-    margin: 0 auto;
-    justify-content: flex-end;
-}
-
-.nodata .icon-room{
-	border: 0px;
-}
-
-.nodata{
-	padding-top: 113px;
-	border-top: 0px; 
-}
-
-.date-change{
+.date-wrap .date-change{
 	background-color: #bdbcbc;
     color: white;
     padding: 8px 20px;
@@ -333,37 +271,118 @@ form.msgForm .chat-btn-div .btn-add{
     margin: 26px;
 }
 
-.date-change:nth-child(1){
+.date-wrap .date-change:nth-child(1){
 	margin: 0px;
 	margin-bottom: 26px;
 }
 
-.date-wrap{
-	width: 100%;
-    display: flex;
-    justify-content: center;
+
+/* 채팅방 */
+.btn-wrap.back{
+	display: flex;
+    width: 60%;
+    padding-right: 25px;
+    margin: 0 auto;
+    justify-content: flex-end;
 }
 
-.list-scroll{
+
+/* 채팅 리스트 */
+div.list-room {
+    display: flex;
+    height: 836px;
+    border: 2.3px solid #f7f6fc;
+}
+
+div.list-room .product-img{
+	height:60px;
+	width: 60px;
+}
+
+
+div.list-room .chat-list{
+    border-right: 2.3px solid #f7f6fc;
+    width: 40%;
+}
+
+div.list-room .chat-list .wrap{
+    border-bottom: 2.3px solid #f7f6fc;
+    align-items: center;
+    min-height: 64px;
+    height: 107px;
+    padding: 30px;
+    padding-bottom: 13px;
+    display: flex;
+}
+
+div.list-room .alist{
+    display: flex;
+    flex-direction: row;
+    padding: 18px 30px;
+    border-bottom: 2.3px solid #f7f6fc;
+    justify-content: space-between;
+    align-items: center;
+}
+
+div.list-room .profile-div.login-user{
+	border: 2.3px solid #ff7ab0;
+}
+
+div.list-room .alist.click-list{
+	background-color: #eee;
+}
+
+div.list-room .list-info{
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+}
+
+div.list-room .list-scroll{
 	height: 724.47px;
 	overflow: auto;
 	overflow-x : hidden;
 }
 
-.list-scroll::-webkit-scrollbar {
+div.list-room .list-scroll::-webkit-scrollbar {
   width: 10px;
 }
-.list-scroll::-webkit-scrollbar-thumb {
+
+div.list-room .list-scroll::-webkit-scrollbar-thumb {
   background-color: #bdbcbc;
   border-radius: 10px;
 } 
 
-div.info-text div.tit.nick {
+div.list-room .nodata{
+	padding-top: 113px;
+	border-top: 0px; 
+	display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+div.list-room .nodata p{
+	white-space: nowrap;
+}
+
+div.list-room .nodata .icon-room{
+    border: 0px;
+    margin: 10px 0;
+    display: flex;;
+}
+
+
+div.list-room .list-info .msg{
+	width: 240px;
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
-    width: 300px;
 }
+
+div.list-room .alist .alist-info{
+	display: flex;
+}
+
 
 /* 리뷰 별점 팝업 */
 #my-rating {
@@ -422,4 +441,5 @@ div.info-text div.tit.nick {
 #btn-popinsert{
 	margin-top: 15px;
 }
+
 
