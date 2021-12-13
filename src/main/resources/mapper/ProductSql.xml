@@ -18,7 +18,7 @@
 			AND title LIKE CONCAT('%',#{keyword},'%') 
 		</if> 
 	</select>
-
+	
 	<select id="getList" resultType="pdto" parameterType="HashMap">
 		select * from product
 		where 1=1
@@ -103,7 +103,7 @@
 			*
 		from
 			product
-		<if test="sellstatus != null and sellstatus != '전체'">
+		<if test="sellstatus != 'no' and sellstatus != '전체'">
 		where
 			sellstatus =#{sellstatus}
 		</if>
@@ -113,5 +113,20 @@
    
 	<select id="getMainList" resultType="pdto">
 		select * from product order by idx desc limit 0,12
+	</select>
+	
+	<select id="getStatusList" parameterType="String" resultType="pdto">
+		select * from product where id=#{id} 
+		<if test="sellstatus != 'no' and sellstatus != '전체'">
+			and sellstatus = #{sellstatus}
+		</if>
+		order by idx desc
+	</select>
+	
+	<select id="getStatusCount" parameterType="String" resultType="int" >
+		select count(*) from product where id=#{id}
+		<if test="sellstatus != 'no'">
+			and sellstatus = #{sellstatus}
+		</if>
 	</select>
 </mapper>

@@ -79,22 +79,15 @@ $(function(){
 			dataType:"json",
 			url:"/mypage/auth/getListByStatus",
 			data:{
-				"sellstatus" : sellstatus,
-				"currentPage" : currentPage  
+				"sellstatus" : sellstatus
 			},
 			success:function(data){
-				var totalCount = data.totalCount;
-				var startPage = data.startPage;
-				var endPage = data.endPage;
 				var list = data.list;
 				var sellstatus = data.sellstatus;
-				var currentPage = data.currentPage;
-				var totalPage = data.totalPage;
 				
 				$("#sell-list-tbody").empty();
 				$(".paging").empty();
-				
-				
+
 				if (list !== null && list.length > 0) {
 					for (var i = 0; i < list.length; i++) {
 						var a = list[i];
@@ -120,30 +113,6 @@ $(function(){
 						$("#sell-list-tbody").append(html);
 					}
 	
-					var ph = '';
-					ph += '<span id="pagination">';
-					if (startPage > 1) {
-						ph += '<a href="#" class="prev pagination" data-page="'+startPage-1+'"><span> < </span></a>';
-					}
-					
-					for (var pp = startPage; pp <= endPage; pp++) {
-						if (currentPage == pp) {
-							ph += '<a href="#" class="active pagination" data-page="'+pp+'">'+pp+'</a>';
-						} else {
-							ph += '<a href="#" class="pagination" data-page="'+pp+'">'+pp+'</a>';
-						}
-					}
-					
-					if (endPage < totalPage) {
-						ph += '<a href="#" class="next pagination" data-page="'+endPage+1+'"><span> > </span></a>';
-					}
-					ph += '</span>';
-					$(".paging").append(ph);
-					
-					$(".pagination").click(function() {
-						var page = $(this).data('page');
-						renderList(page);
-					});
 				}
 
 			}

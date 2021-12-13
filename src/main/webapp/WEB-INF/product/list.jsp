@@ -6,7 +6,7 @@
 <link rel="stylesheet" type="text/css" href="/css/product_style.css">
 <c:set var="catAll">디지털기기,의류,뷰티,인테리어,스포츠,문화생활,기타</c:set>
 
-<div class="inner">
+<div class="inner product-list">
 	<div class="all">
 		<div class="group category-div">
 			<a class="category ${category == '전체'? 'active' : ''}" href="list?currentPage=${currentPage}&category=전체">전체 ></a>
@@ -35,7 +35,7 @@
 					</div>
 					<div class="info-div">
 						<div class="shortTit">${one.title}</div>
-						<div>
+						<div class="info-div-sub">
 							<div class="tit">
 								<fmt:formatNumber type="number" value="${one.price}"/>원
 							</div>
@@ -44,7 +44,7 @@
 									<div class="chat list-icon-sm">${one.chatcount}</div>
 								</div>
 								<div class="list-info-sm-div">
-									<div class="dibs icon-sm">${one.likecount}</div>
+									<div class="dibs list-icon-sm">${one.likecount}</div>
 								</div>
 							</div>
 						</div>
