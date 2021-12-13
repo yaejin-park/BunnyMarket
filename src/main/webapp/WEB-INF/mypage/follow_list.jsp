@@ -19,11 +19,11 @@
 		<h3><b>모아보기</b></h3>
 			<table class="table follow-table">
 				<tr>
-					<th>팔로워 ${fwerCount}</th>
-					<th>팔로우 ${fweeCount}</th>
+					<th>팔로워</th>
+					<th>상품정보</th>
 				</tr>
 				<tr>
-					<td>
+					<td colspan="2">
 						<c:if test="${fwerCount==0}">
 							<div class="nodata">
 								<p class="icon">
@@ -35,21 +35,6 @@
 						<c:if test="${fwerCount>0}">
 				    		<c:forEach var="fdto" items="${followerList}">
 					    			<div>짜증나 [ ${fdto.follower} ]</div>
-							</c:forEach>
-						</c:if>
-					</td>
-					<td>					
-						<c:if test="${fweeCount==0}">
-							<div class="nodata">
-								<p class="icon">
-									<img alt="" src="/image/nodata-icon.png">
-								</p>
-								<p>팔로우가 없습니다.</p>
-							</div>
-						</c:if>
-						<c:if test="${fweeCount>0}">
-							<c:forEach var="fdto" items="${followeeList}">
-					    			<div>어케함?ㅎ [ ${fdto.followee} ]</div>
 							</c:forEach>
 						</c:if>
 					</td>

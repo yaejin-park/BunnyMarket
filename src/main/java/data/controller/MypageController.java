@@ -464,44 +464,152 @@ public class MypageController {
 	}
 	
 	@GetMapping("/followlist")
-	public String follow(
-			@RequestParam(value="idx", required=false) String idx,
-				HttpServletRequest request,
-				HttpSession session,
-				Model model,
-				Principal principal) {
+	public @ResponseBody ModelAndView followlist(
+		@RequestParam(defaultValue = "1") int currentPage,
+		Principal principal) throws Exception
+	{
+		ModelAndView mview = new ModelAndView();
 		
+		//지역 가져오기
 		String userId = "no";
 		String local = "";
 		String[] localArr = {};
 		String currentLocal = "";
+		
 		if(principal != null) {
 			userId = principal.getName();
 			local = memService.getLocal(principal);
-			currentLocal = memService.currentLocal(userId);
 			localArr = local.split(",");
+			currentLocal = memService.currentLocal(userId);
 		}
 		
-		//로그인한 회원정보 가져오기
-		String nick=memService.getNick(principal.getName());
-		String profile = memService.getMemberId(principal.getName()).getProfile();
-		String id=memService.getMemberId(principal.getName()).getId();
+		int totalCount = pservice.getTotalCount("전체", "no", "no"); 
+		int perPage = 10; 
+		int totalPage;
+		int start; 
+		int perBlock=5; 
+		int startPage; 
+		int endPage;
 		
-		FollowDTO fdto=new FollowDTO();
-		List<FollowDTO> followeeLsit=followService.followerList(id);//로그인한 사람을 팔로우한 사람
-		List<FollowDTO> followerList=followService.followerList(userId); //로그인한 사람이 팔로우한 사람
-		int fweeCount = followeeLsit.size();
-		int fwerCount = followerList.size();
-
-		model.addAttribute("nick", nick);
-		model.addAttribute("profile", profile);
-		model.addAttribute("userId", userId);
-		model.addAttribute("id", id);
-		model.addAttribute("followeeLsit", followeeLsit);
-		model.addAttribute("followerList", followerList);
-		model.addAttribute("fweeCount", fweeCount);
-		model.addAttribute("fwerCount", fwerCount);
+		totalPage = totalCount/perPage + (totalCount%perPage==0?0:1);
+		startPage = (currentPage-1)/perBlock * perBlock +1; 
+		endPage = startPage + perBlock-1;
+		start = (currentPage-1) * perPage; 
+		if(endPage>totalPage){ 
+			endPage = totalPage; 
+			}
 		
-		return "/mypage/follow_list";
+		String admin="no";
+		if(principal != null) {
+			admin = memService.currentUserType(principal);
+		}
+			
+		List<ProductDTO> list = pservice.getList(start, perPage, "전체", "no", "no");
+		
+		//출력에 필요한 변수들을 request에 저장
+		mview.addObject("admin",admin);
+		mview.addObject("list",list);
+		mview.addObject("startPage",startPage);
+		mview.addObject("endPage",endPage);
+		mview.addObject("totalPage",totalPage);
+		mview.addObject("currentPage",currentPage);
+		mview.addObject("localCnt",localArr.length);
+		mview.addObject("localArr",localArr);
+		mview.addObject("currentLocal",currentLocal);
+		
+		mview.setViewName("/mypage/sellList");
+		
+		return mview;
 	}
+
+	@GetMapping("/getFollowListByStatus")
+	@ResponseBody
+	public Map<String, Object> getFollowListByStatus(
+			@RequestParam(defaultValue = "1") int currentPage, 
+			@RequestParam(defaultValue = "전체") String sellstatus,
+			Principal principal) 
+		{
+		
+		Map<String, Object> result = new HashMap<String, Object>();
+		//System.out.println("currentPage="+currentPage);
+		int totalCount=pservice.getTotalCount(sellstatus, "no", "no");
+		int perPage=10;
+		int totalPage;
+		int start;
+		int perBlock=5;
+		int startPage;
+		int endPage;
+		
+		totalPage=totalCount/perPage+(totalCount%perPage == 0?0:1);
+		startPage=(currentPage-1)/perBlock*perBlock+1;
+		endPage=startPage+perBlock-1;
+		
+		if(endPage>totalPage) {
+			endPage=totalPage;
+		}
+		
+		start=(currentPage-1)*perPage;
+		
+		List<ProductDTO> list = pservice.getListByStatus(sellstatus, startPage, perPage);
+		System.out.println("size:"+list.size());
+		System.out.println("status"+sellstatus);
+		
+		String admin="no";
+		if(principal !=null) {
+			admin = memService.currentUserType(principal);
+		}
+		
+		result.put("admin", admin);
+		result.put("list", list);
+		result.put("sellstatus", sellstatus);
+		result.put("startPage", startPage);
+		result.put("endPage", endPage);
+		result.put("totalPage", totalPage);
+		result.put("currentPage", currentPage);
+		result.put("totalCount", totalCount);
+
+		return result;
+	}
+	
+//	@GetMapping("/followlist")
+//	public String follow(
+//			@RequestParam(value="idx", required=false) String idx,
+//				HttpServletRequest request,
+//				HttpSession session,
+//				Model model,
+//				Principal principal) {
+//		
+//		String userId = "no";
+//		String local = "";
+//		String[] localArr = {};
+//		String currentLocal = "";
+//		if(principal != null) {
+//			userId = principal.getName();
+//			local = memService.getLocal(principal);
+//			currentLocal = memService.currentLocal(userId);
+//			localArr = local.split(",");
+//		}
+//		
+//		//로그인한 회원정보 가져오기
+//		String nick=memService.getNick(principal.getName());
+//		String profile = memService.getMemberId(principal.getName()).getProfile();
+//		String id=memService.getMemberId(principal.getName()).getId();
+//		
+//		FollowDTO fdto=new FollowDTO();
+//		List<FollowDTO> followeeLsit=followService.followeeList(id);//로그인한 사람을 팔로우한 사람
+//		List<FollowDTO> followerList=followService.followerList(userId); //로그인한 사람이 팔로우한 사람
+//		int fweeCount = followeeLsit.size();
+//		int fwerCount = followerList.size();
+//
+//		model.addAttribute("nick", nick);
+//		model.addAttribute("profile", profile);
+//		model.addAttribute("userId", userId);
+//		model.addAttribute("id", id);
+//		model.addAttribute("followeeLsit", followeeLsit);
+//		model.addAttribute("followerList", followerList);
+//		model.addAttribute("fweeCount", fweeCount);
+//		model.addAttribute("fwerCount", fwerCount);
+//		
+//		return "/mypage/follow_list";
+//	}
 }
