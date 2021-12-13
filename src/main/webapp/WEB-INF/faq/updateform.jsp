@@ -28,8 +28,8 @@
 					<textarea name="answer" required="required">${dto.answer}</textarea>
 				</div>
 				<div class="btn-wrap">
-					<button type="submit" class="btn-update" id="btn">수정하기</button> 
-					<button type="button" class="btn-list" onclick="location.href='list'" id="btn">취소하기</button>
+					<button type="submit" class="btn-update" >수정하기</button> 
+					<button type="button" class="btn-list" onclick="location.href='list'" >취소하기</button>
 				</div>
 			</form>
 		</div>

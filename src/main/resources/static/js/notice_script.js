@@ -96,10 +96,6 @@ function delete1() {
 }
 
 
-$(window).resize(function(){ 
-if (window.innerWidth < 769)
- { $('#btn').addClass("btn-sm");}else { $('#btn').removeClass("btn-sm");} }).resize();
-
 
 
 

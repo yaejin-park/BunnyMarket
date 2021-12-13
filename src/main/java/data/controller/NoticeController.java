@@ -129,7 +129,7 @@ public class NoticeController {
 				photo+=fName+",";
 				
 				try {
-					f.transferTo(new File(path+"/"+fName));
+					f.transferTo(new File(path+"\\"+fName));
 				} catch (IllegalStateException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -158,7 +158,7 @@ public class NoticeController {
 		
 		String path=session.getServletContext().getRealPath("/photo");
 		String uploadfile=Nservice.getData(idx).getPhoto();
-		File file=new File(path+"/"+uploadfile);
+		File file=new File(path+"\\"+uploadfile);
 		file.delete();
 
 		Nservice.NoticeDelete(idx);
@@ -208,7 +208,7 @@ public class NoticeController {
 				photo+=fName+",";
 				
 				try {
-					f.transferTo(new File(path+"/"+fName));
+					f.transferTo(new File(path+"\\"+fName));
 				} catch (IllegalStateException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

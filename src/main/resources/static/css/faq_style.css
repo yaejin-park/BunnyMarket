@@ -6,28 +6,18 @@
 }
 
 .faq-div .table {
-	margin-top:40px;
+	margin-top:20px;
 }
+
 
 .faq-div #faq-category {
 	width:120px;
 	height:40px;
 	font-size: 14px;
 	float:left;
-	text-align:center;
+	
 }
 
-.faq-div .table .category {
-	width:200px;
-}
-
-.faq-div .table .question {
-	width:400px;
-}
-
-.faq-div .faq-form-div {
-	margin-top:40px;
-}
 
 /* faq List */
 
@@ -43,9 +33,7 @@
 	transform:rotate(-180deg);
 }
 
-.faq-div table td {
-	text-align:center;
-}
+
 
 .faq-div table tr.answer {
 	display:none;
@@ -55,4 +43,39 @@
 	font-weight:bolder;
 }
 
+
+
+
+	
+
+
+@media all and (max-width:768px) {
+	.faq-div .table .category {
+	width:15%;
+}
+
+.faq-div .table .question {
+	width:35%;
+}
+
+.faq-div .table .bin {
+	width:40%;
+}
+
+body {
+		font-size: 10px;
+	}
+	
+.faq-div #faq-category {
+	width:70px;
+	height:30px;
+	font-size: 12px;
+	float:left;
+	text-align:center;
+}
+	
+
+	
+
+}
 
