@@ -148,7 +148,9 @@ public class MypageController {
 		System.out.println(path);
 		
 		String photo = "no";
-		if(profile != null) {
+		if(profile.getOriginalFilename().equals("")) {
+			profile.isEmpty();
+		}else {
 			photo = uuid.toString() + "_" + profile.getOriginalFilename();
 			
 			try {
@@ -157,11 +159,11 @@ public class MypageController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			//이전 사진 삭제
+			String ufile=memService.getMemberId(principal.getName()).getProfile();
+			File file=new File(path+"\\"+ufile);
+			file.delete();
 		}
-		//이전 사진 삭제
-		String ufile=memService.getMemberId(principal.getName()).getProfile();
-		File file=new File(path+"\\"+ufile);
-		file.delete();
 		
 		HashMap<String, String> profileMap = new HashMap<String, String>();
 		profileMap.put("profile", photo);
