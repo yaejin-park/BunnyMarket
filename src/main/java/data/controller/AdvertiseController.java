@@ -46,7 +46,7 @@ public class AdvertiseController {
 		 String userId="no";
 		 String local="";
 		 String []localArr = {};
-			String currentLocal = "";
+		String currentLocal = "";
 		 if(principal != null) {
 		    userId=principal.getName();
 		    local = memService.getLocal(principal);
@@ -56,6 +56,7 @@ public class AdvertiseController {
 		  
 		  mview.addObject("localCnt", localArr.length);
 		  mview.addObject("localArr", localArr);
+		  mview.addObject("currentLocal", currentLocal);
 		
 		int totalCount=service.getTotalCount();
 		
@@ -235,6 +236,7 @@ public class AdvertiseController {
 		mview.addObject("maxReply", maxReply);
 		mview.addObject("localCnt", localArr.length);
 		mview.addObject("localArr", localArr);
+		mview.addObject("currentLocal", currentLocal);
 		mview.addObject("isLogin", isLogin);
 		mview.addObject("profile", profile);
 		mview.addObject("userProfile", userProfile); //현재 로그인 된 유저 프로필

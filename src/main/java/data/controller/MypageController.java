@@ -103,18 +103,21 @@ public class MypageController {
 		String userNickName = "no";
 		String local = "";
 		String[] localArr = {};
+		String currentLocal = "";
 		String profile = memService.getMemberId(principal.getName()).getProfile();
 		
 		if(principal != null) {
 			userId = principal.getName();
 			userNickName = memService.currentUserNickName(principal);
 			local = memService.getLocal(principal);
+			currentLocal = memService.currentLocal(userId);
 			localArr = local.split(",");
 		}		
 		mview.addObject("userId", userId);
 		mview.addObject("userNickName", userNickName);		
 		mview.addObject("localCnt", localArr.length);
 		mview.addObject("localArr", localArr);
+		mview.addObject("currentLocal", currentLocal);
 		mview.addObject("profile", profile);
 		
 		mview.setViewName("/mypage/profile_updateForm");

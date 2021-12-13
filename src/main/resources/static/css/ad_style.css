@@ -136,7 +136,9 @@
 }
 
 .ad-div .infoAll .group:after{
-	content:""; display:block; clear:both;
+	content:""; 
+	display:block; 
+	clear:both;
 }
 
 .ad-div .infoAll .child{
