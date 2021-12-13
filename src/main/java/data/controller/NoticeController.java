@@ -53,13 +53,18 @@ public class NoticeController {
 	      String userId = "no";
 	      String local = "";
 	      String[] localArr = {};
+	      String currentLocal="";
+	      
 	      if(principal != null) {
 	         userId = principal.getName();
 	         local =Mservice.getLocal(principal);
+	         currentLocal=Mservice.currentLocal(userId);
 	         localArr = local.split(",");
 	      }
 	      mview.addObject("localCnt",localArr.length);
 	      mview.addObject("localArr",localArr);
+	      mview.addObject("curretLocal",currentLocal);
+	      
 
 		int totalCount = Nservice.NgetTotalCount();
 
