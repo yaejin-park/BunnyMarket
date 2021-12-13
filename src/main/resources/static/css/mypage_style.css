@@ -244,3 +244,68 @@
 	font-size:25pt;
 	font-weight:bold;
 }
+
+@media all and (max-width:1400px) {
+	
+	
+}
+
+@media all and (max-width:768px) {
+	.mydetail-form .inner {
+		padding-left:0;
+	}
+	.mydetail-form .side-menu-div {
+		position:relative;
+		width:100%;
+		z-index:2;
+	}
+	.mydetail-form .side-menu-div a {
+		display:inline-block;
+		width:auto;
+		margin-right:10px;
+		line-height:40px;
+	}
+	.mydetail-form .side-menu-div a:last-child {
+		margin-right:0;
+	}
+	.mydetail-form .side-menu-div a.active{
+		font-weight:bold;
+		color:#ff7ab0;
+	}
+	.mydetail-form .my-page {
+		text-align:center;
+		margin-bottom:30px;
+	}
+	.my-sales h3{
+		margin-bottom:10px;
+	}
+	.my-page .profile-update{
+		margin:0 auto;
+	}
+	.myprofile-form .profile-input {
+		width:0;
+		height:0;
+		padding:0;
+		visibility:hidden;	
+	}
+	.my-page .my-profile-img, .my-page .profile-img, .preview-img {
+		position:relative;
+		width:150px;
+		height:150px;
+		border-radius:50%;
+		border:2px solid #f7f6fc;
+		overflow:hidden;
+		margin:0 auto 10px;
+	}
+	.my-page .profile-img  img, .preview-img img{
+		position:absolute;
+		top:50%;
+		left:50%;
+		width:100%;
+		transform:translate(-50%, -50%);
+	}
+	.my-page .my-info{
+		margin-bottom:10px;
+	}
+
+}
