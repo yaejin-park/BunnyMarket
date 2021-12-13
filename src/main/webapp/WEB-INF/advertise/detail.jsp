@@ -4,7 +4,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"  %>
 <link rel="stylesheet" type="text/css" href="/css/swiper.min.css">
-<link rel="stylesheet" type="text/css" href="/css/product_style.css">
 <link rel="stylesheet" type="text/css" href="/css/ad_style.css">
 <div class="ad-div inner">
 <div class="infoAll">
@@ -77,7 +76,7 @@
 								</a>
 							</div>
 							<div class="info-sm-div">
-								<div class="read icon-sm">${dto.readcount}</div>
+								<div class="read icon-sm">${dto.readcount} </div>
 							</div>
 						</div>
 					</td>
