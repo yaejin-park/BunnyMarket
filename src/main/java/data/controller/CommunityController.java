@@ -72,6 +72,7 @@ public class CommunityController {
 		}
 		mview.addObject("localCnt",localArr.length);
 		mview.addObject("localArr",localArr);
+		mview.addObject("currentLocal",currentLocal);
 
 		int totalCount = service.getTotalCount(); 
 		//페이징 처리에 필요한 변수
@@ -106,7 +107,6 @@ public class CommunityController {
 		mview.addObject("totalPage",totalPage);
 		mview.addObject("currentPage",currentPage);
 		mview.addObject("totalCount",list.size());
-		mview.addObject("currentLocal",currentLocal);
 
 		mview.setViewName("/community/list");
 		return mview;

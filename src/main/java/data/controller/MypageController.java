@@ -292,60 +292,6 @@ public class MypageController {
 		return "redirect:/logout";
 	}
 	
-
-	@GetMapping("/sellList")
-	public @ResponseBody ModelAndView sellList(
-		@RequestParam(defaultValue = "1") int currentPage,
-		@RequestParam (defaultValue = "전체") String category,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		Model model,
-		Principal principal) throws Exception
-	{
-		ModelAndView mview = new ModelAndView();
-		
-		//지역 가져오기
-		String userId = "no";
-		String local = "";
-		String[] localArr = {};
-		if(principal != null) {
-			userId = principal.getName();
-			local = memService.getLocal(principal);
-			localArr = local.split(",");
-		}
-		mview.addObject("localCnt",localArr.length);
-		mview.addObject("localArr",localArr);
-		
-		int totalCount = pservice.getTotalCount("전체", "no", "no"); 
-		//페이징 처리에 필요한 변수
-		int perPage = 15; 
-		int totalPage;
-		int start; 
-		int perBlock=5; 
-		int startPage; 
-		int endPage;
-		//총 페이지 갯수
-		totalPage = totalCount/perPage + (totalCount%perPage==0?0:1);
-		//각 블럭의 시작페이지
-		startPage = (currentPage-1)/perBlock * perBlock +1; 
-		//각 블럭의 마지막페이지
-		endPage = startPage + perBlock-1;
-		if(endPage>totalPage){ endPage = totalPage; }
-		//각 페이지에서 불러올 시작번호
-		start = (currentPage-1) * perPage; 
-		
-		List<ProductDTO> list = pservice.getList(startPage, perPage, "전체", "no", "no");
-		
-		//출력에 필요한 변수들을 request에 저장
-		mview.addObject("list",list);
-		mview.addObject("startPage",startPage);
-		mview.addObject("endPage",endPage);
-		mview.addObject("totalPage",totalPage);
-		mview.addObject("currentPage",currentPage);
-		
-		mview.setViewName("/mypage/sellList");
-		return mview;
-	}
 	@GetMapping("/productlike/list")
 	public ModelAndView productLikeList(
 			@RequestParam (defaultValue = "1") int currentPage, Principal principal) { 
@@ -412,13 +358,73 @@ public class MypageController {
 		return mview; 
 	}
 	
+	@GetMapping("/sellList")
+	public @ResponseBody ModelAndView sellList(
+		@RequestParam(defaultValue = "1") int currentPage,
+		Principal principal) throws Exception
+	{
+		ModelAndView mview = new ModelAndView();
+		
+		//지역 가져오기
+		String userId = "no";
+		String local = "";
+		String[] localArr = {};
+		String currentLocal = "";
+		
+		if(principal != null) {
+			userId = principal.getName();
+			local = memService.getLocal(principal);
+			localArr = local.split(",");
+			currentLocal = memService.currentLocal(userId);
+		}
+		
+		int totalCount = pservice.getTotalCount("전체", "no", "no"); 
+		int perPage = 10; 
+		int totalPage;
+		int start; 
+		int perBlock=5; 
+		int startPage; 
+		int endPage;
+		
+		totalPage = totalCount/perPage + (totalCount%perPage==0?0:1);
+		startPage = (currentPage-1)/perBlock * perBlock +1; 
+		endPage = startPage + perBlock-1;
+		start = (currentPage-1) * perPage; 
+		if(endPage>totalPage){ 
+			endPage = totalPage; 
+			}
+		
+		String admin="no";
+		if(principal != null) {
+			admin = memService.currentUserType(principal);
+		}
+			
+		List<ProductDTO> list = pservice.getList(start, perPage, "전체", "no", "no");
+		
+		//출력에 필요한 변수들을 request에 저장
+		mview.addObject("admin",admin);
+		mview.addObject("list",list);
+		mview.addObject("startPage",startPage);
+		mview.addObject("endPage",endPage);
+		mview.addObject("totalPage",totalPage);
+		mview.addObject("currentPage",currentPage);
+		mview.addObject("localCnt",localArr.length);
+		mview.addObject("localArr",localArr);
+		mview.addObject("currentLocal",currentLocal);
+		
+		mview.setViewName("/mypage/sellList");
+		
+		return mview;
+	}
 
 	@GetMapping("/getListByStatus")
 	@ResponseBody
 	public Map<String, Object> getListByStatus(
 			@RequestParam(defaultValue = "1") int currentPage, 
 			@RequestParam(defaultValue = "전체") String sellstatus,
-			@RequestParam String uploadfile) {
+			Principal principal) 
+		{
+		
 		Map<String, Object> result = new HashMap<String, Object>();
 		//System.out.println("currentPage="+currentPage);
 		int totalCount=pservice.getTotalCount(sellstatus, "no", "no");
@@ -439,10 +445,16 @@ public class MypageController {
 		
 		start=(currentPage-1)*perPage;
 		
-		List<ProductDTO> list = pservice.getListByStatus(sellstatus, startPage, perPage, uploadfile);
+		List<ProductDTO> list = pservice.getListByStatus(sellstatus, startPage, perPage);
 		System.out.println("size:"+list.size());
 		System.out.println("status"+sellstatus);
 		
+		String admin="no";
+		if(principal !=null) {
+			admin = memService.currentUserType(principal);
+		}
+		
+		result.put("admin", admin);
 		result.put("list", list);
 		result.put("sellstatus", sellstatus);
 		result.put("startPage", startPage);

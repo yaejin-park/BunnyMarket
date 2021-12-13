@@ -93,6 +93,10 @@
 	<select id="sellList" parameterType="HashMap" resultType="pdto">
       select * from product order by idx desc limit #{start},#{perpage}
    </select>
+   
+   <select id="getSellstatus" parameterType="String" resultType="pdto">
+		select * from where sellstatus =#{sellstatus}
+	</select>
 
    <select id="getListByStatus" parameterType="HashMap" resultType="pdto">
 		select
