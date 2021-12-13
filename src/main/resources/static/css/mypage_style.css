@@ -112,6 +112,24 @@
 	margin-left:10px;
 }
 
+
+/* sellList */
+.sell-list .sell-list-condition #sell-status{
+	width:400px;
+	margin-top:10px;
+	margin-bottom:30px;
+}
+
+.sell-list .myselling-list table .pimg{
+	text-align:left;
+}
+.sell-list .myselling-list table .pinfo{
+	text-align:left;
+}
+.sell-list .myselling-list table .sell-list-tbody .sstatus{
+	font-size:30px;
+	color: #535353;
+}
 @media all and (max-width: 1300px){
 	
 }
@@ -121,6 +139,7 @@
 		display:flex;
 	}
 }
+
 
 /* mypage-followList */
 .nodata{
