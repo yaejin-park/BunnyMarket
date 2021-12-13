@@ -6,10 +6,12 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <link rel="stylesheet" type="text/css" href="/css/ad_style.css">
 <div class="inner">
-	<div class="add-btn-wrap">
-		<button type="button" class="btn-add"
-			onclick="location.href='./auth/insertform'">글쓰기</button>
-	</div>
+	<sec:authorize access="isAuthenticated()">
+		<div class="top-div add-btn-wrap">
+			<button type="button" class="btn-add" onclick="location.href='./auth/insertform'">글쓰기</button>
+		</div>
+	</sec:authorize>
+	
 	<c:if test="${totalCount==0}">
 		<div class="nodata">
 			<p class="icon">
