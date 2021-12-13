@@ -25,9 +25,6 @@
 	text-align:center;
 	margin-bottom:30px;
 }
-.my-sales h3{
-	margin-bottom:10px;
-}
 .my-page .profile-update{
 	margin:0 auto;
 }
@@ -36,6 +33,9 @@
 	height:0;
 	padding:0;
 	visibility:hidden;	
+}
+.my-page {
+	text-align:center;
 }
 .my-page .my-profile-img, .my-page .profile-img, .preview-img {
 	position:relative;
@@ -56,7 +56,6 @@
 .my-page .my-info{
 	margin-bottom:10px;
 }
-
 /* profile updateFrom */
 .myprofile-form .my-info input{
 	text-align:center;
@@ -65,10 +64,6 @@
 	border:2px solid #ff7ab0;
 	font-weight:bold;
 	font-size:15pt;
-}
-.myprofile-form .profile-update{
-	margin-left:50%;
-	width:0px;
 }
 .myprofile-form .profile-img{
 	cursor:pointer;
@@ -115,25 +110,17 @@
 	margin-top:15px;
 	margin-left:10px;
 }
-
-
 /* sellList */
 .sell-list .sell-list-condition #sell-status{
 	width:300px;
 	margin-top:10px;
 	margin-bottom:30px;
 }
-
 .sell-list .myselling-list table .pimg{
-	text-align:left;
-	width: 300px;
-}
-.sell-list .myselling-list table .pinfo{
-	text-align:left;
+	width: 150px;
 }
 .sell-list .myselling-list table .psellstatus{
-	text-align:left;
-	width: 300px;
+	width: 150px;
 }
 .sell-list .myselling-list table .sell-list-tbody .simg img{
 	width:135px;
@@ -141,7 +128,9 @@
 	border-radius:5px;
 	margin-top:5px;
 	margin-bottom: 5px;
-	
+}
+.sell-list .myselling-list table td:last-child {
+	text-align:center;
 }
 .sell-list .myselling-list table .sell-list-tbody .scate{
 	color: #ff7ab0;
@@ -184,16 +173,6 @@
 	width:100%;
 	transform:translate(-50%, -50%);
 }
-@media all and (max-width: 1300px){
-	
-}
-
-@media all and (max-width: 768px) {
-	.mydetail-form .side-menu-div .swiper-wrapper {
-		display:flex;
-	}
-}
-
 /* follow-List */
 .follow-div .myfollow-list .follower{
 	text-align:left;
@@ -256,7 +235,8 @@
 	.mydetail-form .side-menu-div {
 		position:relative;
 		width:100%;
-		z-index:2;
+		margin-bottom:20px;
+		overflow:hidden;
 	}
 	.mydetail-form .side-menu-div a {
 		display:inline-block;
@@ -267,44 +247,94 @@
 	.mydetail-form .side-menu-div a:last-child {
 		margin-right:0;
 	}
-	.mydetail-form .side-menu-div a.active{
-		font-weight:bold;
-		color:#ff7ab0;
+	.mydetail-form .side-menu-div .swiper-wrapper {
+		display:flex;
 	}
 	.mydetail-form .my-page {
-		text-align:center;
-		margin-bottom:30px;
+		margin-bottom:0;
 	}
-	.my-sales h3{
-		margin-bottom:10px;
-	}
-	.my-page .profile-update{
-		margin:0 auto;
-	}
-	.myprofile-form .profile-input {
-		width:0;
-		height:0;
-		padding:0;
-		visibility:hidden;	
-	}
-	.my-page .my-profile-img, .my-page .profile-img, .preview-img {
-		position:relative;
-		width:150px;
-		height:150px;
-		border-radius:50%;
-		border:2px solid #f7f6fc;
-		overflow:hidden;
-		margin:0 auto 10px;
-	}
-	.my-page .profile-img  img, .preview-img img{
-		position:absolute;
-		top:50%;
-		left:50%;
+	/* profile updateFrom */
+	.myprofile-form .my-info input{
 		width:100%;
-		transform:translate(-50%, -50%);
+		border-radius:5px;
+		font-size:14pt;
 	}
-	.my-page .my-info{
+	.profile-msg{
+		margin-bottom:25px;
+		font-size:10pt;
+	}
+	/* unregister */
+	.unregister-form {
+		padding:0;
+	}
+	.unregister-form .unregi-image img{
+		width:150px;
+	}
+	.unregister-form .unregi-message .unregi-msg1{
+		font-size:16px;
+	}
+	.unregister-form .unregi-message .unregi-msg2{
+		margin-top:5px;
+		font-size:14px;
+	}
+	.unregister-form .unregi-question .unregi-ques{
+		margin-top:40px;
+		font-size:16px;
+	}
+	.unregister-form .unregi-question .unregi-reason{
+		margin-top:5px;
+		width:100%;
+	}
+	.unregister-form .unregi-question .btn .btn-add{
+		margin-top:15px;
+	}
+	.unregister-form .unregi-question .btn .btn-list{
+		margin-top:15px;
+		margin-left:10px;
+	}
+	/* sellList */
+	.sell-list .sell-list-condition #sell-status{
+		width:150px;
+		margin-top:5px;
+		margin-bottom:15px;
+	}
+	.sell-list .myselling-list table .pimg{
+		width:80px;
+	}
+	.sell-list .myselling-list table .psellstatus{
+		width:70px;
+	}
+	.sell-list .myselling-list table .sell-list-tbody .simg img{
+		width:60px;
+		height:60px;
+		margin-top:5px;
+		margin-bottom:5px;
+	}
+	.sell-list .myselling-list table .sell-list-tbody .sstatus{
+		font-size:14px;
+	}
+	.sell-list .myselling-list table .sell-list-tbody .stitle{
 		margin-bottom:10px;
+		font-size:16px;
+	}
+	/* productlike */
+	.mylike-form .table .tit {
+		font-size:16px;
+	}
+	.my-like > .tit {
+		margin-bottom:10px;
+	}
+	.my-like .table .image {
+		width:80px;
+	}
+	.my-like .table .price {
+		width:80px;
+	}
+	.my-like .table .status {
+		width:80px;
+	}
+	.my-like .table .thumnail a {
+		height:80px;
 	}
 
 }

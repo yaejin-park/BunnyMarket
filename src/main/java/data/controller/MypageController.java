@@ -294,16 +294,21 @@ public class MypageController {
 	
 	@GetMapping("/productlike")
 	public ModelAndView productLikeList(
-			@RequestParam (defaultValue = "1") int currentPage, Principal principal) { 
+		@RequestParam (defaultValue = "1") int currentPage, 
+		Principal principal
+		) 
+	{ 
 		ModelAndView mview = new ModelAndView();
 		//지역 가져오기
 		String userId = "no";
 		String local = "";
 		String[] localArr = {};
+		String currentLocal = "";
 		if(principal != null) {
 			userId = principal.getName();
 			local = memService.getLocal(principal);
 			localArr = local.split(",");
+			currentLocal = memService.currentLocal(userId);
 		}
 		mview.addObject("localCnt",localArr.length);
 		
@@ -349,6 +354,7 @@ public class MypageController {
 		mview.addObject("no", no);
 		mview.addObject("currentPage", currentPage);
 		mview.addObject("totalCount", totalCount);
+		mview.addObject("currentLocal", currentLocal);
 		
 		mview.setViewName("/mypage/productLikeList");
 			  

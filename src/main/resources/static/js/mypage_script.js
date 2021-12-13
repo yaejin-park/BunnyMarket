@@ -14,7 +14,7 @@ $(function(){
 	                    $(".mydetail-form .side-menu-div .swiper-wrapper").css("transform", "translate3d(0px, 0px, 0px)");
 	                    $(".mydetail-form .side-menu-div .swiper-slide").addClass("stop-swiping"); 
 	                }else{
-	                    $(".mydetail-form .side-menu-div .swiper-slide").eq(this.activeIndex).addClass("active");
+	                    $(".mydetail-form .side-menu-div .swiper-wrapper").css("transform", "translate3d(0px, 0px, 0px)");
 	                    $(".mydetail-form .side-menu-div .swiper-slide").removeClass("stop-swiping"); 
 	                }
 	            },
@@ -23,6 +23,7 @@ $(function(){
 	                    $(".mydetail-form .side-menu-div .swiper-wrapper").css("transform", "translate3d(0px, 0px, 0px)");
 	                    $(".mydetail-form .side-menu-div .swiper-slide").addClass("stop-swiping");  
 	                }else{
+	                    $(".mydetail-form .side-menu-div .swiper-wrapper").css("transform", "translate3d(0px, 0px, 0px)");
 	                    $(".mydetail-form .side-menu-div .swiper-slide").removeClass("stop-swiping"); 
 	                }
 	            }
