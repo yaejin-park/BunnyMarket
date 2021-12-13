@@ -10,7 +10,7 @@
 	<div class="inner">
 		<form action="sell-form-div">
 			<div class="sell-list-condition">
-				<b class="sell-info tit">판매 정보</b>
+				<p class="sell-info tit">판매 정보</p>
 				<select id="sell-status">
 					<option value="전체">전체</option>
 					<option value="판매중">판매중</option>
