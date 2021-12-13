@@ -517,7 +517,7 @@ public class MypageController {
 		mview.addObject("localArr",localArr);
 		mview.addObject("currentLocal",currentLocal);
 		
-		mview.setViewName("/mypage/sellList");
+		mview.setViewName("/mypage/follow_list");
 		
 		return mview;
 	}
