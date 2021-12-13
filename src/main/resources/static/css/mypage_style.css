@@ -126,9 +126,17 @@
 .sell-list .myselling-list table .pinfo{
 	text-align:left;
 }
+.sell-list .myselling-list table .psellstatus{
+	text-align:left;
+	width: 300px;
+}
 .sell-list .myselling-list table .sell-list-tbody .sstatus{
-	font-size:30px;
-	color: #535353;
+	font-size:20px;
+	color: #ff7ab0;
+}
+.sell-list .myselling-list table .sell-list-tbody .stitle{
+	margin-top:5px;
+	margin-bottom:20px;
 }
 @media all and (max-width: 1300px){
 	
