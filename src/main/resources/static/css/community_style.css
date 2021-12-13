@@ -367,6 +367,9 @@
 }
 
 @media all and (max-width:768px) {
+	.commu-wrap {
+		margin-top:20px;
+	}
 	/* community List */
 	.cummu-list li{
 		width:calc((100% - 15px) / 2);

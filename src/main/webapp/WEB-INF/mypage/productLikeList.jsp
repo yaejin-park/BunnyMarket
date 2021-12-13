@@ -51,19 +51,19 @@
 			</table>
 		</div>
 		<!-- 페이징 -->
-	<div>
-		<div class="paging">
-			<c:if test="${startPage>1}">
-				<a href="list?currentPage=${startPage-1}" class="prev"><span>이전</span></a>
-			</c:if>
-			<c:forEach var="i" begin="${startPage}" end="${endPage}" >
-				<a href="list?currentPage=${i}"  ${currentPage == i ? 'class="active"' : ''} >${i}</a>
-			</c:forEach>
-			
-			<c:if test="${endPage<totalPage}">
-				<a href="list?currentPage=${endPage+1}" class="next"><span>다음</span></a>
-			</c:if>
-		</div>
+		<div>
+			<div class="paging">
+				<c:if test="${startPage>1}">
+					<a href="list?currentPage=${startPage-1}" class="prev"><span>이전</span></a>
+				</c:if>
+				<c:forEach var="i" begin="${startPage}" end="${endPage}" >
+					<a href="list?currentPage=${i}"  ${currentPage == i ? 'class="active"' : ''} >${i}</a>
+				</c:forEach>
+				
+				<c:if test="${endPage<totalPage}">
+					<a href="list?currentPage=${endPage+1}" class="next"><span>다음</span></a>
+				</c:if>
+			</div>
 		</div>
 	</div>
 </div>

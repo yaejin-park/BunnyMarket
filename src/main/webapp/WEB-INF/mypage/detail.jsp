@@ -34,30 +34,6 @@
 				<button type="button" class="btn-update" onclick="location.href='profileupdateform'">프로필변경</button>
 			</div>
 		</div>
-		<div class="my-sales">
-		<h3><b>판매내역</b></h3>
-			<table class="table">
-				<tr>
-					<th>상품정보</th>
-					<th>진행상태</th>
-				<tr>
-				<tr>
-					<td>이미지</td>
-					<td>상품정보</td>
-					<td>진행상태</td>
-				</tr>
-				<tr>
-					<td>이미지</td>
-					<td>상품정보</td>
-					<td>진행상태</td>
-				</tr>
-				<tr>
-					<td>이미지</td>
-					<td>상품정보</td>
-					<td>진행상태</td>
-				</tr>
-			</table>
-		</div>
 	</div>
 </div>
 <script type="text/javascript" src="/js/swiper.min.js"></script>

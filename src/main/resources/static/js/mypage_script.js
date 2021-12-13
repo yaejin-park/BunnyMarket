@@ -24,18 +24,19 @@ $(function(){
 	        on: {
 	            init: function(){
 	                if($(window).innerWidth()>=768){
-	                    $(".mydetail-form .side-menu-div .swiper-wrapper").css("transform", "translate3d(0, 0px, 0px)");
+	                    $(".mydetail-form .side-menu-div .swiper-wrapper").css("transform", "translate3d(0px, 0px, 0px)");
 	                    $(".mydetail-form .side-menu-div .swiper-slide").addClass("stop-swiping"); 
 	                }else{
-	                    $(".mydetail-form .side-menu-div .swiper-slide").eq(this.activeIndex).addClass("active");
+	                    $(".mydetail-form .side-menu-div .swiper-wrapper").css("transform", "translate3d(0px, 0px, 0px)");
 	                    $(".mydetail-form .side-menu-div .swiper-slide").removeClass("stop-swiping"); 
 	                }
 	            },
 				resize : function(){
 	                if($(window).innerWidth()>=768){
-	                    $(".mydetail-form .side-menu-div .swiper-wrapper").css("transform", "translate3d(0, 0px, 0px)");
+	                    $(".mydetail-form .side-menu-div .swiper-wrapper").css("transform", "translate3d(0px, 0px, 0px)");
 	                    $(".mydetail-form .side-menu-div .swiper-slide").addClass("stop-swiping");  
 	                }else{
+	                    $(".mydetail-form .side-menu-div .swiper-wrapper").css("transform", "translate3d(0px, 0px, 0px)");
 	                    $(".mydetail-form .side-menu-div .swiper-slide").removeClass("stop-swiping"); 
 	                }
 	            }
@@ -82,8 +83,27 @@ $(function(){
 	
 	
 	//*** sell-List function ***
-	var g_currentPage = 0;
+	if($(".sell-list").length > 0){
+		var g_currentPage = 0;
+		
+		var renderList = function(currentPage) {
+			g_currentPage = currentPage;
+			var sellstatus=$("#sell-status").val();
+			$.ajax({
+				type:"get",
+				dataType:"json",
+				url:"/mypage/auth/getListByStatus",
+				data:{
+					"sellstatus" : sellstatus
+				},
+				success:function(data){
+					var list = data.list;
+					var sellstatus = data.sellstatus;
+					
+					$("#sell-list-tbody").empty();
+					//$(".paging").empty();
 	
+
 	var renderList = function(currentPage) {
 		g_currentPage = currentPage;
 		var sellstatus=$("#sell-status").val();
@@ -129,16 +149,17 @@ $(function(){
 					}
 	
 				}
-
-			}
-		});
-	};
-
-	$("#sell-status").on('change', function() {
-		renderList(1);
-	});
+				}
+			});
+		};
 	
-	renderList(1);
+		$("#sell-status").on('change', function() {
+			renderList(1);
+		});
+		
+		renderList(1);
+	
+	
 
 	$(window).resize(function(){
 		if($(".my-like").length > 0){
@@ -155,5 +176,5 @@ $(function(){
 	        });
 		}
 		
-	});
+	
 });

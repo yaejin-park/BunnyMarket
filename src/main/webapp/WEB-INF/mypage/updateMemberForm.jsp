@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<link rel="stylesheet" type="text/css" href="/css/swiper.min.css">
 <link rel="stylesheet" type="text/css" href="/css/mypage_style.css">
 <link rel="stylesheet" type="text/css" href="/css/join_style.css">
 <div class="mydetail-form join-div update-member">
@@ -240,5 +241,7 @@
 	</div>
 </div>
 
+<script type="text/javascript" src="/js/swiper.min.js"></script>
+<script type="text/javascript" src="/js/mypage_script.js"></script>
 <script type="text/javascript" src="/js/join_script.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
