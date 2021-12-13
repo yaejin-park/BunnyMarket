@@ -115,13 +115,14 @@
 
 /* sellList */
 .sell-list .sell-list-condition #sell-status{
-	width:400px;
+	width:300px;
 	margin-top:10px;
 	margin-bottom:30px;
 }
 
 .sell-list .myselling-list table .pimg{
 	text-align:left;
+	width: 300px;
 }
 .sell-list .myselling-list table .pinfo{
 	text-align:left;
@@ -130,13 +131,24 @@
 	text-align:left;
 	width: 300px;
 }
+.sell-list .myselling-list table .sell-list-tbody .simg img{
+	width:155px;
+	height:155px;
+	border-radius:5px;
+	margin-top:5px;
+	margin-bottom: 5px;
+	
+}
+.sell-list .myselling-list table .sell-list-tbody .scate{
+	color: #ff7ab0;
+}
 .sell-list .myselling-list table .sell-list-tbody .sstatus{
 	font-size:20px;
 	color: #ff7ab0;
 }
 .sell-list .myselling-list table .sell-list-tbody .stitle{
 	margin-top:5px;
-	margin-bottom:20px;
+	margin-bottom:30px;
 }
 @media all and (max-width: 1300px){
 	

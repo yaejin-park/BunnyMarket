@@ -107,7 +107,7 @@ $(function(){
 						html += '<tr colspan="3">';
 						html += '<td>';
 						html +=	'<div class="simg">';
-						html +=	'<img alt="thumnail" src="../photo/"'+photo+'">';
+						html +=	'<img alt="thumnail" src="/photo/'+photo+'">';
 						html +=	'</div>'
 						html += '</td>';
 						html += '<td>';
