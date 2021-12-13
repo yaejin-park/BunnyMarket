@@ -360,6 +360,7 @@ public class MypageController {
 	
 	@GetMapping("/sellList")
 	public @ResponseBody ModelAndView sellList(
+		@RequestParam(defaultValue = "no") String sellstatus,
 		@RequestParam(defaultValue = "1") int currentPage,
 		Principal principal) throws Exception
 	{
@@ -378,7 +379,7 @@ public class MypageController {
 			currentLocal = memService.currentLocal(userId);
 		}
 		
-		int totalCount = pservice.getTotalCount("전체", "no", "no"); 
+		int totalCount = pservice.getStatusCount(userId, sellstatus);
 		int perPage = 10; 
 		int totalPage;
 		int start; 
@@ -393,20 +394,15 @@ public class MypageController {
 		if(endPage>totalPage){ 
 			endPage = totalPage; 
 			}
-		
-		String admin="no";
-		if(principal != null) {
-			admin = memService.currentUserType(principal);
-		}
-			
-		List<ProductDTO> list = pservice.getList(start, perPage, "전체", "no", "no");
-		
+		System.out.println("아이디"+userId);
+		List<ProductDTO> list = pservice.getStatusList(userId, sellstatus);
+		System.out.println("사이즈"+list.size());
 		//출력에 필요한 변수들을 request에 저장
-		mview.addObject("admin",admin);
 		mview.addObject("list",list);
 		mview.addObject("startPage",startPage);
 		mview.addObject("endPage",endPage);
 		mview.addObject("totalPage",totalPage);
+		mview.addObject("totalCount", totalCount);
 		mview.addObject("currentPage",currentPage);
 		mview.addObject("localCnt",localArr.length);
 		mview.addObject("localArr",localArr);
@@ -420,14 +416,21 @@ public class MypageController {
 	@GetMapping("/getListByStatus")
 	@ResponseBody
 	public Map<String, Object> getListByStatus(
-			@RequestParam(defaultValue = "1") int currentPage, 
-			@RequestParam(defaultValue = "전체") String sellstatus,
+			@RequestParam(defaultValue = "no") String sellstatus,
+			@RequestParam(defaultValue = "1") int currentPage,
 			Principal principal) 
 		{
 		
+		//지역 가져오기
+		String userId = "no";
+		
+		if(principal != null) {
+			userId = principal.getName();
+		}
+		
 		Map<String, Object> result = new HashMap<String, Object>();
 		//System.out.println("currentPage="+currentPage);
-		int totalCount=pservice.getTotalCount(sellstatus, "no", "no");
+		int totalCount = pservice.getStatusCount(userId, sellstatus);
 		int perPage=10;
 		int totalPage;
 		int start;
@@ -445,16 +448,11 @@ public class MypageController {
 		
 		start=(currentPage-1)*perPage;
 		
-		List<ProductDTO> list = pservice.getListByStatus(sellstatus, startPage, perPage);
-		//System.out.println("size:"+list.size());
-		//System.out.println("status"+sellstatus);
+
+		List<ProductDTO> list = pservice.getStatusList(userId, sellstatus);
+		System.out.println("size:"+list.size());
+		System.out.println("status"+sellstatus);
 		
-		String admin="no";
-		if(principal !=null) {
-			admin = memService.currentUserType(principal);
-		}
-		
-		result.put("admin", admin);
 		result.put("list", list);
 		result.put("sellstatus", sellstatus);
 		result.put("startPage", startPage);

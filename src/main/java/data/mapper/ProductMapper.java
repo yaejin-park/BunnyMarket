@@ -28,4 +28,6 @@ public interface ProductMapper {
 	public List<ProductDTO> sellList(HashMap<String, Integer> map);
 	public List<ProductDTO> getListByStatus(HashMap<String, Object>map);
 	public List<ProductDTO> getMainList();
+	public List<ProductDTO> getStatusList(String id, String sellstatus);
+	public int getStatusCount(String id,String sellstatus);
 }

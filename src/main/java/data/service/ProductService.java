@@ -113,4 +113,10 @@ public class ProductService {
 	public List<ProductDTO> getMainList() {
 		return mapper.getMainList();
 	}
+	public List<ProductDTO> getStatusList(@RequestParam String id, @RequestParam String sellstatus) {
+		return mapper.getStatusList(id, sellstatus);
+	}
+	public int getStatusCount(@RequestParam String id,@RequestParam String sellstatus) {
+		return mapper.getStatusCount(id, sellstatus);
+	}
 }
