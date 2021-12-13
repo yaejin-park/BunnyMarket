@@ -103,33 +103,52 @@ $(function(){
 					$("#sell-list-tbody").empty();
 					//$(".paging").empty();
 	
-					if (list !== null && list.length > 0) {
-						for (var i = 0; i < list.length; i++) {
-							var a = list[i];
-							var photo=a.uploadfile.split(",")[0];
-							console.log("1:"+photo);
-							var html = '';
-							html += '<tr colspan="3">';
-							html += '<td>';
-							html +=	'<div class="simg">';
-							html +=	'<img alt="thumnail" src="/photo/'+photo+'">';
-							html +=	'</div>'
-							html += '</td>';
-							html += '<td>';
-							html += '<div class="scate txt">' + a.category + '</div>';
-							html +=	'<div class="stitle tit">' + a.title + '</div>';
-							html +=	'<div class="sprice txt">' + a.price + '원</div>';
-							html += '</td>';
-							html += '<td>';
-							html += '<div class="sstatus">' + a.sellstatus + '</div>';
-							html += '</td>';
-							html += '</tr>';
-							
-							$("#sell-list-tbody").append(html);
-						}
-		
+
+	var renderList = function(currentPage) {
+		g_currentPage = currentPage;
+		var sellstatus=$("#sell-status").val();
+		$.ajax({
+			type:"get",
+			dataType:"json",
+			url:"/mypage/auth/getListByStatus",
+			data:{
+				"sellstatus" : sellstatus
+			},
+			success:function(data){
+				var list = data.list;
+				var sellstatus = data.sellstatus;
+				
+				$("#sell-list-tbody").empty();
+				$(".paging").empty();
+
+				if (list !== null && list.length > 0) {
+					for (var i = 0; i < list.length; i++) {
+						var a = list[i];
+						var photo=a.uploadfile.split(",")[0];
+						var price=a.price;
+						price = price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+						console.log("1:"+photo);
+						var html = '';
+						html += '<tr colspan="3">';
+						html += '<td>';
+						html +=	'<div class="simg">';
+						html +=	'<img alt="thumnail" src="/photo/'+photo+'">';
+						html +=	'</div>'
+						html += '</td>';
+						html += '<td>';
+						html += '<div class="scate txt">' + a.category + '</div>';
+						html +=	'<div class="stitle tit">' + a.title + '</div>';
+						html +=	'<div class="sprice txt">' + price + '원</div>';
+						html += '</td>';
+						html += '<td>';
+						html += '<div class="sstatus">' + a.sellstatus + '</div>';
+						html += '</td>';
+						html += '</tr>';
+						
+						$("#sell-list-tbody").append(html);
 					}
 	
+				}
 				}
 			});
 		};
@@ -139,7 +158,7 @@ $(function(){
 		});
 		
 		renderList(1);
-	}
+	
 	
 
 	$(window).resize(function(){
@@ -157,5 +176,5 @@ $(function(){
 	        });
 		}
 		
-	});
+	
 });
