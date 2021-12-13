@@ -26,6 +26,7 @@
 						<tr>
 							<th class="pimg">상품이미지</th>
 							<th class="pinfo">상품정보</th>
+							<th class="psellstatus">판매상태</th>
 						</tr>
 					</thead>
 					<tbody class="sell-list-tbody" id="sell-list-tbody">
