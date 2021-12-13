@@ -1,9 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<link rel="stylesheet" type="text/css" href="/css/mypage_style.css">
 <link rel="stylesheet" type="text/css" href="/css/join_style.css">
-<div class="join-div update-member">
+<div class="mydetail-form join-div update-member">
 	<div class="inner">
+		<div class="swiper side-menu-div">
+			<div class="swiper-wrapper">
+				<a href="/mypage/auth/detail" class="swiper-slide">내정보</a>
+				<a href="/mypage/auth/sellList" class="swiper-slide">판매내역</a>
+				<a href="/mypage/auth/followlist" class="swiper-slide">모아보기</a>
+				<a href="javascript:" class="swiper-slide">나의후기</a>
+				<a href="/mypage/auth/productlike" class="swiper-slide">관심목록</a>
+				<a href="/mypage/auth/member/updateform" class="swiper-slide active">회원수정</a>
+				<a href="/mypage/auth/member/deleteform" class="swiper-slide">회원탈퇴</a>
+			</div>
+		</div>
 		<div class="write-form">
 			<form action="update" method="post" name="update-form" onsubmit="return updateFormCheck(this)">
 				<div class="group">
