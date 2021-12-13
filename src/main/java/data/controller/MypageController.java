@@ -106,18 +106,21 @@ public class MypageController {
 		String userNickName = "no";
 		String local = "";
 		String[] localArr = {};
+		String currentLocal = "";
 		String profile = memService.getMemberId(principal.getName()).getProfile();
 		
 		if(principal != null) {
 			userId = principal.getName();
 			userNickName = memService.currentUserNickName(principal);
 			local = memService.getLocal(principal);
+			currentLocal = memService.currentLocal(userId);
 			localArr = local.split(",");
 		}		
 		mview.addObject("userId", userId);
 		mview.addObject("userNickName", userNickName);		
 		mview.addObject("localCnt", localArr.length);
 		mview.addObject("localArr", localArr);
+		mview.addObject("currentLocal", currentLocal);
 		mview.addObject("profile", profile);
 		
 		mview.setViewName("/mypage/profile_updateForm");
@@ -148,7 +151,9 @@ public class MypageController {
 		System.out.println(path);
 		
 		String photo = "no";
-		if(profile != null) {
+		if(profile.getOriginalFilename().equals("")) {
+			profile.isEmpty();
+		}else {
 			photo = uuid.toString() + "_" + profile.getOriginalFilename();
 			
 			try {
@@ -157,11 +162,11 @@ public class MypageController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			//이전 사진 삭제
+			String ufile=memService.getMemberId(principal.getName()).getProfile();
+			File file=new File(path+"\\"+ufile);
+			file.delete();
 		}
-		//이전 사진 삭제
-		String ufile=memService.getMemberId(principal.getName()).getProfile();
-		File file=new File(path+"\\"+ufile);
-		file.delete();
 		
 		HashMap<String, String> profileMap = new HashMap<String, String>();
 		profileMap.put("profile", photo);
@@ -297,16 +302,21 @@ public class MypageController {
 	
 	@GetMapping("/productlike")
 	public ModelAndView productLikeList(
-			@RequestParam (defaultValue = "1") int currentPage, Principal principal) { 
+		@RequestParam (defaultValue = "1") int currentPage, 
+		Principal principal
+		) 
+	{ 
 		ModelAndView mview = new ModelAndView();
 		//지역 가져오기
 		String userId = "no";
 		String local = "";
 		String[] localArr = {};
+		String currentLocal = "";
 		if(principal != null) {
 			userId = principal.getName();
 			local = memService.getLocal(principal);
 			localArr = local.split(",");
+			currentLocal = memService.currentLocal(userId);
 		}
 		mview.addObject("localCnt",localArr.length);
 		
@@ -352,6 +362,7 @@ public class MypageController {
 		mview.addObject("no", no);
 		mview.addObject("currentPage", currentPage);
 		mview.addObject("totalCount", totalCount);
+		mview.addObject("currentLocal", currentLocal);
 		
 		mview.setViewName("/mypage/productLikeList");
 			  

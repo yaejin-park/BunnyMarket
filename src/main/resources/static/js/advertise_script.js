@@ -1,16 +1,4 @@
-$(function(){
-/*	setTimeout(() => {
-	 var swiper = new Swiper(".mySwiper", {
-		    navigation: {
-		      nextEl: ".swiper-button-next",
-		      prevEl: ".swiper-button-prev",
-		    },
-		    pagination: {
-		      el: ".swiper-pagination",
-		    },
-		  });
-	}, 20);*/
-	
+$(function(){	
 	var fileListArr = new Array();
 	var keyNum = 0;
 	var fileCnt = 0;
@@ -121,7 +109,7 @@ $(function(){
 		var deletePhoto = deleteFile.split(",");
 		
 		var formData = new FormData();
-		if(title == '' || content == '' || fileCnt == 0){
+		if(title == '' || content == ''){
 			alert("필수 입력을 입력해주세요.");
 			return;
 		}
