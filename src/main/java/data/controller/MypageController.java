@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-
+import data.dto.AdvertiseDTO;
 import data.dto.FaqDTO;
 import data.dto.FollowDTO;
 import data.dto.MemberDTO;
@@ -300,22 +300,19 @@ public class MypageController {
 		String userId = "no";
 		String local = "";
 		String[] localArr = {};
-		String currentLocal = "";
 		if(principal != null) {
 			userId = principal.getName();
 			local = memService.getLocal(principal);
-			currentLocal = memService.currentLocal(userId);
 			localArr = local.split(",");
 		}
 		mview.addObject("localCnt",localArr.length);
-		mview.addObject("localArr",localArr);
-		mview.addObject("currentLocal", currentLocal);
 		
+		mview.addObject("localArr",localArr);
 		String id = principal.getName();
 		int totalCount = plservice.getTotalCount(id);
 		
 		//페이징 처리에 필요한 변수 선언
-		int perPage = 10;
+		int perPage = 20;
 		int totalPage;
 		int start;
 		int perBlock = 5;
@@ -448,6 +445,7 @@ public class MypageController {
 		
 		start=(currentPage-1)*perPage;
 		
+
 		List<ProductDTO> list = pservice.getStatusList(userId, sellstatus);
 		System.out.println("size:"+list.size());
 		System.out.println("status"+sellstatus);
@@ -464,38 +462,61 @@ public class MypageController {
 	}
 	
 	@GetMapping("/followlist")
-	public String follow(
-			@RequestParam(value="idx", required=false) String idx,
-				HttpServletRequest request,
-				HttpSession session,
-				Model model,
-				Principal principal) {
+	public @ResponseBody ModelAndView followlist(
+		@RequestParam(defaultValue = "1") int currentPage,
+		Principal principal) throws Exception
+	{
+		ModelAndView mview = new ModelAndView();
 		
+		//지역 가져오기
 		String userId = "no";
 		String local = "";
 		String[] localArr = {};
 		String currentLocal = "";
+		
 		if(principal != null) {
 			userId = principal.getName();
 			local = memService.getLocal(principal);
-			currentLocal = memService.currentLocal(userId);
 			localArr = local.split(",");
+			currentLocal = memService.currentLocal(userId);
 		}
 		
-		//로그인한 회원정보 가져오기
-		String nick=memService.getNick(principal.getName());
-		String profile = memService.getMemberId(principal.getName()).getProfile();	
-		model.addAttribute("nick", nick);
-		model.addAttribute("profile", profile);
-		model.addAttribute("userId", userId);
+		int totalCount = followService.followeeCount(userId);
+		int perPage = 10; 
+		int totalPage;
+		int start; 
+		int perBlock=5; 
+		int startPage; 
+		int endPage;
 		
-		FollowDTO fdto=new FollowDTO();
-		List<FollowDTO> flist=followService.getFollowList(fdto.getFollower());
-		int fcount = flist.size();
+		//총 페이지 개수
+		totalPage=totalCount/perPage+(totalCount%perPage==0?0:1);
+		//각 블럭의 시작페이지
+		startPage=(currentPage-1)/perBlock*perBlock+1;
+		endPage=startPage+perBlock-1;
+		if(endPage>totalPage) {
+			endPage=totalPage;
+		}
+		//각 페이지에서 불러올 시작번호
+		start=(currentPage-1)*perPage;
 		
-		model.addAttribute("flist", flist);
-		model.addAttribute("fcount", fcount);
+		//팔로우 가져오기
+		List<FollowDTO> followList=followService.followeeList(userId);
+		mview.addObject("followList", followList);
 		
-		return "/mypage/follow_list";
-	}	
+		//출력에 필요한 변수들을 request에 저장
+		mview.addObject("startPage",startPage);
+		mview.addObject("endPage",endPage);
+		mview.addObject("totalPage",totalPage);
+		mview.addObject("currentPage",currentPage);
+		mview.addObject("totalCount", totalCount);
+		
+		mview.addObject("localCnt",localArr.length);
+		mview.addObject("localArr",localArr);
+		mview.addObject("currentLocal",currentLocal);
+		
+		mview.setViewName("/mypage/follow_list");
+		
+		return mview;
+	}
 }
