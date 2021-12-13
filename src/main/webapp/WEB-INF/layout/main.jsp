@@ -12,14 +12,14 @@
 			<img alt="" src="/image/main-vis1.jpg" class="pc-img">
 			<img alt="" src="/image/main-vis1-m.jpg" class="mobile-img">
 		</a>
-		<a href="/join/main" class="swiper-slide">
+		<a href="javascript:" class="swiper-slide">
 			<img alt="" src="/image/main-vis2.jpg" class="pc-img">
 			<img alt="" src="/image/main-vis2-m.jpg" class="mobile-img">
-		</div>
+		</a>
 		<a href="" class="swiper-slide">
 			<img alt="" src="/image/main-vis3.jpg" class="pc-img">
 			<img alt="" src="/image/main-vis3-m.jpg" class="mobile-img">
-		</div>
+		</a>
 	</div>
 	<div class="swiper-pagination"></div>
 </section>
