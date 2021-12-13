@@ -1,7 +1,3 @@
-.phone {
-	background-color: #FFF0F5;
-}
-
 .logo {
 	width: 150px;
 	height: 90px;
@@ -10,56 +6,36 @@
 	overflow: hidden;
 }
 
-#jump{
-	margin-left: 50px;
+
+
+.intro-one-div{
+	margin-bottom: 150px;
 }
 
-@media all and (max-width:1300px) {
-	.intro-table .picture {
-		width: 50%;
-	}
-	.intro-table .ment {
-		width: 50%;
-	}
-	.logo {
-		width: 150px;
-		height: 90px;
-	}
-	img{
-	 	width:200px;
+
+.first-div{
+	margin-bottom: 50px;
 	
-	}
-	#jump{
-	margin-left: 50px;
-	}
-
 }
+
+#benner{
+	width:100%;
+}
+
+
+button{
+	
+	margin-top: 10px;
+}
+
 
 @media all and (max-width:768px) {
-	body {
-		font-size: 10px;
-	}
-	
-	.intro-table .picture {
-		width: 50%;
-	}
-	.intro-table .ment {
-		width: 50%;
-	}
-	
-	.logo {
-		width: 100px;
-		height: 40px;
-	}
-	img{
-		width:100px;
+
+	.img{
+		width:400px;
 	
 	}
-	#jump{
-	margin-left: 10px;
-	}
+
+	
 
 }
-
-
-

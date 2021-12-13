@@ -40,7 +40,8 @@ public class IntroController {
 	      }
 	      mview.addObject("localCnt",localArr.length);
 	      mview.addObject("localArr",localArr);
-	      mview.addObject("curretLocal",currentLocal);
+	      mview.addObject("currentLocal",currentLocal);
+	   
 	      mview.setViewName("/intro/main");
 	      
 	      return mview;
