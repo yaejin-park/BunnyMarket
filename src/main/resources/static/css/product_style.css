@@ -460,10 +460,7 @@ div.product-list .list-info-sm .list-info-sm-div:last-child{
     align-items: center;
 }
 
-.review .right{
-	display: flex;
-    align-items: center;
-}
+
 
 .profile-img-div{
     position: relative;

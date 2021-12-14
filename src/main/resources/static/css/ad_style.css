@@ -84,6 +84,7 @@
 	height:auto;
 }
 .ad-div .img-detail-div .content-img{
+	display:none;
 	border:1px solid #ddd;
 	margin-bottom:20px;
 	margin-top:10px;

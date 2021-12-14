@@ -169,7 +169,7 @@ public class CommunityController {
 				String random = UUID.randomUUID().toString();
 				String originalFileName = fileList.get(i).getOriginalFilename();
 				String saveFileName = random + "_" + originalFileName;
-				String savePath = path + "\\" + saveFileName;
+				String savePath = path + "//" + saveFileName;
 				fileList.get(i).transferTo(new File(savePath));		
 						
 				photoname += saveFileName + ",";

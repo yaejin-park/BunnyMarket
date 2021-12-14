@@ -144,16 +144,17 @@ public class MypageController {
 			local = memService.getLocal(principal);
 			localArr = local.split(",");
 		}
-		
 		UUID uuid = UUID.randomUUID();
 		
 		String path = session.getServletContext().getRealPath("/photo");
 		System.out.println(path);
-		
+
 		String photo = "no";
-		if(profile.getOriginalFilename().equals("")) {
-			profile.isEmpty();
-		}else {
+		if(!profile.getOriginalFilename().equals("")) {
+			//이전 사진 삭제
+			String ufile=memService.getMemberId(principal.getName()).getProfile();
+			File file=new File(path+"\\"+ufile);
+			file.delete();		
 			photo = uuid.toString() + "_" + profile.getOriginalFilename();
 			
 			try {
@@ -162,16 +163,11 @@ public class MypageController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			//이전 사진 삭제
-			String ufile=memService.getMemberId(principal.getName()).getProfile();
-			File file=new File(path+"\\"+ufile);
-			file.delete();
+			HashMap<String, String> profileMap = new HashMap<String, String>();
+			profileMap.put("profile", photo);
+			profileMap.put("id", userId);
+			memService.updateProfile(profileMap);
 		}
-		
-		HashMap<String, String> profileMap = new HashMap<String, String>();
-		profileMap.put("profile", photo);
-		profileMap.put("id", userId);
-		memService.updateProfile(profileMap);
 		
 		HashMap<String, String> map=new HashMap<String, String>();
 		map.put("nickname",nickname);
@@ -536,6 +532,7 @@ public class MypageController {
 		return mview;
 	}
 	
+
 	@GetMapping("/reviewList")
 	public ModelAndView reviewList(
 			@RequestParam(defaultValue = "1") int currentPage,
@@ -607,4 +604,5 @@ public class MypageController {
 	
 	
 	
+
 }
