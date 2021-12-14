@@ -246,167 +246,18 @@
 .follow-div .product-info-div {
 	padding:10px 20px 20px;
 }
-<<<<<<< HEAD
-.follow-div .list-tit{
-	font-size:25pt;
-	font-weight:bold;
-}
 
-
-
-
-
-
-
-=======
 .follow-div .product-info-div .title {
- 	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
+    white-space: nowrap;
+   overflow: hidden;
+   text-overflow: ellipsis;
 }
-@media all and (max-width:768px) {
-	.mydetail-form .inner {
-		padding-left:0;
-	}
-	.mydetail-form .side-menu-div {
-		position:relative;
-		width:100%;
-		margin-bottom:20px;
-		overflow:hidden;
-	}
-	.mydetail-form .side-menu-div a {
-		display:inline-block;
-		width:auto;
-		margin-right:10px;
-		line-height:40px;
-	}
-	.mydetail-form .side-menu-div a:last-child {
-		margin-right:0;
-	}
-	.mydetail-form .side-menu-div .swiper-wrapper {
-		display:flex;
-	}
-	.mydetail-form .my-page {
-		margin-bottom:0;
-	}
-	/* profile updateFrom */
-	.myprofile-form .my-info input{
-		width:100%;
-		border-radius:5px;
-		font-size:14pt;
-	}
-	.profile-msg{
-		margin-bottom:25px;
-		font-size:10pt;
-	}
-	/* unregister */
-	.unregister-form {
-		padding:0;
-	}
-	.unregister-form .unregi-image img{
-		width:150px;
-	}
-	.unregister-form .unregi-message .unregi-msg1{
-		font-size:16px;
-	}
-	.unregister-form .unregi-message .unregi-msg2{
-		margin-top:5px;
-		font-size:14px;
-	}
-	.unregister-form .unregi-question .unregi-ques{
-		margin-top:40px;
-		font-size:16px;
-	}
-	.unregister-form .unregi-question .unregi-reason{
-		margin-top:5px;
-		width:100%;
-	}
-	.unregister-form .unregi-question .btn .btn-add{
-		margin-top:15px;
-	}
-	.unregister-form .unregi-question .btn .btn-list{
-		margin-top:15px;
-		margin-left:10px;
-	}
-	/* sellList */
-	.sell-list .sell-list-condition #sell-status{
-		width:150px;
-		margin-top:5px;
-		margin-bottom:15px;
-	}
-	.sell-list .myselling-list table .pimg{
-		width:80px;
-	}
-	.sell-list .myselling-list table .psellstatus{
-		width:70px;
-	}
-	.sell-list .myselling-list table .sell-list-tbody .simg img{
-		width:60px;
-		height:60px;
-		margin-top:5px;
-		margin-bottom:5px;
-	}
-	.sell-list .myselling-list table .sell-list-tbody .sstatus{
-		font-size:14px;
-	}
-	.sell-list .myselling-list table .sell-list-tbody .stitle{
-		margin-bottom:10px;
-		font-size:16px;
-	}
-	/* productlike */
-	.mylike-form .table .tit {
-		font-size:16px;
-	}
-	.my-like > .tit {
-		margin-bottom:10px;
-	}
-	.my-like .table .image {
-		width:80px;
-	}
-	.my-like .table .price {
-		width:80px;
-	}
-	.my-like .table .status {
-		width:80px;
-	}
-	.my-like .table .thumnail a {
-		height:80px;
-	}
-	/* follow-List */
-	.follow-div .myfollow-list .category{
-		font-size:10pt;
-	}
-	.follow-product-list .follow-li{
-		width: calc((100% - 15px) / 2);
-		margin-right: 15px;
-		margin-top: 15px;
-	}
-	.follow-product-list .follow-li:nth-of-type(3n){
-		margin-right:15px;
-	}
-	.follow-product-list .follow-li:nth-of-type(-n + 3){
-		margin-top:15px;
-	}
-	.follow-product-list .follow-li:nth-of-type(even){
-		margin-right:0;
-	}
-	.follow-product-list .follow-li:nth-of-type(-n + 2){
-		margin-top:0;
-	}
-	.follow-product-list .follow-li .product-profile-info {
-		padding:10px 10px 0;
-		line-height:30px;
-	}
-	.follow-div .myfollow-list .product-profile-info .profile {
-		width:30px;
-		height:30px;
-	}
-	.follow-div li .pimg {
-		height:100px;
-	}
-	.follow-div .product-info-div {
-		padding:5px 10px 10px;
-	}
-}
->>>>>>> aaa9cc985d7fe1843b4495c869b1d05e7449012f
+
+
+
+
+
+
+
+
 
