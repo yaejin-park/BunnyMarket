@@ -104,61 +104,63 @@ $(function(){
 					$("#sell-list-tbody").empty();
 					//$(".paging").empty();
 
-					if (list !== null && list.length > 0) {
-						for (var i = 0; i < list.length; i++) {
-							var a = list[i];
-							var photo=a.uploadfile.split(",")[0];
-							var price=a.price;
-							price = price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-							console.log("1:"+photo);
-							var html = '';
-							html += '<tr colspan="3">';
-							html += '<td>';
-							html +=	'<div class="simg">';
-							html +=	'<img alt="thumnail" src="/photo/'+photo+'">';
-							html +=	'</div>'
-							html += '</td>';
-							html += '<td>';
-							html += '<div class="scate txt">' + a.category + '</div>';
-							html +=	'<div class="stitle tit">' + a.title + '</div>';
-							html +=	'<div class="sprice txt">' + price + '원</div>';
-							html += '</td>';
-							html += '<td>';
-							html += '<div class="sstatus">' + a.sellstatus + '</div>';
-							html += '</td>';
-							html += '</tr>';
-							
-							$("#sell-list-tbody").append(html);
-						}
-						
-					}
-				
-				}
-			});
-		};
-	
-		$("#sell-status").on('change', function() {
-			renderList(1);
-		});
-		
-		renderList(1);
-	}
-	
+               if (list !== null && list.length > 0) {
+                  for (var i = 0; i < list.length; i++) {
+                     var a = list[i];
+                     var photo=a.uploadfile.split(",")[0];
+                     var price=a.price;
+                     price = price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+                     console.log("1:"+photo);
+                     var html = '';
+                     html += '<tr colspan="3">';
+                     html += '<td>';
+                     html += '<div class="simg">';
+                     html += '<img alt="thumnail" src="/photo/'+photo+'">';
+                     html += '</div>'
+                     html += '</td>';
+                     html += '<td>';
+                     html += '<div class="scate txt">' + a.category + '</div>';
+					 html += '<a href="/product/detail?idx=' +a.idx+ '">';
+                     html += '<div class="stitle tit">' + a.title + '</div>';
+					 html += '</a>';
+                     html += '<div class="sprice txt">' + price + '원</div>';
+                     html += '</td>';
+                     html += '<td>';
+                     html += '<div class="sstatus">' + a.sellstatus + '</div>';
+                     html += '</td>';
+                     html += '</tr>';
+                     
+                     $("#sell-list-tbody").append(html);
+                  }
+                  
+               }
+            
+            }
+         });
+      };
+   
+      $("#sell-status").on('change', function() {
+         renderList(1);
+      });
+      
+      renderList(1);
+   }
+   
 
-	$(window).resize(function(){
-		if($(".my-like").length > 0){
-			$(".my-like .table .thumnail").each(function(){
-				$(this).height($(this).width());
-				
-	            if($(this).find("img").width() * $(this).height() < $(this).find("img").height() * $(this).width()){
-					$(this).find("img").width($(this).width());
-					$(this).find("img").height("auto");
-				}else{
-					$(this).find("img").width("auto");
-					$(this).find("img").height($(this).height());
-				}
-	        });
-		}
-	});
-	
+   $(window).resize(function(){
+      if($(".my-like").length > 0){
+         $(".my-like .table .thumnail").each(function(){
+            $(this).height($(this).width());
+            
+               if($(this).find("img").width() * $(this).height() < $(this).find("img").height() * $(this).width()){
+               $(this).find("img").width($(this).width());
+               $(this).find("img").height("auto");
+            }else{
+               $(this).find("img").width("auto");
+               $(this).find("img").height($(this).height());
+            }
+         });
+      }
+   });
+			
 });

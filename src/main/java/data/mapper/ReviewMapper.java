@@ -19,7 +19,7 @@ public interface ReviewMapper {
 	public int checkWrite(String id, String idx);
 	public int checkReviewee(String id, String idx);
 	public int getTotalCount();
-	public List<ReviewDTO> getMyReviewList(HashMap<String, String> map);
+	public List<ReviewDTO> getMyReviewList(HashMap<String, Object> map);
 	public List<ReviewDTO> getOtherReviewList(HashMap<String, String> map);
 
 }
