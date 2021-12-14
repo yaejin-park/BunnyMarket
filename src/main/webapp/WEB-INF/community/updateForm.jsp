@@ -9,6 +9,8 @@
 <div class="write-form commu-div update">
 	<input type="hidden" name="idx" value="${dto.idx}">
 	<input type="hidden" name="currentPage" value="${currentPage}"> 
+	<input type="hidden" name="city" value="${city}"> 
+	
 		<div class="inner">
 			<div class="group">
 				<div class="child tit">

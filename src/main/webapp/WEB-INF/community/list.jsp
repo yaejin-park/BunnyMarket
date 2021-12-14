@@ -98,5 +98,6 @@
 		</c:if>
 	</div>
 </div>
+<input type="hidden" id="categoryActive" value="${category}">
 
 <script type="text/javascript" src="/js/community_script.js"></script>

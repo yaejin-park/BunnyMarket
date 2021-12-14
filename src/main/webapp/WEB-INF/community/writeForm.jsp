@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <link rel="stylesheet" type="text/css" href="/css/community_style.css">
-<div class="write-form commu-div">
+<div class="commu-div write-form">
 	<div class="inner">
 	<form action="insert" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="city" id="city" value="${currentLocal}">
 			<div class="group">
 				<div class="child tit">
 					이미지
@@ -41,7 +43,7 @@
 				<button type="button" class="btn-list"
 					onclick="location.href='/community/list'">취소</button>
 			</div>
-	</form>
+		</form>
 	</div>
 </div>
 

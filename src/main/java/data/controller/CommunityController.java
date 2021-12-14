@@ -54,6 +54,7 @@ public class CommunityController {
 	@GetMapping("/list")
 	public ModelAndView list(
 			@RequestParam(defaultValue = "1") int currentPage,
+			@RequestParam(defaultValue = "no") String keyword,
 			Principal principal
 			)
 	{
@@ -61,26 +62,26 @@ public class CommunityController {
 		
 		//지역 가져오기
 		String userId = "no";
-		String local = "";
+		String location = "";
 		String[] localArr = {};
 		String currentLocal = "";
 		if(principal != null) {
 			userId = principal.getName();
-			local = mservice.getLocal(principal);
-			localArr = local.split(",");
+			location = mservice.getLocal(principal);
+			localArr = location.split(",");
 			currentLocal = mservice.currentLocal(userId);
 		}
 		mview.addObject("localCnt",localArr.length);
 		mview.addObject("localArr",localArr);
 		mview.addObject("currentLocal",currentLocal);
 
-		int totalCount = service.getTotalCount(); 
+		int totalCount = service.getTotalCount(keyword, currentLocal);
 		//페이징 처리에 필요한 변수
 		int perPage = 16; 
 		int totalPage;
 		int start; 
 		int perBlock=5; 
-		int startPage; 
+		int startPage;
 		int endPage;
 		//총 페이지 갯수
 		totalPage = totalCount/perPage + (totalCount%perPage==0?0:1);
@@ -92,7 +93,7 @@ public class CommunityController {
 		//각 페이지에서 불러올 시작번호
 		start = (currentPage-1) * perPage; 
 		
-		List<CommunityDTO> list= service.getList(start, perPage);
+		List<CommunityDTO> list= service.getList(start, perPage, keyword,currentLocal);
 
 		for(CommunityDTO d:list) {
 			//댓글 갯수가져오기
@@ -152,6 +153,7 @@ public class CommunityController {
 	    
 	    String title = multiRequest.getParameter("title");
 	    String content = multiRequest.getParameter("content");
+	    String city = multiRequest.getParameter("city");
 	      
 	    String photoname = "";
 	    String originalPhotoName = "";
@@ -186,6 +188,8 @@ public class CommunityController {
 	      String id=principal.getName();
 	      
 	      dto.setId(id);
+	      dto.setCity(city);
+	      System.out.println("city->"+city);
 	      dto.setTitle(title);
 	      dto.setContent(content);
 	      dto.setPhoto(photoname);
@@ -343,6 +347,7 @@ public class CommunityController {
 		String path = session.getServletContext().getRealPath("/photo");
 		
 		List<MultipartFile> fileList = multiRequest.getFiles("uploadFile");
+		String city = multiRequest.getParameter("city");
 	    String title = multiRequest.getParameter("title");
 	    String content = multiRequest.getParameter("content");
 	      
@@ -372,6 +377,7 @@ public class CommunityController {
 	    }
 	    
 	    CommunityDTO dto = new CommunityDTO();
+	    dto.setCity(city);
 	    dto.setTitle(title);
 	    dto.setContent(content);
 	    dto.setPhoto(photoname);

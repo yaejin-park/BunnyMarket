@@ -1,4 +1,9 @@
 $(function(){
+	$(".sub-body input[name='search']").change(function() {
+		var keyword = $(this).val();
+		
+		location.href = "/community/list?keyword="+keyword;
+	});
 
 	$(window).on("resize", function(){
 		$(".cummu-list .img-div").each(function(){
@@ -85,9 +90,10 @@ $(function(){
 		$(this).parent(".preview-img").remove();
 	});
 	
-	$(".commu-div .commu-add-btn").click(function(){
+	$(".commu-div .btn-add.commu-add-btn").click(function(){
 		var title = $(".commu-div.write-form input[name='title']").val();
 		var content = $(".commu-div.write-form textarea[name='content']").val();
+		var city = $(".commu-div.write-form input[name='city']").val();
 		var formData = new FormData();
 		if(title == '' || content == ''){
 			alert("필수 입력을 입력해주세요.");
@@ -95,6 +101,7 @@ $(function(){
 		}
 		formData.append("title", title);
 		formData.append("content", content);
+		formData.append("city", city);
 		
 		for(var i=0; i<fileListArr.length; i++){
 			console.log(fileListArr[i]);
@@ -121,6 +128,7 @@ $(function(){
 	$(".commu-div .event-update-btn").click(function(){
 		var idx = $(".commu-div.write-form.update input[name='idx']").val();
 		var title = $(".commu-div.write-form input[name='title']").val();
+		var city = $(".commu-div.write-form input[name='city']").val();
 		var content = $(".commu-div.write-form textarea[name='content']").val();
 		var photo = $(".commu-div input[name='photo']").val().split(",");
 		var deletePhoto = deleteFile.split(",");
@@ -132,6 +140,7 @@ $(function(){
 		}
 		formData.append("idx", idx);
 		formData.append("title", title);
+		formData.append("city",city);
 		formData.append("content", content);
 		formData.append("deleteFile",deleteFile);
 		
@@ -304,9 +313,15 @@ $(function(){
 			$(this).parents(".img-detail-div").siblings().find(".content-img").hide();
 			$(this).parents(".img-detail-div").find(".content-img").toggle();
 		});
-	
-});
 
+	//지역설정
+	$(".local-option li").on("click", function() {
+		location.reload();
+	});
+
+
+});
+	
 
 function dibsClicked(){
 	var idx = $(".community-div input[name='cIdx']").val();
