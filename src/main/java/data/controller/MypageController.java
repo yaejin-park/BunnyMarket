@@ -536,6 +536,7 @@ public class MypageController {
 		return mview;
 	}
 	
+
 	@GetMapping("/reviewList")
 	public ModelAndView reviewList(
 			@RequestParam(defaultValue = "1") int currentPage,
@@ -607,4 +608,5 @@ public class MypageController {
 	
 	
 	
+
 }
