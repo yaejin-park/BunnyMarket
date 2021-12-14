@@ -29,10 +29,10 @@
 	</select>
 	
 	<select id="getMyReviewList" parameterType="HashMap" resultType="rdto">
-		select * from review where reviewer = #{reviewer} order by idx desc limit #{start},#{perpage}
+		select * from review where reviewer=#{reviewer} order by idx desc limit #{start},#{perpage} 
 	</select>
 	
 	<select id="getOtherReviewList" parameterType="HashMap" resultType="rdto">
-		select * from review where reviewee = #{reviewee} order by idx desc limit #{start},#{perpage}
+		select * from review where reviewee=#{reviewee} order by idx desc limit #{start},#{perpage}
 	</select>
 </mapper>
