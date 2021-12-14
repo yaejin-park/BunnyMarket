@@ -40,6 +40,7 @@ public class EventController {
 		@RequestParam(defaultValue = "1") int currentPage,
 		@RequestParam(defaultValue = "전체") String category,
 		@RequestParam(defaultValue = "process") String status,
+		@RequestParam(defaultValue = "no") String keyword,
 		Principal principal
 		) 
 	{
@@ -58,7 +59,7 @@ public class EventController {
 		}
 		
 		List<String> categoryArr = service.getCategory();
-		int total = service.getTotal(category, status);
+		int total = service.getTotal(category, status, keyword);
 		
 		int perPage=10;
 		int totalPage;
@@ -75,7 +76,7 @@ public class EventController {
 		}
 		start=(currentPage-1)*perPage;
 		
-		List<EventDTO> list = service.getPageList(start , perPage, category, status);
+		List<EventDTO> list = service.getPageList(start , perPage, category, status, keyword);
 		
 		for(EventDTO dto:list) {
 			dto.setReplycount(service.getReplyCount(dto.getIdx()));

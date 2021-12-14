@@ -1,4 +1,10 @@
 $(function(){
+	$(".sub-body input[name='search']").change(function() {
+		var keyword = $(this).val();
+		
+		location.href = "/event/list?keyword="+keyword;
+	});
+	
 	$(window).on("resize", function(){
         $(".event-list li").each(function(){
 			$(this).find(".img-div").height($(this).find(".img-div").width() / 1.8);

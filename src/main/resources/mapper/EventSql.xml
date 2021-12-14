@@ -12,6 +12,9 @@
 		<if test="status!='process'">
 			curdate() > event_end
 		</if>
+		<if test="keyword != 'no'">
+			and title LIKE CONCAT('%',#{keyword},'%')
+		</if>
 	</select>
 	
 	<select id="getAllList" resultType="edto">
@@ -28,6 +31,9 @@
 		</if>
 		<if test="status!='process'">
 			curdate() > event_end
+		</if>
+		<if test="keyword != 'no'">
+			and title LIKE CONCAT('%',#{keyword},'%') 
 		</if>
 		order by idx desc limit #{start}, #{perPage}
 	</select>

@@ -13,14 +13,14 @@ import data.mapper.EventMapper;
 public class EventService {
 	@Autowired
 	EventMapper mapper;
-	public int getTotal(String category, String status) {
-		return mapper.getTotal(category, status);
+	public int getTotal(String category, String status, String keyword) {
+		return mapper.getTotal(category, status, keyword);
 	}
 	public List<EventDTO> getAllList(){
 		return mapper.getAllList();
 	}
-	public List<EventDTO> getPageList(int start, int perPage, String category, String status){
-		return mapper.getPageList(start, perPage, category, status);
+	public List<EventDTO> getPageList(int start, int perPage, String category, String status, String keyword){
+		return mapper.getPageList(start, perPage, category, status, keyword);
 	}
 	public EventDTO getData(String idx) {
 		return mapper.getData(idx);
