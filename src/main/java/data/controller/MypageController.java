@@ -1,5 +1,6 @@
 package data.controller;
 
+import java.io.Console;
 import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
@@ -369,7 +370,7 @@ public class MypageController {
 		return mview; 
 	}
 	
-	@GetMapping("/sellList")
+	@GetMapping("/selllist")
 	public @ResponseBody ModelAndView sellList(
 		@RequestParam(defaultValue = "no") String sellstatus,
 		@RequestParam(defaultValue = "1") int currentPage,
@@ -537,7 +538,7 @@ public class MypageController {
 	}
 	
 
-	@GetMapping("/reviewList")
+	@GetMapping("/reviewlist")
 	public ModelAndView reviewList(
 			@RequestParam(defaultValue = "1") int currentPage,
 			Principal principal
@@ -575,12 +576,25 @@ public class MypageController {
 			endPage = totalPage;
 		}
 		start = (currentPage-1) * perPage;
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("reviewer", userId);
+		map.put("start", start);
+		map.put("perpage", perPage);
 		
-		List<ReviewDTO> myrelist = revservice.getMyReviewList(userId, local, currentLocal);
+		System.out.println("userId=>" +userId);
+		System.out.println("start=>" +start);
+		System.out.println("perpage=>" +perPage);
+		
+		List<ReviewDTO> myrelist = revservice.getMyReviewList(map);
+		System.out.println("1:"+myrelist.size());
 		mview.addObject("myrelist",myrelist);
 		
-		List<ReviewDTO> otherrelist =revservice.getOtherReviewList(userId, local, currentLocal);
-		mview.addObject("otherrelist",otherrelist);
+		
+		/*
+		 * List<ReviewDTO> otherrelist =revservice.getOtherReviewList(userId,
+		 * Integer.toString(start), Integer.toString(perPage));
+		 * mview.addObject("otherrelist",otherrelist);
+		 */
 		
 		mview.addObject("startPage",startPage);
 		mview.addObject("endPage",endPage);

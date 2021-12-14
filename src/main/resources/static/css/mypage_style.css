@@ -249,15 +249,47 @@
 
 .follow-div .product-info-div .title {
     white-space: nowrap;
-   overflow: hidden;
-   text-overflow: ellipsis;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 
-
-
-
-
+/* review */
+.writereview-list table{
+	margin-top: 15px;
+}
+.writereview-list table .rwriter{
+	width: 180px;
+	text-align:left;
+}
+.writereview-list table .rcontent{
+	text-align:left;
+}
+.writereview-list table .rwriteday{
+	width:150px;
+	text-align:left;
+}
+.writereview-list table .rstar{
+	width:150px;
+	text-align:left;
+}
+.writereview-list table .dtext{
+	font-size:15px;
+}
+.writereview-list table .star-ratings{
+	color: #aaa9a9; 
+  	-webkit-text-fill-color: transparent; 
+  	-webkit-text-stroke-width: 1px;
+  	-webkit-text-stroke-color: #2b2a29;
+}
+.writereview-list table .star-ratings-fill{
+	  color: #fff58c;
+	  -webkit-text-fill-color: gold;
+}
+.writereview-list table .star-ratings-base {
+	  z-index: 0;
+	  padding: 0;
+}
 
 
 

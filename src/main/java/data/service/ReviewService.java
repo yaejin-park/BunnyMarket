@@ -42,19 +42,14 @@ public class ReviewService {
 	public int getTotalCount() {
 		return rmapper.getTotalCount();
 	}
-	public List<ReviewDTO> getMyReviewList(String start,String perpage,String reviewer){
-		HashMap<String , String> map = new HashMap<String, String>();
-		map.put("start", start);
-		map.put("perpage", perpage);
-		map.put("reviewer", reviewer);
-		
+	public List<ReviewDTO> getMyReviewList(HashMap<String, Object> map){
 		return rmapper.getMyReviewList(map);
 	}
-	public List<ReviewDTO> getOtherReviewList(String start,String perpage,String reviewee){
+	public List<ReviewDTO> getOtherReviewList(String reviewee,String start,String perpage){
 		HashMap<String , String> map = new HashMap<String, String>();
+		map.put("reviewee", reviewee);
 		map.put("start", start);
 		map.put("perpage", perpage);
-		map.put("reviewee", reviewee);
 		
 		return rmapper.getOtherReviewList(map);
 	}

@@ -114,14 +114,16 @@ $(function(){
                      var html = '';
                      html += '<tr colspan="3">';
                      html += '<td>';
-                     html +=   '<div class="simg">';
-                     html +=   '<img alt="thumnail" src="/photo/'+photo+'">';
-                     html +=   '</div>'
+                     html += '<div class="simg">';
+                     html += '<img alt="thumnail" src="/photo/'+photo+'">';
+                     html += '</div>'
                      html += '</td>';
                      html += '<td>';
                      html += '<div class="scate txt">' + a.category + '</div>';
-                     html +=   '<div class="stitle tit">' + a.title + '</div>';
-                     html +=   '<div class="sprice txt">' + price + '원</div>';
+					 html += '<a href="/product/detail?idx=' +a.idx+ '">';
+                     html += '<div class="stitle tit">' + a.title + '</div>';
+					 html += '</a>';
+                     html += '<div class="sprice txt">' + price + '원</div>';
                      html += '</td>';
                      html += '<td>';
                      html += '<div class="sstatus">' + a.sellstatus + '</div>';
@@ -157,7 +159,8 @@ $(function(){
                $(this).find("img").width("auto");
                $(this).find("img").height($(this).height());
             }
-           });
+         });
       }
    });
+
 });
