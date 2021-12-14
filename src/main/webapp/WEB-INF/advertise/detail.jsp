@@ -100,7 +100,7 @@
 		</c:if>
 	</div>
 	<div class="img-detail-div">
-		<a href="javascript:" class="img-detail-view">상세사진보기(접기)</a>
+		<button type="button" class="btn-default btn-sm img-detail-view">상세사진보기</button>
 		<div class="content-img">
 		<c:forEach var="photo" items="${dto.photo}">
 			<img src="/photo/${photo}" alt="">

@@ -245,9 +245,10 @@ div.product-detail .product-title{
 	padding-bottom: 2px;
     font-size: 27px;
     display: block;
- 	white-space: nowrap;
+    padding:5px 0;
+ 	/*white-space: nowrap;
 	overflow: hidden;
-	text-overflow: ellipsis;
+	text-overflow: ellipsis;*/
 }
 
 div.product-detail .chat-btn{
@@ -614,6 +615,9 @@ div.product-list .list-info-sm .list-info-sm-div:last-child{
 		width:100%;
 		margin-left: 0;
 	}
+	div.product-detail .detail-info .table-default td.tit.subject {
+		padding-left:35px;
+	}
 	div.product-detail .profile-div{
 		width: 50px;
 		height: 50px;
@@ -622,7 +626,10 @@ div.product-list .list-info-sm .list-info-sm-div:last-child{
 	    width: 60px;
 	}
 	div.product-detail td.sellstatus span.tit, div.product-detail .product-title {
-		font-size: 18px;
+		font-size: 16px;
+	}
+	div.product-detail .needHeight {
+		height:40px;
 	}
 	div.product-detail .smImgDiv .smImg {
 		width:calc((100% - 30px) / 4);
@@ -630,6 +637,13 @@ div.product-list .list-info-sm .list-info-sm-div:last-child{
 	div.product-detail .icon-sm{
 	    background-size: 15px;
 	    padding-left: 20px;
+	}
+	div.product-detail select.status-select {
+		width: 80px;
+		height: 35px;
+		font-size: 10pt;
+		border: 1px solid #e5e5e5;
+		padding: 3px;
 	}
 	/* 디테일 - 관련 상품 */
 	div.product-detail .relative{

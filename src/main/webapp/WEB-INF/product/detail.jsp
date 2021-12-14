@@ -70,7 +70,7 @@
 				</c:if>
 			</c:if>
 			<c:if test="${myId == dto.id}">
-				<td class="verticalBottom">
+				<td class="verticalTop">
 					<select name="sellstaus" class="status-select" id="statusSelect">
 						<option class="tit selling" value="selling">판매중</option>
 						<option class="tit reserved" value="reserved">예약중</option>
@@ -78,7 +78,7 @@
 					</select>
 				</td>
 			</c:if>
-			<td ${dto.sellstatus=='판매중' && dto.id != myId ?'colspan="3"':'colspan="2"'} class="tit verticalBottom">
+			<td ${dto.sellstatus=='판매중' && dto.id != myId ?'colspan="3"':'colspan="2"'} class="tit verticalTop ${dto.id==myId?'subject':''}">
 				<p class="product-title">${dto.title}</p>
 			</td>
 		</tr>

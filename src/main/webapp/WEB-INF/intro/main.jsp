@@ -23,7 +23,7 @@
 	</div>
 	<div class="intro-two-div">
 		<div class="first-div">
-			<img src="../image/intro_two.jpg" class="img">
+			<img src="../image/intro_two.png" class="img">
 
 		</div>
 		<div class="second-div">
@@ -38,7 +38,7 @@
 	</div>
 	<div class="intro-third-div">
 		<div class="first-div">
-			<img src="" class="img">
+			<img src="../image/intro_three.png" class="img">
 
 		</div>
 		<div class="second-div">

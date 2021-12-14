@@ -282,7 +282,6 @@ $(function(){
 	
 	//이미지 상세 보기
 	$(".img-detail-view").click(function() {
-		$(this).text("상세사진보기(열기)");
 		$(this).parents(".img-detail-div").siblings().find(".content-img").hide();
 		$(this).parents(".img-detail-div").find(".content-img").toggle();
 	});
