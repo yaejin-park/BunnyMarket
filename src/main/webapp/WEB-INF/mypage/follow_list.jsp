@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <link rel="stylesheet" type="text/css" href="/css/swiper.min.css">
@@ -10,19 +11,20 @@
 	<div class="inner">
 		<div class="swiper side-menu-div">
 	         <div class="swiper-wrapper">
+	            <a href="/mypage/auth/detail" class="swiper-slide">내상점</a>
 	            <a href="/mypage/auth/sellList" class="swiper-slide">판매내역</a>
 	            <a href="/mypage/auth/followlist" class="swiper-slide active">모아보기</a>
 	            <a href="javascript:" class="swiper-slide">나의후기</a>
-	            <a href="/mypage/auth/productlike/list" class="swiper-slide">관심목록</a>
+	            <a href="/mypage/auth/productlike" class="swiper-slide">관심목록</a>
 	            <a href="/mypage/auth/member/updateform" class="swiper-slide">회원수정</a>
 	            <a href="/mypage/auth/member/deleteform" class="swiper-slide">회원탈퇴</a>
 	         </div>
 	      </div>
 		<div class="myfollow-list">
 			<c:if test="${totalCount>0}">
-				<ul class="event-list ad-list">
+				<ul class="follow-product-list">
 					<c:forEach var="list" items="${followList}">
-						<li>
+						<li class="follow-li">
 							<a href="/product/detail?idx=${list.idx}&currentPage=${currentPage}&key=list">
 								<span></span>
 								<div class="pimg img-div">
@@ -42,7 +44,7 @@
 								<div class="product-info-div">
 									<p class="product-info category">${list.category}</p>
 									<p class="product-info title">${list.title}</p>
-									<p class="product-info price">${list.price}원</p>
+									<p class="product-info price"><fmt:formatNumber value="${list.price}" type="number"/>원</p>
 								</div>
 							</a>
 						</li>
