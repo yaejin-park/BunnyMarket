@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="data.mapper.ReviewMapper">
 	<select id="getList" parameterType="String" resultType="chdto">
-		SELECT m.profile, m.nickname, c.last_time, c.buyer_id 
+		SELECT m.profile, m.nickname, m.id, c.last_time, c.buyer_id 
 		FROM chat AS c INNER JOIN member AS m 
 			ON c.buyer_id = m.id 
 		where c.product_idx = #{idx};

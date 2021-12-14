@@ -202,7 +202,7 @@ function wsEvt() {
 				if($(".date-change").length==0){
 					var s = '<div class="date-wrap"><div class="date-change">';
 					s += now.replace('-','년 ').replace('-', '월 ')+'일</div></div>';
-					$("#").val(now);
+					$("#lastTime").val(now);
 					
 					$("#chating").append(s);
 				} else{
@@ -366,7 +366,7 @@ $("#btn-pop-insert").click(function(){
 		alert("별점을매겨주세요.");
 		return;
 	}
-	
+	alert("성공?");
 	console.log(content);
 	$.ajax({
 	    url: "../../product/popinsert",

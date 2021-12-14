@@ -189,6 +189,7 @@
 	<div class="modal">
 		<div class="modal-title"><h2>거래완료</h2> <h3>구매자를 선택해주세요</h3></div>
 		<div class="modal-content">
+		
 			<!-- 구매자가 없을 경우 -->
 			<c:if test="${poplist.size() == 0}">
 				<div class="nodata">
@@ -202,28 +203,30 @@
 			<!-- 구매자가 있을 경우 -->
 			<c:if test="${poplist.size() != 0}">
 				<c:forEach var="r" items="${poplist}">
-				<div class="review">
-					<div class="right">
-						<div class="profile-img-div">
-							<c:if test="${r.profile == 'no'}">
-								<img alt="profile" src="/image/profile-icon.png" class="popimg">
-							</c:if>
-							
-							<c:if test="${r.profile!= 'no'}">
-								<img alt="profile" src="/photo/${r.profile}" class="popimg">
-							</c:if>
+					<div class="review">
+						<input type="hidden" name="pre-reviewee" value="${r.id}">
+						<div class="right">
+							<div class="profile-img-div">
+								<!-- 프로필 -->
+								<c:if test="${r.profile == 'no'}">
+									<img alt="profile" src="/image/profile-icon.png" class="popimg">
+								</c:if>
+								
+								<c:if test="${r.profile!= 'no'}">
+									<img alt="profile" src="/photo/${r.profile}" class="popimg">
+								</c:if>
+							</div>
+							<div class="name tit">
+								<span>${r.nickname}</span>
+								<small class="small">
+									<fmt:formatDate value="${r.last_time}" pattern="yy/MM/dd a hh:mm" />
+								</small>
+							</div>
 						</div>
-						<div class="name tit">
-							<span>${r.nickname}</span>
-							<small class="small">
-								<fmt:formatDate value="${r.last_time}" pattern="yy/MM/dd a hh:mm" />
-							</small>
+						<div class="go">
+							<i class="arrow review-choose-btn"></i>
 						</div>
 					</div>
-					<div class="go">
-						<i class="arrow review-choose-btn"></i>
-					</div>
-				</div>
 				</c:forEach>
 			</c:if>
 		</div>
@@ -305,10 +308,12 @@ $(document).ready(function() {
 	
 	$(".review").click(function(){
 		var chooseNick = $(this).find(".name").find("span").text();
+		var chooseRevieweeId = $(this).find("input[name=pre-reviewee]").val();
 		popClose("#choosePop");
 		popOpen("#insertPop");
 		$(".choose-nick").text(chooseNick);
-		$('input[name=reviewee]').attr('value',chooseNick);
+		
+		$('input[name=reviewee]').attr('value',chooseRevieweeId);
 	})
 	
 	//리뷰 등록 눌렀을 때,
