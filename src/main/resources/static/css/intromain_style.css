@@ -9,7 +9,7 @@
 
 
 .intro-one-div{
-	margin-bottom: 150px;
+	margin-bottom: 80px;
 }
 
 
@@ -18,8 +18,10 @@
 	
 }
 
+
 #benner{
 	width:100%;
+	margin-bottom: 150px;
 }
 
 
@@ -32,9 +34,11 @@ button{
 @media all and (max-width:768px) {
 
 	.img{
-		width:400px;
+		width:300px;
 	
 	}
+	body{
+	font-size: 10px;}
 
 	
 

@@ -69,5 +69,15 @@
 	margin-bottom: 10px;
 }
 
+@media all and (max-width:768px) {
+
+	
+	body{
+	font-size: 10px;}
+
+	
+
+}
+
 
 

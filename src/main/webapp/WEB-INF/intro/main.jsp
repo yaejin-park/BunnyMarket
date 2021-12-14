@@ -8,8 +8,8 @@
 
 	<div class="intro-one-div">
 		<div class="first-div">
-			<img src="../image/main-vis2.jpg" class="img" id="benner"> <img
-				src="../image/intro_one.png" class="img">
+			<img src="../image/main-vis2.jpg" class="img" id="benner">
+			 <img src="../image/intro_one.png" class="img">
 		</div>
 		<div class="second-div">
 			<h1 class="logo">

@@ -519,4 +519,9 @@ public class MypageController {
 		
 		return mview;
 	}
+	
+@GetMapping("/test")	
+public String test() {
+	return "/mypage/test";
+}
 }
