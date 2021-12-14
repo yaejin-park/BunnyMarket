@@ -20,15 +20,17 @@
 				<input type="file" id="select-img" name="profile" class="profile-input"/>
 			</div>
 			<div class="preview-area"></div>
-			<div class="my-info">
-				<input type="text" name="nickname" class="profile-name" value="${userNickName}">
-			</div>
-			<div class="profile-msg">
-				<p>프로필 사진과 닉네임을 입력해주세요.</p>
-			</div>
-			<div class="my-info-update">
-				<button type="submit" class="btn-update profile-btn">변경하기</button>
-				<button type="button" class="btn-list" onclick="location.href='detail'">취소</button>
+			<div class="my-info-div">
+				<div class="my-info">
+					<input type="text" name="nickname" class="profile-name" value="${userNickName}">
+				</div>
+				<div class="profile-msg">
+					<p>프로필 사진과 닉네임을 입력해주세요.</p>
+				</div>
+				<div class="my-info-update">
+					<button type="submit" class="btn-update profile-btn">변경하기</button>
+					<button type="button" class="btn-list" onclick="location.href='detail'">취소</button>
+				</div>
 			</div>
 		</div>
 	</div>

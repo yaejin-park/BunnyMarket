@@ -109,7 +109,7 @@ $(function(){
 		var deletePhoto = deleteFile.split(",");
 		
 		var formData = new FormData();
-		if(title == '' || content == '' || fileCnt == 0){
+		if(title == '' || content == ''){
 			alert("필수 입력을 입력해주세요.");
 			return;
 		}
