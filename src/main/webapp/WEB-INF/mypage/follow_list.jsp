@@ -20,7 +20,16 @@
 	            <a href="/mypage/auth/member/deleteform" class="swiper-slide">회원탈퇴</a>
 	         </div>
 	      </div>
-		<div class="myfollow-list">
+		<div class="myfollow-list">		
+			<div class="myfollow-list">
+				<c:if test="${totalCount==0}">
+					<div class="nodata">
+						<p class="icon">
+							<img alt="" src="/image/nodata-icon.png">
+						</p>
+						<p>팔로우한 회원이 없습니다.</p>
+					</div>		
+				</c:if>
 			<c:if test="${totalCount>0}">
 				<ul class="follow-product-list">
 					<c:forEach var="list" items="${followList}">

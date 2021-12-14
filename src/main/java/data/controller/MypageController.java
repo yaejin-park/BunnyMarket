@@ -495,12 +495,14 @@ public class MypageController {
 		}
 		
 		int totalCount = followService.followeeCount(userId);
-		int perPage = 10; 
+		int perPage = 15; 
 		int totalPage;
 		int start; 
 		int perBlock=5; 
 		int startPage; 
 		int endPage;
+		
+		System.out.println(totalCount);
 		
 		//총 페이지 개수
 		totalPage=totalCount/perPage+(totalCount%perPage==0?0:1);

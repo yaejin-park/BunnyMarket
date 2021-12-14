@@ -5,6 +5,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <link rel="stylesheet" type="text/css" href="/css/ad_style.css">
 <div class="write-form ad-div update">
+	<input type="hidden" name="city" id="city" value="">
 	<input type="hidden" name="idx" value="${dto.idx}">
 	<div class="inner">
 		<div class="group">

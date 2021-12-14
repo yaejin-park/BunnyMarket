@@ -39,6 +39,7 @@ public class AdvertiseController {
 	
 	@GetMapping("/list")
 	public ModelAndView list(@RequestParam(defaultValue = "1") int currentPage,
+			@RequestParam (defaultValue = "no") String keyword,
 			Principal principal) {
 		ModelAndView mview=new ModelAndView();
 		
@@ -58,7 +59,7 @@ public class AdvertiseController {
 		  mview.addObject("localArr", localArr);
 		  mview.addObject("currentLocal", currentLocal);
 		
-		int totalCount=service.getTotalCount();
+		int totalCount=service.getTotalCount(keyword, currentLocal);
 		
 		//페이징에 필요한 변수들
 		int perPage=10;
@@ -80,7 +81,7 @@ public class AdvertiseController {
 		start=(currentPage-1)*perPage;
 		
 		//각 페이지에서 필요한 게시글 가져오기
-		List<AdvertiseDTO> list=service.getList(start, perPage);
+		List<AdvertiseDTO> list=service.getList(start, perPage, keyword, currentLocal);
 		
 		//닉네임 가져오기
 		AdvertiseDTO dto=new AdvertiseDTO();
@@ -138,7 +139,8 @@ public class AdvertiseController {
 		
 		//uuid(랜덤이름) 생성
 		UUID uuid=UUID.randomUUID();
-		
+
+		String city=multiRequest.getParameter("city");
 		String title=multiRequest.getParameter("title");
 		String content=multiRequest.getParameter("content");
 		photoupload = dto.getPhotoupload();
@@ -170,7 +172,8 @@ public class AdvertiseController {
 		//아이디 얻어서 dto에 저장
 		String id=principal.getName();
 		dto.setId(id);
-		
+
+		dto.setCity(city);
 		dto.setTitle(title);
 		dto.setContent(content);
 		
@@ -266,10 +269,12 @@ public class AdvertiseController {
 		String userId = "no";
 		String local = "";
 		String[] localArr = {};
+		String currentLocal = "";
 		if(principal != null) {
 			userId = principal.getName();
 			local = memService.getLocal(principal);
 			localArr = local.split(",");
+			currentLocal = memService.currentLocal(userId);
 		}
 		AdvertiseDTO dto=service.getData(idx);
 		
@@ -277,6 +282,7 @@ public class AdvertiseController {
 		mview.addObject("currentPage", currentPage);
 		mview.addObject("localCnt", localArr.length);
 		mview.addObject("localArr", localArr);
+		mview.addObject("currentLocal", currentLocal);
 		//이미지
 		String []photoList=dto.getPhoto().split(",");
 		mview.addObject("photoList", photoList);
@@ -296,6 +302,7 @@ public class AdvertiseController {
 		String path = session.getServletContext().getRealPath("/photo");
 		
 		List<MultipartFile> fileList = multiRequest.getFiles("uploadFile");
+		String city = multiRequest.getParameter("city");
 		String title = multiRequest.getParameter("title");
 		String content = multiRequest.getParameter("content");
 		
@@ -328,6 +335,7 @@ public class AdvertiseController {
 
 		AdvertiseDTO dto = service.getData(idx);
 		dto.setIdx(idx);
+		dto.setCity(city);
 		dto.setTitle(title);
 		dto.setContent(content);
 		dto.setPhoto(photoname);

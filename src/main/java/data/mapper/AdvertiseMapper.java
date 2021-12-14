@@ -11,9 +11,9 @@ import data.dto.EventReplyDTO;
 
 @Mapper
 public interface AdvertiseMapper {
-	public int getTotalCount();
+	public int getTotalCount(String keyword, String location);
 	//목록
-	public List<AdvertiseDTO> getList(HashMap<String, Integer> map);
+	public List<AdvertiseDTO> getList(HashMap<String, Object> map);
 	//조회수
 	public void updateReadCount(String idx);
 	

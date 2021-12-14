@@ -4,6 +4,7 @@
 <link rel="stylesheet" type="text/css" href="/css/ad_style.css">
 <div class="write-form ad-div">
 	<div class="inner">
+	<input type="hidden" name="city" id="city" value="">
 		<div class="group">
 			<div class="child tit">
 				이미지 <span class="must">*</span>

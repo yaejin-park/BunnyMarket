@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import data.dto.AdreplyDTO;
 import data.dto.AdvertiseDTO;
@@ -16,21 +17,29 @@ public class AdvertiseService {
 	@Autowired
 	AdvertiseMapper mapper;
 	
+	public int getTotalCount(@RequestParam String keyword,
+			@RequestParam String location) {
+		return mapper.getTotalCount(keyword, location);
+	}
+	
 	//목록
-	public List<AdvertiseDTO> getList(int start, int perpage) {
-		HashMap<String, Integer> map=new HashMap<String, Integer>();
+	public List<AdvertiseDTO> getList(
+			@RequestParam int start,
+			@RequestParam int perpage,
+			@RequestParam String keyword,
+			@RequestParam String location) {
+		HashMap<String, Object> map=new HashMap<String, Object>();
 		map.put("start", start);
 		map.put("perpage", perpage);
+		map.put("keyword", keyword);
+		map.put("location", location);
+		
 		return mapper.getList(map);
 	}
 	
 	//조회수
 	public void updateReadCount(String idx) {
 		mapper.updateReadCount(idx);
-	}
-	
-	public int getTotalCount() {
-		return mapper.getTotalCount();
 	}
 	
 	public AdvertiseDTO getData(String idx) {

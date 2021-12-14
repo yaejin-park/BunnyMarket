@@ -66,3 +66,4 @@
 	</c:if>
 </div>
 <script type="text/javascript" src="/js/event_script.js"></script>
+<script type="text/javascript" src="/js/advertise_script.js"></script>
