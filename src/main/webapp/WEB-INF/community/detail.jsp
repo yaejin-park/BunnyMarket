@@ -133,7 +133,7 @@
 	
 	<div class="detailbtn">
 			<button type="button" class="btn-list delist"
-			onclick="location.href='list'">목록</button>
+			onclick="location.href='list?currentPage='+${currentPage}">목록</button>
 	</div>
 	
 	<!-- 댓글 -->

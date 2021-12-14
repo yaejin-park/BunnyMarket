@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import data.dto.ComReplyDTO;
@@ -18,12 +19,9 @@ public class CommunityService {
 	@Autowired
 	CommunityMapper mapper;
 	
-	public List<CommunityDTO> getList(int start,int perpage)
+	public List<CommunityDTO> getList(int start,int perpage,String keyword,String city)
 	{
-		HashMap<String, Integer> map = new HashMap<String, Integer>();
-		map.put("start", start);
-		map.put("perpage", perpage);
-		return mapper.getList(map);
+		return mapper.getList(start, perpage, keyword, city);
 	}
 	
 	public CommunityDTO getData(String idx)
@@ -46,9 +44,9 @@ public class CommunityService {
 		return mapper.getMaxNum();
 	}
 	
-	public int getTotalCount()
+	public int getTotalCount(String keyword,String city)
 	{
-		return mapper.getTotalCount();
+		return mapper.getTotalCount(keyword, city);
 	}
 	public void updateReadCount(String idx)
 	{

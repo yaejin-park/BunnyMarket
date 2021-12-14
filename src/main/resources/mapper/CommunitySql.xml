@@ -3,7 +3,14 @@
 <mapper namespace="data.mapper.CommunityMapper">
 
 	<select id="getList" parameterType="HashMap" resultType="cdto">
-	 select * from community order by idx desc limit #{start},#{perpage}
+	 select * from community where 1=1
+	<if test="city != 'no'">
+		and city = #{city}
+	</if>
+	 <if test="keyword != 'no'">
+		and title LIKE CONCAT('%',#{keyword},'%') 
+	</if>
+	 order by idx desc limit #{start},#{perpage}
 	</select>
 	
 	<select id="getData" parameterType="String" resultType="cdto">
@@ -23,8 +30,14 @@
 		select ifnull(max(idx),0) from community
 	</select>
 	
-	<select id="getTotalCount" resultType="int">
-		select count(*) from community
+	<select id="getTotalCount" parameterType="HashMap" resultType="int">
+		select count(*) from community where 1=1
+		<if test="city != 'no'">
+			and city = #{city}
+		</if>
+		<if test="keyword != 'no'">
+			and	title LIKE CONCAT('%',#{keyword},'%') 
+		</if>
 	</select>
 	
 	<update id="updateReadCount" parameterType="String">

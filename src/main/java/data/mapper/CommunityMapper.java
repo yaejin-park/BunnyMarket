@@ -11,12 +11,12 @@ import data.dto.MemberDTO;
 
 @Mapper
 public interface CommunityMapper {
-	public List<CommunityDTO> getList(HashMap<String, Integer> map);
+	public List<CommunityDTO> getList(int start,int perpage,String keyword,String city);
 	public CommunityDTO getData(String idx);
 	public void insert(CommunityDTO dto);
 	public List<CommunityDTO> getAllDatas();
 	public int getMaxNum();
-	public int getTotalCount();
+	public int getTotalCount(String keyword,String city);
 	public void updateReadCount(String idx);
 	public void delete(String idx);
 	public void update(CommunityDTO dto);
