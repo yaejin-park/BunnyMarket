@@ -9,9 +9,9 @@ import data.dto.EventReplyDTO;
 
 @Mapper
 public interface EventMapper {
-	public int getTotal(String category, String status);
+	public int getTotal(String category, String status, String keyword);
 	public List<EventDTO> getAllList();
-	public List<EventDTO> getPageList(int start, int perPage, String category, String status);
+	public List<EventDTO> getPageList(int start, int perPage, String category, String status, String keyword);
 	public EventDTO getData(String idx);
 	public List<String> getCategory();
 	public void insertData(EventDTO dto);
