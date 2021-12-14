@@ -63,7 +63,7 @@ public class NoticeController {
 	      }
 	      mview.addObject("localCnt",localArr.length);
 	      mview.addObject("localArr",localArr);
-	      mview.addObject("curretLocal",currentLocal);
+	      mview.addObject("currentLocal",currentLocal);
 	      
 
 		int totalCount = Nservice.NgetTotalCount();

@@ -1,14 +1,14 @@
 $(function(){
-	$(window).on("resize", function(){
+   $(window).on("resize", function(){
         $(".follow-product-list li .pimg").each(function(){
-			$(this).find(".img-div").height($(this).find(".img-div").width() / 1.8);
+         $(this).find(".img-div").height($(this).find(".img-div").width() / 1.8);
             if($(this).find("img").width() * $(this).height() < $(this).find("img").height() * $(this).width()){
-				$(this).find("img").width($(this).width());
-				$(this).find("img").height("auto");
-			}else{
-				$(this).find("img").width("auto");
-				$(this).find("img").height($(this).height());
-			}
+            $(this).find("img").width($(this).width());
+            $(this).find("img").height("auto");
+         }else{
+            $(this).find("img").width("auto");
+            $(this).find("img").height($(this).height());
+         }
         });
     });
 
@@ -160,4 +160,5 @@ $(function(){
 	        });
 		}
 	});
+	
 });

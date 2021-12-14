@@ -3,8 +3,7 @@ package data.controller;
 import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
-
-
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -34,11 +33,12 @@ import data.dto.FaqDTO;
 import data.dto.FollowDTO;
 import data.dto.MemberDTO;
 import data.dto.ProductDTO;
-
+import data.dto.ReviewDTO;
 import data.service.FollowService;
 import data.service.MemberService;
 import data.service.ProductLikeService;
 import data.service.ProductService;
+import data.service.ReviewService;
 
 
 @Controller
@@ -58,6 +58,9 @@ public class MypageController {
 	
 	@Autowired
 	ProductLikeService plservice;
+	
+	@Autowired
+	ReviewService revservice;
 	
 	@GetMapping("/detail")
 	public ModelAndView detail(
@@ -401,6 +404,9 @@ public class MypageController {
 		System.out.println("아이디"+userId);
 		List<ProductDTO> list = pservice.getStatusList(userId, sellstatus);
 		System.out.println("사이즈"+list.size());
+		
+		
+		
 		//출력에 필요한 변수들을 request에 저장
 		mview.addObject("list",list);
 		mview.addObject("startPage",startPage);
@@ -418,8 +424,7 @@ public class MypageController {
 	}
 
 	@GetMapping("/getListByStatus")
-	@ResponseBody
-	public Map<String, Object> getListByStatus(
+	public @ResponseBody Map<String, Object> getListByStatus(
 			@RequestParam(defaultValue = "no") String sellstatus,
 			@RequestParam(defaultValue = "1") int currentPage,
 			Principal principal) 
@@ -526,4 +531,78 @@ public class MypageController {
 		
 		return mview;
 	}
+	
+
+	@GetMapping("/reviewList")
+	public ModelAndView reviewList(
+			@RequestParam(defaultValue = "1") int currentPage,
+			Principal principal
+			)
+	{
+		ModelAndView mview = new ModelAndView();
+		
+		//지역 가져오기
+		String userId = "no";
+		String local = "";
+		String[] localArr = {};
+		String currentLocal = "";
+		if(principal !=null) {
+			userId = principal.getName();
+			local = memService.getLocal(principal);
+			localArr = local.split(",");
+			currentLocal = memService.currentLocal(userId);
+		}
+		mview.addObject("localCnt",localArr.length);
+		mview.addObject("localArr",localArr);
+		mview.addObject("currentLocal",currentLocal);
+		
+		int totalCount = revservice.getTotalCount();
+		int perPage = 10;
+		int totalPage;
+		int start;
+		int perBlock=5;
+		int startPage;
+		int endPage;
+		
+		totalPage = totalCount/perPage + (totalCount%perPage==0?0:1);
+		startPage = (currentPage-1)/perBlock * perBlock +1;
+		endPage = startPage + perBlock-1;
+		if(endPage>totalPage) {
+			endPage = totalPage;
+		}
+		start = (currentPage-1) * perPage;
+		
+		List<ReviewDTO> myrelist = revservice.getMyReviewList(userId, local, currentLocal);
+		mview.addObject("myrelist",myrelist);
+		
+		List<ReviewDTO> otherrelist =revservice.getOtherReviewList(userId, local, currentLocal);
+		mview.addObject("otherrelist",otherrelist);
+		
+		mview.addObject("startPage",startPage);
+		mview.addObject("endPage",endPage);
+		mview.addObject("totalPage",totalPage);
+		mview.addObject("currentPage",currentPage);
+		mview.addObject("totalCount", totalCount);
+		
+		mview.addObject("localCnt",localArr.length);
+		mview.addObject("localArr",localArr);
+		mview.addObject("currentLocal",currentLocal);
+		
+		mview.setViewName("/mypage/myReview");
+		return mview;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
 }

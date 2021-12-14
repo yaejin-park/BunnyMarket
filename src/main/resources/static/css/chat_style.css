@@ -381,6 +381,7 @@ div.list-room .list-info .msg{
 
 div.list-room .alist .alist-info{
 	display: flex;
+	width:calc(100% - 70px);
 }
 
 
@@ -442,4 +443,137 @@ div.list-room .alist .alist-info{
 	margin-top: 15px;
 }
 
+@media all and (max-width:1400px){
+	
+	
+}
 
+@media all and (max-width:768px){
+	.btn-wrap{
+	    margin: 15px 5px;
+	}
+	/* ((채팅방)) */
+	.container{
+		width: 100%;
+		padding: 0;
+	}
+	.container .nodata{
+		padding: 100px 0;
+	}
+	/* 채팅 출력부분 */
+	.chating{
+		height: 200px;
+	    padding: 15px;
+	}
+	/* 채팅 말풍선 */
+	 .speech-bubble {
+	    padding: 5px 8px;
+	    margin-bottom: 5px;
+	}
+	div.me .speech-bubble:after {
+	    margin-top: -8px;
+	    border-width: 4px;
+	}
+	.other-bubble:before{
+		margin-top: -8px;
+	    border-width: 4px;
+	}
+	div.me .time {
+	    padding-bottom: 5px;
+	    padding-right: 4px;
+	    font-size: 10px;
+	}
+	div.other .time {
+	    padding-bottom: 5px;
+	    padding-left: 4px;
+	    font-size: 10px;
+	}
+	/* 프로필 */
+	.profile-div{
+	    min-width: 40px;
+		width: 40px;
+		height: 40px;
+	}
+	.info{
+		font-size: 12pt;
+	}
+	.info .wrap{
+	    padding: 6px;
+	}
+	.info-text{
+	    margin-left: 10px;
+	}
+	.status{
+	    margin-right: 5px;
+	}
+	/* 입력창 */
+	form.msgForm {
+	    height: 118px;
+	    padding: 10px;
+	    border-radius: 14px;
+	    margin-top: 15px;
+	    border: 2.3px solid #f7f6fc;
+	}
+	form.msgForm .chat-btn-div .btn-add{
+		min-width: 77px;
+	    height: 41px;
+	    padding: 5px;
+	}
+	/* 중복 */
+	.thumbNail{
+	    width: 40px;
+	    height: 40px;
+	}
+	.date-wrap .date-change{
+	    color: white;
+	    padding: 4px 10px;
+	    border-radius: 13px;
+	    margin: 13px;
+	}
+	.date-wrap .date-change:nth-child(1){
+		margin-bottom: 13px;
+	}
+	/* 채팅방 */
+	.btn-wrap.back{
+	    width: 100%;
+	    margin-top:20px;
+	    padding-right:0;
+	}
+	/* 채팅 리스트 */
+	div.list-room {
+		position:relative;
+		display:block;
+	    height: auto;
+	}
+	div.list-room .product-img{
+		height:40px;
+		width: 40px;
+	}
+	div.list-room .chat-list{
+	    width: 100%;
+	}
+	div.list-room .chat-list .wrap{
+	    min-height: 30px;
+	    height: auto;
+	    padding: 15px;
+	    padding-bottom: 6px;
+	}
+	div.list-room .alist{
+	    padding: 9px 15px;
+	}
+	div.list-room .list-info{
+	    margin-left: 10px;
+	}
+	div.list-room .list-scroll{
+		height: 350px;
+	}
+	div.list-room .nodata{
+		padding-top: 50px;
+	}
+	div.list-room .nodata .icon-room{
+	    margin: 5px 0;
+	}
+	div.list-room .list-info .msg{
+		width: 120px;
+	}
+}

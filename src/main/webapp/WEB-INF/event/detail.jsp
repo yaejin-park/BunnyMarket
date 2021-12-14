@@ -23,7 +23,7 @@
 				</div>
 			</c:forEach>
 			<div class="txt-div">
-				${dto.content}
+				<pre>${dto.content}</pre>
 			</div>
 		</div>
 		<div class="btn-wrap">
