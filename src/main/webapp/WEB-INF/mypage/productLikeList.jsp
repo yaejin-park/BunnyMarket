@@ -12,7 +12,7 @@
 				<a href="/mypage/auth/detail" class="swiper-slide">내정보</a>
 				<a href="/mypage/auth/sellList" class="swiper-slide">판매내역</a>
 				<a href="/mypage/auth/followlist" class="swiper-slide">모아보기</a>
-				<a href="javascript:" class="swiper-slide">나의후기</a>
+				<a href="/mypage/auth/reviewlist" class="swiper-slide">나의후기</a>
 				<a href="/mypage/auth/productlike" class="swiper-slide active">관심목록</a>
 				<a href="/mypage/auth/member/updateform" class="swiper-slide">회원수정</a>
 				<a href="/mypage/auth/member/deleteform" class="swiper-slide">회원탈퇴</a>

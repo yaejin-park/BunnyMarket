@@ -605,18 +605,5 @@ public class MypageController {
 		mview.setViewName("/mypage/myReview");
 		return mview;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 }
