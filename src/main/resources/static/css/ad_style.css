@@ -24,6 +24,9 @@
 .ad-list .list-tit{
 	font-size:25pt;
 	font-weight:bold;
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis;
 }
 .ad-list .ect {
     text-align: right;

@@ -46,7 +46,7 @@ public class AdvertiseController {
 		 String userId="no";
 		 String local="";
 		 String []localArr = {};
-		String currentLocal = "";
+		 String currentLocal = "";
 		 if(principal != null) {
 		    userId=principal.getName();
 		    local = memService.getLocal(principal);
@@ -100,14 +100,26 @@ public class AdvertiseController {
 	}
 	
 	@GetMapping("/auth/insertform")
-	public String from(Principal principal) {
+	public ModelAndView form(Principal principal) {
 
-		String userId="no";
-		if(principal != null) {
-			userId=principal.getName();
-		}
+		ModelAndView mview = new ModelAndView();
 		
-		return "/advertise/writeForm";
+		//지역 가져오기
+		String userId = "no";
+		String local = "";
+		String[] localArr = {};
+		String currentLocal = "";
+		if(principal != null) {
+			userId = principal.getName();
+			local = memService.getLocal(principal);
+			localArr = local.split(",");
+			currentLocal = memService.currentLocal(userId);
+		}
+		mview.addObject("localCnt",localArr.length);
+		mview.addObject("localArr",localArr);
+		mview.addObject("currentLocal",currentLocal);
+		mview.setViewName("/advertise/writeForm");
+		return mview;
 	}
 	
 	@PostMapping("/auth/insert")

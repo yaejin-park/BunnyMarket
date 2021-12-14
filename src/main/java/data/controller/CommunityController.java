@@ -76,7 +76,7 @@ public class CommunityController {
 
 		int totalCount = service.getTotalCount(); 
 		//페이징 처리에 필요한 변수
-		int perPage = 15; 
+		int perPage = 16; 
 		int totalPage;
 		int start; 
 		int perBlock=5; 
