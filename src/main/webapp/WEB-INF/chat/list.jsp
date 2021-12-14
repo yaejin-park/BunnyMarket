@@ -183,6 +183,7 @@
 					<input type="hidden" name="roomNumber" id="roomNumber" value="${roomNumber}">
 					<input type="hidden" name="idx" id="idx" value="${dto.idx}">
 					<input type="hidden" name="seller" id="seller" value="${dto.id}">
+					<input type="hidden" name="lastTime" id="lastTime" value="${lastTime}">
 					<textarea class="chat-box" name="msg" id="chatting" placeholder="메세지를 입력해주세요"></textarea>
 					<div class="chat-btn-div">
 						<button type="button" class="btn-add" onclick="send()" id="sendBtn">전송</button>
@@ -230,6 +231,7 @@
 				</div>
 			
 				<input type="hidden" id="isLogin" value="${isLogin}">
+				<c:set var='lastTime' value='${fn:substring(chat.time,0,10)}'/>
 		</div>	
 		<button type="button" class="modal-close">닫기</button>
 	</div>	
@@ -240,11 +242,13 @@
 var ws;
 
 $(document).ready(function() {
+	
 	//key값 있을 때만 소켓 실행
 	if($("#key").val() != "no"){
 		//소켓 열기
 		wsOpen();
-		
+
+		$(window).scrollTop($(".container").offset().top);
 		//스크롤 항상 제일 밑으로
 		$(".chating").scrollTop($(".chating")[0].scrollHeight);
 	}
@@ -275,20 +279,22 @@ $(document).ready(function() {
 					//현재 시간
 					var today = new Date();   
 					var now = today.getFullYear()+"-"+(today.getMonth()+1)+"-"+today.getDate(); // 년도
-					
+					console.log("now",now,$("#lastTime").val() == now, $("#lastTime").val());
 					console.log($(".time").length);
 					
 					//한번도 날짜가 찍힌적이 없으면 날짜 출력
 					if($(".date-change").length==0){
 						var s = '<div class="date-wrap"><div class="date-change">';
 						s += now.replace('-','년 ').replace('-', '월 ')+'일</div></div>';
+						$("#lastTime").val(now);
 						
 						$("#chating").append(s);
 					} else{
 						//시간이 다르면
-						if('${lastTime}' != now){
+						if($("#lastTime").val() != now){
 							var s = '<div class="date-wrap"><div class="date-change">';
 							s += now.replace('-','년 ').replace('-', '월 ')+'일</div></div>';
+							$("#lastTime").val(now);
 							
 							$("#chating").append(s);
 						}

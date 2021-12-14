@@ -64,13 +64,13 @@
 			<!-- 작성자가 아닐 경우-->
 			<c:if test="${myId != dto.id}">
 				<c:if test="${dto.sellstatus !='판매중' }">
-					<td class="sellstatus verticalBottom">
+					<td class="sellstatus">
 						<span class="${dto.sellstatus=='판매중'?'selling':dto.sellstatus=='예약중'?'reserved':'finished'} tit">${dto.sellstatus}</span>
 					</td>
 				</c:if>
 			</c:if>
 			<c:if test="${myId == dto.id}">
-				<td class="verticalTop">
+				<td>
 					<select name="sellstaus" class="status-select" id="statusSelect">
 						<option class="tit selling" value="selling">판매중</option>
 						<option class="tit reserved" value="reserved">예약중</option>
@@ -78,7 +78,7 @@
 					</select>
 				</td>
 			</c:if>
-			<td ${dto.sellstatus=='판매중' && dto.id != myId ?'colspan="3"':'colspan="2"'} class="tit verticalTop ${dto.id==myId?'subject':''}">
+			<td ${dto.sellstatus=='판매중' && dto.id != myId ?'colspan="3"':'colspan="2"'} class="tit ${dto.id==myId?'subject':''}">
 				<p class="product-title">${dto.title}</p>
 			</td>
 		</tr>

@@ -165,11 +165,13 @@ div.product-detail .detail-info .profile-img{
 div.product-detail td.sellstatus span.reserved{
 	color: #ff7ab0;
 	font-size:  27px;
+    padding: 5px 0;	
 }
 
 div.product-detail td.sellstatus span.finished{
 	color: #979593;
 	font-size:  27px;;
+    padding: 5px 0;
 }
 
 #dibsBtnImg{
@@ -228,6 +230,7 @@ div.product-detail .icon-sm{
 div.product-detail select.status-select{
 	font-size: 16pt;
 	border: 2px solid #e5e5e5;
+    width: 120px;
 	height: 48px;
 	padding: 6px;
 	font-weight: bold;
@@ -245,10 +248,10 @@ div.product-detail .product-title{
 	padding-bottom: 2px;
     font-size: 27px;
     display: block;
-    padding:5px 0;
- 	/*white-space: nowrap;
+    padding: 5px 0;
+ 	white-space: nowrap;
 	overflow: hidden;
-	text-overflow: ellipsis;*/
+	text-overflow: ellipsis;
 }
 
 div.product-detail .chat-btn{
@@ -578,6 +581,16 @@ div.product-list .list-info-sm .list-info-sm-div:last-child{
 	padding: 40px;
 }
 
+#choosePop .name.tit{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#choosePop .right{
+	display: flex;
+}
+
 @media all and (max-width:1400px) {
 	div.product-detail .detail-info{
 		margin-left: 0;
@@ -735,5 +748,12 @@ div.product-list .list-info-sm .list-info-sm-div:last-child{
 	    padding-left: 20px;
 	}
 }
+
+@media all and (max-width:320px) {
+	#choosePop .small{
+		max-width: 80px;
+	}
+}
+
 
 

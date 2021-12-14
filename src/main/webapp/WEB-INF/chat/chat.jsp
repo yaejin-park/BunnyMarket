@@ -112,6 +112,7 @@
 			<input type="hidden" name="roomNumber" id="roomNumber" value="${roomNumber}">
 			<input type="hidden" name="idx" id="idx" value="${dto.idx}">
 			<input type="hidden" name="seller" id="seller" value="${dto.id}">
+			<input type="hidden" name="lastTime" id="lastTime" value="${lastTime}">
 			<textarea class="chat-box" name="msg" id="chatting"
 				placeholder="메세지를 입력해주세요"></textarea>
 			<div class="chat-btn-div">
@@ -201,6 +202,7 @@ function wsEvt() {
 				if($(".date-change").length==0){
 					var s = '<div class="date-wrap"><div class="date-change">';
 					s += now.replace('-','년 ').replace('-', '월 ')+'일</div></div>';
+					$("#").val(now);
 					
 					$("#chating").append(s);
 				} else{
@@ -208,8 +210,9 @@ function wsEvt() {
 					if('${lastTime}' != now){
 						var s = '<div class="date-wrap"><div class="date-change">';
 						s += now.replace('-','년 ').replace('-', '월 ')+'일</div></div>';
+						s += "<c:set var='lastTime' value='${fn:substring(chat.time,0,10)}'/>";
 						
-						$("#chating").append(s);
+						$("#lastTime").val(now);
 					}
 				}
 				

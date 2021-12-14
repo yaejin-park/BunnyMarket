@@ -64,7 +64,7 @@ public class ChatController {
 
 		//채팅방 존재하면,
 		if(chdto != null) {
-			System.out.println("채팅리스트 존재");
+			//System.out.println("채팅리스트 존재");
 			
 			//채팅방 내역 불러오기
 			//파일 경로
@@ -110,7 +110,7 @@ public class ChatController {
 			//채팅리스트테이블의 채팅 idx 보내기
 			roomNumber= Integer.parseInt(chdto.getChat_idx());
 		} else {
-			System.out.println("채팅방 없음");
+			//System.out.println("채팅방 없음");
 
 			//채팅 테이블의 가장큰 idx+1 보내기
 			//채팅이 아예 없으면

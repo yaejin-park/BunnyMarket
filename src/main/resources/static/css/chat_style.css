@@ -577,3 +577,11 @@ div.list-room .alist .alist-info{
 		width: 120px;
 	}
 }
+
+
+@media all and (max-width:320px){
+	.info-text .tit.nick{
+		min-width: 140px;
+	}
+	
+}
