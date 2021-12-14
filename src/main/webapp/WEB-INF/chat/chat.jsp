@@ -366,7 +366,7 @@ $("#btn-pop-insert").click(function(){
 		alert("별점을매겨주세요.");
 		return;
 	}
-	
+	alert("성공?");
 	console.log(content);
 	$.ajax({
 	    url: "../../product/popinsert",
