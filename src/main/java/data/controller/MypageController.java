@@ -575,7 +575,23 @@ public class MypageController {
 		}
 		start = (currentPage-1) * perPage;
 		
+		List<ReviewDTO> myrelist = revservice.getMyReviewList(userId, local, currentLocal);
+		mview.addObject("myrelist",myrelist);
 		
+		List<ReviewDTO> otherrelist =revservice.getOtherReviewList(userId, local, currentLocal);
+		mview.addObject("otherrelist",otherrelist);
+		
+		mview.addObject("startPage",startPage);
+		mview.addObject("endPage",endPage);
+		mview.addObject("totalPage",totalPage);
+		mview.addObject("currentPage",currentPage);
+		mview.addObject("totalCount", totalCount);
+		
+		mview.addObject("localCnt",localArr.length);
+		mview.addObject("localArr",localArr);
+		mview.addObject("currentLocal",currentLocal);
+		
+		mview.setViewName("/mypage/myReview");
 		return mview;
 	}
 	
