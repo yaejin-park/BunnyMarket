@@ -12,11 +12,11 @@
 			<img alt="" src="/image/main-vis1.jpg" class="pc-img">
 			<img alt="" src="/image/main-vis1-m.jpg" class="mobile-img">
 		</a>
-		<a href="javascript:" class="swiper-slide">
+		<a href="/event/detail?idx=27&currentPage=1" class="swiper-slide">
 			<img alt="" src="/image/main-vis2.jpg" class="pc-img">
 			<img alt="" src="/image/main-vis2-m.jpg" class="mobile-img">
 		</a>
-		<a href="" class="swiper-slide">
+		<a href="/event/detail?idx=28&currentPage=1" class="swiper-slide">
 			<img alt="" src="/image/main-vis3.jpg" class="pc-img">
 			<img alt="" src="/image/main-vis3-m.jpg" class="mobile-img">
 		</a>
