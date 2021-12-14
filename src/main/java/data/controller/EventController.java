@@ -58,8 +58,6 @@ public class EventController {
 			localArr = local.split(",");
 		}
 		
-		System.out.println("keyword =>" + keyword);
-		
 		List<String> categoryArr = service.getCategory();
 		int total = service.getTotal(category, status, keyword);
 		
