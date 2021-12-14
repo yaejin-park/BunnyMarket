@@ -26,7 +26,6 @@
 	margin-bottom:30px;
 }
 .my-page .profile-update{
-	width:150px;
 	margin:0 auto;
 }
 .myprofile-form .profile-input {
@@ -54,9 +53,6 @@
 	width:100%;
 	transform:translate(-50%, -50%);
 }
-.my-info-div{
-	margin:0px auto;
-}
 .my-page .my-info{
 	margin-bottom:10px;
 }
@@ -72,15 +68,11 @@
 .myprofile-form .profile-img{
 	cursor:pointer;
 }
-.myprofile-form .profile-msg{
+.profile-msg{
 	margin-top:5px;
 	margin-bottom:50px;
 	font-size:12pt;
 	color:#ddd;
-}
-.myprofile-form .my-info-div {
-    margin: 0px auto;
-    text-align: center;
 }
 /* unregister */
 .unregister-form {
@@ -150,7 +142,6 @@
 .sell-list .myselling-list table .sell-list-tbody .stitle{
 	margin-bottom:30px;
 }
-
 /* productlike */
 .mylike-form .table .tit {
  	white-space: nowrap;
@@ -246,50 +237,228 @@
 .follow-div .product-info-div {
 	padding:10px 20px 20px;
 }
-
 .follow-div .product-info-div .title {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+ 	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
-
 
 /* review */
 .writereview-list table{
-	margin-top: 15px;
+   margin-top: 15px;
 }
 .writereview-list table .rwriter{
-	width: 180px;
-	text-align:left;
+   width: 180px;
+   text-align:left;
 }
 .writereview-list table .rcontent{
-	text-align:left;
+   text-align:left;
 }
 .writereview-list table .rwriteday{
-	width:150px;
-	text-align:left;
+   width:150px;
+   text-align:left;
 }
 .writereview-list table .rstar{
-	width:150px;
-	text-align:left;
+   width:150px;
+   text-align:left;
 }
 .writereview-list table .dtext{
-	font-size:15px;
+   font-size:15px;
 }
 .writereview-list table .star-ratings{
-	color: #aaa9a9; 
-  	-webkit-text-fill-color: transparent; 
-  	-webkit-text-stroke-width: 1px;
-  	-webkit-text-stroke-color: #2b2a29;
+   color: #aaa9a9; 
+     -webkit-text-fill-color: transparent; 
+     -webkit-text-stroke-width: 1px;
+     -webkit-text-stroke-color: #2b2a29;
 }
 .writereview-list table .star-ratings-fill{
-	  color: #fff58c;
-	  -webkit-text-fill-color: gold;
+     color: #fff58c;
+     -webkit-text-fill-color: gold;
 }
 .writereview-list table .star-ratings-base {
-	  z-index: 0;
-	  padding: 0;
+     z-index: 0;
+     padding: 0;
 }
 
-
-
+@media all and (max-width:768px) {
+	.mydetail-form .inner {
+		padding-left:0;
+	}
+	.mydetail-form .side-menu-div {
+		position:relative;
+		width:100%;
+		margin-bottom:20px;
+		overflow:hidden;
+	}
+	.mydetail-form .side-menu-div a {
+		display:inline-block;
+		width:auto;
+		margin-right:10px;
+		line-height:40px;
+	}
+	.mydetail-form .side-menu-div a:last-child {
+		margin-right:0;
+	}
+	.mydetail-form .side-menu-div .swiper-wrapper {
+		display:flex;
+	}
+	.mydetail-form .my-page {
+		margin-bottom:0;
+	}
+	/* profile updateFrom */
+	.myprofile-form .my-info input{
+		width:100%;
+		border-radius:5px;
+		font-size:14pt;
+	}
+	.profile-msg{
+		margin-bottom:25px;
+		font-size:10pt;
+	}
+	/* unregister */
+	.unregister-form {
+		padding:0;
+	}
+	.unregister-form .unregi-image img{
+		width:150px;
+	}
+	.unregister-form .unregi-message .unregi-msg1{
+		font-size:16px;
+	}
+	.unregister-form .unregi-message .unregi-msg2{
+		margin-top:5px;
+		font-size:14px;
+	}
+	.unregister-form .unregi-question .unregi-ques{
+		margin-top:40px;
+		font-size:16px;
+	}
+	.unregister-form .unregi-question .unregi-reason{
+		margin-top:5px;
+		width:100%;
+	}
+	.unregister-form .unregi-question .btn .btn-add{
+		margin-top:15px;
+	}
+	.unregister-form .unregi-question .btn .btn-list{
+		margin-top:15px;
+		margin-left:10px;
+	}
+	/* sellList */
+	.sell-list .sell-list-condition #sell-status{
+		width:150px;
+		margin-top:5px;
+		margin-bottom:15px;
+	}
+	.sell-list .myselling-list table .pimg{
+		width:80px;
+	}
+	.sell-list .myselling-list table .psellstatus{
+		width:70px;
+	}
+	.sell-list .myselling-list table .sell-list-tbody .simg img{
+		width:60px;
+		height:60px;
+		margin-top:5px;
+		margin-bottom:5px;
+	}
+	.sell-list .myselling-list table .sell-list-tbody .sstatus{
+		font-size:14px;
+	}
+	.sell-list .myselling-list table .sell-list-tbody .stitle{
+		margin-bottom:10px;
+		font-size:16px;
+	}
+	/* productlike */
+	.mylike-form .table .tit {
+		font-size:16px;
+	}
+	.my-like > .tit {
+		margin-bottom:10px;
+	}
+	.my-like .table .image {
+		width:80px;
+	}
+	.my-like .table .price {
+		width:80px;
+	}
+	.my-like .table .status {
+		width:80px;
+	}
+	.my-like .table .thumnail a {
+		height:80px;
+	}
+	/* follow-List */
+	.follow-div .myfollow-list .category{
+		font-size:10pt;
+	}
+	.follow-product-list .follow-li{
+		width: calc((100% - 15px) / 2);
+		margin-right: 15px;
+		margin-top: 15px;
+	}
+	.follow-product-list .follow-li:nth-of-type(3n){
+		margin-right:15px;
+	}
+	.follow-product-list .follow-li:nth-of-type(-n + 3){
+		margin-top:15px;
+	}
+	.follow-product-list .follow-li:nth-of-type(even){
+		margin-right:0;
+	}
+	.follow-product-list .follow-li:nth-of-type(-n + 2){
+		margin-top:0;
+	}
+	.follow-product-list .follow-li .product-profile-info {
+		padding:10px 10px 0;
+		line-height:30px;
+	}
+	.follow-div .myfollow-list .product-profile-info .profile {
+		width:30px;
+		height:30px;
+	}
+	.follow-div li .pimg {
+		height:100px;
+	}
+	.follow-div .product-info-div {
+		padding:5px 10px 10px;
+	}
+	/* review */
+	.writereview-list table{
+	   margin-top: 15px;
+	}
+	.writereview-list table .rwriter{
+	   width: 100%;
+	   text-align:left;
+	}
+	.writereview-list table .rcontent{
+		width: 100%;
+	    text-align:left;
+	}
+	.writereview-list table .rwriteday{
+	   width: 100%;
+	   text-align:left;
+	}
+	.writereview-list table .rstar{
+	   width: 100%;
+	   text-align:left;
+	}
+	.writereview-list table .dtext{
+	   font-size:15px;
+	}
+	.writereview-list table .star-ratings{
+	   color: #aaa9a9; 
+	     -webkit-text-fill-color: transparent; 
+	     -webkit-text-stroke-width: 1px;
+	     -webkit-text-stroke-color: #2b2a29;
+	}
+	.writereview-list table .star-ratings-fill{
+	     color: #fff58c;
+	     -webkit-text-fill-color: gold;
+	}
+	.writereview-list table .star-ratings-base {
+	     z-index: 0;
+	     padding: 0;
+	}
+		
+}
