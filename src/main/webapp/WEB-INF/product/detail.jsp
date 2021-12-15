@@ -276,8 +276,9 @@ $(document).ready(function() {
 	//로그인 되어 있을 경우,
 	if($("#isLogin").val() == "Y"){
 		//좋아요 여부로 하트 버튼 변경
+		console.log("라이트체크",$("#likeCheck").val());
 		//좋아요 안했을 시,
-		if($("#likeCheck").val()){
+		if($("#likeCheck").val()==0){
 			$("#dibsBtnImg").attr("src","/image/stopheart-icon.gif");
 		} else{
 			$("#dibsBtnImg").attr("src","/image/fullheart-icon.gif");
